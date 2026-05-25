@@ -13,36 +13,33 @@
 </head>
 <body>
 
-  <!-- ======================== HEADER ======================== -->
+  <!-- HEADER -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#home" class="logo">
+      <a href="index.html" class="logo">
         <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
         <span class="logo__text">Environm<strong>Safe</strong></span>
       </a>
-
       <nav class="nav" id="nav">
         <ul class="nav__list">
-          <li><a href="#home"    class="nav__link">Home</a></li>
-          <li><a href="#services" class="nav__link">Services</a></li>
-          <li><a href="#about"   class="nav__link">About</a></li>
-          <li><a href="#contact" class="nav__link">Contact</a></li>
+          <li><a href="index.html"    class="nav__link" data-page="index">Home</a></li>
+          <li><a href="services.html" class="nav__link" data-page="services">Services</a></li>
+          <li><a href="about.html"    class="nav__link" data-page="about">About</a></li>
+          <li><a href="contact.html"  class="nav__link" data-page="contact">Contact</a></li>
         </ul>
       </nav>
-
-      <a href="#contact" class="btn btn--accent header__cta">Get a Quote</a>
-
+      <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- ======================== HERO ======================== -->
-  <section class="hero" id="home">
+  <!-- HERO -->
+  <section class="hero">
     <div class="hero__bg"></div>
     <div class="container hero__content">
-      <div class="hero__badge fade-up"><i class="fa-solid fa-shield-halved"></i> Trusted EHS & Engineering Partner</div>
+      <div class="hero__badge fade-up"><i class="fa-solid fa-shield-halved"></i> Trusted EHS &amp; Engineering Partner</div>
       <h1 class="hero__title fade-up">
         Building a <span class="highlight">Safer</span>,<br />
         More Sustainable World
@@ -52,8 +49,8 @@
         engineering, and parts supply solutions — delivered by experts you can trust.
       </p>
       <div class="hero__actions fade-up">
-        <a href="#services" class="btn btn--primary btn--lg">Explore Services</a>
-        <a href="#contact"  class="btn btn--outline btn--lg">Contact Us</a>
+        <a href="services.html" class="btn btn--primary btn--lg">Explore Services</a>
+        <a href="contact.html"  class="btn btn--outline btn--lg">Contact Us</a>
       </div>
     </div>
     <div class="hero__scroll-indicator">
@@ -62,7 +59,7 @@
     </div>
   </section>
 
-  <!-- ======================== STATS ======================== -->
+  <!-- STATS -->
   <section class="stats">
     <div class="container stats__grid">
       <div class="stat-item">
@@ -84,146 +81,67 @@
     </div>
   </section>
 
-  <!-- ======================== SERVICES ======================== -->
-  <section class="section services" id="services">
+  <!-- SERVICES TEASER -->
+  <section class="section services-teaser">
     <div class="container">
       <div class="section__header">
         <span class="section__tag">What We Do</span>
-        <h2 class="section__title">Our Core Services</h2>
+        <h2 class="section__title">Six Disciplines, One Trusted Partner</h2>
         <p class="section__subtitle">
-          From environmental compliance to precision engineering, we deliver
-          end-to-end solutions across six specialized disciplines.
+          From environmental compliance to precision engineering, we cover every
+          phase of your project with specialized expertise.
         </p>
       </div>
-
-      <div class="services__grid">
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--green">
-            <i class="fa-solid fa-seedling"></i>
-          </div>
-          <h3 class="service-card__title">Environmental Services</h3>
-          <p class="service-card__desc">
-            Environmental assessments, compliance audits, remediation planning,
-            and sustainability consulting to protect ecosystems and meet regulatory standards.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Environmental Impact Assessments</li>
-            <li><i class="fa-solid fa-check"></i> Regulatory Compliance & Reporting</li>
-            <li><i class="fa-solid fa-check"></i> Contaminated Site Remediation</li>
-            <li><i class="fa-solid fa-check"></i> Sustainability Auditing</li>
-          </ul>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--blue">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <h3 class="service-card__title">Safety Management</h3>
-          <p class="service-card__desc">
-            Comprehensive workplace safety programs, risk assessments, OSHA
-            compliance, and training to protect your workforce on every job site.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Safety Program Development</li>
-            <li><i class="fa-solid fa-check"></i> Hazard Risk Assessments</li>
-            <li><i class="fa-solid fa-check"></i> OSHA Compliance Consulting</li>
-            <li><i class="fa-solid fa-check"></i> Safety Training & Certification</li>
-          </ul>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--orange">
-            <i class="fa-solid fa-hard-hat"></i>
-          </div>
-          <h3 class="service-card__title">Construction Services</h3>
-          <p class="service-card__desc">
-            Expert construction management, project oversight, and site development
-            services from groundbreaking to project closeout.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Construction Management</li>
-            <li><i class="fa-solid fa-check"></i> Site Development & Planning</li>
-            <li><i class="fa-solid fa-check"></i> Quality Assurance & Control</li>
-            <li><i class="fa-solid fa-check"></i> Project Scheduling & Budgeting</li>
-          </ul>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--teal">
-            <i class="fa-solid fa-magnifying-glass-chart"></i>
-          </div>
-          <h3 class="service-card__title">Inspection Services</h3>
-          <p class="service-card__desc">
-            Thorough site, structural, and compliance inspections to identify
-            issues early, reduce risk, and ensure project integrity.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Structural & Site Inspections</li>
-            <li><i class="fa-solid fa-check"></i> Regulatory Compliance Checks</li>
-            <li><i class="fa-solid fa-check"></i> Third-Party Quality Inspections</li>
-            <li><i class="fa-solid fa-check"></i> Detailed Inspection Reporting</li>
-          </ul>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--navy">
-            <i class="fa-solid fa-drafting-compass"></i>
-          </div>
-          <h3 class="service-card__title">Engineering Solutions</h3>
-          <p class="service-card__desc">
-            Civil, mechanical, and environmental engineering design and consulting
-            to optimize performance, safety, and regulatory compliance.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Civil & Structural Engineering</li>
-            <li><i class="fa-solid fa-check"></i> Environmental Engineering Design</li>
-            <li><i class="fa-solid fa-check"></i> Technical Consulting & Feasibility</li>
-            <li><i class="fa-solid fa-check"></i> As-Built Documentation</li>
-          </ul>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-card__icon service-card__icon--amber">
-            <i class="fa-solid fa-gears"></i>
-          </div>
-          <h3 class="service-card__title">Parts & Supply</h3>
-          <p class="service-card__desc">
-            Reliable sourcing and supply of industrial, environmental, and
-            safety parts and equipment to keep your operations running.
-          </p>
-          <ul class="service-card__list">
-            <li><i class="fa-solid fa-check"></i> Industrial Parts Sourcing</li>
-            <li><i class="fa-solid fa-check"></i> Safety Equipment Supply</li>
-            <li><i class="fa-solid fa-check"></i> Environmental Monitoring Equipment</li>
-            <li><i class="fa-solid fa-check"></i> Inventory & Supply Chain Support</li>
-          </ul>
-        </div>
-
+      <div class="teaser__grid">
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--green"><i class="fa-solid fa-seedling"></i></div>
+          <h3>Environmental</h3>
+          <p>Assessments, compliance, and remediation planning.</p>
+        </a>
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--blue"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Safety</h3>
+          <p>OSHA compliance, risk assessments, and training.</p>
+        </a>
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--orange"><i class="fa-solid fa-hard-hat"></i></div>
+          <h3>Construction</h3>
+          <p>Project management from groundbreaking to closeout.</p>
+        </a>
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--teal"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3>Inspection</h3>
+          <p>Structural, site, and compliance inspections.</p>
+        </a>
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--navy"><i class="fa-solid fa-drafting-compass"></i></div>
+          <h3>Engineering</h3>
+          <p>Civil, mechanical, and environmental design.</p>
+        </a>
+        <a href="services.html" class="teaser-card fade-up">
+          <div class="teaser-card__icon teaser-card__icon--amber"><i class="fa-solid fa-gears"></i></div>
+          <h3>Parts &amp; Supply</h3>
+          <p>Industrial, safety, and environmental equipment.</p>
+        </a>
+      </div>
+      <div class="teaser__cta">
+        <a href="services.html" class="btn btn--primary btn--lg">View All Services <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- ======================== WHY US ======================== -->
-  <section class="section why-us">
+  <!-- WHY US (condensed) -->
+  <section class="section why-us why-us--home">
     <div class="container why-us__inner">
       <div class="why-us__visual fade-up">
         <div class="why-us__graphic">
           <div class="graphic__ring graphic__ring--1"></div>
           <div class="graphic__ring graphic__ring--2"></div>
           <div class="graphic__ring graphic__ring--3"></div>
-          <div class="graphic__center">
-            <i class="fa-solid fa-earth-americas"></i>
-          </div>
-          <div class="graphic__orbit graphic__orbit--1">
-            <span><i class="fa-solid fa-hard-hat"></i></span>
-          </div>
-          <div class="graphic__orbit graphic__orbit--2">
-            <span><i class="fa-solid fa-shield-halved"></i></span>
-          </div>
-          <div class="graphic__orbit graphic__orbit--3">
-            <span><i class="fa-solid fa-drafting-compass"></i></span>
-          </div>
+          <div class="graphic__center"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="graphic__orbit graphic__orbit--1"><span><i class="fa-solid fa-hard-hat"></i></span></div>
+          <div class="graphic__orbit graphic__orbit--2"><span><i class="fa-solid fa-shield-halved"></i></span></div>
+          <div class="graphic__orbit graphic__orbit--3"><span><i class="fa-solid fa-drafting-compass"></i></span></div>
         </div>
       </div>
       <div class="why-us__content fade-up">
@@ -239,194 +157,45 @@
             <div class="point__icon"><i class="fa-solid fa-certificate"></i></div>
             <div class="point__body">
               <h4>Certified Professionals</h4>
-              <p>Our team holds industry certifications in environmental science, safety management, and engineering disciplines.</p>
+              <p>Industry certifications in environmental science, safety management, and engineering.</p>
             </div>
           </div>
           <div class="point">
             <div class="point__icon"><i class="fa-solid fa-scale-balanced"></i></div>
             <div class="point__body">
               <h4>Regulatory Expertise</h4>
-              <p>We stay current on all federal, state, and local environmental and safety regulations so you stay compliant.</p>
+              <p>Current on all federal, state, and local environmental and safety regulations.</p>
             </div>
           </div>
           <div class="point">
             <div class="point__icon"><i class="fa-solid fa-handshake"></i></div>
             <div class="point__body">
               <h4>End-to-End Support</h4>
-              <p>From initial assessment to final inspection, we're with you at every stage of your project lifecycle.</p>
-            </div>
-          </div>
-          <div class="point">
-            <div class="point__icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-            <div class="point__body">
-              <h4>Fast Response Times</h4>
-              <p>We understand urgency. Our team mobilizes quickly to address compliance issues, emergencies, and project needs.</p>
+              <p>With you at every stage — from initial assessment to final inspection.</p>
             </div>
           </div>
         </div>
+        <a href="about.html" class="btn btn--primary" style="margin-top:28px;">Learn More About Us <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- ======================== CTA BANNER ======================== -->
+  <!-- CTA BANNER -->
   <section class="cta-banner">
     <div class="container cta-banner__inner">
       <div class="cta-banner__text">
         <h2>Ready to Work With Us?</h2>
         <p>Tell us about your project and get a customized quote from our team of experts.</p>
       </div>
-      <a href="#contact" class="btn btn--white btn--lg">Get a Free Quote</a>
+      <a href="contact.html" class="btn btn--white btn--lg">Get a Free Quote</a>
     </div>
   </section>
 
-  <!-- ======================== ABOUT ======================== -->
-  <section class="section about" id="about">
-    <div class="container">
-      <div class="section__header">
-        <span class="section__tag">About Us</span>
-        <h2 class="section__title">Who We Are</h2>
-        <p class="section__subtitle">
-          EnvironmSafe is a full-service environmental, safety, and engineering firm
-          committed to protecting people, communities, and the environment.
-        </p>
-      </div>
-      <div class="about__grid">
-        <div class="about__card fade-up">
-          <div class="about__card-icon"><i class="fa-solid fa-bullseye"></i></div>
-          <h3>Our Mission</h3>
-          <p>
-            To deliver practical, compliant, and cost-effective environmental and
-            safety solutions that safeguard our clients' operations, workforce,
-            and the communities they serve.
-          </p>
-        </div>
-        <div class="about__card fade-up">
-          <div class="about__card-icon"><i class="fa-solid fa-eye"></i></div>
-          <h3>Our Vision</h3>
-          <p>
-            To be the premier EHS and engineering partner for organizations
-            that believe safety and environmental responsibility are not just
-            obligations — they are competitive advantages.
-          </p>
-        </div>
-        <div class="about__card fade-up">
-          <div class="about__card-icon"><i class="fa-solid fa-star"></i></div>
-          <h3>Our Values</h3>
-          <p>
-            Integrity, accuracy, and accountability guide everything we do.
-            We build long-term relationships by delivering honest assessments
-            and dependable results — every time.
-          </p>
-        </div>
-      </div>
-
-      <div class="certifications fade-up">
-        <p class="certifications__label">Committed to Industry Standards</p>
-        <div class="certifications__badges">
-          <div class="cert-badge"><i class="fa-solid fa-award"></i> OSHA Certified</div>
-          <div class="cert-badge"><i class="fa-solid fa-award"></i> EPA Compliant</div>
-          <div class="cert-badge"><i class="fa-solid fa-award"></i> ISO Standards</div>
-          <div class="cert-badge"><i class="fa-solid fa-award"></i> HAZWOPER Trained</div>
-          <div class="cert-badge"><i class="fa-solid fa-award"></i> DOT Qualified</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================== CONTACT ======================== -->
-  <section class="section contact" id="contact">
-    <div class="container contact__inner">
-      <div class="contact__info fade-up">
-        <span class="section__tag">Get In Touch</span>
-        <h2 class="section__title">Let's Talk About Your Project</h2>
-        <p class="contact__text">
-          Whether you need an environmental assessment, a safety audit, or
-          engineering support — our team is ready to help. Reach out today.
-        </p>
-        <div class="contact__details">
-          <div class="contact__item">
-            <div class="contact__item-icon"><i class="fa-solid fa-phone"></i></div>
-            <div>
-              <strong>Phone</strong>
-              <a href="tel:+1-800-000-0000">(800) 000-0000</a>
-            </div>
-          </div>
-          <div class="contact__item">
-            <div class="contact__item-icon"><i class="fa-solid fa-envelope"></i></div>
-            <div>
-              <strong>Email</strong>
-              <a href="mailto:info@environmsafe.com">info@environmsafe.com</a>
-            </div>
-          </div>
-          <div class="contact__item">
-            <div class="contact__item-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <div>
-              <strong>Office</strong>
-              <span>United States</span>
-            </div>
-          </div>
-        </div>
-        <div class="contact__social">
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        </div>
-      </div>
-
-      <form class="contact__form fade-up" id="contactForm" novalidate>
-        <div class="form__row">
-          <div class="form__group">
-            <label for="name">Full Name <span>*</span></label>
-            <input type="text" id="name" name="name" placeholder="John Smith" required />
-            <span class="form__error" id="nameError"></span>
-          </div>
-          <div class="form__group">
-            <label for="email">Email Address <span>*</span></label>
-            <input type="email" id="email" name="email" placeholder="john@company.com" required />
-            <span class="form__error" id="emailError"></span>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
-          </div>
-          <div class="form__group">
-            <label for="service">Service Needed <span>*</span></label>
-            <select id="service" name="service" required>
-              <option value="" disabled selected>Select a service...</option>
-              <option>Environmental Services</option>
-              <option>Safety Management</option>
-              <option>Construction Services</option>
-              <option>Inspection Services</option>
-              <option>Engineering Solutions</option>
-              <option>Parts &amp; Supply</option>
-              <option>Multiple / Not Sure</option>
-            </select>
-            <span class="form__error" id="serviceError"></span>
-          </div>
-        </div>
-        <div class="form__group">
-          <label for="message">Project Details <span>*</span></label>
-          <textarea id="message" name="message" rows="5" placeholder="Briefly describe your project or inquiry..." required></textarea>
-          <span class="form__error" id="messageError"></span>
-        </div>
-        <button type="submit" class="btn btn--primary btn--full">
-          <span class="btn__text">Send Message</span>
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-        <p class="form__success" id="formSuccess">
-          <i class="fa-solid fa-circle-check"></i> Thank you! We'll be in touch shortly.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <!-- ======================== FOOTER ======================== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="#home" class="logo logo--light">
+        <a href="index.html" class="logo logo--light">
           <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
           <span class="logo__text">Environm<strong>Safe</strong></span>
         </a>
@@ -440,21 +209,21 @@
       <div class="footer__links">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer__services">
         <h4>Our Services</h4>
         <ul>
-          <li><a href="#services">Environmental Services</a></li>
-          <li><a href="#services">Safety Management</a></li>
-          <li><a href="#services">Construction Services</a></li>
-          <li><a href="#services">Inspection Services</a></li>
-          <li><a href="#services">Engineering Solutions</a></li>
-          <li><a href="#services">Parts &amp; Supply</a></li>
+          <li><a href="services.html">Environmental Services</a></li>
+          <li><a href="services.html">Safety Management</a></li>
+          <li><a href="services.html">Construction Services</a></li>
+          <li><a href="services.html">Inspection Services</a></li>
+          <li><a href="services.html">Engineering Solutions</a></li>
+          <li><a href="services.html">Parts &amp; Supply</a></li>
         </ul>
       </div>
       <div class="footer__contact">
@@ -468,13 +237,12 @@
     </div>
     <div class="footer__bottom">
       <div class="container footer__bottom-inner">
-        <p>&copy; <span id="year"></span> EnvironmSafe. All rights reserved.</p>
+        <p>&copy; <span class="year"></span> EnvironmSafe. All rights reserved.</p>
         <p>Environmental &middot; Safety &middot; Engineering</p>
       </div>
     </div>
   </footer>
 
-  <!-- Back to top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>

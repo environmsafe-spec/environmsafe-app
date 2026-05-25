@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact EnvironmSafe for environmental, safety, construction, inspection, engineering, and parts supply inquiries." />
+  <title>Contact | EnvironmSafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
+        <span class="logo__text">Environm<strong>Safe</strong></span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="index.html"    class="nav__link" data-page="index">Home</a></li>
+          <li><a href="services.html" class="nav__link" data-page="services">Services</a></li>
+          <li><a href="about.html"    class="nav__link" data-page="about">About</a></li>
+          <li><a href="contact.html"  class="nav__link" data-page="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg page-hero__bg--contact"></div>
+    <div class="container page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Contact</span>
+      </nav>
+      <h1 class="page-hero__title fade-up">Get In Touch</h1>
+      <p class="page-hero__subtitle fade-up">
+        Have a project in mind? We'd love to hear from you.
+        Reach out for a free consultation or quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section contact contact--page">
+    <div class="container contact__inner">
+      <div class="contact__info fade-up">
+        <span class="section__tag">Contact Us</span>
+        <h2 class="section__title" style="text-align:left;">Let's Talk About Your Project</h2>
+        <p class="contact__text">
+          Whether you need an environmental assessment, a safety audit, engineering
+          support, or parts supply — our team is ready to help. Fill out the form
+          or reach us directly using the details below.
+        </p>
+
+        <div class="contact__details">
+          <div class="contact__item">
+            <div class="contact__item-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <strong>Phone</strong>
+              <a href="tel:+18000000000">(800) 000-0000</a>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:info@environmsafe.com">info@environmsafe.com</a>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <strong>Office</strong>
+              <span>United States</span>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <strong>Business Hours</strong>
+              <span>Mon–Fri: 8:00 AM – 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact__social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+
+        <div class="contact__services-list">
+          <p class="contact__services-label">We can help with:</p>
+          <div class="contact__service-tags">
+            <span>Environmental</span>
+            <span>Safety</span>
+            <span>Construction</span>
+            <span>Inspection</span>
+            <span>Engineering</span>
+            <span>Parts &amp; Supply</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact__form fade-up" id="contactForm" novalidate>
+        <div class="form__row">
+          <div class="form__group">
+            <label for="name">Full Name <span>*</span></label>
+            <input type="text" id="name" name="name" placeholder="John Smith" required />
+            <span class="form__error" id="nameError"></span>
+          </div>
+          <div class="form__group">
+            <label for="company">Company / Organization</label>
+            <input type="text" id="company" name="company" placeholder="Your Company Inc." />
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__group">
+            <label for="email">Email Address <span>*</span></label>
+            <input type="email" id="email" name="email" placeholder="john@company.com" required />
+            <span class="form__error" id="emailError"></span>
+          </div>
+          <div class="form__group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+          </div>
+        </div>
+        <div class="form__group">
+          <label for="service">Service Needed <span>*</span></label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select a service...</option>
+            <option>Environmental Services</option>
+            <option>Safety Management</option>
+            <option>Construction Services</option>
+            <option>Inspection Services</option>
+            <option>Engineering Solutions</option>
+            <option>Parts &amp; Supply</option>
+            <option>Multiple Services</option>
+            <option>Not Sure — Need Consultation</option>
+          </select>
+          <span class="form__error" id="serviceError"></span>
+        </div>
+        <div class="form__group">
+          <label for="message">Project Details <span>*</span></label>
+          <textarea id="message" name="message" rows="6"
+            placeholder="Briefly describe your project, site, timeline, or any specific requirements..." required></textarea>
+          <span class="form__error" id="messageError"></span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">
+          <span class="btn__text">Send Message</span>
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+        <p class="form__note">We typically respond within 1 business day.</p>
+        <p class="form__success" id="formSuccess">
+          <i class="fa-solid fa-circle-check"></i> Thank you! We'll be in touch shortly.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="logo logo--light">
+          <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
+          <span class="logo__text">Environm<strong>Safe</strong></span>
+        </a>
+        <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
+        <div class="contact__social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__services">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Environmental Services</a></li>
+          <li><a href="services.html">Safety Management</a></li>
+          <li><a href="services.html">Construction Services</a></li>
+          <li><a href="services.html">Inspection Services</a></li>
+          <li><a href="services.html">Engineering Solutions</a></li>
+          <li><a href="services.html">Parts &amp; Supply</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone"></i> (800) 000-0000</li>
+          <li><i class="fa-solid fa-envelope"></i> info@environmsafe.com</li>
+          <li><i class="fa-solid fa-globe"></i> www.environmsafe.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>&copy; <span class="year"></span> EnvironmSafe. All rights reserved.</p>
+        <p>Environmental &middot; Safety &middot; Engineering</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+  <script src="js/main.js"></script>
+</body>
+</html>
