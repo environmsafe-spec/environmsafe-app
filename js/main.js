@@ -3,7 +3,6 @@
 (function () {
   'use strict';
 
-  // ── DOM refs ──────────────────────────────────────────────
   const header    = document.getElementById('header');
   const hamburger = document.getElementById('hamburger');
   const nav       = document.getElementById('nav');
@@ -17,16 +16,15 @@
 
   // ── Active nav link ───────────────────────────────────────
   const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-  const pageKey = currentFile.replace('.html', '') || 'index';
   document.querySelectorAll('.nav__link[data-page]').forEach(link => {
+    const pageKey = currentFile.replace('.html', '') || 'index';
     if (link.dataset.page === pageKey) link.classList.add('active');
   });
   document.querySelectorAll('.nav__dropdown-link').forEach(link => {
     const href = link.getAttribute('href') || '';
     if (href.split('/').pop() === currentFile) {
       link.classList.add('active');
-      const parentDropdown = link.closest('.nav__item--dropdown');
-      if (parentDropdown) parentDropdown.querySelector('.nav__dropdown-toggle')?.classList.add('active');
+      link.closest('.nav__item--dropdown')?.querySelector('.nav__dropdown-toggle')?.classList.add('active');
     }
   });
 
@@ -81,59 +79,6 @@
     }
   });
 
-  // ── Language switcher ─────────────────────────────────────
-  const translations = {
-    en: {
-      nav_home: 'Home',
-      nav_services: 'Services',
-      nav_about: 'About',
-      nav_contact: 'Contact',
-      nav_quote: 'Get a Quote',
-      svc_hse: 'HSE',
-      svc_eval: 'Evaluation',
-      svc_insp: 'Inspection & Monitoring',
-      svc_eng: 'Engineering & Construction',
-      svc_hvac: 'HVAC',
-      svc_maint: 'Maintenance Services & Parts Supplies',
-    },
-    ar: {
-      nav_home: 'الرئيسية',
-      nav_services: 'الخدمات',
-      nav_about: 'من نحن',
-      nav_contact: 'اتصل بنا',
-      nav_quote: 'احصل على عرض سعر',
-      svc_hse: 'الصحة والسلامة والبيئة',
-      svc_eval: 'التقييم',
-      svc_insp: 'الفحص والمراقبة',
-      svc_eng: 'الهندسة والإنشاء',
-      svc_hvac: 'تكييف الهواء والتهوية',
-      svc_maint: 'خدمات الصيانة وقطع الغيار',
-    }
-  };
-
-  let currentLang = localStorage.getItem('es_lang') || 'en';
-
-  function applyLang(lang) {
-    const htmlEl = document.documentElement;
-    htmlEl.setAttribute('lang', lang);
-    htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-    const t = translations[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.dataset.i18n;
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-    const langLabel = document.getElementById('langLabel');
-    if (langLabel) langLabel.textContent = lang === 'en' ? 'عربي' : 'English';
-    currentLang = lang;
-    localStorage.setItem('es_lang', lang);
-  }
-
-  const langToggleBtn = document.getElementById('langToggle');
-  if (langToggleBtn) {
-    langToggleBtn.addEventListener('click', () => applyLang(currentLang === 'en' ? 'ar' : 'en'));
-  }
-  applyLang(currentLang);
-
   // ── Intersection Observer — fade-up ───────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -166,24 +111,16 @@
   if (!form) return;
 
   const fields = {
-    name:    { el: document.getElementById('name'),    err: document.getElementById('nameError'),    msg: 'Please enter your name.' },
-    email:   { el: document.getElementById('email'),   err: document.getElementById('emailError'),   msg: 'Please enter a valid email address.' },
-    service: { el: document.getElementById('service'), err: document.getElementById('serviceError'), msg: 'Please select a service.' },
-    message: { el: document.getElementById('message'), err: document.getElementById('messageError'), msg: 'Please describe your project.' },
+    name:    { el: document.getElementById('name'),    err: document.getElementById('nameError'),    msg: document.documentElement.lang === 'ar' ? 'يرجى إدخال اسمك.' : 'Please enter your name.' },
+    email:   { el: document.getElementById('email'),   err: document.getElementById('emailError'),   msg: document.documentElement.lang === 'ar' ? 'يرجى إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.' },
+    service: { el: document.getElementById('service'), err: document.getElementById('serviceError'), msg: document.documentElement.lang === 'ar' ? 'يرجى اختيار خدمة.' : 'Please select a service.' },
+    message: { el: document.getElementById('message'), err: document.getElementById('messageError'), msg: document.documentElement.lang === 'ar' ? 'يرجى وصف مشروعك.' : 'Please describe your project.' },
   };
   const successEl = document.getElementById('formSuccess');
 
   const isValidEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-  const showError = (f, msg) => {
-    f.el.classList.add('error');
-    f.err.textContent = msg;
-    f.err.classList.add('show');
-  };
-  const clearError = (f) => {
-    f.el.classList.remove('error');
-    f.err.classList.remove('show');
-  };
+  const showError = (f, msg) => { f.el.classList.add('error'); f.err.textContent = msg; f.err.classList.add('show'); };
+  const clearError = (f) => { f.el.classList.remove('error'); f.err.classList.remove('show'); };
 
   const validateField = (f) => {
     if (f.el.name === 'email') {
@@ -208,12 +145,13 @@
     if (!allValid) return;
 
     const btn = form.querySelector('button[type="submit"]');
+    const textEl = btn.querySelector('.btn__text');
     btn.disabled = true;
-    btn.querySelector('.btn__text').textContent = 'Sending…';
+    if (textEl) textEl.textContent = document.documentElement.lang === 'ar' ? 'جارٍ الإرسال…' : 'Sending…';
 
     setTimeout(() => {
       btn.disabled = false;
-      btn.querySelector('.btn__text').textContent = 'Send Message';
+      if (textEl) textEl.textContent = document.documentElement.lang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
       form.reset();
       if (successEl) {
         successEl.classList.add('show');
