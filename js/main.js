@@ -15,11 +15,19 @@
     el.textContent = new Date().getFullYear();
   });
 
-  // ── Active nav link (multi-page) ──────────────────────────
+  // ── Active nav link ───────────────────────────────────────
   const currentFile = window.location.pathname.split('/').pop() || 'index.html';
   const pageKey = currentFile.replace('.html', '') || 'index';
   document.querySelectorAll('.nav__link[data-page]').forEach(link => {
     if (link.dataset.page === pageKey) link.classList.add('active');
+  });
+  document.querySelectorAll('.nav__dropdown-link').forEach(link => {
+    const href = link.getAttribute('href') || '';
+    if (href.split('/').pop() === currentFile) {
+      link.classList.add('active');
+      const parentDropdown = link.closest('.nav__item--dropdown');
+      if (parentDropdown) parentDropdown.querySelector('.nav__dropdown-toggle')?.classList.add('active');
+    }
   });
 
   // ── Sticky header shadow ──────────────────────────────────
@@ -40,7 +48,7 @@
     nav.classList.toggle('open', open);
     hamburger.setAttribute('aria-expanded', String(open));
   });
-  nav.querySelectorAll('.nav__link').forEach(link => {
+  nav.querySelectorAll('a.nav__link, a.nav__dropdown-link').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
       nav.classList.remove('open');
@@ -48,7 +56,85 @@
     });
   });
 
-  // ── Intersection Observer — fade-up animations ────────────
+  // ── Services dropdown ─────────────────────────────────────
+  const dropdownItems = document.querySelectorAll('.nav__item--dropdown');
+  dropdownItems.forEach(item => {
+    const toggle = item.querySelector('.nav__dropdown-toggle');
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = item.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      dropdownItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('open');
+          other.querySelector('.nav__dropdown-toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav__item--dropdown')) {
+      dropdownItems.forEach(item => {
+        item.classList.remove('open');
+        item.querySelector('.nav__dropdown-toggle').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // ── Language switcher ─────────────────────────────────────
+  const translations = {
+    en: {
+      nav_home: 'Home',
+      nav_services: 'Services',
+      nav_about: 'About',
+      nav_contact: 'Contact',
+      nav_quote: 'Get a Quote',
+      svc_hse: 'HSE',
+      svc_eval: 'Evaluation',
+      svc_insp: 'Inspection & Monitoring',
+      svc_eng: 'Engineering & Construction',
+      svc_hvac: 'HVAC',
+      svc_maint: 'Maintenance Services & Parts Supplies',
+    },
+    ar: {
+      nav_home: 'الرئيسية',
+      nav_services: 'الخدمات',
+      nav_about: 'من نحن',
+      nav_contact: 'اتصل بنا',
+      nav_quote: 'احصل على عرض سعر',
+      svc_hse: 'الصحة والسلامة والبيئة',
+      svc_eval: 'التقييم',
+      svc_insp: 'الفحص والمراقبة',
+      svc_eng: 'الهندسة والإنشاء',
+      svc_hvac: 'تكييف الهواء والتهوية',
+      svc_maint: 'خدمات الصيانة وقطع الغيار',
+    }
+  };
+
+  let currentLang = localStorage.getItem('es_lang') || 'en';
+
+  function applyLang(lang) {
+    const htmlEl = document.documentElement;
+    htmlEl.setAttribute('lang', lang);
+    htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    const langLabel = document.getElementById('langLabel');
+    if (langLabel) langLabel.textContent = lang === 'en' ? 'عربي' : 'English';
+    currentLang = lang;
+    localStorage.setItem('es_lang', lang);
+  }
+
+  const langToggleBtn = document.getElementById('langToggle');
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', () => applyLang(currentLang === 'en' ? 'ar' : 'en'));
+  }
+  applyLang(currentLang);
+
+  // ── Intersection Observer — fade-up ───────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -125,7 +211,6 @@
     btn.disabled = true;
     btn.querySelector('.btn__text').textContent = 'Sending…';
 
-    // Replace setTimeout body with a real fetch() to your form endpoint (e.g. Formspree)
     setTimeout(() => {
       btn.disabled = false;
       btn.querySelector('.btn__text').textContent = 'Send Message';
