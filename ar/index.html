@@ -1,160 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="EnvironmSafe provides expert environmental, safety, construction, inspection, engineering, and parts supply solutions." />
-  <title>EnvironmSafe | Environmental · Safety · Engineering Solutions</title>
+  <meta name="description" content="EnvironmSafe — حلول متخصصة في البيئة والسلامة والإنشاء والفحص والهندسة وتوريد قطع الغيار." />
+  <title>EnvironmSafe | بيئة · سلامة · هندسة</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="alternate" hreflang="en" href="../index.html" />
+  <link rel="alternate" hreflang="ar" href="index.html" />
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- الرأسية -->
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="index.html" class="logo">
-        <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
+        <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
       </a>
       <nav class="nav" id="nav">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link" data-page="index"><span data-i18n="nav_home">Home</span></a>
+            <a href="index.html" class="nav__link" data-page="index">الرئيسية</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-              <span data-i18n="nav_services">Services</span>
-              <i class="fa-solid fa-chevron-down nav__chevron"></i>
+              الخدمات <i class="fa-solid fa-chevron-down nav__chevron"></i>
             </button>
             <ul class="nav__dropdown" role="menu">
-              <li><a href="services/hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i><span data-i18n="svc_hse">HSE</span></a></li>
-              <li><a href="services/evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i><span data-i18n="svc_eval">Evaluation</span></a></li>
-              <li><a href="services/inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="svc_insp">Inspection &amp; Monitoring</span></a></li>
-              <li><a href="services/engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i><span data-i18n="svc_eng">Engineering &amp; Construction</span></a></li>
-              <li><a href="services/hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i><span data-i18n="svc_hvac">HVAC</span></a></li>
-              <li><a href="services/maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i><span data-i18n="svc_maint">Maintenance Services &amp; Parts Supplies</span></a></li>
+              <li><a href="services/hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i> الصحة والسلامة والبيئة</a></li>
+              <li><a href="services/evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i> التقييم</a></li>
+              <li><a href="services/inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i> الفحص والمراقبة</a></li>
+              <li><a href="services/engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i> الهندسة والإنشاء</a></li>
+              <li><a href="services/hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i> تكييف الهواء والتهوية</a></li>
+              <li><a href="services/maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i> خدمات الصيانة وقطع الغيار</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="about.html" class="nav__link" data-page="about"><span data-i18n="nav_about">About</span></a>
+            <a href="about.html" class="nav__link" data-page="about">من نحن</a>
           </li>
           <li class="nav__item">
-            <a href="contact.html" class="nav__link" data-page="contact"><span data-i18n="nav_contact">Contact</span></a>
+            <a href="contact.html" class="nav__link" data-page="contact">اتصل بنا</a>
           </li>
         </ul>
       </nav>
       <div class="header__actions">
-        <a href="ar/index.html" class="lang-toggle" aria-label="Arabic version">
+        <a href="../index.html" class="lang-toggle" aria-label="English version">
           <i class="fa-solid fa-globe"></i>
-          <span>عربي</span>
+          <span>English</span>
         </a>
-        <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+        <a href="contact.html" class="btn btn--accent header__cta">احصل على عرض سعر</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button class="hamburger" id="hamburger" aria-label="تبديل القائمة" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- قسم البطل -->
   <section class="hero">
     <div class="hero__bg"></div>
     <div class="container hero__content">
-      <div class="hero__badge fade-up"><i class="fa-solid fa-shield-halved"></i> Trusted EHS &amp; Engineering Partner</div>
+      <div class="hero__badge fade-up"><i class="fa-solid fa-shield-halved"></i> شريكك الموثوق في السلامة والبيئة والهندسة</div>
       <h1 class="hero__title fade-up">
-        Building a <span class="highlight">Safer</span>,<br />
-        More Sustainable World
+        نبني عالماً<br />
+        <span class="highlight">أكثر أماناً</span> واستدامة
       </h1>
       <p class="hero__subtitle fade-up">
-        Comprehensive environmental, safety, construction, inspection,
-        engineering, and parts supply solutions — delivered by experts you can trust.
+        حلول متكاملة في البيئة والسلامة والإنشاء والفحص والهندسة وتوريد
+        قطع الغيار — يقدمها خبراء تثق بهم.
       </p>
       <div class="hero__actions fade-up">
-        <a href="services.html" class="btn btn--primary btn--lg">Explore Services</a>
-        <a href="contact.html"  class="btn btn--outline btn--lg">Contact Us</a>
+        <a href="services/hse.html" class="btn btn--primary btn--lg">اكتشف خدماتنا</a>
+        <a href="contact.html" class="btn btn--outline btn--lg">اتصل بنا</a>
       </div>
     </div>
     <div class="hero__scroll-indicator">
-      <span>Scroll</span>
+      <span>تمرير</span>
       <i class="fa-solid fa-arrow-down"></i>
     </div>
   </section>
 
-  <!-- STATS -->
+  <!-- الإحصاءات -->
   <section class="stats">
     <div class="container stats__grid">
       <div class="stat-item">
         <span class="stat-item__number" data-target="15">0</span><span class="stat-item__suffix">+</span>
-        <p class="stat-item__label">Key Staff Experience</p>
+        <p class="stat-item__label">خبرة كبار الكوادر</p>
       </div>
       <div class="stat-item">
         <span class="stat-item__number" data-target="4">0</span>
-        <p class="stat-item__label">Professional Certifications</p>
+        <p class="stat-item__label">شهادات مهنية معتمدة</p>
       </div>
       <div class="stat-item">
         <span class="stat-item__number" data-target="6">0</span>
-        <p class="stat-item__label">Core Service Areas</p>
+        <p class="stat-item__label">مجالات خدمة أساسية</p>
       </div>
       <div class="stat-item">
         <span class="stat-item__number" data-target="100">0</span><span class="stat-item__suffix">%</span>
-        <p class="stat-item__label">Client Satisfaction</p>
+        <p class="stat-item__label">رضا العملاء</p>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES TEASER -->
+  <!-- عرض الخدمات -->
   <section class="section services-teaser">
     <div class="container">
       <div class="section__header">
-        <span class="section__tag">What We Do</span>
-        <h2 class="section__title">Six Disciplines, One Trusted Partner</h2>
+        <span class="section__tag">ماذا نفعل</span>
+        <h2 class="section__title">ستة تخصصات، شريك واحد موثوق</h2>
         <p class="section__subtitle">
-          From environmental compliance to precision engineering, we cover every
-          phase of your project with specialized expertise.
+          من الامتثال البيئي إلى الهندسة الدقيقة، نغطي كل مرحلة من
+          مراحل مشروعك بخبرة متخصصة.
         </p>
       </div>
       <div class="teaser__grid">
         <a href="services/hse.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--green"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3>HSE</h3>
-          <p>Health, Safety &amp; Environment management systems and compliance.</p>
+          <h3>الصحة والسلامة والبيئة</h3>
+          <p>أنظمة إدارة السلامة والامتثال البيئي وبرامج الصحة المهنية.</p>
         </a>
         <a href="services/evaluation.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--blue"><i class="fa-solid fa-clipboard-check"></i></div>
-          <h3>Evaluation</h3>
-          <p>Environmental assessments, risk evaluations, and feasibility studies.</p>
+          <h3>التقييم</h3>
+          <p>التقييمات البيئية وتقييم المخاطر ودراسات الجدوى.</p>
         </a>
         <a href="services/inspection-monitoring.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--teal"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-          <h3>Inspection &amp; Monitoring</h3>
-          <p>Structural inspections and continuous environmental monitoring.</p>
+          <h3>الفحص والمراقبة</h3>
+          <p>فحص هيكلي ومراقبة بيئية مستمرة.</p>
         </a>
         <a href="services/engineering-construction.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--orange"><i class="fa-solid fa-hard-hat"></i></div>
-          <h3>Engineering &amp; Construction</h3>
-          <p>Civil engineering design and full-scope construction management.</p>
+          <h3>الهندسة والإنشاء</h3>
+          <p>تصميم هندسي وإدارة إنشاء شاملة من البداية حتى الإنجاز.</p>
         </a>
         <a href="services/hvac.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--navy"><i class="fa-solid fa-wind"></i></div>
-          <h3>HVAC</h3>
-          <p>Commercial &amp; industrial HVAC design, installation, and maintenance.</p>
+          <h3>تكييف الهواء والتهوية</h3>
+          <p>تصميم وتركيب وصيانة أنظمة التكييف التجارية والصناعية.</p>
         </a>
         <a href="services/maintenance.html" class="teaser-card fade-up">
           <div class="teaser-card__icon teaser-card__icon--amber"><i class="fa-solid fa-gears"></i></div>
-          <h3>Maintenance &amp; Parts</h3>
-          <p>Preventive maintenance programs and industrial parts supply.</p>
+          <h3>الصيانة وقطع الغيار</h3>
+          <p>برامج صيانة وقائية وتوريد القطع الصناعية وتجهيزات السلامة.</p>
         </a>
       </div>
       <div class="teaser__cta">
-        <a href="services/hse.html" class="btn btn--primary btn--lg">Explore Our Services <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="services/hse.html" class="btn btn--primary btn--lg">اكتشف جميع خدماتنا <i class="fa-solid fa-arrow-left"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- WHY US (condensed) -->
+  <!-- لماذا نحن -->
   <section class="section why-us why-us--home">
     <div class="container why-us__inner">
       <div class="why-us__visual fade-up">
@@ -169,48 +170,47 @@
         </div>
       </div>
       <div class="why-us__content fade-up">
-        <span class="section__tag">Why EnvironmSafe</span>
-        <h2 class="section__title">Your Trusted Partner Across Every Phase</h2>
+        <span class="section__tag">لماذا EnvironmSafe</span>
+        <h2 class="section__title">شريكك الموثوق في كل مرحلة</h2>
         <p class="why-us__text">
-          We bring deep expertise in environmental compliance, workplace safety,
-          and engineering to every project — giving you a single trusted partner
-          from planning through completion.
+          نجلب خبرة عميقة في الامتثال البيئي وسلامة العمل والهندسة لكل
+          مشروع — مما يمنحك شريكاً واحداً موثوقاً من التخطيط حتى الإنجاز.
         </p>
         <div class="why-us__points">
           <div class="point">
             <div class="point__icon"><i class="fa-solid fa-certificate"></i></div>
             <div class="point__body">
-              <h4>Certified Professionals</h4>
-              <p>Industry certifications in environmental science, safety management, and engineering.</p>
+              <h4>محترفون معتمدون</h4>
+              <p>يحمل فريقنا شهادات صناعية في علوم البيئة وإدارة السلامة والهندسة.</p>
             </div>
           </div>
           <div class="point">
             <div class="point__icon"><i class="fa-solid fa-scale-balanced"></i></div>
             <div class="point__body">
-              <h4>Regulatory Expertise</h4>
-              <p>Current on all federal, state, and local environmental and safety regulations.</p>
+              <h4>خبرة تنظيمية</h4>
+              <p>نواكب جميع اللوائح البيئية ولوائح السلامة الاتحادية والمحلية.</p>
             </div>
           </div>
           <div class="point">
             <div class="point__icon"><i class="fa-solid fa-handshake"></i></div>
             <div class="point__body">
-              <h4>End-to-End Support</h4>
-              <p>With you at every stage — from initial assessment to final inspection.</p>
+              <h4>دعم متكامل</h4>
+              <p>معك في كل مرحلة — من التقييم الأولي حتى الفحص النهائي.</p>
             </div>
           </div>
         </div>
-        <a href="about.html" class="btn btn--primary" style="margin-top:28px;">Learn More About Us <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="about.html" class="btn btn--primary" style="margin-top:28px;">اعرف المزيد عنا <i class="fa-solid fa-arrow-left"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- PARTNERS / CLIENTS -->
+  <!-- الشركاء والعملاء -->
   <section class="section partners" style="background:var(--clr-light);">
     <div class="container">
       <div class="section__header">
-        <span class="section__tag">Trusted By</span>
-        <h2 class="section__title">Our Partners &amp; Clients</h2>
-        <p class="section__subtitle">We are proud to serve leading international organizations, government agencies, and private sector companies across Yemen and the region.</p>
+        <span class="section__tag">يثقون بنا</span>
+        <h2 class="section__title">شركاؤنا وعملاؤنا</h2>
+        <p class="section__subtitle">نفخر بخدمة كبرى المنظمات الدولية والجهات الحكومية وشركات القطاع الخاص في اليمن والمنطقة.</p>
       </div>
       <div class="partners__grid">
         <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-building-un"></i></div><p class="partner-card__name">UNHCR</p></div>
@@ -238,30 +238,30 @@
         <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-hard-hat"></i></div><p class="partner-card__name">Soham for Engineering</p></div>
         <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-boxes-stacked"></i></div><p class="partner-card__name">HSA Group</p></div>
         <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-shield-halved"></i></div><p class="partner-card__name">SAFER</p></div>
-        <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-oil-well"></i></div><p class="partner-card__name">Aden Refinery Company</p></div>
+        <div class="partner-card fade-up"><div class="partner-card__icon"><i class="fa-solid fa-oil-well"></i></div><p class="partner-card__name">شركة عدن للتكرير</p></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA BANNER -->
+  <!-- بانر دعوة للتواصل -->
   <section class="cta-banner">
     <div class="container cta-banner__inner">
       <div class="cta-banner__text">
-        <h2>Ready to Work With Us?</h2>
-        <p>Tell us about your project and get a customized quote from our team of experts.</p>
+        <h2>هل أنت مستعد للعمل معنا؟</h2>
+        <p>أخبرنا عن مشروعك واحصل على عرض سعر مخصص من فريق خبرائنا.</p>
       </div>
-      <a href="contact.html" class="btn btn--white btn--lg">Get a Free Quote</a>
+      <a href="contact.html" class="btn btn--white btn--lg">احصل على عرض سعر مجاني</a>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- تذييل الصفحة -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="index.html" class="logo logo--light">
-          <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
+          <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
         </a>
-        <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
+        <p>حلول متخصصة في البيئة والسلامة والإنشاء والفحص والهندسة وتوريد قطع الغيار.</p>
         <div class="contact__social">
           <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -269,27 +269,26 @@
         </div>
       </div>
       <div class="footer__links">
-        <h4>Quick Links</h4>
+        <h4>روابط سريعة</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
         </ul>
       </div>
       <div class="footer__services">
-        <h4>Our Services</h4>
+        <h4>خدماتنا</h4>
         <ul>
-          <li><a href="services/hse.html">HSE</a></li>
-          <li><a href="services/evaluation.html">Evaluation</a></li>
-          <li><a href="services/inspection-monitoring.html">Inspection &amp; Monitoring</a></li>
-          <li><a href="services/engineering-construction.html">Engineering &amp; Construction</a></li>
-          <li><a href="services/hvac.html">HVAC</a></li>
-          <li><a href="services/maintenance.html">Maintenance &amp; Parts Supplies</a></li>
+          <li><a href="services/hse.html">الصحة والسلامة والبيئة</a></li>
+          <li><a href="services/evaluation.html">التقييم</a></li>
+          <li><a href="services/inspection-monitoring.html">الفحص والمراقبة</a></li>
+          <li><a href="services/engineering-construction.html">الهندسة والإنشاء</a></li>
+          <li><a href="services/hvac.html">تكييف الهواء والتهوية</a></li>
+          <li><a href="services/maintenance.html">الصيانة وقطع الغيار</a></li>
         </ul>
       </div>
       <div class="footer__contact">
-        <h4>Contact</h4>
+        <h4>تواصل معنا</h4>
         <ul>
           <li><i class="fa-solid fa-phone"></i> +967 78 340 2932</li>
           <li><i class="fa-solid fa-envelope"></i> support@environmsafe.com</li>
@@ -299,16 +298,15 @@
     </div>
     <div class="footer__bottom">
       <div class="container footer__bottom-inner">
-        <p>&copy; <span class="year"></span> EnvironmSafe. All rights reserved.</p>
-        <p>Environmental &middot; Safety &middot; Engineering</p>
+        <p>&copy; <span class="year"></span> EnvironmSafe. جميع الحقوق محفوظة.</p>
+        <p>بيئة · سلامة · هندسة</p>
       </div>
     </div>
   </footer>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
-
-  <script src="js/main.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>

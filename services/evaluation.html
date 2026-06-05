@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EnvironmSafe Evaluation — environmental impact assessments, site evaluations, risk assessments, and compliance audits." />
+  <title>Evaluation | EnvironmSafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="../index.html" class="logo">
+        <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="../index.html" class="nav__link" data-page="index"><span data-i18n="nav_home">Home</span></a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav_services">Services</span>
+              <i class="fa-solid fa-chevron-down nav__chevron"></i>
+            </button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i><span data-i18n="svc_hse">HSE</span></a></li>
+              <li><a href="evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i><span data-i18n="svc_eval">Evaluation</span></a></li>
+              <li><a href="inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="svc_insp">Inspection &amp; Monitoring</span></a></li>
+              <li><a href="engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i><span data-i18n="svc_eng">Engineering &amp; Construction</span></a></li>
+              <li><a href="hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i><span data-i18n="svc_hvac">HVAC</span></a></li>
+              <li><a href="maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i><span data-i18n="svc_maint">Maintenance Services &amp; Parts Supplies</span></a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="../about.html" class="nav__link" data-page="about"><span data-i18n="nav_about">About</span></a>
+          </li>
+          <li class="nav__item">
+            <a href="../contact.html" class="nav__link" data-page="contact"><span data-i18n="nav_contact">Contact</span></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="../ar/services/evaluation.html" class="lang-toggle" aria-label="Arabic version">
+          <i class="fa-solid fa-globe"></i>
+          <span>عربي</span>
+        </a>
+        <a href="../contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg page-hero__bg--evaluation"></div>
+    <div class="container page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="evaluation.html">Services</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Evaluation</span>
+      </nav>
+      <h1 class="page-hero__title fade-up">Evaluation Services</h1>
+      <p class="page-hero__subtitle fade-up">
+        Thorough, objective evaluations that give you the data-driven insights
+        to make confident decisions and stay ahead of regulatory requirements.
+      </p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section service-intro">
+    <div class="container service-intro__inner">
+      <div class="service-intro__text fade-up">
+        <span class="section__tag">Our Evaluation Approach</span>
+        <h2 class="section__title" style="text-align:left;">Informed Decisions Start with Accurate Evaluations</h2>
+        <p>
+          Every successful project begins with a clear understanding of site conditions,
+          regulatory requirements, and potential risks. EnvironmSafe's evaluation services
+          provide the objective, technically rigorous assessments you need to move forward
+          with confidence.
+        </p>
+        <p>
+          From Phase I &amp; II Environmental Site Assessments to comprehensive risk evaluations
+          and feasibility studies, our certified evaluators deliver detailed, actionable reports
+          that satisfy regulators, lenders, and project stakeholders.
+        </p>
+      </div>
+      <div class="service-intro__features fade-up">
+        <div class="service-feature"><i class="fa-solid fa-magnifying-glass"></i><span>Phase I &amp; II Environmental Site Assessments</span></div>
+        <div class="service-feature"><i class="fa-solid fa-chart-bar"></i><span>Risk Evaluation &amp; Quantification</span></div>
+        <div class="service-feature"><i class="fa-solid fa-file-contract"></i><span>Regulatory Compliance Evaluations</span></div>
+        <div class="service-feature"><i class="fa-solid fa-microscope"></i><span>Feasibility &amp; Due Diligence Studies</span></div>
+        <div class="service-feature"><i class="fa-solid fa-list-check"></i><span>Performance &amp; Baseline Assessments</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="section services" style="background:var(--clr-light);">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__tag">What We Offer</span>
+        <h2 class="section__title">Evaluation Service Areas</h2>
+        <p class="section__subtitle">Comprehensive evaluation services across environmental, safety, and operational domains.</p>
+      </div>
+      <div class="service-detail__grid">
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <h3>Environmental Site Assessments</h3>
+          <p>ASTM-standard Phase I and Phase II ESAs to identify recognized environmental conditions and subsurface contamination.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Phase I ESA — records review &amp; site reconnaissance</li>
+            <li><i class="fa-solid fa-check"></i> Phase II ESA — soil &amp; groundwater sampling</li>
+            <li><i class="fa-solid fa-check"></i> Regulatory database searches</li>
+            <li><i class="fa-solid fa-check"></i> ASTM E1527-21 compliance</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--blue"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <h3>Risk Evaluation &amp; Assessment</h3>
+          <p>Quantitative and qualitative risk evaluations to understand exposure pathways and prioritize remediation or controls.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Human health risk assessments</li>
+            <li><i class="fa-solid fa-check"></i> Ecological risk assessments</li>
+            <li><i class="fa-solid fa-check"></i> Exposure pathway analysis</li>
+            <li><i class="fa-solid fa-check"></i> Risk-based corrective action</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--orange"><i class="fa-solid fa-scale-balanced"></i></div>
+          <h3>Compliance Evaluations</h3>
+          <p>Independent regulatory compliance evaluations against federal, state, and local environmental and safety requirements.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> RCRA, CERCLA, Clean Water Act reviews</li>
+            <li><i class="fa-solid fa-check"></i> Air permit compliance assessments</li>
+            <li><i class="fa-solid fa-check"></i> Stormwater &amp; NPDES evaluations</li>
+            <li><i class="fa-solid fa-check"></i> Corrective action plans</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--teal"><i class="fa-solid fa-building-columns"></i></div>
+          <h3>Due Diligence &amp; Property Evaluations</h3>
+          <p>Transaction-support evaluations for property acquisitions, mergers, and real estate deals involving environmental liability.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Environmental liability screening</li>
+            <li><i class="fa-solid fa-check"></i> Lender &amp; investor-grade reports</li>
+            <li><i class="fa-solid fa-check"></i> Portfolio property assessments</li>
+            <li><i class="fa-solid fa-check"></i> Cost-to-remediate estimates</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--navy"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Feasibility Studies</h3>
+          <p>Technical and economic feasibility analyses to identify the most practical and cost-effective path forward.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Remediation technology screening</li>
+            <li><i class="fa-solid fa-check"></i> Comparative cost analysis</li>
+            <li><i class="fa-solid fa-check"></i> Alternative evaluation matrices</li>
+            <li><i class="fa-solid fa-check"></i> Regulatory acceptance probability</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--amber"><i class="fa-solid fa-gauge-high"></i></div>
+          <h3>Performance &amp; Baseline Evaluations</h3>
+          <p>Establish environmental and safety baselines and track performance metrics over time to drive continuous improvement.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Environmental baseline studies</li>
+            <li><i class="fa-solid fa-check"></i> KPI development &amp; tracking</li>
+            <li><i class="fa-solid fa-check"></i> Third-party performance reviews</li>
+            <li><i class="fa-solid fa-check"></i> Benchmarking against best practices</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="service-highlights">
+    <div class="container service-highlights__grid">
+      <div class="fade-up">
+        <div class="highlight-item__number">300<span style="color:#5ddb97;font-size:1.5rem;">+</span></div>
+        <p class="highlight-item__label">Site Assessments Completed</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">15<span style="color:#5ddb97;font-size:1.5rem;">+</span></div>
+        <p class="highlight-item__label">Key Staff Experience</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">100<span style="color:#5ddb97;font-size:1.5rem;">%</span></div>
+        <p class="highlight-item__label">ASTM Standard Compliance</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">48<span style="color:#5ddb97;font-size:1.2rem;">hr</span></div>
+        <p class="highlight-item__label">Typical Report Turnaround</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container cta-banner__inner">
+      <div class="cta-banner__text">
+        <h2>Need a Site Evaluation?</h2>
+        <p>Our certified evaluators are ready to assess your site and deliver actionable findings.</p>
+      </div>
+      <a href="../contact.html" class="btn btn--white btn--lg">Request an Evaluation</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--light">
+          <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
+        </a>
+        <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
+        <div class="contact__social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__services">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="hse.html">HSE</a></li>
+          <li><a href="evaluation.html">Evaluation</a></li>
+          <li><a href="inspection-monitoring.html">Inspection &amp; Monitoring</a></li>
+          <li><a href="engineering-construction.html">Engineering &amp; Construction</a></li>
+          <li><a href="hvac.html">HVAC</a></li>
+          <li><a href="maintenance.html">Maintenance &amp; Parts Supplies</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone"></i> +967 78 340 2932</li>
+          <li><i class="fa-solid fa-envelope"></i> support@environmsafe.com</li>
+          <li><i class="fa-solid fa-globe"></i> www.environmsafe.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>&copy; <span class="year"></span> EnvironmSafe. All rights reserved.</p>
+        <p>Environmental &middot; Safety &middot; Engineering</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

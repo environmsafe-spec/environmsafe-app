@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EnvironmSafe HVAC — commercial and industrial HVAC system design, installation, maintenance, and air quality solutions." />
+  <title>HVAC | EnvironmSafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="../index.html" class="logo">
+        <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="../index.html" class="nav__link" data-page="index"><span data-i18n="nav_home">Home</span></a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav_services">Services</span>
+              <i class="fa-solid fa-chevron-down nav__chevron"></i>
+            </button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i><span data-i18n="svc_hse">HSE</span></a></li>
+              <li><a href="evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i><span data-i18n="svc_eval">Evaluation</span></a></li>
+              <li><a href="inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="svc_insp">Inspection &amp; Monitoring</span></a></li>
+              <li><a href="engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i><span data-i18n="svc_eng">Engineering &amp; Construction</span></a></li>
+              <li><a href="hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i><span data-i18n="svc_hvac">HVAC</span></a></li>
+              <li><a href="maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i><span data-i18n="svc_maint">Maintenance Services &amp; Parts Supplies</span></a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="../about.html" class="nav__link" data-page="about"><span data-i18n="nav_about">About</span></a>
+          </li>
+          <li class="nav__item">
+            <a href="../contact.html" class="nav__link" data-page="contact"><span data-i18n="nav_contact">Contact</span></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="../ar/services/hvac.html" class="lang-toggle" aria-label="Arabic version">
+          <i class="fa-solid fa-globe"></i>
+          <span>عربي</span>
+        </a>
+        <a href="../contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg page-hero__bg--hvac"></div>
+    <div class="container page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="hvac.html">Services</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>HVAC</span>
+      </nav>
+      <h1 class="page-hero__title fade-up">HVAC Services</h1>
+      <p class="page-hero__subtitle fade-up">
+        Heating, ventilation, and air conditioning solutions for commercial
+        and industrial facilities — designed for efficiency, comfort, and air quality.
+      </p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section service-intro">
+    <div class="container service-intro__inner">
+      <div class="service-intro__text fade-up">
+        <span class="section__tag">Our HVAC Expertise</span>
+        <h2 class="section__title" style="text-align:left;">Optimal Climate. Superior Air Quality.</h2>
+        <p>
+          Proper HVAC systems are essential not just for comfort — they directly impact
+          air quality, energy efficiency, occupational health, and regulatory compliance.
+          EnvironmSafe designs, installs, and maintains HVAC systems for commercial and
+          industrial facilities with a focus on performance and long-term reliability.
+        </p>
+        <p>
+          Our HVAC specialists bring deep expertise in industrial ventilation, clean room
+          systems, exhaust and air handling, and energy-efficient climate control — ensuring
+          your facility meets ASHRAE standards and local building codes.
+        </p>
+      </div>
+      <div class="service-intro__features fade-up">
+        <div class="service-feature"><i class="fa-solid fa-wind"></i><span>Commercial &amp; Industrial HVAC Design</span></div>
+        <div class="service-feature"><i class="fa-solid fa-temperature-half"></i><span>Energy-Efficient System Solutions</span></div>
+        <div class="service-feature"><i class="fa-solid fa-filter"></i><span>Air Quality &amp; Filtration Systems</span></div>
+        <div class="service-feature"><i class="fa-solid fa-wrench"></i><span>Installation, Testing &amp; Commissioning</span></div>
+        <div class="service-feature"><i class="fa-solid fa-calendar-check"></i><span>Preventive Maintenance Programs</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="section services" style="background:var(--clr-light);">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__tag">What We Offer</span>
+        <h2 class="section__title">HVAC Service Areas</h2>
+        <p class="section__subtitle">Complete HVAC solutions from design through long-term maintenance for commercial and industrial applications.</p>
+      </div>
+      <div class="service-detail__grid">
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--teal"><i class="fa-solid fa-drafting-compass"></i></div>
+          <h3>HVAC System Design</h3>
+          <p>Custom HVAC system design tailored to the specific load requirements, layout, and use of your facility.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Load calculations &amp; system sizing</li>
+            <li><i class="fa-solid fa-check"></i> Ductwork design &amp; layout</li>
+            <li><i class="fa-solid fa-check"></i> ASHRAE standards compliance</li>
+            <li><i class="fa-solid fa-check"></i> Energy modeling &amp; optimization</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--blue"><i class="fa-solid fa-industry"></i></div>
+          <h3>Industrial Ventilation</h3>
+          <p>Specialized industrial ventilation systems to control airborne contaminants, hazardous fumes, and process exhaust.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Local exhaust ventilation (LEV) design</li>
+            <li><i class="fa-solid fa-check"></i> General dilution ventilation</li>
+            <li><i class="fa-solid fa-check"></i> Fume hood &amp; capture systems</li>
+            <li><i class="fa-solid fa-check"></i> OSHA ventilation compliance</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon"><i class="fa-solid fa-filter"></i></div>
+          <h3>Air Quality &amp; Filtration</h3>
+          <p>Advanced air filtration and purification solutions to improve indoor air quality and meet health and safety standards.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> HEPA &amp; MERV-rated filtration</li>
+            <li><i class="fa-solid fa-check"></i> UV-C air purification systems</li>
+            <li><i class="fa-solid fa-check"></i> Humidity &amp; pressure control</li>
+            <li><i class="fa-solid fa-check"></i> Clean room HVAC design</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--orange"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h3>Installation &amp; Commissioning</h3>
+          <p>Professional HVAC installation with full system commissioning to ensure optimal performance from day one.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Equipment procurement &amp; installation</li>
+            <li><i class="fa-solid fa-check"></i> System balancing &amp; testing</li>
+            <li><i class="fa-solid fa-check"></i> Controls &amp; BMS integration</li>
+            <li><i class="fa-solid fa-check"></i> Commissioning reports</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--navy"><i class="fa-solid fa-calendar-check"></i></div>
+          <h3>Preventive Maintenance</h3>
+          <p>Scheduled preventive maintenance programs to maximize equipment lifespan, efficiency, and reliability.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Seasonal system tune-ups</li>
+            <li><i class="fa-solid fa-check"></i> Filter replacement programs</li>
+            <li><i class="fa-solid fa-check"></i> Coil cleaning &amp; inspection</li>
+            <li><i class="fa-solid fa-check"></i> Performance monitoring</li>
+          </ul>
+        </div>
+
+        <div class="service-detail__card fade-up">
+          <div class="service-detail__card-icon service-detail__card-icon--amber"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Energy-Efficiency Upgrades</h3>
+          <p>Retrofit and upgrade services to modernize aging HVAC systems and reduce energy consumption and operating costs.</p>
+          <ul class="service-detail__card-list">
+            <li><i class="fa-solid fa-check"></i> Energy audits &amp; benchmarking</li>
+            <li><i class="fa-solid fa-check"></i> High-efficiency equipment upgrades</li>
+            <li><i class="fa-solid fa-check"></i> Variable speed drive installation</li>
+            <li><i class="fa-solid fa-check"></i> Smart controls &amp; automation</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="service-highlights">
+    <div class="container service-highlights__grid">
+      <div class="fade-up">
+        <div class="highlight-item__number">150<span style="color:#5ddb97;font-size:1.5rem;">+</span></div>
+        <p class="highlight-item__label">HVAC Systems Installed</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">30<span style="color:#5ddb97;font-size:1.5rem;">%</span></div>
+        <p class="highlight-item__label">Average Energy Savings</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">24<span style="color:#5ddb97;font-size:1.2rem;">/7</span></div>
+        <p class="highlight-item__label">Emergency Service</p>
+      </div>
+      <div class="fade-up">
+        <div class="highlight-item__number">100<span style="color:#5ddb97;font-size:1.5rem;">%</span></div>
+        <p class="highlight-item__label">Certified HVAC Technicians</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container cta-banner__inner">
+      <div class="cta-banner__text">
+        <h2>Need an HVAC Solution?</h2>
+        <p>Our HVAC specialists will design the right system for your facility's needs.</p>
+      </div>
+      <a href="../contact.html" class="btn btn--white btn--lg">Get an HVAC Quote</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--light">
+          <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
+        </a>
+        <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
+        <div class="contact__social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__services">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="hse.html">HSE</a></li>
+          <li><a href="evaluation.html">Evaluation</a></li>
+          <li><a href="inspection-monitoring.html">Inspection &amp; Monitoring</a></li>
+          <li><a href="engineering-construction.html">Engineering &amp; Construction</a></li>
+          <li><a href="hvac.html">HVAC</a></li>
+          <li><a href="maintenance.html">Maintenance &amp; Parts Supplies</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone"></i> +967 78 340 2932</li>
+          <li><i class="fa-solid fa-envelope"></i> support@environmsafe.com</li>
+          <li><i class="fa-solid fa-globe"></i> www.environmsafe.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>&copy; <span class="year"></span> EnvironmSafe. All rights reserved.</p>
+        <p>Environmental &middot; Safety &middot; Engineering</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

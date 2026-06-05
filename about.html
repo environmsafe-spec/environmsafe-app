@@ -7,7 +7,7 @@
   <title>About Us | EnvironmSafe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -17,18 +17,42 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="index.html" class="logo">
-        <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
-        <span class="logo__text">Environm<strong>Safe</strong></span>
+        <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
       </a>
       <nav class="nav" id="nav">
         <ul class="nav__list">
-          <li><a href="index.html"    class="nav__link" data-page="index">Home</a></li>
-          <li><a href="services.html" class="nav__link" data-page="services">Services</a></li>
-          <li><a href="about.html"    class="nav__link" data-page="about">About</a></li>
-          <li><a href="contact.html"  class="nav__link" data-page="contact">Contact</a></li>
+          <li class="nav__item">
+            <a href="index.html" class="nav__link" data-page="index"><span data-i18n="nav_home">Home</span></a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav_services">Services</span>
+              <i class="fa-solid fa-chevron-down nav__chevron"></i>
+            </button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="services/hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i><span data-i18n="svc_hse">HSE</span></a></li>
+              <li><a href="services/evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i><span data-i18n="svc_eval">Evaluation</span></a></li>
+              <li><a href="services/inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="svc_insp">Inspection &amp; Monitoring</span></a></li>
+              <li><a href="services/engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i><span data-i18n="svc_eng">Engineering &amp; Construction</span></a></li>
+              <li><a href="services/hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i><span data-i18n="svc_hvac">HVAC</span></a></li>
+              <li><a href="services/maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i><span data-i18n="svc_maint">Maintenance Services &amp; Parts Supplies</span></a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="about.html" class="nav__link" data-page="about"><span data-i18n="nav_about">About</span></a>
+          </li>
+          <li class="nav__item">
+            <a href="contact.html" class="nav__link" data-page="contact"><span data-i18n="nav_contact">Contact</span></a>
+          </li>
         </ul>
       </nav>
-      <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      <div class="header__actions">
+        <a href="ar/about.html" class="lang-toggle" aria-label="Arabic version">
+          <i class="fa-solid fa-globe"></i>
+          <span>عربي</span>
+        </a>
+        <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -76,8 +100,8 @@
       </div>
       <div class="about-intro__stats fade-up">
         <div class="intro-stat">
-          <span class="stat-item__number" data-target="20">0</span><span class="stat-item__suffix">+</span>
-          <p class="stat-item__label">Years in Business</p>
+          <span class="stat-item__number" data-target="15">0</span><span class="stat-item__suffix">+</span>
+          <p class="stat-item__label">Key Staff Experience</p>
         </div>
         <div class="intro-stat">
           <span class="stat-item__number" data-target="500">0</span><span class="stat-item__suffix">+</span>
@@ -239,8 +263,7 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="index.html" class="logo logo--light">
-          <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
-          <span class="logo__text">Environm<strong>Safe</strong></span>
+          <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
         </a>
         <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
         <div class="contact__social">
@@ -261,19 +284,19 @@
       <div class="footer__services">
         <h4>Our Services</h4>
         <ul>
-          <li><a href="services.html">Environmental Services</a></li>
-          <li><a href="services.html">Safety Management</a></li>
-          <li><a href="services.html">Construction Services</a></li>
-          <li><a href="services.html">Inspection Services</a></li>
-          <li><a href="services.html">Engineering Solutions</a></li>
-          <li><a href="services.html">Parts &amp; Supply</a></li>
+          <li><a href="services/hse.html">HSE</a></li>
+          <li><a href="services/evaluation.html">Evaluation</a></li>
+          <li><a href="services/inspection-monitoring.html">Inspection &amp; Monitoring</a></li>
+          <li><a href="services/engineering-construction.html">Engineering &amp; Construction</a></li>
+          <li><a href="services/hvac.html">HVAC</a></li>
+          <li><a href="services/maintenance.html">Maintenance &amp; Parts Supplies</a></li>
         </ul>
       </div>
       <div class="footer__contact">
         <h4>Contact</h4>
         <ul>
-          <li><i class="fa-solid fa-phone"></i> (800) 000-0000</li>
-          <li><i class="fa-solid fa-envelope"></i> info@environmsafe.com</li>
+          <li><i class="fa-solid fa-phone"></i> +967 78 340 2932</li>
+          <li><i class="fa-solid fa-envelope"></i> support@environmsafe.com</li>
           <li><i class="fa-solid fa-globe"></i> www.environmsafe.com</li>
         </ul>
       </div>
