@@ -1389,6 +1389,9 @@ input, textarea, select {
 .page-hero__bg--maintenance {
   background: linear-gradient(135deg, #7c3d00 0%, #0a2d4a 100%);
 }
+.page-hero__bg--training {
+  background: linear-gradient(135deg, #0a2d4a 0%, #1a3a6e 50%, #0d7f8a 100%);
+}
 
 /* ====================================================
    Service Detail Page Styles
