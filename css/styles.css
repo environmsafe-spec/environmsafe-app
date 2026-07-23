@@ -1392,6 +1392,9 @@ input, textarea, select {
 .page-hero__bg--training {
   background: linear-gradient(135deg, #0a2d4a 0%, #1B2A4A 50%, #0d7f8a 100%);
 }
+.page-hero__bg--lpg {
+  background: linear-gradient(135deg, #121D33 0%, #1B2A4A 50%, #7c3d00 100%);
+}
 
 /* ====================================================
    Service Detail Page Styles
@@ -1556,4 +1559,158 @@ input, textarea, select {
   .partners__grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
   .partner-card { padding: 14px 12px; min-height: 80px; }
   .partner-card img { max-height: 52px; max-width: 110px; }
+}
+
+/* ====================================================
+   Certifications Trust Bar
+   ==================================================== */
+
+.cert-trust-bar {
+  background: var(--clr-secondary);
+  padding: 24px 0;
+}
+.cert-trust-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cert-trust-bar__label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cert-trust-bar__items {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.cert-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--clr-white);
+}
+.cert-trust-item > i {
+  font-size: 1.4rem;
+  color: var(--clr-accent);
+  flex-shrink: 0;
+}
+.cert-trust-item strong {
+  display: block;
+  font-size: .88rem;
+  font-weight: 700;
+}
+.cert-trust-item span {
+  display: block;
+  font-size: .78rem;
+  color: rgba(255,255,255,.6);
+}
+@media (max-width: 768px) {
+  .cert-trust-bar__inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .cert-trust-bar__items { gap: 20px; }
+}
+
+/* ====================================================
+   CMMS Section
+   ==================================================== */
+
+.cmms-section {
+  background: var(--clr-white);
+}
+.cmms-section__intro {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.cmms-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.cmms-step {
+  background: var(--clr-light);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  border-left: 4px solid var(--clr-accent);
+}
+.cmms-step__number {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--clr-accent);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.cmms-step h3 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-secondary);
+  margin-bottom: 8px;
+}
+.cmms-step p {
+  font-size: .88rem;
+  color: var(--clr-text-md);
+  line-height: 1.6;
+}
+
+/* ====================================================
+   Fire Protection Highlight Banner
+   ==================================================== */
+
+.fire-protect-banner {
+  background: linear-gradient(135deg, #121D33 0%, #1B2A4A 100%);
+  padding: 60px 0;
+}
+.fire-protect-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.fire-protect-banner__stat {
+  text-align: center;
+  flex-shrink: 0;
+}
+.fire-protect-banner__number {
+  font-family: var(--font-head);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  color: var(--clr-accent);
+  line-height: 1;
+}
+.fire-protect-banner__number span {
+  font-size: 0.5em;
+}
+.fire-protect-banner__stat-label {
+  font-size: .9rem;
+  color: rgba(255,255,255,.7);
+  margin-top: 6px;
+}
+.fire-protect-banner__content {
+  flex: 1;
+  min-width: 260px;
+}
+.fire-protect-banner__content h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: var(--clr-white);
+  margin-bottom: 14px;
+}
+.fire-protect-banner__content p {
+  color: rgba(255,255,255,.75);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+@media (max-width: 768px) {
+  .fire-protect-banner__inner { flex-direction: column; text-align: center; }
 }
