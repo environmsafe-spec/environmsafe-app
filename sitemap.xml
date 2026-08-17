@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.environmsafe.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.environmsafe.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.environmsafe.com/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/contact.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- HSE -->
+  <url>
+    <loc>https://www.environmsafe.com/services/hse.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/hse.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/hse.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Evaluation -->
+  <url>
+    <loc>https://www.environmsafe.com/services/evaluation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/evaluation.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/evaluation.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- LPG Systems -->
+  <url>
+    <loc>https://www.environmsafe.com/services/lpg-systems.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/lpg-systems.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/lpg-systems.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Inspection & Monitoring -->
+  <url>
+    <loc>https://www.environmsafe.com/services/inspection-monitoring.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/inspection-monitoring.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/inspection-monitoring.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Engineering & Construction -->
+  <url>
+    <loc>https://www.environmsafe.com/services/engineering-construction.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/engineering-construction.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/engineering-construction.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- HVAC -->
+  <url>
+    <loc>https://www.environmsafe.com/services/hvac.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/hvac.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/hvac.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Maintenance -->
+  <url>
+    <loc>https://www.environmsafe.com/services/maintenance.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/maintenance.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/maintenance.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Training -->
+  <url>
+    <loc>https://www.environmsafe.com/services/training.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/services/training.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/services/training.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Arabic versions -->
+  <url>
+    <loc>https://www.environmsafe.com/ar/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/hse.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/evaluation.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/lpg-systems.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/inspection-monitoring.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/engineering-construction.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/hvac.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/maintenance.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/services/training.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
