@@ -177,6 +177,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-08-26-nebosh-iosh-training-in-arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-08-26-nebosh-iosh-training-in-arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-08-26-nebosh-iosh-training-in-arabic.html"/>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-08-26-nebosh-iosh-training-in-arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-08-26-nebosh-iosh-training-in-arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-08-26-nebosh-iosh-training-in-arabic.html"/>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-08-25-lpg-safety-starts-at-design.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-08-25-lpg-safety-starts-at-design.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-08-25-lpg-safety-starts-at-design.html"/>
