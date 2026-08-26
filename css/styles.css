@@ -1714,3 +1714,44 @@ input, textarea, select {
 @media (max-width: 768px) {
   .fire-protect-banner__inner { flex-direction: column; text-align: center; }
 }
+
+/* ---------- ARTICLE / POST PAGES ---------- */
+.post { padding: 72px 0 80px; }
+.post__inner { max-width: 760px; margin: 0 auto; }
+.post__meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  font-size: .85rem; color: var(--clr-text-lt);
+  margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--clr-border);
+}
+.post__tag {
+  display: inline-block; background: var(--clr-light); color: var(--clr-primary);
+  font-weight: 600; font-size: .78rem; padding: 4px 12px; border-radius: 999px;
+}
+.post-body { color: var(--clr-text-md); font-size: 1.05rem; line-height: 1.85; }
+.post-body p { margin-bottom: 22px; }
+.post-body h2 {
+  font-family: var(--font-head); font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 800; color: var(--clr-primary); margin: 38px 0 16px;
+}
+.post-body h3 {
+  font-family: var(--font-head); font-size: 1.15rem; font-weight: 700;
+  color: var(--clr-primary); margin: 28px 0 12px;
+}
+.post-body ul { margin: 0 0 22px; padding-inline-start: 22px; }
+.post-body li { margin-bottom: 10px; }
+.post-body strong { color: var(--clr-text); font-weight: 600; }
+.post-body a { color: var(--clr-teal); text-decoration: underline; }
+.post-body a:hover { color: var(--clr-primary); }
+.post__cta-box {
+  margin-top: 40px; padding: 28px; background: var(--clr-light);
+  border-radius: var(--radius-md); border-inline-start: 4px solid var(--clr-accent);
+}
+.post__cta-box h3 { font-family: var(--font-head); color: var(--clr-primary); margin-bottom: 10px; font-size: 1.15rem; }
+.post__cta-box p { color: var(--clr-text-md); margin-bottom: 18px; line-height: 1.7; }
+.post__back { display: inline-flex; align-items: center; gap: 8px; margin-top: 36px; font-weight: 600; color: var(--clr-primary); }
+.post__back:hover { color: var(--clr-accent-dk); }
+@media (max-width: 768px) {
+  .post { padding: 48px 0 56px; }
+  .post-body { font-size: 1rem; }
+  .post__cta-box { padding: 20px; }
+}
