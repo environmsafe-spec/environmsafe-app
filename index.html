@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    /* Arabic is this site's default language. Anyone opening the root URL is sent to the
+       Arabic homepage. Choosing English from the Arabic page carries ?lang=en, which is
+       remembered for the rest of that browsing session so the visitor is not bounced back
+       while reading. If anything fails, this English page simply stays visible. */
+    (function () {
+      try {
+        if (window.location.search.indexOf('lang=en') !== -1) {
+          sessionStorage.setItem('es-lang', 'en');
+          return;
+        }
+        if (sessionStorage.getItem('es-lang') === 'en') { return; }
+        window.location.replace('ar/');
+      } catch (e) { /* leave the English homepage in place */ }
+    })();
+  </script>
   <meta name="description" content="EnvironmSafe: HSE, LPG systems, fire protection, inspection, engineering and construction, and NEBOSH and IOSH accredited training across Yemen and the region." />
   <title>EnvironmSafe | Environmental · Safety · Engineering Solutions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
