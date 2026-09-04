@@ -37,14 +37,14 @@
 
   /* Show the job reference and service from the link, so the customer sees
      we know which visit this is about. */
-  (function showContext() {
+  function showContext() {
     var p = E.linkParams();
     var box = document.getElementById('fbContext');
     var bits = [];
     if (p.svc) bits.push('<span class="tool__chip-static">' + t('Service', 'الخدمة') + ': <strong>' + prettySvc(p.svc) + '</strong></span>');
     if (p.ref) bits.push('<span class="tool__chip-static">' + t('Job', 'رقم العمل') + ': <strong>' + esc(p.ref) + '</strong></span>');
     box.innerHTML = bits.join('');
-  })();
+  }
 
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
@@ -68,6 +68,9 @@
     if (hit) return esc(AR ? hit[1] : hit[0]);
     return esc(s.replace(/[-_]+/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }));
   }
+
+  /* Called here, not where it is defined: it needs SVC and prettySvc above. */
+  showContext();
 
   function renderChips(kind) {
     qEl.innerHTML = Q[kind];
