@@ -1757,3 +1757,192 @@ input, textarea, select {
   .post-body { font-size: 1rem; }
   .post__cta-box { padding: 20px; }
 }
+
+/* ==========================================================================
+   FEEDBACK & COMPLAINT TOOLS
+   ========================================================================== */
+.tool { background: var(--clr-bg-alt, #f6f8fb); }
+.tool__card {
+  max-width: 660px;
+  margin: 0 auto;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 40px 36px;
+}
+.tool__lead {
+  text-align: center;
+  color: var(--clr-text-lt);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+.tool__context {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.tool__chip-static {
+  background: rgba(27,42,74,.06);
+  border: 1px solid var(--clr-border);
+  border-radius: 99px;
+  padding: .35em 1em;
+  font-size: .8rem;
+  color: var(--clr-text-lt);
+}
+.tool__chip-static strong { color: var(--clr-text); font-weight: 600; }
+
+/* ---------- Three faces ---------- */
+.faces {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 8px;
+  background: var(--clr-white);
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-md, 14px);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.face:hover { transform: translateY(-3px); }
+.face:focus-visible { outline: 3px solid rgba(27,42,74,.35); outline-offset: 2px; }
+.face svg { width: 58px; height: 58px; display: block; }
+.face__label { font-size: .9rem; font-weight: 600; color: var(--clr-text-lt); }
+.face[aria-pressed="true"] { transform: translateY(-3px); }
+.face[data-v="bad"][aria-pressed="true"]  { border-color: #e5533d; background: rgba(229,83,61,.07); }
+.face[data-v="ok"][aria-pressed="true"]   { border-color: #e3a038; background: rgba(227,160,56,.09); }
+.face[data-v="good"][aria-pressed="true"] { border-color: #2ea36a; background: rgba(46,163,106,.08); }
+.face[aria-pressed="true"] .face__label { color: var(--clr-text); }
+@media (max-width: 420px) {
+  .face { padding: 14px 4px; }
+  .face svg { width: 46px; height: 46px; }
+  .face__label { font-size: .8rem; }
+}
+
+/* ---------- Reveal panel ---------- */
+.tool__more {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .45s ease, opacity .3s ease, margin .3s ease;
+}
+.tool__more.open { max-height: 1400px; opacity: 1; margin-top: 26px; }
+.tool__q {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  margin-bottom: 10px;
+}
+.tool__hint { font-size: .8rem; color: var(--clr-text-lt); font-weight: 400; }
+
+/* ---------- Selectable chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.chip {
+  border: 1.5px solid var(--clr-border);
+  background: var(--clr-white);
+  border-radius: 99px;
+  padding: .5em 1.1em;
+  font-size: .86rem;
+  color: var(--clr-text-lt);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.chip:hover { border-color: var(--clr-primary); color: var(--clr-text); }
+.chip[aria-pressed="true"] {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+/* ---------- Segmented control ---------- */
+.seg { display: flex; gap: 0; border: 1.5px solid var(--clr-border); border-radius: 99px; padding: 4px; margin-bottom: 22px; }
+.seg button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  border-radius: 99px;
+  padding: .6em .5em;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--clr-text-lt);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.seg button[aria-pressed="true"] { background: var(--clr-primary); color: var(--clr-white); }
+
+/* ---------- Result screens ---------- */
+.tool__result { display: none; text-align: center; padding: 12px 0; }
+.tool__result.show { display: block; }
+.tool__result-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 2rem;
+  background: rgba(46,163,106,.12);
+  color: #2ea36a;
+}
+.tool__result-icon--warn { background: rgba(227,160,56,.15); color: #b9791b; }
+.tool__result h3 { font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 10px; color: var(--clr-text); }
+.tool__result p { color: var(--clr-text-lt); line-height: 1.75; margin-bottom: 8px; }
+.tool__ref {
+  display: inline-block;
+  margin: 14px 0 6px;
+  padding: .7em 1.4em;
+  background: rgba(27,42,74,.06);
+  border: 1px dashed var(--clr-primary);
+  border-radius: var(--radius-sm);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--clr-primary);
+}
+.tool__notice {
+  display: none;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(227,160,56,.1);
+  border: 1px solid rgba(227,160,56,.35);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: .87rem;
+  color: var(--clr-text);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.tool__notice.show { display: flex; }
+.tool__notice i { color: #b9791b; margin-top: 3px; }
+
+/* Honeypot: never visible to a person, catches naive bots.
+   Must not use a large negative offset - in an RTL document that becomes real
+   scrollable overflow and drags the whole page sideways. Clip instead. */
+.hp {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 560px) {
+  .tool__card { padding: 28px 20px; }
+}
+
+/* RTL */
+[dir="rtl"] .tool__notice { text-align: right; }
+[dir="rtl"] .tool__ref { direction: ltr; }
