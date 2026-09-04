@@ -149,15 +149,38 @@
     btn.disabled = true;
     if (textEl) textEl.textContent = document.documentElement.lang === 'ar' ? 'جارٍ الإرسال…' : 'Sending…';
 
-    setTimeout(() => {
+    const AR = document.documentElement.lang === 'ar';
+    const restore = () => {
       btn.disabled = false;
-      if (textEl) textEl.textContent = document.documentElement.lang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
+      if (textEl) textEl.textContent = AR ? 'إرسال الرسالة' : 'Send Message';
+    };
+
+    // Real submission. Previously this only pretended to send.
+    if (!window.ESForms) { restore(); return; }
+    window.ESForms.send('contact', {
+      name:    (fields.name    && fields.name.el.value.trim())    || '',
+      company: (document.getElementById('company') || {}).value   || '',
+      email:   (fields.email   && fields.email.el.value.trim())   || '',
+      phone:   (document.getElementById('phone')   || {}).value   || '',
+      service: (fields.service && fields.service.el.value)        || '',
+      message: (fields.message && fields.message.el.value.trim()) || '',
+      lang:    AR ? 'ar' : 'en'
+    }, (ok, why) => {
+      restore();
+      if (!ok) {
+        alert(why === 'offline'
+          ? (AR ? 'يبدو أنك غير متصل بالإنترنت، لذلك لم تُرسل الرسالة. يرجى المحاولة مجدداً أو مراسلتنا على support@environmsafe.com'
+                : 'You appear to be offline, so nothing was sent. Please try again, or email support@environmsafe.com')
+          : (AR ? 'تعذّر إرسال الرسالة. يرجى مراسلتنا مباشرة على support@environmsafe.com'
+                : 'We could not send your message. Please email us directly at support@environmsafe.com'));
+        return;
+      }
       form.reset();
       if (successEl) {
         successEl.classList.add('show');
-        setTimeout(() => successEl.classList.remove('show'), 5000);
+        setTimeout(() => successEl.classList.remove('show'), 8000);
       }
-    }, 1200);
+    });
   });
 
 })();
