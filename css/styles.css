@@ -1943,6 +1943,47 @@ input, textarea, select {
   .tool__card { padding: 28px 20px; }
 }
 
+/* ---------- Homepage speak-up strip ---------- */
+.speakup {
+  background: var(--clr-light);
+  border-top: 1px solid var(--clr-border);
+}
+.speakup__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 0;
+}
+.speakup__text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .93rem;
+  color: var(--clr-text-md);
+  line-height: 1.6;
+}
+.speakup__text i { color: var(--clr-primary); font-size: 1.1rem; }
+.speakup__text strong { color: var(--clr-text); font-weight: 600; }
+.speakup__links { display: flex; gap: 10px; flex-wrap: wrap; }
+.speakup__link {
+  border: 1.5px solid var(--clr-border);
+  background: var(--clr-white);
+  border-radius: 99px;
+  padding: .5em 1.2em;
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--clr-primary);
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+.speakup__link:hover { border-color: var(--clr-primary); background: var(--clr-primary); color: var(--clr-white); }
+@media (max-width: 680px) {
+  .speakup__inner { justify-content: center; text-align: center; }
+  .speakup__text { justify-content: center; }
+}
+
 /* RTL */
 [dir="rtl"] .tool__notice { text-align: right; }
 [dir="rtl"] .tool__ref { direction: ltr; }
