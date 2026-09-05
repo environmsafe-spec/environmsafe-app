@@ -191,6 +191,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-09-05-psv-certified-test-bench-only-provider.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-05-psv-certified-test-bench-only-provider.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-09-05-psv-certified-test-bench-only-provider.html"/>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-09-05-psv-certified-test-bench-only-provider.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-05-psv-certified-test-bench-only-provider.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-09-05-psv-certified-test-bench-only-provider.html"/>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-09-03-safety-management-system-when-nobody-is-watching.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-03-safety-management-system-when-nobody-is-watching.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-09-03-safety-management-system-when-nobody-is-watching.html"/>
