@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="EnvironmSafe internal business agent." />
+  <title>Business Agent | EnvironmSafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/agent.css" />
+</head>
+<body class="agent-body">
+
+  <!-- SIGN IN -->
+  <div class="gate" id="gate">
+    <form class="gate__card" id="gate-form">
+      <div class="gate__logo">Environm<strong>Safe</strong></div>
+      <p class="gate__hint">Staff access only. Enter your team passcode.</p>
+      <input type="password" id="passcode" placeholder="••••••" autocomplete="current-password"
+             required aria-label="Staff passcode" />
+      <button type="submit" id="gate-submit">Sign in</button>
+      <p class="gate__error" id="gate-error" role="alert"></p>
+    </form>
+  </div>
+
+  <!-- CONSOLE -->
+  <div class="agent-shell" id="shell">
+    <div class="agent-top">
+      <h1>
+        EnvironmSafe Business Agent
+        <span>Procurement &middot; Receivables &middot; Email &middot; EHS documents</span>
+      </h1>
+      <div class="agent-top__actions">
+        <button type="button" id="btn-new"><i class="fa-solid fa-plus"></i> New</button>
+        <button type="button" id="btn-signout">Sign out</button>
+      </div>
+    </div>
+
+    <div class="transcript" id="transcript">
+      <div class="welcome" id="welcome">
+        <h2>What do you need done?</h2>
+        <p>
+          I can read your Drive and mailbox, build quotations and invoices in the house
+          format, and prepare emails for you to send.
+        </p>
+        <div class="starters">
+          <button class="starter" data-prompt="Show me every quotation we sent out in the last 30 days, and tell me which ones have not yet come back as a purchase order.">
+            <b>Open quotations</b>
+            <span>Which quotes are still waiting on a customer PO?</span>
+          </button>
+          <button class="starter" data-prompt="Go through our invoices out and work out who currently owes us money. List each customer, the invoice number, the amount and how old it is.">
+            <b>Who owes us money</b>
+            <span>Build a receivables position from the invoice files.</span>
+          </button>
+          <button class="starter" data-prompt="Check the mailbox for any new RFQs or enquiries from customers in the last 7 days that we have not replied to yet. Summarise each one.">
+            <b>Unanswered enquiries</b>
+            <span>Find RFQs in the inbox that still need a reply.</span>
+          </button>
+          <button class="starter" data-prompt="I want to send an RFQ to our suppliers. Ask me what items are needed, then prepare the draft emails.">
+            <b>Send an RFQ</b>
+            <span>Prepare supplier RFQ drafts for a new enquiry.</span>
+          </button>
+          <button class="starter" data-prompt="Help me build a new quotation for a customer. Ask me for the customer, the line items and the margin you should apply, then create it and file it in 04 Quotations Out.">
+            <b>Build a quotation</b>
+            <span>New customer quote in the house format.</span>
+          </button>
+          <button class="starter" data-prompt="Draft an introduction email we can send to local companies in our area who might need our EHS, inspection or calibration services. Keep it short and credible, and base it on what we actually offer.">
+            <b>New customer outreach</b>
+            <span>Draft an introduction to local prospects.</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="composer__inner">
+        <textarea id="input" rows="1" placeholder="Ask the agent to do something…"
+                  aria-label="Message the agent"></textarea>
+        <button type="button" id="send" aria-label="Send">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </div>
+      <p class="composer__note">
+        The agent never sends email on its own — it prepares drafts for you to review and send.
+      </p>
+    </div>
+  </div>
+
+  <script src="js/agent.js"></script>
+</body>
+</html>

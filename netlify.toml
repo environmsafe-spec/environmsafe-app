@@ -1,0 +1,23 @@
+# Netlify configuration for environmsafe.com
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# The agent console is staff-only; the function itself enforces the session
+# cookie, these headers just keep it out of search results and framesets.
+[[headers]]
+  for = "/agent.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

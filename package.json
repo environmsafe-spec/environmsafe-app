@@ -1,0 +1,11 @@
+{
+  "name": "environmsafe-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EnvironmSafe business agent — procurement, receivables, email and EHS document automation",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  }
+}
