@@ -36,6 +36,7 @@ const DEFAULT_PROFILE = {
     banks: [],
   },
   folders: {},
+  ledgerFileId: "",
   customers: [],
   suppliers: [],
 };
@@ -64,6 +65,18 @@ export function profile() {
     );
   }
   return parsed;
+}
+
+/** Drive file ID of the finance & procurement ledger workbook. */
+export function ledgerFileId() {
+  const id = profile().ledgerFileId;
+  if (!id) {
+    throw new Error(
+      "No ledger configured. Add ES_PROFILE.ledgerFileId (the Drive file ID of the " +
+        "finance workbook) — see AGENT_SETUP.md.",
+    );
+  }
+  return id;
 }
 
 /** Resolves a workflow folder name to its Drive ID. */

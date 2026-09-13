@@ -11,7 +11,8 @@ import {
   gmailSearch, gmailRead, gmailDraft,
 } from "./google.js";
 import { renderDocument } from "./documents.js";
-import { FOLDER_NAMES, folderId } from "./knowledge.js";
+import { loadLedger, analyseReceivables, formatReceivables } from "./ledger.js";
+import { FOLDER_NAMES, folderId, ledgerFileId, company } from "./knowledge.js";
 
 const folderNames = FOLDER_NAMES;
 
@@ -118,10 +119,28 @@ export const TOOLS = [
     },
   },
   {
+    name: "receivables_report",
+    description:
+      "Work out the receivables position from the finance ledger: which recorded invoices are " +
+      "still open and how old they are, and each customer's balance per currency. " +
+      "The report ends with a DATA QUALITY section naming the limits of the underlying data — " +
+      "you must repeat those limits whenever you quote a figure from it, and you must never " +
+      "present a balance as 'the amount owed' if the report says invoices are under-recorded.",
+    input_schema: {
+      type: "object",
+      properties: {
+        customer: { type: "string", description: "Restrict to one customer. Omit for all." },
+        file_id: { type: "string", description: "Override the configured ledger workbook." },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
     name: "sheet_read",
     description:
-      "Read a range from a Google Sheet — the finance and procurement ledger lives in one. " +
-      "Use A1 notation, e.g. 'Transactions!A1:M200'.",
+      "Read a range from a native Google Sheet, using A1 notation (e.g. 'Sheet1!A1:M200'). " +
+      "This does NOT work on the finance ledger, which is a real .xlsx file — use " +
+      "receivables_report for that, or drive_read to inspect other spreadsheets.",
     input_schema: {
       type: "object",
       properties: {
@@ -281,6 +300,20 @@ export async function executeTool(name, input) {
           `${input.kind} ${input.number} created and filed in "${input.folder}".\n` +
           `Line-item subtotal: $${(subtotalCents / 100).toFixed(2)} across ${input.items.length} item(s).\n` +
           `Open and print to PDF: ${saved.webViewLink}`,
+      };
+    }
+
+    case "receivables_report": {
+      const ledger = await loadLedger(input.file_id ?? ledgerFileId());
+      const co = company();
+      const report = analyseReceivables(
+        ledger.rows,
+        new Date(),
+        input.customer ?? null,
+        [co.tradingName, co.legalName].filter(Boolean),
+      );
+      return {
+        text: `Source: ${ledger.name} — sheet "${ledger.sheetName}".\n\n${formatReceivables(report)}`,
       };
     }
 

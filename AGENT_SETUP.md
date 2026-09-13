@@ -15,7 +15,7 @@ the Google credentials live only in Netlify's environment.
 |---|---|
 | Procurement | Finds RFQs, supplier quotations and POs in Drive; works out which stage a deal is at and what is missing |
 | Quotations & invoices | Builds them in the house layout, numbered `Q-YYYYMMDDNN` / `INV-YYYYMMDDNN`, filed in the right workflow folder |
-| Receivables | Reads invoices out and the finance sheet to work out who owes what, and how old it is |
+| Receivables | Reads the .xlsx finance ledger directly; reports open invoices with ages and per-customer balances **per currency**, plus the data-quality limits of those figures |
 | Email | Searches and reads the mailbox, prepares drafts — **it never sends** |
 | Outreach | Drafts introduction emails to prospective local customers |
 | EHS documents | Drafts inspection reports, safety plans and compliance documents from your own past work |
@@ -98,6 +98,7 @@ IDs (open a folder in Drive; the ID is the last part of the URL):
     "09 Examples": "<drive folder id>",
     "10 Others": "<drive folder id>"
   },
+  "ledgerFileId": "<drive file id of the finance workbook>",
   "customers": ["..."],
   "suppliers": ["..."]
 }
@@ -172,6 +173,7 @@ netlify/lib/knowledge.js     the agent's rules and behaviour  ← edit this
 netlify/lib/tools.js         what the agent can do
 netlify/lib/google.js        Drive, Sheets and Gmail access
 netlify/lib/documents.js     quotation / invoice rendering
+netlify/lib/ledger.js        reads the .xlsx ledger, derives receivables
 netlify/lib/session.js       signed session cookies
 ```
 

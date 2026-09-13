@@ -126,6 +126,18 @@ export async function driveRead(fileId) {
   };
 }
 
+/**
+ * Downloads a file's raw bytes. Needed for spreadsheets: the Sheets API only
+ * reads native Google Sheets, and the finance ledger is a real .xlsx that is
+ * deliberately kept in Excel format to preserve its formulas and validations.
+ */
+export async function driveDownload(fileId) {
+  const metaRes = await call(`${DRIVE}/files/${fileId}?fields=id,name,mimeType,size`);
+  const meta = await metaRes.json();
+  const res = await call(`${DRIVE}/files/${fileId}?alt=media`);
+  return { meta, buffer: Buffer.from(await res.arrayBuffer()) };
+}
+
 export async function driveUpload({ name, folderId, mimeType, content }) {
   const boundary = `es${Date.now().toString(36)}`;
   const metadata = JSON.stringify({ name, parents: folderId ? [folderId] : undefined });

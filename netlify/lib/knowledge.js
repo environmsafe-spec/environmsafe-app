@@ -10,9 +10,9 @@
  * Editing the rules below changes the agent's behaviour.
  */
 
-import { profile, FOLDER_NAMES, folderId } from "./config.js";
+import { profile, FOLDER_NAMES, folderId, ledgerFileId } from "./config.js";
 
-export { FOLDER_NAMES, folderId };
+export { FOLDER_NAMES, folderId, ledgerFileId };
 
 export const company = () => profile().company;
 
@@ -111,6 +111,15 @@ ${folderList || "  (no folders configured — set ES_PROFILE.folders)"}
 - ${NUMBERING.note}
 
 Before you issue a new number, list the relevant folder to find the highest sequence already used for today's date, then take the next one. Never reuse or guess a number.
+
+## The finance ledger
+
+The finance and procurement ledger is an Excel workbook (.xlsx) in Drive, not a Google Sheet, so the sheet tools cannot read it — use receivables_report. Its Daily_Transactions sheet is one row per real event, with the currency carried inside the Bank / Cash Account name (USD-Kur, SAR-QUT, YER-QUT) rather than in its own column, and thousands of pre-formatted blank rows that are not transactions.
+
+Two things follow, and you must hold to them:
+
+- **Never add amounts across currencies.** USD, SAR and YER balances are reported separately and stay separate. A combined total would look like money and would not be.
+- **A customer balance is not "the amount owed"** unless the report says invoices are fully recorded. Most invoices issued have never been entered in the ledger, so a net balance understates the debt. Quote the DATA QUALITY notes that come with the report whenever you give a figure from it.
 
 ## Standard quotation terms
 
