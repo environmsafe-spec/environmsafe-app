@@ -113,6 +113,8 @@ sees; they do not need to be complete.
 
 Connect the repository in **Workers & Pages → Create → Pages → Connect to Git**,
 pick this repo, and leave the build command empty — the site has no build step.
+The build output directory is `public`; `functions/` and `lib/` sit outside it so
+the agent's server-side source is never served to visitors.
 `wrangler.toml` supplies the rest, including the `nodejs_compat` flag the agent
 needs for `Buffer`, `node:crypto` and `.xlsx` parsing.
 
@@ -173,9 +175,10 @@ To add a new capability, add a tool in `lib/tools.js`: a definition in
 ## Files
 
 ```
-agent.html                   the staff console
-css/agent.css                its styling
-js/agent.js                  chat UI; talks to /api/agent, holds no secrets
+public/                      everything served to visitors
+  agent.html                 the staff console
+  css/agent.css              its styling
+  js/agent.js                chat UI; talks to /api/agent, holds no secrets
 functions/api/agent.js       the agent loop, streamed over SSE
 functions/api/login.js       passcode sign-in
 lib/runtime.js               hands Cloudflare's bindings to the library

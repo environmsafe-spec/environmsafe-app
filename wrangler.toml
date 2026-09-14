@@ -1,10 +1,11 @@
 # Cloudflare Pages configuration for environmsafe.com
 #
-# The repository root is published as the static site; everything under
-# functions/ becomes an API route (functions/api/agent.js -> /api/agent).
+# Only public/ is published as the website. functions/ and lib/ stay outside it:
+# Pages treats functions/ specially and never serves it, but lib/ is ordinary
+# source — served as downloadable files if it sits inside the output directory.
 
 name = "environmsafe"
-pages_build_output_dir = "."
+pages_build_output_dir = "public"
 compatibility_date = "2026-09-14"
 
 # The agent uses Buffer and node:crypto for base64url encoding, HMAC session
