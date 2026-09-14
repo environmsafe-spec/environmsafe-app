@@ -1,6 +1,10 @@
-import { checkPasscode, issueCookie, clearCookie, readSession } from "../lib/session.js";
+import { setEnv } from "../../lib/runtime.js";
+import { checkPasscode, issueCookie, clearCookie, readSession } from "../../lib/session.js";
 
-export default async (request) => {
+export async function onRequest(context) {
+  const { request } = context;
+  setEnv(context.env);
+
   if (request.method === "GET") {
     return Response.json({ signedIn: Boolean(readSession(request)) });
   }
@@ -29,6 +33,4 @@ export default async (request) => {
   }
 
   return Response.json({ ok: true }, { headers: { "Set-Cookie": issueCookie() } });
-};
-
-export const config = { path: "/api/login" };
+}

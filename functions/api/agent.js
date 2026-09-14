@@ -5,14 +5,19 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { requireSession } from "../lib/session.js";
-import { buildSystemPrompt } from "../lib/knowledge.js";
-import { TOOLS, executeTool } from "../lib/tools.js";
+import { setEnv } from "../../lib/runtime.js";
+import { requireSession } from "../../lib/session.js";
+import { buildSystemPrompt } from "../../lib/knowledge.js";
+import { TOOLS, executeTool } from "../../lib/tools.js";
 
 const MODEL = "claude-opus-5";
 const MAX_TURNS = 24;
 
-export default async (request) => {
+export async function onRequest(context) {
+  const { request } = context;
+  // Hand the Worker's bindings to the library modules before anything reads them.
+  setEnv(context.env);
+
   try {
     requireSession(request);
   } catch {
@@ -33,7 +38,7 @@ export default async (request) => {
     return Response.json({ error: "No messages supplied." }, { status: 400 });
   }
 
-  const client = new Anthropic();
+  const client = new Anthropic({ apiKey: context.env.ANTHROPIC_API_KEY });
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
@@ -164,7 +169,7 @@ export default async (request) => {
       Connection: "keep-alive",
     },
   });
-};
+}
 
 /**
  * PDFs and images are pulled in so Claude can read a source document, but they
@@ -208,12 +213,10 @@ function describeError(error) {
     return "Rate limited by the Claude API. Wait a moment and try again.";
   }
   if (error instanceof Anthropic.AuthenticationError) {
-    return "The ANTHROPIC_API_KEY is missing or invalid. Check the Netlify environment variables.";
+    return "The ANTHROPIC_API_KEY is missing or invalid. Check the Cloudflare Pages environment variables.";
   }
   if (error instanceof Anthropic.APIConnectionError) {
     return "Could not reach the Claude API. Check the connection and try again.";
   }
   return error?.message ?? "Something went wrong.";
 }
-
-export const config = { path: "/api/agent" };

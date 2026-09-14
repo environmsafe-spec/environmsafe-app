@@ -1,0 +1,10 @@
+# The agent console is staff-only. The Pages Function enforces the session
+# cookie; these headers keep the page out of search results and framesets.
+/agent.html
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+  Cache-Control: no-store
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

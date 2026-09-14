@@ -1,11 +1,11 @@
 # EnvironmSafe Business Agent — setup
 
-This is the company's own AI agent, running at `environmsafe.com/agent.html`. It
+This is the company's own AI agent, running at `environmsafe.com/agent`. It
 reads the company Google Drive and mailbox, builds quotations and invoices in the
 house format, and prepares emails for a person to review and send.
 
 Nothing here runs in the browser except the chat window. The Claude API key and
-the Google credentials live only in Netlify's environment.
+the Google credentials live only in the Cloudflare Pages environment.
 
 ---
 
@@ -56,9 +56,11 @@ Drive folders and receives customer mail.
 > like a bank password. If it ever leaks, revoke it at
 > <https://myaccount.google.com/permissions>.
 
-### 3. Netlify environment variables
+### 3. Cloudflare Pages environment variables
 
-In **Site settings → Environment variables**, add:
+In the Cloudflare dashboard: **Workers & Pages → environmsafe → Settings →
+Variables and Secrets**. Add each of these as a **Secret** (not a plain text
+variable) so the values are write-only once saved:
 
 | Variable | Value |
 |---|---|
@@ -109,8 +111,16 @@ sees; they do not need to be complete.
 
 ### 4. Deploy
 
-Netlify picks up `netlify.toml` and builds the functions automatically. Push the
-branch and deploy; then open `https://environmsafe.com/agent.html`.
+Connect the repository in **Workers & Pages → Create → Pages → Connect to Git**,
+pick this repo, and leave the build command empty — the site has no build step.
+`wrangler.toml` supplies the rest, including the `nodejs_compat` flag the agent
+needs for `Buffer`, `node:crypto` and `.xlsx` parsing.
+
+Then add `environmsafe.com` under the project's **Custom domains** tab and open
+`https://environmsafe.com/agent`.
+
+> Cloudflare Pages serves `agent.html` at the extensionless path `/agent` and
+> redirects `/agent.html` to it. Both work; `/agent` is the address to share.
 
 ---
 
@@ -149,13 +159,13 @@ These are built into the agent, not optional settings:
 There are two places, and the split matters:
 
 - **Company data** — letterhead, folder IDs, customer and supplier lists — lives
-  in the `ES_PROFILE` environment variable. Change it in Netlify and redeploy;
+  in the `ES_PROFILE` environment variable. Change it in Cloudflare and redeploy;
   no code change, and nothing private ends up in the repository.
 - **Rules and behaviour** — the trading cycle, numbering, default quotation
   terms, and the standing instructions above — live in
-  `netlify/lib/knowledge.js`. Edit that file and redeploy.
+  `lib/knowledge.js`. Edit that file and redeploy.
 
-To add a new capability, add a tool in `netlify/lib/tools.js`: a definition in
+To add a new capability, add a tool in `lib/tools.js`: a definition in
 `TOOLS` describing what it does, and a matching `case` in `executeTool`.
 
 ---
@@ -166,15 +176,17 @@ To add a new capability, add a tool in `netlify/lib/tools.js`: a definition in
 agent.html                   the staff console
 css/agent.css                its styling
 js/agent.js                  chat UI; talks to /api/agent, holds no secrets
-netlify/functions/agent.js   the agent loop, streamed over SSE
-netlify/functions/login.js   passcode sign-in
-netlify/lib/config.js        loads the company profile from ES_PROFILE
-netlify/lib/knowledge.js     the agent's rules and behaviour  ← edit this
-netlify/lib/tools.js         what the agent can do
-netlify/lib/google.js        Drive, Sheets and Gmail access
-netlify/lib/documents.js     quotation / invoice rendering
-netlify/lib/ledger.js        reads the .xlsx ledger, derives receivables
-netlify/lib/session.js       signed session cookies
+functions/api/agent.js       the agent loop, streamed over SSE
+functions/api/login.js       passcode sign-in
+lib/runtime.js               hands Cloudflare's bindings to the library
+lib/config.js                loads the company profile from ES_PROFILE
+lib/knowledge.js             the agent's rules and behaviour  ← edit this
+lib/tools.js                 what the agent can do
+lib/google.js                Drive, Sheets and Gmail access
+lib/documents.js             quotation / invoice rendering
+lib/ledger.js                reads the .xlsx ledger, derives receivables
+lib/session.js               signed session cookies
+wrangler.toml                Cloudflare Pages configuration
 ```
 
 ---
@@ -185,8 +197,11 @@ netlify/lib/session.js       signed session cookies
   cookie. That is proportionate for a small team. If staff numbers grow, or
   someone leaves, move to per-person logins — a shared passcode cannot be
   revoked for one person.
-- `agent.html` is marked `noindex` and is not linked from the public site, but
+- `/agent` is marked `noindex` and is not linked from the public site, but
   **the passcode is what protects it**, not obscurity.
+- Cloudflare Access can replace the shared passcode with per-person email
+  sign-in, free for up to 50 users. That is the recommended next step: a shared
+  passcode cannot be revoked for one person who leaves.
 - The agent has full read/write access to the company Drive and mailbox. Anyone
   with the passcode has that access through it.
 - The repository holds no folder IDs, customer names or letterhead details —

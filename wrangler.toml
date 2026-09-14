@@ -1,0 +1,12 @@
+# Cloudflare Pages configuration for environmsafe.com
+#
+# The repository root is published as the static site; everything under
+# functions/ becomes an API route (functions/api/agent.js -> /api/agent).
+
+name = "environmsafe"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-14"
+
+# The agent uses Buffer and node:crypto for base64url encoding, HMAC session
+# cookies and .xlsx parsing. nodejs_compat provides them on the Workers runtime.
+compatibility_flags = ["nodejs_compat"]
