@@ -111,12 +111,30 @@ sees; they do not need to be complete.
 
 ### 4. Deploy
 
-Connect the repository in **Workers & Pages → Create → Pages → Connect to Git**,
-pick this repo, and leave the build command empty — the site has no build step.
-The build output directory is `public`; `functions/` and `lib/` sit outside it so
-the agent's server-side source is never served to visitors.
-`wrangler.toml` supplies the rest, including the `nodejs_compat` flag the agent
-needs for `Buffer`, `node:crypto` and `.xlsx` parsing.
+Connect the repository in **Workers & Pages → Create → Pages → Connect to Git**
+and pick this repo. Build settings:
+
+| Field | Value |
+|---|---|
+| Framework preset | None |
+| Build command | *leave empty* — the site has no build step |
+| Build output directory | `public` |
+
+Only `public/` is published. `functions/` and `lib/` stay outside it, so the
+agent's server-side source is never served to visitors.
+
+### 5. Turn on the nodejs_compat flag
+
+**Required — the agent will not run without it.** It provides `Buffer`,
+`node:crypto` and the `.xlsx` parser on the Workers runtime.
+
+In the project: **Settings → Runtime → Compatibility flags**. Add
+`nodejs_compat` to **both Production and Preview**, and set the compatibility
+date to today or later. Then redeploy.
+
+This lives in the dashboard rather than a `wrangler.toml` on purpose: a config
+file has to carry the project's exact name, and a mismatch fails the build for
+a reason the log states obscurely.
 
 Then add `environmsafe.com` under the project's **Custom domains** tab and open
 `https://environmsafe.com/agent`.
@@ -189,7 +207,6 @@ lib/google.js                Drive, Sheets and Gmail access
 lib/documents.js             quotation / invoice rendering
 lib/ledger.js                reads the .xlsx ledger, derives receivables
 lib/session.js               signed session cookies
-wrangler.toml                Cloudflare Pages configuration
 ```
 
 ---

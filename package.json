@@ -10,8 +10,5 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0",
     "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
-    "wrangler": "^4.131.1"
   }
 }
