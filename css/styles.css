@@ -429,6 +429,8 @@ input, textarea, select {
 .service-card__icon--teal   { background: rgba(13,127,138,.1); color: var(--clr-teal); }
 .service-card__icon--navy   { background: rgba(27,42,74,.1); color: var(--clr-navy); }
 .service-card__icon--amber  { background: rgba(227,160,56,.1);  color: var(--clr-amber); }
+.service-card__icon--red    { background: rgba(178,44,44,.1);  color: #b22c2c; }
+.service-card__icon--purple { background: rgba(92,63,138,.1);  color: #5c3f8a; }
 
 .service-card__title {
   font-family: var(--font-head);
