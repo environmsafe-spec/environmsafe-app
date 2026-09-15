@@ -117,8 +117,14 @@ and pick this repo. Build settings:
 | Field | Value |
 |---|---|
 | Framework preset | None |
-| Build command | *leave empty* — the site has no build step |
+| Build command | `npm install` |
 | Build output directory | `public` |
+
+The build command is **not** optional here, even though the site itself has no
+build step. Leaving it empty makes Cloudflare skip the whole build phase —
+including `npm install` — and the Functions then fail to bundle with
+`Could not resolve "@anthropic-ai/sdk"`, because their dependencies were never
+installed.
 
 Only `public/` is published. `functions/` and `lib/` stay outside it, so the
 agent's server-side source is never served to visitors.
