@@ -1,0 +1,44 @@
+[
+  {
+    "iso": "2026-09-03",
+    "slug": "safety-management-system-when-nobody-is-watching",
+    "icon": "fa-shield-halved",
+    "color": "navy",
+    "en": {
+      "title": "A Safety Management System Is What Happens When Nobody Is Watching",
+      "home_summary": "The documented system and the one your crews actually use are rarely the same. That distance is where incidents come from."
+    },
+    "ar": {
+      "title": "نظام إدارة السلامة هو ما يحدث حين لا يراقب أحد",
+      "home_summary": "النظام الموثق والنظام الذي تستخدمه فرقكم نادراً ما يتطابقان، ومن تلك المسافة تأتي الحوادث."
+    }
+  },
+  {
+    "iso": "2026-09-02",
+    "slug": "deferred-maintenance-becomes-unplanned-failure",
+    "icon": "fa-gears",
+    "color": "green",
+    "en": {
+      "title": "Deferred Maintenance Becomes Unplanned Failure",
+      "home_summary": "Postponing a service interval is choosing to accept a failure at a time somebody else picks."
+    },
+    "ar": {
+      "title": "الصيانة المؤجلة تتحول إلى عطل غير مخطط له",
+      "home_summary": "تأجيل موعد الخدمة اختيار لقبول عطل في وقت يختاره غيركم."
+    }
+  },
+  {
+    "iso": "2026-09-01",
+    "slug": "what-goes-wrong-on-construction-projects",
+    "icon": "fa-hard-hat",
+    "color": "blue",
+    "en": {
+      "title": "What Actually Goes Wrong on Construction Projects, and When",
+      "home_summary": "The most expensive mistakes get buried in the middle of a project, where the fewest people are looking."
+    },
+    "ar": {
+      "title": "ما الذي يحدث فعلاً من أخطاء في مشاريع الإنشاء، ومتى",
+      "home_summary": "أكلف الأخطاء تُدفن في منتصف المشروع، حيث يقل عدد من يدققون."
+    }
+  }
+]

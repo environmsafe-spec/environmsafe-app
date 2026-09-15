@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Safety tips, service spotlights, certifications, and industry news from EnvironmSafe's EHS and engineering experts." />
+  <meta name="description" content="EnvironmSafe news and insights: workplace safety guidance, fire protection, LPG systems, accredited training and regulatory updates from our expert team." />
   <title>News &amp; Insights | EnvironmSafe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
+
+  <link rel="canonical" href="https://www.environmsafe.com/news.html" />
+  <link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news.html" />
+  <link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.environmsafe.com/ar/news.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EnvironmSafe" />
+  <meta property="og:title" content="News &amp; Insights | EnvironmSafe" />
+  <meta property="og:description" content="Safety tips, service spotlights, certifications, and industry news from EnvironmSafe's EHS and engineering experts." />
+  <meta property="og:url" content="https://www.environmsafe.com/news.html" />
 </head>
 <body>
 
@@ -17,19 +27,48 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="index.html" class="logo">
-        <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
-        <span class="logo__text">Environm<strong>Safe</strong></span>
+        <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
       </a>
       <nav class="nav" id="nav">
         <ul class="nav__list">
-          <li><a href="index.html"    class="nav__link" data-page="index">Home</a></li>
-          <li><a href="services.html" class="nav__link" data-page="services">Services</a></li>
-          <li><a href="news.html"     class="nav__link" data-page="news">News</a></li>
-          <li><a href="about.html"    class="nav__link" data-page="about">About</a></li>
-          <li><a href="contact.html"  class="nav__link" data-page="contact">Contact</a></li>
+          <li class="nav__item">
+            <a href="index.html" class="nav__link" data-page="index"><span data-i18n="nav_home">Home</span></a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav_services">Services</span>
+              <i class="fa-solid fa-chevron-down nav__chevron"></i>
+            </button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="services/hse.html" class="nav__dropdown-link"><i class="fa-solid fa-shield-halved"></i><span data-i18n="svc_hse">HSE</span></a></li>
+              <li><a href="services/evaluation.html" class="nav__dropdown-link"><i class="fa-solid fa-clipboard-check"></i><span data-i18n="svc_eval">Evaluation</span></a></li>
+              <li><a href="services/lpg-systems.html" class="nav__dropdown-link"><i class="fa-solid fa-fire-flame-curved"></i><span data-i18n="svc_lpg">LPG Systems</span></a></li>
+              <li><a href="services/inspection-monitoring.html" class="nav__dropdown-link"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="svc_insp">Inspection &amp; Monitoring</span></a></li>
+              <li><a href="services/engineering-construction.html" class="nav__dropdown-link"><i class="fa-solid fa-hard-hat"></i><span data-i18n="svc_eng">Engineering &amp; Construction</span></a></li>
+              <li><a href="services/hvac.html" class="nav__dropdown-link"><i class="fa-solid fa-wind"></i><span data-i18n="svc_hvac">HVAC</span></a></li>
+              <li><a href="services/maintenance.html" class="nav__dropdown-link"><i class="fa-solid fa-gears"></i><span data-i18n="svc_maint">Maintenance Services &amp; Parts Supplies</span></a></li>
+              <li><a href="services/training.html" class="nav__dropdown-link"><i class="fa-solid fa-chalkboard-user"></i><span data-i18n="svc_training">Training Services</span></a></li>
+              <li><a href="services/psv.html" class="nav__dropdown-link" style="color:var(--clr-accent);font-weight:600;"><i class="fa-solid fa-gauge-high"></i><span data-i18n="svc_psv">PSV Testing &amp; Calibration</span></a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="news.html" class="nav__link" data-page="news">News</a>
+          </li>
+          <li class="nav__item">
+            <a href="about.html" class="nav__link" data-page="about"><span data-i18n="nav_about">About</span></a>
+          </li>
+          <li class="nav__item">
+            <a href="contact.html" class="nav__link" data-page="contact"><span data-i18n="nav_contact">Contact</span></a>
+          </li>
         </ul>
       </nav>
-      <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      <div class="header__actions">
+        <a href="ar/index.html" class="lang-toggle" aria-label="Arabic version">
+          <i class="fa-solid fa-globe"></i>
+          <span>عربي</span>
+        </a>
+        <a href="contact.html" class="btn btn--accent header__cta">Get a Quote</a>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -65,9 +104,165 @@
 
       <div class="services__grid" id="news-grid">
         <!-- NEWS-ENTRIES: add each new daily post as a new <article> directly below this line, newest first -->
-        <article class="service-card fade-up">
+        <article class="service-card fade-up" id="post-2026-09-14">
+          <div class="service-card__icon service-card__icon--red"><i class="fa-solid fa-fire-extinguisher"></i></div>
+          <h3 class="service-card__title">A Fire Pump That Starts Is Not a Fire Pump That Works</h3>
+          <p class="service-card__desc">The weekly test most sites run proves one thing: the pump starts. It runs for ten minutes against a closed valve, somebody signs the log, and everyone treats that as evidence the system will perform. It is not. Starting and delivering the designed flow at the designed pressure are two entirely different claims, and only one of them is being tested.</p>
+          <a href="news/2026-09-14-a-fire-pump-that-starts-is-not-a-fire-pump-that-works.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-13">
+          <div class="service-card__icon service-card__icon--purple"><i class="fa-solid fa-link"></i></div>
+          <h3 class="service-card__title">The Harness Is the Easy Part: Anchor Points and Fall Clearance</h3>
+          <p class="service-card__desc">Harnesses get inspected, logged and replaced on schedule. The two things that actually decide whether a fall ends well — what the lanyard is clipped to, and how much empty air is underneath — are far more often assumed than calculated. A perfect harness on a handrail anchor is not fall protection.</p>
+          <a href="news/2026-09-13-the-harness-is-the-easy-part.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-12">
+          <div class="service-card__icon service-card__icon--blue"><i class="fa-solid fa-bolt"></i></div>
+          <h3 class="service-card__title">Earthing and Bonding Are Not the Same Thing</h3>
+          <p class="service-card__desc">The two words get used as if they were interchangeable, and they are not. One gives fault current a path back to its source so a protective device can operate. The other keeps separate pieces of metal at the same voltage so nobody becomes the connection between them. An installation can do one well and the other not at all, and look entirely normal.</p>
+          <a href="news/2026-09-12-earthing-is-not-the-same-as-bonding.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-11">
+          <div class="service-card__icon service-card__icon--amber"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h3 class="service-card__title">Prequalifying a Contractor: The Questions That Actually Predict Anything</h3>
+          <p class="service-card__desc">A prequalification pack full of certificates tells you a company can produce paperwork. It does not tell you who will actually stand on your site next Tuesday, what they were told before they arrived, or what happens when the method statement meets a wall that is not where the drawing says it is. A handful of different questions predicts far more.</p>
+          <a href="news/2026-09-11-the-contractor-questionnaire-nobody-reads.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-10">
+          <div class="service-card__icon service-card__icon--teal"><i class="fa-solid fa-gauge-high"></i></div>
+          <h3 class="service-card__title">A Gas Detector That Reads Zero Is Not Necessarily Working</h3>
+          <p class="service-card__desc">A detector reading zero with a green light means either there is no gas or the instrument can no longer tell, and the two look identical from outside. Sensors lose sensitivity to heat, humidity, dust and simple age without any warning. A bump test proves it still reacts; only calibration against certified span gas proves the number it shows is right.</p>
+          <a href="news/2026-09-10-gas-detectors-fail-quietly.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-09">
+          <div class="service-card__icon service-card__icon--blue"><i class="fa-solid fa-person-running"></i></div>
+          <h3 class="service-card__title">A Fire Drill Is Not the Same Thing as a Rehearsal</h3>
+          <p class="service-card__desc">The usual drill is announced, held mid-morning in good weather with a full day shift and no visitors, and everyone leaves by the door they came in through. It proves people can walk outside. A rehearsal blocks the main exit, runs at night, counts the contractors at the gate, and resolves a roll call by name — and the findings are the reason to do it.</p>
+          <a href="news/2026-09-09-a-drill-is-not-a-rehearsal.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-08">
+          <div class="service-card__icon service-card__icon--green"><i class="fa-solid fa-temperature-high"></i></div>
+          <h3 class="service-card__title">Boiler Inspection: What Is Actually Being Checked</h3>
+          <p class="service-card__desc">Most boilers in service carry a certificate. Far fewer carry an honest account of what was examined to earn it. The usual problem is not a missing certificate but one whose scope is narrower than the operator believes, and the failures that matter most are the ones that give no warning at all: scale insulating a tube, or a low water cut-out that has never been function tested.</p>
+          <a href="news/2026-09-08-boiler-inspection-what-is-actually-checked.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-07">
+          <div class="service-card__icon service-card__icon--amber"><i class="fa-solid fa-bolt"></i></div>
+          <h3 class="service-card__title">Arc Flash: The Electrical Hazard Most Facilities Never Assess</h3>
+          <p class="service-card__desc">Electrical incidents split into two kinds. Shock, which everyone guards against, and arc flash, which most facilities outside heavy industry have never assessed and which causes the catastrophic injuries. The conditions that create it are entirely ordinary: a dropped tool, a loose connection heating quietly for months, dust and heat degrading insulation, a rodent in a switchboard.</p>
+          <a href="news/2026-09-07-arc-flash-the-electrical-hazard-nobody-assesses.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-06">
+          <div class="service-card__icon service-card__icon--orange"><i class="fa-solid fa-file-signature"></i></div>
+          <h3 class="service-card__title">A Permit to Work Is What Stops Two Crews Colliding</h3>
+          <p class="service-card__desc">Serious incidents on multi-contractor sites rarely involve one obviously reckless act. They involve two reasonable activities that were safe alone and lethal together: hot work near a tank someone else was draining, an excavation over an unmapped service. Nobody was careless. Nobody was talking to each other either, and the permit system exists precisely to make that conversation mandatory.</p>
+          <a href="news/2026-09-06-permit-to-work-stops-two-crews-colliding.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-05">
+          <div class="service-card__icon" style="background:rgba(227,160,56,0.12); color:var(--clr-accent);"><i class="fa-solid fa-gauge-high"></i></div>
+          <h3 class="service-card__title">We Now Operate the Region's Only Certified PSV Test Bench</h3>
+          <p class="service-card__desc">
+            A pressure safety valve that fails to open at the correct pressure does not give a warning. EnvironmSafe now operates the region's only certified PSV test bench — delivering API 527 and API 576 compliant inspection, testing, calibration, maintenance and repair.
+          </p>
+          <a href="news/2026-09-05-psv-certified-test-bench-only-provider.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-04">
+          <div class="service-card__icon service-card__icon--teal"><i class="fa-solid fa-door-closed"></i></div>
+          <h3 class="service-card__title">Confined Space Work Kills Experienced People</h3>
+          <p class="service-card__desc">The victims in confined space incidents are usually not untrained newcomers. They are competent workers who entered the same space before without incident. Conditions change between entries even when nothing visible changes outside, which is why testing is required every time rather than inferred from history, and why a rehearsed rescue plan matters more than any other single control.</p>
+          <a href="news/2026-09-04-confined-space-entry-kills-experienced-people.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-03">
+          <div class="service-card__icon service-card__icon--navy"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3 class="service-card__title">A Safety Management System Is What Happens When Nobody Is Watching</h3>
+          <p class="service-card__desc">
+            Most organisations run two safety systems at once: the documented one that is audit-ready, and the operating one their crews actually use. The distance between them is the best single predictor of whether a facility has an incident, and no audit that only reads paperwork can see it. Closing that gap starts with who writes the procedures and what happens to a near miss report.
+          </p>
+          <a href="news/2026-09-03-safety-management-system-when-nobody-is-watching.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-02">
+          <div class="service-card__icon service-card__icon--green"><i class="fa-solid fa-gears"></i></div>
+          <h3 class="service-card__title">Deferred Maintenance Becomes Unplanned Failure</h3>
+          <p class="service-card__desc">
+            Every deferred maintenance task is a decision to accept a failure at a time you do not choose. The repair invoice is the smallest part of the cost: lost production, emergency labour, expedited freight and secondary damage sit outside the maintenance budget entirely, which is why cutting that budget looks like a saving right up until it is not.
+          </p>
+          <a href="news/2026-09-02-deferred-maintenance-becomes-unplanned-failure.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-09-01">
+          <div class="service-card__icon service-card__icon--blue"><i class="fa-solid fa-hard-hat"></i></div>
+          <h3 class="service-card__title">What Actually Goes Wrong on Construction Projects, and When</h3>
+          <p class="service-card__desc">
+            Projects rarely fail in one dramatic moment. They fail through small, defensible decisions taken under schedule pressure. Most of what goes wrong on site was set during design and procurement, and the middle of the project, where the fewest people are looking, is where the most expensive mistakes get buried inside finished work.
+          </p>
+          <a href="news/2026-09-01-what-goes-wrong-on-construction-projects.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-31">
+          <div class="service-card__icon service-card__icon--teal"><i class="fa-solid fa-wind"></i></div>
+          <h3 class="service-card__title">Industrial HVAC Is a Safety System, Not Just a Comfort System</h3>
+          <p class="service-card__desc">
+            HVAC controls the air people breathe for eight hours at a stretch. Systems are commissioned to match a building on day one, then walls move and processes are added, and nobody rebalances. The result is a facility running at full energy cost while delivering worse air than it did at commissioning, with occupants who never notice the gradual decline.
+          </p>
+          <a href="news/2026-08-31-industrial-hvac-is-a-safety-system.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-30">
+          <div class="service-card__icon service-card__icon--orange"><i class="fa-solid fa-certificate"></i></div>
+          <h3 class="service-card__title">The Certifications Behind Every EnvironmSafe Assessment</h3>
+          <p class="service-card__desc">
+            Anyone can claim to follow international safety standards. NFPA Certified Fire Protection Specialists, API-aligned engineering work, and NEBOSH and IOSH accredited training are the credentials behind every EnvironmSafe assessment, chosen because they are the same standards our clients, from industrial operators to international NGOs, are themselves answerable to across Yemen and the region.
+          </p>
+          <a href="news/2026-08-30-certifications-behind-every-assessment.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-29">
+          <div class="service-card__icon service-card__icon--amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <h3 class="service-card__title">Five Warning Signs Your Fire Suppression System Needs Attention</h3>
+          <p class="service-card__desc">
+            A fire suppression system that has never been tested under real conditions is an assumption, not a safeguard. Silent detectors, painted sprinkler heads, blocked exit routes, and undocumented faults are common warning signs that a system has quietly degraded since commissioning. A short, regular checklist built around detection, suppression, egress, and documentation catches most of that risk early.
+          </p>
+          <a href="news/2026-08-29-warning-signs-fire-suppression-needs-attention.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-28">
+          <div class="service-card__icon service-card__icon--navy"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h3 class="service-card__title">Why an Independent Evaluation Should Come Before You Trust a Compliance Report</h3>
+          <p class="service-card__desc">
+            A compliance certificate confirms a system was checked once, against a named standard. It does not confirm the system still performs that way today. An independent evaluation of LPG installations, boiler packages, electrical systems, or fire protection looks past the paperwork to actual current condition, giving facility owners a severity-ranked picture of what needs attention before an insurer, auditor, or regulator asks the same question.
+          </p>
+          <a href="news/2026-08-28-independent-evaluation-before-compliance-signoff.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-27">
+          <div class="service-card__icon service-card__icon--green"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3 class="service-card__title">Why Continuous Monitoring Catches What Annual Inspections Miss</h3>
+          <p class="service-card__desc">
+            Corrosion, foundation movement, and drifting air and water quality all develop quietly between annual inspections, until they surface as a failure or a compliance breach. Continuous structural and environmental monitoring closes that gap and makes every EnvironmSafe inspection sharper, whether the facility is an industrial site, a warehouse, a water or wastewater asset, or an NGO location visited only rarely.
+          </p>
+          <a href="news/2026-08-27-continuous-monitoring-vs-annual-inspection.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-26">
+          <div class="service-card__icon service-card__icon--teal"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <h3 class="service-card__title">NEBOSH and IOSH Training in Arabic: Competence Without the Language Barrier</h3>
+          <p class="service-card__desc">
+            A certificate proves attendance, not competence &mdash; and the gap between the two widens when safety is taught
+            in a second language. As a NEBOSH and IOSH accredited provider, we deliver the International General Certificate
+            through both Arabic and English pathways, so an internationally recognised qualification actually changes what
+            happens on site.
+          </p>
+          <a href="news/2026-08-26-nebosh-iosh-training-in-arabic.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-25">
+          <div class="service-card__icon service-card__icon--blue"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <h3 class="service-card__title">LPG Safety Starts at Design, Not at Inspection</h3>
+          <p class="service-card__desc">
+            Liquefied petroleum gas powers kitchens, boilers, and process heat across Yemen and the wider region &mdash;
+            and when an LPG installation fails, it rarely fails quietly. Most of that risk is built in long before anyone
+            opens a valve: undersized relief paths, insufficient separation distances, unsuitable materials, and vessels
+            sited with no regard for ventilation or ignition sources. EnvironmSafe designs, installs, inspects, and
+            certifies LPG systems against international standards, and our evaluation team assesses existing installations
+            that were never commissioned to any standard at all. Whether you are building a new facility or inheriting one,
+            we can tell you what you actually have and what it will take to make it safe.
+          </p>
+          <a href="news/2026-08-25-lpg-safety-starts-at-design.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="service-card fade-up" id="post-2026-08-24">
           <div class="service-card__icon service-card__icon--orange"><i class="fa-solid fa-fire"></i></div>
-          <p style="color:var(--clr-text-lt); font-size:.8rem; margin-bottom:8px;">August 24, 2026</p>
           <h3 class="service-card__title">Certified Fire Protection Can Cut Insurance Costs by Up to 85%</h3>
           <p class="service-card__desc">
             Fire risk is one of the costliest exposures facing industrial sites, warehouses, and NGO facilities alike —
@@ -76,7 +271,7 @@
             compliance that carriers recognize. Clients across Yemen and the region have used certified fire protection
             programs to cut insurance premiums by as much as 85% while meaningfully reducing risk to people and operations.
           </p>
-          <a href="contact.html" class="service-card__cta">Get a Fire Protection Assessment <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="news/2026-08-24-certified-fire-protection-insurance-savings.html" class="service-card__cta">Read the full post <i class="fa-solid fa-arrow-right"></i></a>
         </article>
       </div>
     </div>
@@ -98,8 +293,7 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="index.html" class="logo logo--light">
-          <span class="logo__icon"><i class="fa-solid fa-leaf"></i></span>
-          <span class="logo__text">Environm<strong>Safe</strong></span>
+          <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
         </a>
         <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
         <div class="contact__social">
@@ -112,7 +306,7 @@
         <h4>Quick Links</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="services.html">Services</a></li>
+          <li><a href="services/hse.html">All Services</a></li>
           <li><a href="news.html">News</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -121,19 +315,22 @@
       <div class="footer__services">
         <h4>Our Services</h4>
         <ul>
-          <li><a href="services.html">Environmental Services</a></li>
-          <li><a href="services.html">Safety Management</a></li>
-          <li><a href="services.html">Construction Services</a></li>
-          <li><a href="services.html">Inspection Services</a></li>
-          <li><a href="services.html">Engineering Solutions</a></li>
-          <li><a href="services.html">Parts &amp; Supply</a></li>
+          <li><a href="services/hse.html">HSE</a></li>
+          <li><a href="services/evaluation.html">Evaluation</a></li>
+          <li><a href="services/lpg-systems.html">LPG Systems</a></li>
+          <li><a href="services/inspection-monitoring.html">Inspection &amp; Monitoring</a></li>
+          <li><a href="services/engineering-construction.html">Engineering &amp; Construction</a></li>
+          <li><a href="services/hvac.html">HVAC</a></li>
+          <li><a href="services/maintenance.html">Maintenance &amp; Parts Supplies</a></li>
+          <li><a href="services/training.html">Training Services</a></li>
+          <li><a href="services/psv.html">PSV Testing &amp; Calibration</a></li>
         </ul>
       </div>
       <div class="footer__contact">
         <h4>Contact</h4>
         <ul>
-          <li><i class="fa-solid fa-phone"></i> (800) 000-0000</li>
-          <li><i class="fa-solid fa-envelope"></i> info@environmsafe.com</li>
+          <li><i class="fa-solid fa-phone"></i> +967 78 340 2932</li>
+          <li><i class="fa-solid fa-envelope"></i> support@environmsafe.com</li>
           <li><i class="fa-solid fa-globe"></i> www.environmsafe.com</li>
         </ul>
       </div>

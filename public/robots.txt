@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /news/_template.html
+Disallow: /ar/news/_template.html
+Disallow: /agent
+Disallow: /agent.html
+
+Sitemap: https://www.environmsafe.com/sitemap.xml
