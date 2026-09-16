@@ -32,9 +32,13 @@ SCOPES = " ".join([
     "https://www.googleapis.com/auth/gmail.modify",
 ])
 
-# The code is shown on a Google page for the person to copy, rather than being
-# redirected to a local port — the browser here is a phone, not this machine.
-REDIRECT = "urn:ietf:wg:oauth:2.0:oob"
+# Google withdrew the old "show the code on a page" redirect for apps
+# registered after 2022, so a loopback address is the only one a Desktop client
+# can use. Nothing listens on it: the browser is a phone and this is a server
+# in a datacentre. The page fails to load, which is fine and expected — the
+# code Google sent is sitting in the address bar, and that is what gets pasted
+# back here. Any port will do; this one is unlikely to collide with anything.
+REDIRECT = "http://localhost:8085"
 
 RULE = "=" * 64
 
@@ -44,6 +48,39 @@ def die(*lines):
     for line in lines:
         print(line)
     sys.exit(1)
+
+
+def extract_code(pasted):
+    """Take the whole redirected address, or just the code — either is fine."""
+    if not pasted:
+        die("Nothing pasted. Run the script again when you have the address.")
+
+    if pasted.startswith("http") or "code=" in pasted or "error=" in pasted:
+        query = urllib.parse.urlparse(pasted).query
+        if not query and "?" in pasted:
+            query = pasted.split("?", 1)[1]
+        fields = urllib.parse.parse_qs(query)
+
+        code = fields.get("code", [""])[0]
+        if code:
+            return code
+
+        error = fields.get("error", [""])[0]
+        if error == "access_denied":
+            die("The sign-in was declined, so Google sent no code.",
+                "",
+                "Run the script again and approve every permission it asks for.")
+        if error:
+            die("Google reported: " + error,
+                "",
+                "Run the script again and approve every permission it asks for.")
+
+        die("That address has no code in it.",
+            "",
+            "Copy it only after approving, when it looks like:",
+            "  http://localhost:8085/?code=4/0Ax...&scope=...")
+
+    return pasted
 
 
 def load_client():
@@ -88,20 +125,23 @@ def main():
     print()
     print(" Sign in as the company Google account.")
     print(" If it warns the app is not verified: Advanced -> Go to ...")
-    print(" Approve Drive, Sheets and Gmail. The last page shows a code.")
+    print(" Approve Drive, Sheets and Gmail.")
+    print()
+    print(" THEN THE PAGE WILL FAIL TO LOAD. That is correct — do not")
+    print(" worry about it. Copy the whole address from the address bar.")
+    print(" It begins http://localhost:8085/?code=...")
     print()
     print(RULE)
-    print(" STEP 2 — paste that code below")
+    print(" STEP 2 — paste that whole address below")
     print(RULE)
     print()
 
     try:
-        code = input("Code: ").strip()
+        pasted = input("Address (or just the code): ").strip()
     except (EOFError, KeyboardInterrupt):
         die("Cancelled. Nothing was changed.")
 
-    if not code:
-        die("No code entered. Run the script again when you have it.")
+    code = extract_code(pasted)
 
     body = urllib.parse.urlencode({
         "code": code,
