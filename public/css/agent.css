@@ -2,7 +2,8 @@
    EnvironmSafe — Agent console
    ==================================================== */
 
-.agent-body { background: var(--clr-light); min-height: 100vh; display: flex; flex-direction: column; }
+.agent-body { background: var(--clr-light); min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; }
 
 /* ---------- Sign-in gate ---------- */
 .gate { flex: 1; display: grid; place-items: center; padding: 24px 16px; }
@@ -124,4 +125,18 @@
   .agent-top { padding: 12px 0; }
   .starters { grid-template-columns: 1fr; }
   .transcript { padding: 16px 0; }
+
+  /* A finger is not a mouse pointer. Nothing tappable below 44px. */
+  .agent-top__actions button { min-height: 44px; padding: 10px 16px; font-size: .9rem; }
+  .gate__card button { min-height: 48px; }
+  .gate__card input { font-size: 16px; }
+  .composer button { width: 44px; height: 44px; }
+
+  /* 16px is the threshold below which mobile browsers zoom the page on focus,
+     which then leaves the console scrolled sideways. */
+  .composer textarea { font-size: 16px; }
+
+  /* Clear the gesture bar, and keep the last message off the composer. */
+  .composer { padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .transcript { padding-bottom: 8px; }
 }

@@ -5,6 +5,13 @@
   X-Frame-Options: DENY
   Cache-Control: no-store
 
+/agent.webmanifest
+  Content-Type: application/manifest+json
+
+/agent-sw.js
+  Content-Type: application/javascript
+  Cache-Control: no-cache
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

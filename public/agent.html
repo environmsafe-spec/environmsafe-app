@@ -12,6 +12,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/agent.css" />
+
+  <!-- Added to an Android home screen, the console opens as its own window
+       rather than a browser tab. The colour matches the header so the status
+       bar does not jump on launch. -->
+  <link rel="manifest" href="agent.webmanifest" />
+  <meta name="theme-color" content="#1a2744" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="img/agent-icon-192.png" />
 </head>
 <body class="agent-body">
 

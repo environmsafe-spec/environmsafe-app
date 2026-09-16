@@ -309,4 +309,12 @@
 
     return html.replace(/@@ESBLOCK(\d+)@@/g, function (_, i) { return blocks[i]; });
   }
+
+  /* Registering the worker is what lets Android offer "Install app" instead of
+     a bookmark. It is scoped to /agent so it never touches the public site, and
+     a failure here must not stop the console working. */
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/agent-sw.js", { scope: "/agent" })
+      .catch(function () { /* the console works the same without it */ });
+  }
 })();

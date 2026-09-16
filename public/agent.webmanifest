@@ -1,0 +1,31 @@
+{
+  "name": "EnvironmSafe Business Agent",
+  "short_name": "ES Agent",
+  "description": "Procurement, receivables, email and EHS documents for EnvironmSafe staff.",
+  "start_url": "/agent",
+  "scope": "/agent",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f8",
+  "theme_color": "#1a2744",
+  "icons": [
+    {
+      "src": "/img/agent-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/agent-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/agent-icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

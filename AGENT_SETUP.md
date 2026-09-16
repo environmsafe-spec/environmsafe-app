@@ -172,6 +172,21 @@ Then add `environmsafe.com` under the project's **Custom domains** tab and open
 
 ---
 
+## On a phone
+
+The console is a web page, so there is nothing to install from a store. Open
+`environmsafe.com/agent` in Chrome, then **⋮ → Add to Home screen**. It installs
+as its own app: full screen, no browser bar, its own icon.
+
+It is built for the phone rather than merely surviving on one — every control is
+at least 44px, the text box is 16px so the browser does not zoom when you tap it,
+and the layout follows the real viewport as the keyboard opens.
+
+The service worker at `public/agent-sw.js` caches **nothing** and exists only so
+Android offers a real install rather than a bookmark. That is deliberate: the
+console streams its answers and sits behind a session cookie, so a cached page
+could show one person's work to the next.
+
 ## Everyday use
 
 Open the page, enter the staff passcode, and type what you want done. The agent
