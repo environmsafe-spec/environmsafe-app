@@ -116,14 +116,80 @@ def load_client():
             print("Using the client file: " + path)
             return cid, csec
 
-    die("Cannot find the OAuth client file.",
-        "",
-        "Upload the file Google downloaded when you created the client — it is",
-        "named client_secret_<something>.json. In Cloud Shell use the three-dot",
-        "menu at the top right, then Upload, and choose that file.",
-        "",
-        "Do not retype the values by hand: the id and the secret have to be the",
-        "pair from one client, and Google refuses a mixed pair.")
+    return ask_for_client()
+
+
+def ask_for_client():
+    """No file to read, so take the two values and check them before going on."""
+    print()
+    print(RULE)
+    print(" The client file is not here, so paste the two values instead.")
+    print(RULE)
+    print()
+    print(" Open:  https://console.cloud.google.com/auth/clients")
+    print(" Tap your client. Each value has a copy button beside it — use")
+    print(" those rather than selecting the text, so nothing is lost.")
+    print()
+    print(" Both must come from the SAME client. An id from one and a secret")
+    print(" from another is what Google calls 'client secret is invalid'.")
+    print()
+
+    try:
+        cid = input("Client ID     : ").strip()
+        csec = input("Client secret : ").strip()
+    except (EOFError, KeyboardInterrupt):
+        die("Cancelled. Nothing was changed.")
+
+    if not cid.endswith(".apps.googleusercontent.com"):
+        die("That client id looks wrong.",
+            "",
+            "It should end in .apps.googleusercontent.com")
+    if not csec.startswith("GOCSPX-"):
+        die("That client secret looks wrong.",
+            "",
+            "It should begin with GOCSPX-")
+
+    check_pair(cid, csec)
+
+    with open(os.path.expanduser("~/client.json"), "w") as handle:
+        json.dump({"installed": {"client_id": cid, "client_secret": csec}}, handle)
+    os.chmod(os.path.expanduser("~/client.json"), 0o600)
+    print()
+    print("That pair is good. Saved, so you will not be asked again.")
+    return cid, csec
+
+
+def check_pair(cid, csec):
+    """Ask Google to redeem a code we know is nonsense.
+
+    It refuses either way, but it refuses differently: a bad code alone is
+    'invalid_grant', while a bad id or secret is 'invalid_client'. That tells
+    us whether the pair is right before anyone signs in — far kinder than
+    finding out after the whole approval dance."""
+    body = urllib.parse.urlencode({
+        "code": "probe-not-a-real-code",
+        "client_id": cid,
+        "client_secret": csec,
+        "redirect_uri": REDIRECT,
+        "grant_type": "authorization_code",
+    }).encode()
+    try:
+        urllib.request.urlopen(
+            urllib.request.Request("https://oauth2.googleapis.com/token", data=body))
+    except urllib.error.HTTPError as err:
+        detail = err.read().decode("utf-8", "replace")
+        if "invalid_client" in detail:
+            die("Google does not accept that id and secret together.",
+                "",
+                detail,
+                "",
+                "They must be the pair from one client. Open the client at",
+                "https://console.cloud.google.com/auth/clients and copy both",
+                "from the same page. If the secret is not shown, add a new one",
+                "there and copy that.")
+        # invalid_grant, as expected: the credentials are fine.
+    except urllib.error.URLError as err:
+        die("Could not reach Google: " + str(err.reason))
 
 
 def main():
