@@ -14,6 +14,7 @@ and its flag names have moved between releases. The agent needs three scopes
 and no more, so this asks Google directly and grants exactly those.
 """
 
+import glob
 import json
 import os
 import sys
@@ -21,7 +22,15 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-CLIENT_FILE = os.path.expanduser("~/client.json")
+# Google's download is named client_secret_<long id>.json. Rather than making
+# anyone retype a client id and secret into a phone keyboard — which is how a
+# mismatched pair got saved here once already — take the file as it came.
+CLIENT_PATTERNS = [
+    "~/client.json",
+    "~/client_secret*.json",
+    "~/*.json",
+    "~/Downloads/client_secret*.json",
+]
 
 # Exactly what the agent uses, and nothing else: it reads and files documents,
 # reads the finance workbook, and prepares mail drafts. It is never permitted
@@ -83,23 +92,38 @@ def extract_code(pasted):
     return pasted
 
 
-def load_client():
-    if not os.path.exists(CLIENT_FILE):
-        die("Cannot find " + CLIENT_FILE,
-            "",
-            "Save the OAuth client JSON you downloaded from Google there first.")
-    try:
-        data = json.load(open(CLIENT_FILE))
-    except ValueError:
-        die(CLIENT_FILE + " is not valid JSON.",
-            "Download the client JSON from Google again and save it there.")
+def candidate_files():
+    """Every file that might be the downloaded client, newest first."""
+    found = []
+    for pattern in CLIENT_PATTERNS:
+        for path in glob.glob(os.path.expanduser(pattern)):
+            if path not in found:
+                found.append(path)
+    found.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+    return found
 
-    block = data.get("installed") or data.get("web") or {}
-    cid, csec = block.get("client_id", ""), block.get("client_secret", "")
-    if not cid or not csec:
-        die(CLIENT_FILE + " has no client_id / client_secret in it.",
-            "Make sure it is the file Google gave you, unedited.")
-    return cid, csec
+
+def load_client():
+    """Find a file holding a matching client id and secret, as Google wrote it."""
+    for path in candidate_files():
+        try:
+            data = json.load(open(path))
+        except (ValueError, OSError):
+            continue
+        block = data.get("installed") or data.get("web") or {}
+        cid, csec = block.get("client_id", ""), block.get("client_secret", "")
+        if cid.endswith(".apps.googleusercontent.com") and csec:
+            print("Using the client file: " + path)
+            return cid, csec
+
+    die("Cannot find the OAuth client file.",
+        "",
+        "Upload the file Google downloaded when you created the client — it is",
+        "named client_secret_<something>.json. In Cloud Shell use the three-dot",
+        "menu at the top right, then Upload, and choose that file.",
+        "",
+        "Do not retype the values by hand: the id and the secret have to be the",
+        "pair from one client, and Google refuses a mixed pair.")
 
 
 def main():
