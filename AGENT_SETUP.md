@@ -98,8 +98,7 @@ through the Batch API at half rate.
 
 The company's own details are kept out of the repository and supplied here
 instead, so the code contains nothing specific to one company's filing system.
-Paste a single line of JSON shaped like this, filling in your real Drive folder
-IDs (open a folder in Drive; the ID is the last part of the URL):
+Paste a single line of JSON shaped like this:
 
 ```json
 {
@@ -110,23 +109,39 @@ IDs (open a folder in Drive; the ID is the last part of the URL):
     "currency": "USD", "vatRate": 0.05,
     "banks": ["..."]
   },
-  "folders": {
-    "01 RFQ In": "<drive folder id>",
-    "02 RFQ Out": "<drive folder id>",
-    "03 Quotations In": "<drive folder id>",
-    "04 Quotations Out": "<drive folder id>",
-    "05 Invoices In": "<drive folder id>",
-    "06 Invoices Out": "<drive folder id>",
-    "07 PO-Contracts In": "<drive folder id>",
-    "08 PO-Contracts Out": "<drive folder id>",
-    "09 Examples": "<drive folder id>",
-    "10 Others": "<drive folder id>"
+  "drive": {
+    "rootId": "<folder id of the company Drive root>",
+    "customersRootId": "<folder id of CUSTOMERS — one subfolder per deal>",
+    "templatesId": "<folder id of the blank house-format documents>"
   },
   "ledgerFileId": "<drive file id of the finance workbook>",
   "customers": ["..."],
   "suppliers": ["..."]
 }
 ```
+
+Open a folder in Drive; the ID is the last part of the URL.
+
+`drive.customersRootId` is the one that matters most. The filing system is **one
+folder per deal** — each named `<number> <customer>`, e.g. `161 YCII Food Oil
+Refinery` — and that deal folder is what holds the workflow subfolders:
+
+```
+CUSTOMERS/
+  161 YCII Food Oil Refinery/
+    01 RFQ In/   02 RFQ Out/   03 Quotations In/   04 Quotations Out/
+    05 Invoices In/   06 Invoices Out/   07 PO-Contracts In/
+    08 PO-Contracts Out/   09 Examples/   10 Others/
+  166 Block 52 OMV/
+    ...
+```
+
+So there is no company-wide "Quotations Out" folder to name here, and none is
+configured: the agent finds a deal with `list_deals`, looks inside it with
+`open_deal`, and resolves a workflow folder relative to that deal — creating it
+if the deal has not got one yet. Older deals predate the convention and use
+their own subfolder names, so the agent reads what is actually there rather than
+assuming the ten exist.
 
 The `customers` and `suppliers` lists only help the agent recognise names it
 sees; they do not need to be complete.
