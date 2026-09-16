@@ -5,12 +5,15 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { setEnv } from "../../lib/runtime.js";
+import { setEnv, env } from "../../lib/runtime.js";
 import { requireSession } from "../../lib/session.js";
 import { buildSystemPrompt } from "../../lib/knowledge.js";
 import { TOOLS, executeTool } from "../../lib/tools.js";
 
-const MODEL = "claude-opus-5";
+/* Which model answers. Opus is the most capable and the most expensive; a
+   small business can start on Haiku or Sonnet and move up when the work
+   justifies it. Set ES_MODEL in Cloudflare to change it without a deploy. */
+const DEFAULT_MODEL = "claude-opus-5";
 const MAX_TURNS = 24;
 
 export async function onRequest(context) {
@@ -65,7 +68,7 @@ export async function onRequest(context) {
 
         for (let turn = 0; turn < MAX_TURNS; turn++) {
           const response = client.messages.stream({
-            model: MODEL,
+            model: env("ES_MODEL") || DEFAULT_MODEL,
             max_tokens: 32000,
             thinking: { type: "adaptive", display: "summarized" },
             system: [

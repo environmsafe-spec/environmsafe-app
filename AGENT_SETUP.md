@@ -71,6 +71,28 @@ variable) so the values are write-only once saved:
 | `STAFF_PASSCODE` | the passcode your staff will type to sign in |
 | `SESSION_SECRET` | 32+ random characters — generate with `openssl rand -base64 32` |
 | `ES_PROFILE` | the company profile JSON — see below |
+| `ES_MODEL` | *optional* — which model answers. Omit for `claude-opus-5`. |
+
+#### Choosing a model
+
+This is the only part of the system that costs money; the hosting, the Google
+APIs and the database are all on free tiers. Price per million tokens:
+
+| Model | `ES_MODEL` | Input | Output |
+|---|---|---|---|
+| Haiku 4.5 | `claude-haiku-4-5` | $1 | $5 |
+| Sonnet 5 | `claude-sonnet-5` | $2 | $10 |
+| Opus 5 | *(omit)* | $5 | $25 |
+
+A task that reads a few documents and drafts a quotation is roughly 30,000
+tokens in and 2,000 out — about $0.04 on Haiku, $0.08 on Sonnet, $0.20 on Opus.
+Start low and move up if the answers are not good enough; the change is one
+variable and a redeploy, with no code edit.
+
+Two things already reduce the bill without costing quality: the system prompt
+and company profile are sent with `cache_control`, so repeated questions in a
+session re-read them at a fraction of the price, and work that can wait can go
+through the Batch API at half rate.
 
 #### `ES_PROFILE`
 
@@ -184,6 +206,8 @@ These are built into the agent, not optional settings:
 
 There are two places, and the split matters:
 
+- **Which model answers** — the `ES_MODEL` environment variable. Change it in
+  Cloudflare and redeploy.
 - **Company data** — letterhead, folder IDs, customer and supplier lists — lives
   in the `ES_PROFILE` environment variable. Change it in Cloudflare and redeploy;
   no code change, and nothing private ends up in the repository.
