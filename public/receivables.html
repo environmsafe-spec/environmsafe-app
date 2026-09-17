@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="EnvironmSafe internal receivables position." />
+  <title>Receivables | EnvironmSafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/agent.css" />
+  <link rel="stylesheet" href="css/receivables.css" />
+  <meta name="theme-color" content="#1a2744" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="img/agent-icon-192.png" />
+</head>
+<body class="agent-body">
+
+  <!-- SIGN IN — the same staff passcode and session cookie as the agent. -->
+  <div class="gate" id="gate" hidden>
+    <form class="gate__card" id="gate-form">
+      <div class="gate__logo">Environm<strong>Safe</strong></div>
+      <p class="gate__hint">Staff access only. Enter your team passcode.</p>
+      <input type="password" id="passcode" autocomplete="current-password"
+             inputmode="text" aria-label="Staff passcode" required />
+      <button type="submit" id="gate-submit">Sign in</button>
+      <p class="gate__error" id="gate-error" role="alert"></p>
+    </form>
+  </div>
+
+  <main class="rec" id="shell" hidden>
+    <header class="rec__top">
+      <h1>Receivables
+        <span id="asof">reading the ledger&hellip;</span>
+      </h1>
+      <div class="rec__actions">
+        <button type="button" id="refresh">Refresh</button>
+        <button type="button" id="signout">Sign out</button>
+      </div>
+    </header>
+
+    <div class="rec__loading" id="loading">
+      <p>Reading the finance workbook from Drive&hellip;</p>
+      <p class="rec__muted">This reads a large spreadsheet, so give it a moment.</p>
+    </div>
+
+    <div class="rec__error" id="error" hidden role="alert"></div>
+
+    <div id="report" hidden>
+      <!-- The warnings come first on purpose. A balance from this ledger is not
+           the amount owed, and the reasons why should be read before the
+           figures, not after them. -->
+      <section class="rec__card rec__card--warn" id="quality-card">
+        <h2>Read this before the figures</h2>
+        <ul id="quality"></ul>
+      </section>
+
+      <section class="rec__card">
+        <h2>Open invoices <span class="rec__count" id="open-count"></span></h2>
+        <p class="rec__muted">Recorded invoices not marked paid or closed, oldest first.</p>
+        <div class="rec__scroll">
+          <table class="rec__table" id="open-table">
+            <thead>
+              <tr><th>Customer</th><th class="num">Age</th><th class="num">Amount</th><th>Reference</th><th>Date</th><th>Status</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="rec__empty" id="open-empty" hidden>No unsettled invoices are recorded.</p>
+      </section>
+
+      <section class="rec__card">
+        <h2>Ageing</h2>
+        <p class="rec__muted">How old the open invoices are, counted per currency. Currencies are never added together.</p>
+        <div class="rec__scroll">
+          <table class="rec__table" id="ageing-table">
+            <thead><tr><th>Age</th><th class="num">Invoices</th><th>Amounts</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="rec__card">
+        <h2>By customer <span class="rec__count" id="cust-count"></span></h2>
+        <p class="rec__muted">
+          Invoiced, received and the difference — each currency on its own line.
+          The difference is not a debt; see the warnings above.
+        </p>
+        <div id="customers"></div>
+      </section>
+
+      <footer class="rec__source" id="source"></footer>
+    </div>
+  </main>
+
+  <script src="js/receivables.js"></script>
+</body>
+</html>

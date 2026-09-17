@@ -202,6 +202,21 @@ Android offers a real install rather than a bookmark. That is deliberate: the
 console streams its answers and sits behind a session cookie, so a cached page
 could show one person's work to the next.
 
+## The receivables page
+
+`/receivables` shows the same figures the agent reports, as a page rather than a
+conversation: open invoices oldest first, an ageing breakdown, and each
+customer's invoiced / received / difference per currency.
+
+**It makes no model call.** Ageing an invoice and summing a balance is
+arithmetic, so the page needs no `ANTHROPIC_API_KEY`, costs nothing to run, and
+keeps working when the agent cannot. It shares the staff passcode and session
+cookie with the agent, and reads the same workbook through `lib/ledger.js`.
+
+The data-quality warnings are printed above the figures rather than below them,
+because a balance from this ledger is not the amount owed and the reasons why
+should be read first.
+
 ## Everyday use
 
 Open the page, enter the staff passcode, and type what you want done. The agent
@@ -255,9 +270,11 @@ To add a new capability, add a tool in `lib/tools.js`: a definition in
 ```
 public/                      everything served to visitors
   agent.html                 the staff console
+  receivables.html           the ageing report; no model call
   css/agent.css              its styling
   js/agent.js                chat UI; talks to /api/agent, holds no secrets
 functions/api/agent.js       the agent loop, streamed over SSE
+functions/api/receivables.js the ageing report as JSON; no model call
 functions/api/login.js       passcode sign-in
 lib/runtime.js               hands Cloudflare's bindings to the library
 lib/config.js                loads the company profile from ES_PROFILE

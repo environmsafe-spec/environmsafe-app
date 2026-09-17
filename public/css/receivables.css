@@ -1,0 +1,119 @@
+/* ====================================================
+   EnvironmSafe — Receivables
+   Shares the agent's sign-in gate; everything below is
+   built for reading numbers on a phone held one-handed.
+   ==================================================== */
+
+/* The sign-in gate sets `display: grid`, which beats the browser's own rule for
+   the `hidden` attribute — so hiding it in JavaScript silently did nothing and
+   the gate sat on top of the report after a reload. Author rules win, so the
+   guard has to be an author rule too. */
+[hidden] { display: none !important; }
+
+.rec { flex: 1; width: 100%; max-width: 900px; margin: 0 auto;
+  padding: 0 16px calc(32px + env(safe-area-inset-bottom, 0px)); }
+
+.rec__top { display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--clr-border); flex-wrap: wrap; }
+.rec__top h1 { font-family: var(--font-head); font-size: 1.1rem; color: var(--clr-primary); }
+.rec__top h1 span { display: block; font-family: var(--font-body); font-weight: 400;
+  font-size: .82rem; color: var(--clr-text-lt); }
+
+.rec__actions { display: flex; gap: 8px; }
+.rec__actions button { min-height: 44px; padding: 0 14px; border-radius: var(--radius-sm);
+  border: 1px solid var(--clr-border); background: var(--clr-white);
+  color: var(--clr-text-md); font-size: .875rem; font-weight: 500; cursor: pointer; }
+.rec__actions button:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
+.rec__actions button[disabled] { opacity: .55; cursor: default; }
+
+.rec__loading, .rec__error { padding: 32px 0; color: var(--clr-text-md); }
+.rec__error { color: #b91c1c; }
+.rec__muted { color: var(--clr-text-lt); font-size: .85rem; }
+
+.rec__card { background: var(--clr-white); border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg); padding: 20px; margin-top: 20px; }
+.rec__card h2 { font-family: var(--font-head); font-size: 1rem; color: var(--clr-primary);
+  margin-bottom: 4px; }
+.rec__card h2 + .rec__muted { margin-bottom: 14px; }
+
+/* The data-quality notes are the most important thing on the page, so they
+   are styled to be read rather than skipped. */
+.rec__card--warn { background: #fffbeb; border-color: #fcd34d; }
+.rec__card--warn h2 { color: #92400e; }
+.rec__card--warn ul { margin: 10px 0 0; padding-left: 20px; }
+.rec__card--warn li { font-size: .875rem; line-height: 1.55; color: #78350f; margin-bottom: 8px; }
+
+.rec__count { font-family: var(--font-body); font-weight: 400; font-size: .82rem;
+  color: var(--clr-text-lt); }
+
+/* A wide table on a narrow phone scrolls sideways inside its card rather than
+   forcing the whole page sideways. */
+.rec__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; }
+.rec__table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.rec__table th, .rec__table td { padding: 9px 10px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--clr-border); }
+.rec__table th { font-weight: 600; color: var(--clr-text-md); font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .04em; }
+.rec__table tbody tr:last-child td { border-bottom: 0; }
+.rec__table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.rec__table .wrap { white-space: normal; min-width: 11rem; }
+
+/* Age is the one number a person scans for, so it carries the only colour. */
+.age { font-weight: 600; font-variant-numeric: tabular-nums; }
+.age--fresh { color: var(--clr-text-md); }
+.age--due   { color: #b45309; }
+.age--late  { color: #b91c1c; }
+
+.rec__empty { color: var(--clr-text-lt); font-size: .875rem; padding: 12px 0 0; }
+
+.cust { border-top: 1px solid var(--clr-border); padding: 14px 0; }
+.cust:first-child { border-top: 0; }
+.cust__name { font-weight: 600; color: var(--clr-primary); font-size: .92rem; }
+.cust__meta { font-size: .78rem; color: var(--clr-text-lt); margin-top: 2px; }
+.cust__rows { margin-top: 10px; display: grid; gap: 6px; }
+.cust__row { display: grid; grid-template-columns: 4.5rem 1fr 1fr 1fr; gap: 8px;
+  font-size: .82rem; font-variant-numeric: tabular-nums; }
+.cust__row span:not(:first-child) { text-align: right; }
+.cust__row--head { color: var(--clr-text-lt); font-size: .74rem;
+  text-transform: uppercase; letter-spacing: .04em; }
+.cust__ccy { font-weight: 600; color: var(--clr-text-md); }
+
+.rec__source { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--clr-border);
+  font-size: .8rem; color: var(--clr-text-lt); }
+
+@media (max-width: 480px) {
+  .rec__card { padding: 16px 14px; }
+  .cust__row { grid-template-columns: 3.6rem 1fr 1fr 1fr; gap: 6px; font-size: .78rem; }
+}
+
+/* ---------- Tables become labelled cards on a phone ----------
+   A six-column invoice table cannot fit 393px, and sideways scrolling hides
+   exactly the two columns someone opened this page to read — the age and the
+   amount. Below 640px each row stacks into its own labelled block instead, so
+   nothing important is off-screen and the sideways scroll is never needed. */
+@media (max-width: 640px) {
+  .rec__scroll { overflow-x: visible; margin: 0; }
+
+  .rec__table thead { position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .rec__table, .rec__table tbody, .rec__table tr, .rec__table td { display: block; }
+
+  .rec__table tr { border: 1px solid var(--clr-border); border-radius: var(--radius-sm);
+    padding: 10px 12px; margin-bottom: 10px; }
+  .rec__table tr:last-child { margin-bottom: 0; }
+
+  .rec__table td { display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; padding: 4px 0; border-bottom: 0; white-space: normal; text-align: right; }
+
+  .rec__table td::before { content: attr(data-label); flex: none;
+    color: var(--clr-text-lt); font-size: .74rem; text-transform: uppercase;
+    letter-spacing: .04em; text-align: left; }
+
+  /* The customer is the row's heading, not another labelled field. */
+  .rec__table td[data-label="Customer"], .rec__table td[data-label="Age"] {
+    text-align: left; }
+  .rec__table td[data-label="Customer"] { font-weight: 600; color: var(--clr-primary);
+    padding-bottom: 8px; }
+  .rec__table td[data-label="Customer"]::before { content: none; }
+}
