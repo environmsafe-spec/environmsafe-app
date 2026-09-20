@@ -105,6 +105,10 @@ def candidate_files():
 
 def load_client():
     """Find a file holding a matching client id and secret, as Google wrote it."""
+    if "--new-client" in sys.argv:
+        print("Ignoring any saved client file, as asked.")
+        return ask_for_client()
+
     for path in candidate_files():
         try:
             data = json.load(open(path))
@@ -266,6 +270,16 @@ def main():
             "Remove this app's access at https://myaccount.google.com/permissions",
             "and run the script again.")
 
+    verify(cid, csec, refresh)
+
+    out = os.path.expanduser("~/es-secrets.txt")
+    with open(out, "w") as handle:
+        handle.write(
+            "GOOGLE_CLIENT_ID\n%s\n\nGOOGLE_CLIENT_SECRET\n%s\n\nGOOGLE_REFRESH_TOKEN\n%s\n"
+            % (cid, csec, refresh)
+        )
+    os.chmod(out, 0o600)
+
     print()
     print(RULE)
     print(" THE THREE CLOUDFLARE SECRETS")
@@ -282,13 +296,65 @@ def main():
     print()
     print(RULE)
     print()
-    print(" Add each as a Secret (not a plain text variable) under")
+    print(" All three are also saved in " + out + ", which you can open with")
+    print(" a tap rather than selecting a wrapped line in this terminal:")
+    print()
+    print("   cloudshell edit ~/es-secrets.txt")
+    print()
+    print(" Put ALL THREE into Cloudflare, as Secrets, under")
     print(" Workers & Pages -> environmsafe -> Settings -> Variables and Secrets.")
+    print(" All three, even if only one looks wrong: a refresh token only works")
+    print(" with the client that issued it, so they travel together or not at all.")
     print()
-    print(" When all three are saved there, wipe them from this machine:")
+    print(" Then Deployments -> the newest one -> ... -> Retry deployment.")
+    print(" A secret does nothing until the next deployment runs.")
     print()
-    print("   rm -f ~/client.json ~/google-token.py")
+    print(" When that is done, wipe them from this machine:")
     print()
+    print("   rm -f ~/client.json ~/gt.py ~/google-token.py ~/es-secrets.txt")
+    print()
+
+
+def verify(cid, csec, refresh):
+    """Spend the refresh token once, here, to prove it works.
+
+    Without this the first real test happens in Cloudflare, ten minutes and one
+    deployment later, and a failure there cannot say whether the token is bad or
+    was mistyped on the way in. Doing it now separates those two cases while the
+    values are still on screen."""
+    print()
+    print("Checking the token actually works...")
+
+    body = urllib.parse.urlencode({
+        "client_id": cid,
+        "client_secret": csec,
+        "refresh_token": refresh,
+        "grant_type": "refresh_token",
+    }).encode()
+
+    try:
+        with urllib.request.urlopen(
+            urllib.request.Request("https://oauth2.googleapis.com/token", data=body)
+        ) as response:
+            granted = json.load(response)
+    except urllib.error.HTTPError as err:
+        detail = err.read().decode("utf-8", "replace")
+        die("The token was issued but does not work.",
+            "",
+            detail,
+            "",
+            "This is the mismatch to look for: a refresh token only works with",
+            "the client that issued it. Run the script again with --new-client",
+            "and paste the id and secret from",
+            "https://console.cloud.google.com/auth/clients",
+            "so that all three values come from one client.")
+    except urllib.error.URLError as err:
+        die("Could not reach Google: " + str(err.reason))
+
+    scopes = granted.get("scope", "")
+    print("  It works. Google issued an access token from it.")
+    if scopes:
+        print("  Granted: " + ", ".join(s.rsplit("/", 1)[-1] for s in scopes.split()))
 
 
 if __name__ == "__main__":
