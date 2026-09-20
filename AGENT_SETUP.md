@@ -31,30 +31,69 @@ business doing tens of these tasks a day should expect single-digit dollars a da
 
 ### 2. Google access
 
-The agent acts as the company Google account — the one that owns the procurement
-Drive folders and receives customer mail.
+There are two ways to give the agent access to your Google data, and they are
+not interchangeable. Use the first unless you need mail.
 
-1. Go to <https://console.cloud.google.com>, create a project, and enable the
-   **Google Drive API**, **Google Sheets API** and **Gmail API**.
-2. Under **APIs & Services → Credentials**, create an **OAuth client ID** of type
-   *Web application*. Add `https://developers.google.com/oauthplayground` as an
-   authorised redirect URI. Note the client ID and client secret.
-3. Open <https://developers.google.com/oauthplayground>. Click the gear icon,
-   tick **Use your own OAuth credentials**, and paste the client ID and secret.
-4. In the scope list on the left, authorise these scopes:
+#### A service account — for Drive and Sheets (recommended)
 
-   ```
-   https://www.googleapis.com/auth/drive
-   https://www.googleapis.com/auth/spreadsheets
-   https://www.googleapis.com/auth/gmail.modify
-   ```
+A service account is its own identity with its own email address. There is no
+browser sign-in, no consent screen, no refresh token, and nothing that expires.
+You grant it access the way you grant a colleague access: by sharing a folder
+with its address.
 
-5. Sign in as the company account, then click **Exchange authorization code for
-   tokens**. Copy the **refresh token**.
+1. Go to <https://console.cloud.google.com/iam-admin/serviceaccounts>, pick your
+   project, and **Create service account**. Any name will do.
+2. Skip the optional role and access steps — it needs no project permissions.
+3. Open it, go to **Keys** → **Add key** → **Create new key** → **JSON**.
+   A `.json` file downloads. That file is the credential.
+4. Enable the **Google Drive API** and **Google Sheets API** for the project at
+   <https://console.cloud.google.com/apis/library>.
+5. Copy the service account's **email address** — it ends
+   `.iam.gserviceaccount.com`.
+6. In Google Drive, share these with that address, as **Viewer** (or **Editor**
+   if the agent should file documents):
+   - the **CUSTOMERS** folder
+   - the **finance workbook** (if it lives outside that folder)
 
-> The refresh token is a long-lived key to the company Drive and mailbox. Treat it
-> like a bank password. If it ever leaks, revoke it at
-> <https://myaccount.google.com/permissions>.
+Set `GOOGLE_SERVICE_ACCOUNT` to the entire contents of the JSON file, from the
+opening `{` to the closing `}`.
+
+> A service account sees only what has been shared with it. That is the point:
+> its reach is a list you can inspect in Drive and revoke in one click, rather
+> than a token that carries the whole account.
+
+**It cannot read Gmail.** A personal Google account cannot delegate its mailbox
+to a service account — that needs Workspace domain-wide delegation. So mail
+needs the second method.
+
+#### An OAuth refresh token — for Gmail
+
+This acts *as* the company account, which is what reading and drafting mail
+requires.
+
+1. Create an **OAuth client ID** of type **Desktop app** at
+   <https://console.cloud.google.com/auth/clients>. The type matters: only a
+   Desktop client may send the sign-in back to `http://localhost`, which is how
+   the script below collects the result.
+2. Download its JSON, then run `scripts/google-token.py` in Google Cloud Shell.
+   It asks Google for exactly three scopes — Drive, Sheets and
+   `gmail.modify` — signs in, and then **spends the token once to prove it
+   works** before printing it.
+3. Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `GOOGLE_REFRESH_TOKEN`.
+
+> A refresh token is a long-lived key to the whole account. Treat it like a bank
+> password, and revoke it at <https://myaccount.google.com/permissions> if it
+> ever leaks. It is also bound to the client that issued it: a token from one
+> client and an id from another produce `invalid_grant`, which says nothing
+> about the real mistake. `scripts/push-secrets.sh` sends all three together
+> from Cloud Shell for that reason.
+
+#### Which is used
+
+If `GOOGLE_SERVICE_ACCOUNT` is set, it is used for everything it can do.
+The OAuth credentials are then only consulted for mail. Setting both is the
+normal arrangement for a complete agent; setting only the service account gives
+you everything except email drafting.
 
 ### 3. Cloudflare Pages environment variables
 
@@ -65,9 +104,10 @@ variable) so the values are write-only once saved:
 | Variable | Value |
 |---|---|
 | `ANTHROPIC_API_KEY` | from step 1 |
-| `GOOGLE_CLIENT_ID` | from step 2 |
-| `GOOGLE_CLIENT_SECRET` | from step 2 |
-| `GOOGLE_REFRESH_TOKEN` | from step 2 |
+| `GOOGLE_SERVICE_ACCOUNT` | the whole service account JSON key — Drive and Sheets |
+| `GOOGLE_CLIENT_ID` | *only for mail* — from step 2 |
+| `GOOGLE_CLIENT_SECRET` | *only for mail* — from step 2 |
+| `GOOGLE_REFRESH_TOKEN` | *only for mail* — from step 2 |
 | `STAFF_PASSCODE` | the passcode your staff will type to sign in |
 | `SESSION_SECRET` | 32+ random characters — generate with `openssl rand -base64 32` |
 | `ES_PROFILE` | the company profile JSON — see below |
