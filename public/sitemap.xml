@@ -172,6 +172,22 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Platform &amp; Applications -->
+  <url>
+    <loc>https://www.environmsafe.com/platform.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/platform.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/platform.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/platform.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/platform.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/platform.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- News index -->
   <url>
     <loc>https://www.environmsafe.com/news.html</loc>
@@ -190,6 +206,22 @@
 
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
+  <url>
+    <loc>https://www.environmsafe.com/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html"/>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-09-21-environmsafe-platform-eos-asset-tracking.html"/>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://www.environmsafe.com/news/2026-09-14-a-fire-pump-that-starts-is-not-a-fire-pump-that-works.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-09-14-a-fire-pump-that-starts-is-not-a-fire-pump-that-works.html"/>
