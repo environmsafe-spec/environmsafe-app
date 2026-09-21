@@ -1,16 +1,184 @@
 [
   {
+    "iso": "2026-09-21",
+    "slug": "environmsafe-platform-eos-asset-tracking",
+    "icon": "fa-table-cells-large",
+    "color": "amber",
+    "en": {
+      "title": "Our Platform Is Now Open: EOS, Asset Maintenance Tracking and Inspection",
+      "home_summary": "Most of what a service company does for you happens where you cannot see it. We have been replacing that with systems you can log into &mdash; EnvironmSafe Operations Management (EOS), Client Assets & Equipment Maintenance Tracking, and the Inspection & Certification platform now entering rollout."
+    },
+    "ar": {
+      "title": "منصّتنا أصبحت متاحة: EOS، وتتبّع صيانة الأصول، والفحص وإصدار الشهادات",
+      "home_summary": "معظم ما تقوم به شركة خدمات من أجلكم يحدث حيث لا ترونه. ظللنا نستبدل ذلك بأنظمة تستطيعون الدخول إليها &mdash; إدارة عمليات EnvironmSafe (EOS)، وتتبّع صيانة أصول ومعدات العملاء، ومنصّة الفحص وإصدار الشهادات التي دخلت مرحلة الإطلاق."
+    }
+  },
+  {
+    "iso": "2026-09-14",
+    "slug": "a-fire-pump-that-starts-is-not-a-fire-pump-that-works",
+    "icon": "fa-fire-extinguisher",
+    "color": "red",
+    "en": {
+      "title": "A Fire Pump That Starts Is Not a Fire Pump That Works",
+      "home_summary": "The weekly test proves the pump starts. It says nothing about flow or pressure when it matters."
+    },
+    "ar": {
+      "title": "مضخة الحريق التي تعمل ليست مضخة تؤدي المطلوب",
+      "home_summary": "الاختبار الأسبوعي يثبت أن المضخة تبدأ، ولا يقول شيئاً عن التدفق والضغط حين يهمان."
+    }
+  },
+  {
+    "iso": "2026-09-13",
+    "slug": "the-harness-is-the-easy-part",
+    "icon": "fa-link",
+    "color": "purple",
+    "en": {
+      "title": "The Harness Is the Easy Part: Anchor Points and Fall Clearance",
+      "home_summary": "Harnesses get inspected. The anchor above and the clearance below are usually just assumed."
+    },
+    "ar": {
+      "title": "الحزام هو الجزء السهل: نقاط التثبيت ومسافة السقوط الحرة",
+      "home_summary": "الأحزمة تُفحص، أما نقطة التثبيت فوق والمسافة تحت فتُفترض عادة."
+    }
+  },
+  {
+    "iso": "2026-09-12",
+    "slug": "earthing-is-not-the-same-as-bonding",
+    "icon": "fa-bolt",
+    "color": "blue",
+    "en": {
+      "title": "Earthing and Bonding Are Not the Same Thing",
+      "home_summary": "One gives fault current a path home. The other stops you becoming the path. They are not interchangeable."
+    },
+    "ar": {
+      "title": "التأريض والربط التكافئي ليسا الشيء نفسه",
+      "home_summary": "أحدهما يمنح تيار العطل طريق العودة، والآخر يمنعكم من أن تكونوا أنتم الطريق."
+    }
+  },
+  {
+    "iso": "2026-09-11",
+    "slug": "the-contractor-questionnaire-nobody-reads",
+    "icon": "fa-clipboard-check",
+    "color": "amber",
+    "en": {
+      "title": "Prequalifying a Contractor: The Questions That Actually Predict Anything",
+      "home_summary": "A prequalification pack full of certificates tells you a company can produce paperwork. It does not tell you who will actually stand on your site next Tuesday, what they were told before they arrived, or what happens when the method statement meets a wall that is not where the drawing says it is."
+    },
+    "ar": {
+      "title": "التأهيل المسبق للمقاولين: الأسئلة التي تتنبأ بشيء فعلاً",
+      "home_summary": "ملف تأهيل مليء بالشهادات يخبركم أن الشركة قادرة على إنتاج أوراق، ولا يخبركم من سيقف في موقعكم الثلاثاء القادم، ولا بما قيل له قبل وصوله، ولا بما يحدث حين يصطدم بيان الطريقة بجدار ليس في المكان الذي تقوله الرسومات. حفنة من الأسئلة المختلفة تتنبأ بأكثر من ذلك بكثير."
+    }
+  },
+  {
+    "iso": "2026-09-10",
+    "slug": "gas-detectors-fail-quietly",
+    "icon": "fa-gauge-high",
+    "color": "teal",
+    "en": {
+      "title": "A Gas Detector That Reads Zero Is Not Necessarily Working",
+      "home_summary": "A detector reading zero with a green light means either there is no gas or the instrument can no longer tell, and the two look identical from outside. Sensors lose sensitivity to heat, humidity, dust and simple age without any warning."
+    },
+    "ar": {
+      "title": "كاشف الغاز الذي يقرأ صفراً ليس بالضرورة يعمل",
+      "home_summary": "كاشف يقرأ صفراً بضوء أخضر يعني إما أن لا غاز هناك أو أن الجهاز لم يعد قادراً على التمييز، والأمران متطابقان من الخارج. الحساسات تفقد حساسيتها بالحرارة والرطوبة والغبار والعمر دون إنذار."
+    }
+  },
+  {
+    "iso": "2026-09-09",
+    "slug": "a-drill-is-not-a-rehearsal",
+    "icon": "fa-person-running",
+    "color": "blue",
+    "en": {
+      "title": "A Fire Drill Is Not the Same Thing as a Rehearsal",
+      "home_summary": "The usual drill is announced, held mid-morning in good weather with a full day shift and no visitors, and everyone leaves by the door they came in through. It proves people can walk outside."
+    },
+    "ar": {
+      "title": "تمرين الإخلاء ليس بروفة حقيقية",
+      "home_summary": "التمرين المعتاد مُعلن ويجري صباحاً في طقس جيد مع وردية كاملة ودون زوار، ويخرج الجميع من الباب نفسه. هو يثبت أن الناس يستطيعون الخروج فقط."
+    }
+  },
+  {
+    "iso": "2026-09-08",
+    "slug": "boiler-inspection-what-is-actually-checked",
+    "icon": "fa-temperature-high",
+    "color": "green",
+    "en": {
+      "title": "Boiler Inspection: What Is Actually Being Checked",
+      "home_summary": "Most boilers in service carry a certificate. Far fewer carry an honest account of what was examined to earn it."
+    },
+    "ar": {
+      "title": "فحص الغلايات: ما الذي يُفحص فعلياً",
+      "home_summary": "معظم الغلايات في الخدمة تحمل شهادة، وعدد أقل بكثير يحمل بياناً صادقاً عمّا فُحص لنيلها. المشكلة المعتادة ليست غياب الشهادة بل نطاقها الأضيق مما يعتقده المشغل، والأعطال الأهم هي التي لا تعطي أي إنذار: قشور تعزل أنبوباً، أو قاطع انخفاض ماء لم يُختبر وظيفياً قط."
+    }
+  },
+  {
+    "iso": "2026-09-07",
+    "slug": "arc-flash-the-electrical-hazard-nobody-assesses",
+    "icon": "fa-bolt",
+    "color": "amber",
+    "en": {
+      "title": "Arc Flash: The Electrical Hazard Most Facilities Never Assess",
+      "home_summary": "Electrical incidents split into two kinds. Shock, which everyone guards against, and arc flash, which most facilities outside heavy industry have never assessed and which causes the catastrophic injuries."
+    },
+    "ar": {
+      "title": "وميض القوس الكهربائي: الخطر الذي لا تقيّمه معظم المنشآت",
+      "home_summary": "تنقسم الحوادث الكهربائية إلى نوعين: الصعق الذي يحترس منه الجميع، ووميض القوس الذي لم تقيّمه معظم المنشآت خارج الصناعات الثقيلة والذي يسبب الإصابات الكارثية. والظروف التي تصنعه عادية تماماً: أداة تسقط، ووصلة مرتخية تسخن بصمت منذ أشهر، وغبار وحرارة يتلفان العزل، وقارض في لوحة توزيع."
+    }
+  },
+  {
+    "iso": "2026-09-06",
+    "slug": "permit-to-work-stops-two-crews-colliding",
+    "icon": "fa-file-signature",
+    "color": "orange",
+    "en": {
+      "title": "A Permit to Work Is What Stops Two Crews Colliding",
+      "home_summary": "Serious incidents on multi-contractor sites rarely involve one obviously reckless act. They involve two reasonable activities that were safe alone and lethal together: hot work near a tank someone else was draining, an excavation over an unmapped service."
+    },
+    "ar": {
+      "title": "تصريح العمل هو ما يمنع تصادم فريقين",
+      "home_summary": "الحوادث الخطيرة في المواقع متعددة المقاولين نادراً ما تتضمن تصرفاً متهوراً واضحاً، بل نشاطين معقولين كانا آمنين منفصلين وقاتلين مجتمعين: عمل ساخن قرب خزان يفرغه آخر، وحفر فوق خدمة غير مرسومة. لم يكن أحد مهملاً، ولم يكن أحد يتحدث إلى الآخر، ونظام التصاريح موجود ليجعل ذلك الحديث إلزامياً."
+    }
+  },
+  {
+    "iso": "2026-09-05",
+    "slug": "psv-certified-test-bench-only-provider",
+    "icon": "fa-gauge-high",
+    "color": "amber",
+    "en": {
+      "title": "We Now Operate the Region's Only Certified PSV Test Bench",
+      "home_summary": "A pressure safety valve that fails to open at the correct pressure does not give a warning. EnvironmSafe now operates the region's only certified PSV test bench — delivering API 527 and API 576 compliant inspection, testing, calibration, maintenance and repair."
+    },
+    "ar": {
+      "title": "نشغّل الآن مقعد الاختبار المعتمد الوحيد لصمامات الأمان PSV في المنطقة",
+      "home_summary": "صمام الأمان الذي لا يفتح عند الضغط الصحيح لا يعطي تحذيراً. تشغّل EnvironmSafe الآن مقعد الاختبار المعتمد الوحيد في المنطقة — فحص، اختبار، معايرة، صيانة وإصلاح وفق API 527 وAPI 576."
+    }
+  },
+  {
+    "iso": "2026-09-04",
+    "slug": "confined-space-entry-kills-experienced-people",
+    "icon": "fa-door-closed",
+    "color": "teal",
+    "en": {
+      "title": "Confined Space Work Kills Experienced People",
+      "home_summary": "The victims in confined space incidents are usually not untrained newcomers. They are competent workers who entered the same space before without incident."
+    },
+    "ar": {
+      "title": "العمل في الأماكن المحصورة يقتل أصحاب الخبرة",
+      "home_summary": "ضحايا حوادث الأماكن المحصورة غالباً ليسوا وافدين بلا تدريب، بل عمال أكفاء دخلوا المكان نفسه من قبل دون حادثة. الظروف تتغير بين دخول وآخر حتى لو لم يتغير شيء ظاهر في الخارج، ولهذا يُشترط الاختبار في كل مرة لا استنتاجه من التاريخ، ولهذا تهم خطة الإنقاذ المُتدرب عليها أكثر من أي ضابط آخر."
+    }
+  },
+  {
     "iso": "2026-09-03",
     "slug": "safety-management-system-when-nobody-is-watching",
     "icon": "fa-shield-halved",
     "color": "navy",
     "en": {
       "title": "A Safety Management System Is What Happens When Nobody Is Watching",
-      "home_summary": "The documented system and the one your crews actually use are rarely the same. That distance is where incidents come from."
+      "home_summary": "Most organisations run two safety systems at once: the documented one that is audit-ready, and the operating one their crews actually use. The distance between them is the best single predictor of whether a facility has an incident, and no audit that only reads paperwork can see it."
     },
     "ar": {
       "title": "نظام إدارة السلامة هو ما يحدث حين لا يراقب أحد",
-      "home_summary": "النظام الموثق والنظام الذي تستخدمه فرقكم نادراً ما يتطابقان، ومن تلك المسافة تأتي الحوادث."
+      "home_summary": "معظم المؤسسات تشغل نظامي سلامة في آن واحد: نظام موثق جاهز للتدقيق، ونظام تشغيلي تستخدمه الفرق فعلاً. والمسافة بينهما أفضل مؤشر منفرد على احتمال وقوع حادثة، ولا يراها تدقيق يقرأ الأوراق فقط."
     }
   },
   {
@@ -20,11 +188,11 @@
     "color": "green",
     "en": {
       "title": "Deferred Maintenance Becomes Unplanned Failure",
-      "home_summary": "Postponing a service interval is choosing to accept a failure at a time somebody else picks."
+      "home_summary": "Every deferred maintenance task is a decision to accept a failure at a time you do not choose. The repair invoice is the smallest part of the cost: lost production, emergency labour, expedited freight and secondary damage sit outside the maintenance budget entirely, which is why cutting that budget looks like a saving right up until it is not."
     },
     "ar": {
       "title": "الصيانة المؤجلة تتحول إلى عطل غير مخطط له",
-      "home_summary": "تأجيل موعد الخدمة اختيار لقبول عطل في وقت يختاره غيركم."
+      "home_summary": "كل مهمة صيانة مؤجلة قرار بقبول عطل في وقت لا تختارونه. فاتورة الإصلاح أصغر جزء من الكلفة: الإنتاج الضائع والعمالة الطارئة والشحن المستعجل والضرر الثانوي كلها خارج ميزانية الصيانة، ولهذا يبدو خفضها توفيراً."
     }
   },
   {
@@ -34,11 +202,123 @@
     "color": "blue",
     "en": {
       "title": "What Actually Goes Wrong on Construction Projects, and When",
-      "home_summary": "The most expensive mistakes get buried in the middle of a project, where the fewest people are looking."
+      "home_summary": "Projects rarely fail in one dramatic moment. They fail through small, defensible decisions taken under schedule pressure."
     },
     "ar": {
       "title": "ما الذي يحدث فعلاً من أخطاء في مشاريع الإنشاء، ومتى",
-      "home_summary": "أكلف الأخطاء تُدفن في منتصف المشروع، حيث يقل عدد من يدققون."
+      "home_summary": "نادراً ما تفشل المشاريع في لحظة واحدة، بل عبر قرارات صغيرة مبررة تحت ضغط الجدول. معظم ما يحدث من أخطاء تقرر في التصميم والشراء، ومنتصف المشروع هو حيث تُدفن أكلف الأخطاء داخل أعمال منتهية."
+    }
+  },
+  {
+    "iso": "2026-08-31",
+    "slug": "industrial-hvac-is-a-safety-system",
+    "icon": "fa-wind",
+    "color": "teal",
+    "en": {
+      "title": "Industrial HVAC Is a Safety System, Not Just a Comfort System",
+      "home_summary": "HVAC controls the air people breathe for eight hours at a stretch. Systems are commissioned to match a building on day one, then walls move and processes are added, and nobody rebalances."
+    },
+    "ar": {
+      "title": "أنظمة التكييف الصناعية نظام سلامة، لا نظام راحة فقط",
+      "home_summary": "أنظمة التكييف تتحكم بالهواء الذي يتنفسه الناس ثماني ساعات متواصلة. تُشغّل لتناسب مبنى يومه الأول، ثم تُنقل الجدران وتُضاف عمليات دون إعادة ضبط التوازن، فتعمل المنشأة بكلفة طاقة كاملة وتقدم هواءً أسوأ من يوم تشغيلها."
+    }
+  },
+  {
+    "iso": "2026-08-30",
+    "slug": "certifications-behind-every-assessment",
+    "icon": "fa-certificate",
+    "color": "orange",
+    "en": {
+      "title": "The Certifications Behind Every EnvironmSafe Assessment",
+      "home_summary": "Anyone can claim to follow international safety standards. NFPA Certified Fire Protection Specialists, API-aligned engineering work, and NEBOSH and IOSH accredited training are the credentials behind every EnvironmSafe assessment, chosen because they are the same standards our clients, from industrial operators to international NGOs, are themselves answerable to across Yemen and the region."
+    },
+    "ar": {
+      "title": "الاعتمادات وراء كل تقييم تقدمه EnvironmSafe",
+      "home_summary": "يستطيع أي طرف أن يدّعي اتباع معايير السلامة الدولية. أخصائيو حماية من الحرائق معتمدون من NFPA، وعمل هندسي متوافق مع معايير API، وتدريب معتمد من NEBOSH وIOSH، هي الاعتمادات وراء كل تقييم تقدمه EnvironmSafe، اختيرت لأنها المعايير ذاتها التي يخضع لها عملاؤنا، من المشغّلين الصناعيين إلى المنظمات الدولية غير الحكومية، عبر اليمن والمنطقة."
+    }
+  },
+  {
+    "iso": "2026-08-29",
+    "slug": "warning-signs-fire-suppression-needs-attention",
+    "icon": "fa-triangle-exclamation",
+    "color": "amber",
+    "en": {
+      "title": "Five Warning Signs Your Fire Suppression System Needs Attention",
+      "home_summary": "A fire suppression system that has never been tested under real conditions is an assumption, not a safeguard. Silent detectors, painted sprinkler heads, blocked exit routes, and undocumented faults are common warning signs that a system has quietly degraded since commissioning."
+    },
+    "ar": {
+      "title": "خمس علامات تدل على أن نظام إخماد الحرائق لديكم يحتاج اهتماماً",
+      "home_summary": "نظام إخماد حريق لم يُختبر تحت ظروف حقيقية هو افتراض، لا ضمانة. الكاشفات الصامتة، ورؤوس الرشاشات المطلية، ومسارات الخروج المسدودة، والأعطال غير الموثقة، كلها علامات إنذار شائعة على أن نظاماً ما تراجع بصمت منذ تشغيله."
+    }
+  },
+  {
+    "iso": "2026-08-28",
+    "slug": "independent-evaluation-before-compliance-signoff",
+    "icon": "fa-clipboard-check",
+    "color": "navy",
+    "en": {
+      "title": "Why an Independent Evaluation Should Come Before You Trust a Compliance Report",
+      "home_summary": "A compliance certificate confirms a system was checked once, against a named standard. It does not confirm the system still performs that way today."
+    },
+    "ar": {
+      "title": "لماذا ينبغي أن يسبق التقييم المستقل ثقتكم بتقرير الامتثال",
+      "home_summary": "شهادة الامتثال تؤكد أن نظاماً ما فُحص مرة واحدة وفق معيار محدد، لكنها لا تؤكد أنه لا يزال يؤدي كذلك اليوم. التقييم المستقل لمنشآت الغاز LPG أو المراجل أو الأنظمة الكهربائية أو الحماية من الحرائق ينظر إلى ما هو أبعد من الورق، إلى الحالة الفعلية الحالية، ويمنح أصحاب المنشآت صورة مرتبة حسب الأولوية قبل أن تطرح شركة التأمين أو المدقق أو الجهة الرقابية السؤال ذاته."
+    }
+  },
+  {
+    "iso": "2026-08-27",
+    "slug": "continuous-monitoring-vs-annual-inspection",
+    "icon": "fa-magnifying-glass-chart",
+    "color": "green",
+    "en": {
+      "title": "Why Continuous Monitoring Catches What Annual Inspections Miss",
+      "home_summary": "Corrosion, foundation movement, and drifting air and water quality all develop quietly between annual inspections, until they surface as a failure or a compliance breach. Continuous structural and environmental monitoring closes that gap and makes every EnvironmSafe inspection sharper, whether the facility is an industrial site, a warehouse, a water or wastewater asset, or an NGO location visited only rarely."
+    },
+    "ar": {
+      "title": "لماذا يكتشف الرصد المستمر ما تغفله الفحوصات السنوية",
+      "home_summary": "التآكل وحركة الأساسات وانحراف جودة الهواء والماء تتطور بصمت بين الفحوصات السنوية، إلى أن تظهر كعطل فعلي أو مخالفة امتثال. الرصد المستمر للبيئة والإنشاءات يسد هذه الفجوة ويجعل كل فحص تقوم به EnvironmSafe أكثر دقة، سواء كان الموقع منشأة صناعية أو مستودعاً أو أصلاً مائياً أو موقعاً تابعاً لمنظمة غير حكومية يُزار نادراً."
+    }
+  },
+  {
+    "iso": "2026-08-26",
+    "slug": "nebosh-iosh-training-in-arabic",
+    "icon": "fa-chalkboard-user",
+    "color": "teal",
+    "en": {
+      "title": "NEBOSH and IOSH Training in Arabic: Competence Without the Language Barrier",
+      "home_summary": "A certificate proves attendance, not competence &mdash; and the gap between the two widens when safety is taught in a second language. As a NEBOSH and IOSH accredited provider, we deliver the International General Certificate through both Arabic and English pathways, so an internationally recognised qualification actually changes what happens on site."
+    },
+    "ar": {
+      "title": "تدريب NEBOSH وIOSH بالعربية: كفاءة دون حاجز اللغة",
+      "home_summary": "الشهادة تثبت الحضور لا الكفاءة &mdash; والفجوة بينهما تتسع حين تُدرّس السلامة بلغة ثانية. وبوصفنا جهة معتمدة من NEBOSH وIOSH، نقدم الشهادة الدولية العامة بمسارين عربي وإنجليزي، ليُحدث المؤهل المعترف به دولياً فرقاً حقيقياً في الموقع."
+    }
+  },
+  {
+    "iso": "2026-08-25",
+    "slug": "lpg-safety-starts-at-design",
+    "icon": "fa-fire-flame-curved",
+    "color": "blue",
+    "en": {
+      "title": "LPG Safety Starts at Design, Not at Inspection",
+      "home_summary": "Liquefied petroleum gas powers kitchens, boilers, and process heat across Yemen and the wider region &mdash; and when an LPG installation fails, it rarely fails quietly. Most of that risk is built in long before anyone opens a valve: undersized relief paths, insufficient separation distances, unsuitable materials, and vessels sited with no regard for ventilation or ignition sources."
+    },
+    "ar": {
+      "title": "السلامة في أنظمة الغاز LPG تبدأ من التصميم لا من الفحص",
+      "home_summary": "يُشغّل غاز البترول المسال المطابخ والمراجل وعمليات التسخين الصناعي في مختلف أنحاء اليمن والمنطقة، وعندما تفشل منظومة LPG فإنها نادراً ما تفشل بهدوء. معظم هذه المخاطر يُبنى في مرحلة التصميم قبل وقت طويل من فتح أي صمام: مسارات تنفيس أقل من المطلوب، ومسافات فصل غير كافية، ومواد غير مناسبة، وخزانات تُنصب دون مراعاة للتهوية أو مصادر الاشتعال."
+    }
+  },
+  {
+    "iso": "2026-08-24",
+    "slug": "certified-fire-protection-insurance-savings",
+    "icon": "fa-fire",
+    "color": "orange",
+    "en": {
+      "title": "Certified Fire Protection Can Cut Insurance Costs by Up to 85%",
+      "home_summary": "Fire risk is one of the costliest exposures facing industrial sites, warehouses, and NGO facilities alike — and one of the most preventable. Our NFPA Certified Fire Protection Specialists assess your facility against international fire safety standards, identify gaps before inspectors or insurers do, and help you document compliance that carriers recognize."
+    },
+    "ar": {
+      "title": "الحماية المعتمدة من الحرائق يمكن أن تخفض تكاليف التأمين بنسبة تصل إلى 85%",
+      "home_summary": "تُعد مخاطر الحريق من أكثر التهديدات كلفة التي تواجه المواقع الصناعية والمستودعات ومنشآت المنظمات غير الحكومية، وهي في الوقت نفسه من أكثرها قابلية للوقاية. يقوم فريقنا من أخصائيي الحماية من الحرائق المعتمدين من NFPA بتقييم منشأتكم وفق المعايير الدولية للسلامة من الحرائق، وتحديد الثغرات قبل أن يكتشفها المفتشون أو شركات التأمين، ومساعدتكم في توثيق الامتثال بما يُعتمد لدى شركات التأمين."
     }
   }
 ]

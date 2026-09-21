@@ -1,0 +1,92 @@
+name: Daily EnvironmSafe post
+
+# Publishes the next post from _queue/ once a day and pushes the result to main,
+# which is what Cloudflare Pages deploys.
+#
+# The publisher is all-or-nothing: it aborts before writing anything if the queue
+# is empty, a marker is missing, a placeholder is unreplaced, a target page already
+# exists, or a post has already gone out for today. A failed run leaves the tree
+# untouched, so a red run here never means a half-published post — but it does mean
+# nothing went out, so the failure is deliberately left visible rather than swallowed.
+
+on:
+  schedule:
+    # 06:00 UTC daily = 09:00 Asia/Aden. GitHub may delay scheduled runs under load.
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      publish_date:
+        description: 'Backfill a specific date (YYYY-MM-DD). Blank = today.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+# Never let two publishes race; a second run would collide on today's date anyway.
+concurrency:
+  group: daily-post
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Publish the next queued post
+        id: publish
+        env:
+          PUBLISH_DATE: ${{ inputs.publish_date }}
+        run: python scripts/publish_next_post.py
+
+      - name: Commit and push
+        env:
+          SLUG: ${{ steps.publish.outputs.slug }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "publisher reported success but changed nothing - not pushing"
+            exit 1
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish daily post: ${SLUG}"
+          git push origin HEAD:main
+
+      - name: Report
+        if: always()
+        env:
+          SLUG: ${{ steps.publish.outputs.slug }}
+          REMAINING: ${{ steps.publish.outputs.queue_remaining }}
+        run: |
+          {
+            if [ "${{ steps.publish.outcome }}" = "success" ]; then
+              echo "### Published \`${SLUG}\`"
+              echo ""
+              echo "- https://www.environmsafe.com/news/${SLUG}.html"
+              echo "- https://www.environmsafe.com/ar/news/${SLUG}.html"
+              echo ""
+              echo "**${REMAINING} posts left in the queue.**"
+              if [ "${REMAINING:-0}" -le 5 ]; then
+                echo ""
+                echo "> Running low. Add more \`.json\` files to \`_queue/\` — see \`_queue/README.md\`."
+              fi
+            else
+              echo "### Nothing published"
+              echo ""
+              echo "The publisher aborted, so the repository was left untouched."
+              echo "Most likely the queue is empty. See the step log above for the exact reason,"
+              echo "and \`_queue/README.md\` for the post format."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
