@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-22",
+    "slug": "lpg-sinks-and-that-changes-everything",
+    "icon": "fa-fire-flame-simple",
+    "color": "orange",
+    "en": {
+      "title": "LPG Sinks, and That Changes Where It Is Dangerous",
+      "home_summary": "Natural gas rises and thins out. LPG does the opposite: it is heavier than air, so a leak flows downhill and settles in drains, pits and basements."
+    },
+    "ar": {
+      "title": "غاز البترول المسال يهبط، وهذا يغيّر مكان الخطر",
+      "home_summary": "الغاز الطبيعي يرتفع ويتبدد، أما الغاز المسال فأثقل من الهواء، فيسيل التسرب إلى الأسفل ويستقر في المصارف والحفر والأقبية. معظم حوادث الغاز المسال التي نحقق فيها تعود إلى تهوية أو كواشف أو تخزين صُمم وكأن الغاز يتصرف كالهواء."
+    }
+  },
+  {
     "iso": "2026-09-21",
     "slug": "environmsafe-platform-eos-asset-tracking",
     "icon": "fa-table-cells-large",
