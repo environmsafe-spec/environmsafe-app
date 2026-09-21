@@ -10,8 +10,8 @@ How to take three separately-built systems and run them as one professional plat
 
 | System | Location | Users | Owned by |
 |---|---|---|---|
-| Operations Console | `app.environmsafe.com/app/` | Staff only | — |
-| Generator Portal | `generators.environmsafe.com` | Staff + clients | — |
+| Operations Management (EOS) | `app.environmsafe.com/app/` | Staff only | — |
+| Client Asset Maintenance | `generators.environmsafe.com` | Staff + clients | — |
 | Inspection & Certification | repo `environmsafe-platform` | Staff + clients | `environmsafe@gmail.com` (personal account) |
 | Marketing website | repo `environmsafe-spec/environmsafe-app` | Public | `environmsafe-spec` |
 
@@ -61,8 +61,8 @@ like an accident, and it means the two systems share an origin, cookies, and bla
 | Subdomain | System | Audience | Status |
 |---|---|---|---|
 | `www.environmsafe.com` | Marketing site (static, GitHub Pages) | Public | Live |
-| `app.environmsafe.com` | Operations Console | Staff | Live — drop the `/app/` path |
-| `generators.environmsafe.com` | Generator Portal | Staff + clients | Live |
+| `app.environmsafe.com` | Operations Management (EOS) | Staff | Live — drop the `/app/` path |
+| `generators.environmsafe.com` | Client Asset Maintenance | Staff + clients | Live — rename to `assets.` (see below) |
 | `inspect.environmsafe.com` | Inspection & Certification | Staff + clients | To deploy |
 | `verify.environmsafe.com` | Public certificate verification | Public | Planned |
 | `my.environmsafe.com` | Client Portal | Clients | Planned |
@@ -73,6 +73,11 @@ like an accident, and it means the two systems share an origin, cookies, and bla
 **Why separate subdomains matter:** each app gets its own TLS certificate, its own cookies,
 its own deploy pipeline, and its own failure domain. A bad deploy of the training portal
 cannot take down certificate issuance.
+
+**One subdomain now misnames its system.** `generators.environmsafe.com` was named when the
+application only tracked generators; it now covers client assets and equipment generally.
+Move it to `assets.environmsafe.com` and keep the old hostname as a 301 redirect — permanently,
+since clients will have bookmarked it. Do this before the user base grows, not after.
 
 **Rule — never break this one:** the marketing site is static hosting. It must never
 authenticate anyone, never hold a session, and never touch client data. It links *out* to
@@ -86,7 +91,7 @@ Right now each system almost certainly has its own user table. That means:
 
 - A new engineer needs three accounts created by hand.
 - Someone who leaves needs three accounts disabled — and one will be missed.
-- A client who uses both the generator portal and the inspection platform has two passwords.
+- A client who uses both the client asset maintenance system and the inspection platform has two passwords.
 - You cannot answer "who has access to what?" without opening three admin panels.
 
 **Fix:** stand up one identity provider at `id.environmsafe.com`. Every application
@@ -159,7 +164,7 @@ Clients, sites, assets and users are referenced by every system. Do not let thre
 each keep their own copy — within a year the same client will exist three times under three
 spellings, and nobody will know which is correct.
 
-**The Operations Console is the master record** for:
+**The Operations Management (EOS) is the master record** for:
 
 - Client organisations
 - Sites and locations
@@ -172,7 +177,7 @@ Every other system reads that data rather than storing its own copy.
 
 1. **Shared database, separate schemas** — simplest, and honest about the fact that these
    systems are one product. Best choice at your scale.
-2. **A small internal API** on the operations console that the others call. More moving
+2. **A small internal API** on the EOS that the others call. More moving
    parts, but cleaner boundaries if you later want to split teams.
 3. **Scheduled sync jobs.** Avoid. This is how you get three divergent copies with a delay.
 
@@ -270,13 +275,13 @@ Non-negotiable, all systems:
 |---|---|---|
 | **0** | Move all repos into a GitHub org; enable 2FA and branch protection | Protects the asset. Costs nothing. Do it this week. |
 | **1** | Publish this Platform page on the website (**done — see `platform.html`**) | Clients and staff get one place to find every system |
-| **2** | Stand up `id.environmsafe.com`; migrate the operations console to SSO | Proves the pattern on the system you control best |
-| **3** | Move generator portal and inspection platform onto SSO | One login. Revocation becomes a single action. |
+| **2** | Stand up `id.environmsafe.com`; migrate the EOS to SSO | Proves the pattern on the system you control best |
+| **3** | Move client asset maintenance system and inspection platform onto SSO | One login. Revocation becomes a single action. |
 | **4** | Deploy the inspection platform at `inspect.environmsafe.com` | The system is built — get it in front of users |
-| **5** | Consolidate client/site/asset records into the operations console | Stops the data diverging before it gets worse |
+| **5** | Consolidate client/site/asset records into the EOS | Stops the data diverging before it gets worse |
 | **6** | Ship `verify.environmsafe.com` with QR codes on certificates | Highest-visibility differentiator, small build |
 | **7** | Client portal at `my.environmsafe.com` | Cuts the email traffic clients currently generate |
-| **8** | PSV valve register, training portal, CMMS | Build in the order clients ask for them |
+| **8** | PSV valve register, training portal | Build in the order clients ask for them |
 
 Phases 0 and 1 are days. Phases 2–3 are the real investment and the one worth making
 properly — everything after them is cheaper because of them.
@@ -291,14 +296,22 @@ This repository now contains:
   status (live / in rollout / planned), how access is requested, and the security posture.
 - **`ar/platform.html`** — the full Arabic RTL equivalent.
 - **A "Platform" nav dropdown** added to all 95 pages of the site (English and Arabic),
-  linking to the hub, the operations console, the generator portal, and the inspection system.
+  linking to the hub, the EOS, the client asset maintenance system, and the inspection system.
 - **Footer links** to the hub and the applications on every page.
 - **New CSS** in `css/styles.css` — access badges, application cards with status indicators,
   access steps, and the security panel, all using the existing design tokens and with RTL rules.
 - **Sitemap entries** for both language versions.
 
-**Before this goes live, check the copy.** The descriptions of what the operations console
-and generator portal actually do were written from their names and your service lines. Where
-a detail is wrong, correct it in `platform.html` and `ar/platform.html` — the feature bullets
-in each application card are the parts most likely to need adjusting. The subdomains marked
+**Naming.** The two live applications are presented as **EnvironmSafe Operations Management
+(EOS)** and **Client Assets & Equipment Maintenance Tracking**. Nav menus use the shorter
+"Operations Management (EOS)" and "Client Asset Maintenance" so the dropdown stays readable.
+
+A separate planned CMMS card was removed: once the asset maintenance system covers registers,
+preventive schedules, work orders and spare parts, a second CMMS would advertise the same
+capability twice.
+
+**Before this goes live, check the copy.** The descriptions of what EOS and the asset
+maintenance system actually do were written from their names and your service lines. Where a
+detail is wrong, correct it in `platform.html` and `ar/platform.html` — the feature bullets in
+each application card are the parts most likely to need adjusting. The subdomains marked
 *planned* are proposals, not commitments.
