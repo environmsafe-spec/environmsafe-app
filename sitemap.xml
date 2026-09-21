@@ -110,6 +110,15 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Platform & Applications -->
+  <url>
+    <loc>https://www.environmsafe.com/platform.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/platform.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/platform.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Arabic versions -->
   <url>
     <loc>https://www.environmsafe.com/ar/</loc>
@@ -170,6 +179,13 @@
     <loc>https://www.environmsafe.com/ar/services/psv.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/platform.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/platform.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/platform.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- News index -->
