@@ -5,6 +5,11 @@
   X-Frame-Options: DENY
   Cache-Control: no-store
 
+/receivables.html
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+  Cache-Control: no-store
+
 /agent.webmanifest
   Content-Type: application/manifest+json
 
