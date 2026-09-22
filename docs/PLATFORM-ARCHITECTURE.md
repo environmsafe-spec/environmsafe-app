@@ -86,11 +86,12 @@ like an accident, and it means the two systems share an origin, cookies, and bla
 its own deploy pipeline, and its own failure domain. A bad deploy of the training portal
 cannot take down certificate issuance.
 
-**A name is used twice, and that will confuse people.** `platform.environmsafe.com` is an
-application (the inspection register, client portal and certificate check), while
-`www.environmsafe.com/platform.html` is the page that lists *all* applications. Someone told
-to "go to the platform" cannot tell which is meant. Rename one: the application to
-`inspect.` or `certify.`, or the hub page to "Applications".
+**The name collision is resolved.** `platform.environmsafe.com` is an application (the
+inspection register, client portal and certificate check). The page that lists *all*
+applications used to be called "Platform" too, which meant "go to the platform" was
+ambiguous. It is now **Applications**, at `www.environmsafe.com/applications.html`, and
+`/applications.html` carries a permanent 301 to it via `public/_redirects`. Keep that redirect:
+the old path was published and may be bookmarked.
 
 **One subdomain now misnames its system.** `generators.environmsafe.com` was named when the
 application only tracked generators; it now covers client assets and equipment generally.
@@ -307,7 +308,7 @@ Non-negotiable, all systems:
 | Phase | Work | Why here |
 |---|---|---|
 | **0** | Move all repos into a GitHub org; enable 2FA and branch protection | Protects the asset. Costs nothing. Do it this week. |
-| **1** | Publish this Platform page on the website (**done — see `platform.html`**) | Clients and staff get one place to find every system |
+| **1** | Publish this Platform page on the website (**done — see `applications.html`**) | Clients and staff get one place to find every system |
 | **2** | Stand up `id.environmsafe.com`; migrate the EOS to SSO | Proves the pattern on the system you control best |
 | **3** | Move client asset maintenance system and inspection platform onto SSO | One login. Revocation becomes a single action. |
 | **4** | ~~Deploy the inspection platform~~ — **done**, live at `platform.environmsafe.com` | Register, client portal and certificate check all shipped |
@@ -325,9 +326,9 @@ properly — everything after them is cheaper because of them.
 
 This repository now contains:
 
-- **`platform.html`** — the English Platform hub: all applications, who can sign in to each,
+- **`applications.html`** — the English Platform hub: all applications, who can sign in to each,
   status (live / in rollout / planned), how access is requested, and the security posture.
-- **`ar/platform.html`** — the full Arabic RTL equivalent.
+- **`ar/applications.html`** — the full Arabic RTL equivalent.
 - **A "Platform" nav dropdown** added to all 95 pages of the site (English and Arabic),
   linking to the hub, the EOS, the client asset maintenance system, and the inspection system.
 - **Footer links** to the hub and the applications on every page.
@@ -345,6 +346,6 @@ capability twice.
 
 **Before this goes live, check the copy.** The descriptions of what EOS and the asset
 maintenance system actually do were written from their names and your service lines. Where a
-detail is wrong, correct it in `platform.html` and `ar/platform.html` — the feature bullets in
+detail is wrong, correct it in `applications.html` and `ar/applications.html` — the feature bullets in
 each application card are the parts most likely to need adjusting. The subdomains marked
 *planned* are proposals, not commitments.

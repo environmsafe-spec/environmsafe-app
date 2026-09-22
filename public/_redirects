@@ -1,0 +1,5 @@
+# The applications directory was called "Platform" until 2026-09-22. It was renamed
+# because platform.environmsafe.com is an application, not a directory of them.
+# Keep these permanently: the old paths were published and may be bookmarked.
+/platform.html     /applications.html     301
+/ar/platform.html  /ar/applications.html  301
