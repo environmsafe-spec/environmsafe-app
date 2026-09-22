@@ -12,7 +12,7 @@ How to take three separately-built systems and run them as one professional plat
 |---|---|---|---|
 | Operations Management (EOS) | `app.environmsafe.com/app/` | Staff only | — |
 | Client Asset Maintenance | `generators.environmsafe.com` | Staff + clients | — |
-| Inspection & Certification | repo `environmsafe-platform` | Staff + clients | `environmsafe@gmail.com` (personal account) |
+| Inspection Platform — register, client portal, certificate check | `platform.environmsafe.com` (repo `environmsafe-platform`) | Staff + clients + public | `environmsafe@gmail.com` (personal account) |
 | Business Agent Console | `www.environmsafe.com/agent.html` | Staff only | `environmsafe-spec` |
 | Receivables Dashboard | `www.environmsafe.com/receivables.html` | Staff only | `environmsafe-spec` |
 | Marketing website | repo `environmsafe-spec/environmsafe-app` | Public | `environmsafe-spec` |
@@ -77,9 +77,7 @@ like an accident, and it means the two systems share an origin, cookies, and bla
 | `www.environmsafe.com` | Marketing site (static, GitHub Pages) | Public | Live |
 | `app.environmsafe.com` | Operations Management (EOS) | Staff | Live — drop the `/app/` path |
 | `generators.environmsafe.com` | Client Asset Maintenance | Staff + clients | Live — rename to `assets.` (see below) |
-| `inspect.environmsafe.com` | Inspection & Certification | Staff + clients | To deploy |
-| `verify.environmsafe.com` | Public certificate verification | Public | Planned |
-| `my.environmsafe.com` | Client Portal | Clients | Planned |
+| `platform.environmsafe.com` | Inspection Platform: inspection register, client portal, certificate check | Staff + clients + public | Live |
 | `training.environmsafe.com` | Training / LMS | Clients + staff | Planned |
 | `id.environmsafe.com` | Identity provider (SSO) | All | **Build next** |
 | `status.environmsafe.com` | Status / uptime page | Public | Planned |
@@ -87,6 +85,12 @@ like an accident, and it means the two systems share an origin, cookies, and bla
 **Why separate subdomains matter:** each app gets its own TLS certificate, its own cookies,
 its own deploy pipeline, and its own failure domain. A bad deploy of the training portal
 cannot take down certificate issuance.
+
+**A name is used twice, and that will confuse people.** `platform.environmsafe.com` is an
+application (the inspection register, client portal and certificate check), while
+`www.environmsafe.com/platform.html` is the page that lists *all* applications. Someone told
+to "go to the platform" cannot tell which is meant. Rename one: the application to
+`inspect.` or `certify.`, or the hub page to "Applications".
 
 **One subdomain now misnames its system.** `generators.environmsafe.com` was named when the
 application only tracked generators; it now covers client assets and equipment generally.
@@ -229,7 +233,7 @@ that supersedes the old one, with both kept and the supersession recorded. An au
 finds that certificates can be silently edited will discount all of them.
 
 **3. Every certificate carries a QR code** linking to
-`verify.environmsafe.com/c/ES-PSV-2026-00412`.
+`platform.environmsafe.com`, which already runs the public certificate check.
 The verification page is public and shows: valid / expired / revoked, what the certificate
 covers, issue and expiry dates, and the issuing engineer. It shows nothing else — no client
 contact details, no commercial terms, no findings.
@@ -306,10 +310,10 @@ Non-negotiable, all systems:
 | **1** | Publish this Platform page on the website (**done — see `platform.html`**) | Clients and staff get one place to find every system |
 | **2** | Stand up `id.environmsafe.com`; migrate the EOS to SSO | Proves the pattern on the system you control best |
 | **3** | Move client asset maintenance system and inspection platform onto SSO | One login. Revocation becomes a single action. |
-| **4** | Deploy the inspection platform at `inspect.environmsafe.com` | The system is built — get it in front of users |
+| **4** | ~~Deploy the inspection platform~~ — **done**, live at `platform.environmsafe.com` | Register, client portal and certificate check all shipped |
 | **5** | Consolidate client/site/asset records into the EOS | Stops the data diverging before it gets worse |
-| **6** | Ship `verify.environmsafe.com` with QR codes on certificates | Highest-visibility differentiator, small build |
-| **7** | Client portal at `my.environmsafe.com` | Cuts the email traffic clients currently generate |
+| **6** | ~~Ship public certificate verification~~ — **done**, it is part of the Inspection Platform | Confirm every issued certificate carries a QR code pointing at it |
+| **7** | ~~Client portal~~ — **done**, it is part of the Inspection Platform | Extend it to cover EOS jobs and quotes, not only inspections |
 | **8** | PSV valve register, training portal | Build in the order clients ask for them |
 
 Phases 0 and 1 are days. Phases 2–3 are the real investment and the one worth making

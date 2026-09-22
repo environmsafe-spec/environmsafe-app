@@ -84,7 +84,7 @@
               <li><a href="platform.html" class="nav__dropdown-link"><i class="fa-solid fa-table-cells-large"></i><span data-i18n="plat_all">All Applications</span></a></li>
               <li><a href="https://app.environmsafe.com/app/" target="_blank" rel="noopener" class="nav__dropdown-link"><i class="fa-solid fa-table-columns"></i><span data-i18n="plat_ops">Operations Management (EOS)</span></a></li>
               <li><a href="https://generators.environmsafe.com" target="_blank" rel="noopener" class="nav__dropdown-link"><i class="fa-solid fa-cubes"></i><span data-i18n="plat_gen">Client Asset Maintenance</span></a></li>
-              <li><a href="platform.html#inspection" class="nav__dropdown-link"><i class="fa-solid fa-file-shield"></i><span data-i18n="plat_insp">Inspection &amp; Certification</span></a></li>
+              <li><a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="nav__dropdown-link"><i class="fa-solid fa-file-shield"></i><span data-i18n="plat_insp">Inspection Platform</span></a></li>
             </ul>
           </li>
           <li class="nav__item">
@@ -231,36 +231,100 @@
           </div>
         </div>
 
-        <!-- Inspection & Certification -->
+        <!-- Inspection Register -->
         <div class="app-card fade-up" id="inspection">
           <div class="app-card__head">
             <div class="app-card__icon app-card__icon--teal"><i class="fa-solid fa-file-shield"></i></div>
             <div class="app-card__heading">
-              <h3 class="app-card__title">Inspection &amp; Certification Platform</h3>
-              <span class="app-card__url">inspect.environmsafe.com</span>
+              <h3 class="app-card__title">Inspection Register</h3>
+              <span class="app-card__url">platform.environmsafe.com</span>
             </div>
           </div>
-          <span class="app-card__status app-card__status--beta">In rollout</span>
+          <span class="app-card__status app-card__status--live">Live</span>
           <div class="app-card__badges">
-            <span class="access-badge access-badge--staff"><i class="fa-solid fa-user-lock"></i> Staff</span>
-            <span class="access-badge access-badge--customer"><i class="fa-solid fa-users"></i> Clients</span>
+            <span class="access-badge access-badge--staff"><i class="fa-solid fa-user-lock"></i> Staff only</span>
           </div>
           <p class="app-card__desc">
-            End-to-end management of the inspection process — from scheduling the visit,
-            through the field checklist and evidence capture, to the issued report and
-            the certificate that comes out the other side.
+            The inspection process end to end — scheduling the visit, the field checklist
+            and evidence capture, findings and corrective actions, the issued report, and
+            the certificate at the end of it. For the technical manager, inspectors and approvers.
           </p>
           <ul class="app-card__list">
             <li><i class="fa-solid fa-check"></i> Inspection scheduling and assignment</li>
             <li><i class="fa-solid fa-check"></i> Digital field checklists with photo evidence</li>
             <li><i class="fa-solid fa-check"></i> Findings, severity ratings and corrective actions</li>
-            <li><i class="fa-solid fa-check"></i> Automated report generation</li>
-            <li><i class="fa-solid fa-check"></i> Certificate issuance with a serialised register</li>
-            <li><i class="fa-solid fa-check"></i> Re-inspection due dates and expiry reminders</li>
+            <li><i class="fa-solid fa-check"></i> Report generation</li>
+            <li><i class="fa-solid fa-check"></i> Certificate issuance against a serialised register</li>
+            <li><i class="fa-solid fa-check"></i> Re-inspection due dates and expiry tracking</li>
           </ul>
           <div class="app-card__foot">
-            <a href="contact.html" class="btn btn--primary">Register Interest <i class="fa-solid fa-arrow-right"></i></a>
-            <span class="app-card__note">Subdomain to be confirmed at launch</span>
+            <a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
+              Open the Register <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <span class="app-card__note">Accounts by invitation e-mail only</span>
+          </div>
+        </div>
+
+        <!-- Client Portal -->
+        <div class="app-card fade-up" id="client-portal">
+          <div class="app-card__head">
+            <div class="app-card__icon app-card__icon--navy"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="app-card__heading">
+              <h3 class="app-card__title">Client Portal</h3>
+              <span class="app-card__url">platform.environmsafe.com</span>
+            </div>
+          </div>
+          <span class="app-card__status app-card__status--live">Live</span>
+          <div class="app-card__badges">
+            <span class="access-badge access-badge--customer"><i class="fa-solid fa-users"></i> Contracted clients</span>
+          </div>
+          <p class="app-card__desc">
+            Your own equipment, and nobody else's. Inspection status, what is due next,
+            and every report and certificate we have issued you — downloadable as PDF,
+            at whatever hour you need them.
+          </p>
+          <ul class="app-card__list">
+            <li><i class="fa-solid fa-check"></i> Inspection status per item of equipment</li>
+            <li><i class="fa-solid fa-check"></i> Next due dates, visible before they lapse</li>
+            <li><i class="fa-solid fa-check"></i> Issued reports and certificates as PDF</li>
+            <li><i class="fa-solid fa-check"></i> Scoped to your organisation only</li>
+          </ul>
+          <div class="app-card__foot">
+            <a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
+              Open the Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <a href="contact.html" class="service-card__cta">Request access <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Certificate Check -->
+        <div class="app-card fade-up" id="verify">
+          <div class="app-card__head">
+            <div class="app-card__icon app-card__icon--amber"><i class="fa-solid fa-qrcode"></i></div>
+            <div class="app-card__heading">
+              <h3 class="app-card__title">Certificate Check</h3>
+              <span class="app-card__url">platform.environmsafe.com</span>
+            </div>
+          </div>
+          <span class="app-card__status app-card__status--live">Live</span>
+          <div class="app-card__badges">
+            <span class="access-badge access-badge--public"><i class="fa-solid fa-globe"></i> Public — no account</span>
+          </div>
+          <p class="app-card__desc">
+            Anyone holding a certificate we issued can check it. Enter the number printed
+            on it, or scan its QR code, and see whether it is genuine and still in force —
+            no account, no login.
+          </p>
+          <ul class="app-card__list">
+            <li><i class="fa-solid fa-check"></i> Check by certificate number or QR scan</li>
+            <li><i class="fa-solid fa-check"></i> Confirms the certificate is genuine</li>
+            <li><i class="fa-solid fa-check"></i> Shows whether it is still in force</li>
+            <li><i class="fa-solid fa-check"></i> Open to insurers, auditors and regulators</li>
+          </ul>
+          <div class="app-card__foot">
+            <a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
+              Check a Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
           </div>
         </div>
 
@@ -341,63 +405,6 @@
       </div>
 
       <div class="app-grid">
-
-        <!-- Certificate Verification -->
-        <div class="app-card app-card--planned fade-up" id="verify">
-          <div class="app-card__head">
-            <div class="app-card__icon app-card__icon--slate"><i class="fa-solid fa-qrcode"></i></div>
-            <div class="app-card__heading">
-              <h3 class="app-card__title">Certificate Verification</h3>
-              <span class="app-card__url">verify.environmsafe.com</span>
-            </div>
-          </div>
-          <span class="app-card__status app-card__status--planned">Planned</span>
-          <div class="app-card__badges">
-            <span class="access-badge access-badge--public"><i class="fa-solid fa-globe"></i> Public</span>
-          </div>
-          <p class="app-card__desc">
-            A public check on any certificate or report we issue. Enter the serial number,
-            or scan the QR code printed on the document, and see immediately whether it is
-            genuine, what it covers and whether it is still valid.
-          </p>
-          <ul class="app-card__list">
-            <li><i class="fa-solid fa-check"></i> Verify by serial number or QR scan</li>
-            <li><i class="fa-solid fa-check"></i> Shows scope, issue date and expiry</li>
-            <li><i class="fa-solid fa-check"></i> Flags revoked or superseded certificates</li>
-            <li><i class="fa-solid fa-check"></i> Useful to insurers, auditors and regulators</li>
-          </ul>
-          <div class="app-card__foot">
-            <a href="contact.html" class="service-card__cta">Register interest <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-
-        <!-- Client Portal -->
-        <div class="app-card app-card--planned fade-up" id="client-portal">
-          <div class="app-card__head">
-            <div class="app-card__icon app-card__icon--slate"><i class="fa-solid fa-folder-open"></i></div>
-            <div class="app-card__heading">
-              <h3 class="app-card__title">Client Portal</h3>
-              <span class="app-card__url">my.environmsafe.com</span>
-            </div>
-          </div>
-          <span class="app-card__status app-card__status--planned">Planned</span>
-          <div class="app-card__badges">
-            <span class="access-badge access-badge--customer"><i class="fa-solid fa-users"></i> Clients</span>
-          </div>
-          <p class="app-card__desc">
-            One place for everything we hold on your account — every report, every certificate,
-            every scheduled visit and every quote, without having to email and wait.
-          </p>
-          <ul class="app-card__list">
-            <li><i class="fa-solid fa-check"></i> All reports and certificates, downloadable</li>
-            <li><i class="fa-solid fa-check"></i> Upcoming and overdue inspection schedule</li>
-            <li><i class="fa-solid fa-check"></i> Quotes, work orders and invoices</li>
-            <li><i class="fa-solid fa-check"></i> Raise a service request directly</li>
-          </ul>
-          <div class="app-card__foot">
-            <a href="contact.html" class="service-card__cta">Register interest <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
 
         <!-- PSV Valve Register -->
         <div class="app-card app-card--planned fade-up" id="psv-register">
@@ -519,7 +526,7 @@
         <div class="access-step fade-up">
           <div class="access-step__number">3</div>
           <h4>Credentials are issued</h4>
-          <p>You receive an invitation to set your own password. Staff accounts require multi-factor authentication; client accounts are strongly encouraged to enable it.</p>
+          <p>You receive an invitation e-mail and set your own password from the invitation link. The account is scoped to your organisation on the way in — there is nothing to configure at your end.</p>
         </div>
         <div class="access-step fade-up">
           <div class="access-step__number">4</div>
@@ -555,10 +562,10 @@
             </div>
           </div>
           <div class="security-item">
-            <i class="fa-solid fa-user-shield"></i>
+            <i class="fa-solid fa-envelope-circle-check"></i>
             <div>
-              <h5>Multi-factor authentication</h5>
-              <p>Required for all staff accounts and for any client account with authority to approve or sign off work.</p>
+              <h5>Invitation-only accounts</h5>
+              <p>There is no open sign-up anywhere on the platform. Every account is created by invitation to a named person, who sets their own password from the invitation link.</p>
             </div>
           </div>
           <div class="security-item">
@@ -628,8 +635,8 @@
         <ul>
           <li><a href="https://app.environmsafe.com/app/" target="_blank" rel="noopener">Operations Management (EOS)</a></li>
           <li><a href="https://generators.environmsafe.com" target="_blank" rel="noopener">Client Asset Maintenance</a></li>
-          <li><a href="platform.html#inspection">Inspection &amp; Certification</a></li>
-          <li><a href="platform.html#verify">Certificate Verification</a></li>
+          <li><a href="https://platform.environmsafe.com" target="_blank" rel="noopener">Inspection Register</a></li>
+          <li><a href="https://platform.environmsafe.com" target="_blank" rel="noopener">Certificate Check</a></li>
           <li><a href="platform.html">All Applications</a></li>
         </ul>
       </div>
