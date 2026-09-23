@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-23",
+    "slug": "emergency-lighting-works-until-the-power-fails",
+    "icon": "fa-lightbulb",
+    "color": "navy",
+    "en": {
+      "title": "Emergency Lighting Is Tested by the One Event Nobody Rehearses",
+      "home_summary": "A green charging light and a quick test key prove an emergency light switches on. They say nothing about whether its battery can last the full rated duration in a real power cut."
+    },
+    "ar": {
+      "title": "إنارة الطوارئ تُختبر في الحدث الوحيد الذي لا يتدرب عليه أحد",
+      "home_summary": "ضوء الشحن الأخضر ومفتاح الاختبار السريع يثبتان أن مصباح الطوارئ يضيء، لا أن بطاريته تدوم طوال مدتها المقننة عند انقطاع حقيقي. الحرارة تُشيخ البطاريات بسرعة، والاختبار كامل المدة وحده يكشف الوحدات التي ستنطفئ بعد عشر دقائق."
+    }
+  },
+  {
     "iso": "2026-09-22",
     "slug": "lpg-sinks-and-that-changes-everything",
     "icon": "fa-fire-flame-simple",
