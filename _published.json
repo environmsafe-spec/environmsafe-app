@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-25",
+    "slug": "human-error-is-where-investigation-starts",
+    "icon": "fa-magnifying-glass",
+    "color": "green",
+    "en": {
+      "title": "Human Error Is Where an Investigation Starts, Not Where It Ends",
+      "home_summary": "When an incident report concludes with human error, the file closes and the same thing tends to happen again to someone else. The useful question is why a trained person made that move, and the answer is almost always in the conditions around them: the equipment, the procedure, the time pressure and the workarounds."
+    },
+    "ar": {
+      "title": "الخطأ البشري هو بداية التحقيق لا نهايته",
+      "home_summary": "حين ينتهي تقرير الحادث بالخطأ البشري يُغلق الملف، وغالباً ما يتكرر الأمر ذاته مع شخص آخر. السؤال المفيد هو لماذا فعل شخص مدرب ما فعله، والإجابة دائماً تقريباً في الظروف المحيطة: المعدات والإجراء وضغط الوقت والالتفافات المألوفة."
+    }
+  },
+  {
     "iso": "2026-09-24",
     "slug": "heat-stress-is-a-planning-failure",
     "icon": "fa-sun",
