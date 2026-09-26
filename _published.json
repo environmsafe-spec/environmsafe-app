@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-26",
+    "slug": "the-wrong-extinguisher-makes-a-fire-worse",
+    "icon": "fa-fire",
+    "color": "teal",
+    "en": {
+      "title": "The Wrong Extinguisher Can Make a Fire Worse",
+      "home_summary": "Water on burning oil, or on live electrics, turns a small fire into a serious one. Most sites have extinguishers with current service tags, but far fewer have checked that each one matches what could actually burn beside it."
+    },
+    "ar": {
+      "title": "الطفاية الخاطئة قد تجعل الحريق أسوأ",
+      "home_summary": "الماء على زيت مشتعل أو على معدات كهربائية حية يحوّل حريقاً صغيراً إلى خطير. معظم المواقع لديها طفايات ببطاقات صيانة سارية، لكن قلة تحققت من أن كل واحدة تناسب ما قد يحترق بجوارها."
+    }
+  },
+  {
     "iso": "2026-09-25",
     "slug": "human-error-is-where-investigation-starts",
     "icon": "fa-magnifying-glass",
