@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-27",
+    "slug": "a-lock-on-the-switch-is-not-zero-energy",
+    "icon": "fa-lock",
+    "color": "blue",
+    "en": {
+      "title": "A Lock on the Switch Does Not Prove the Equipment Is Dead",
+      "home_summary": "A padlock shows someone intended to isolate a machine. It does not show they picked the right isolator, or that nothing else feeds it, or that stored pressure, charge and springs have been released."
+    },
+    "ar": {
+      "title": "القفل على المفتاح لا يثبت أن المعدة مفصولة",
+      "home_summary": "القفل يبيّن أن أحدهم نوى عزل الآلة، لا أنه اختار العازل الصحيح، ولا أن لا شيء آخر يغذيها، ولا أن الضغط والشحنة والنوابض المخزنة قد أُطلقت. الإقفال والوسم لا ينجح إلا حين يُثبت انعدام الطاقة عند نقطة العمل قبل أن يلمس أحد شيئاً."
+    }
+  },
+  {
     "iso": "2026-09-26",
     "slug": "the-wrong-extinguisher-makes-a-fire-worse",
     "icon": "fa-fire",
