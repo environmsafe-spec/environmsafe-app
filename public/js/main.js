@@ -14,6 +14,14 @@
     el.textContent = new Date().getFullYear();
   });
 
+  // Remember language: records the language of the last page viewed, so the root
+  // redirect (functions/index.js) doesn't bounce English readers to Arabic.
+  try {
+    const pageLang = document.documentElement.lang === 'ar' ? 'ar' : 'en';
+    document.cookie = 'es-lang=' + pageLang + '; path=/; max-age=2592000; SameSite=Lax' +
+      (location.protocol === 'https:' ? '; Secure' : '');
+  } catch (e) {}
+
   // ── Active nav link ───────────────────────────────────────
   const currentFile = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav__link[data-page]').forEach(link => {
