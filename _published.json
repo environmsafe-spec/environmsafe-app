@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-09-28",
+    "slug": "chemicals-stored-alphabetically-is-a-hazard",
+    "icon": "fa-flask",
+    "color": "orange",
+    "en": {
+      "title": "Chemicals Stored in Alphabetical Order Are a Hazard Waiting to Happen",
+      "home_summary": "A neatly alphabetised chemical store can put an oxidiser beside a flammable solvent, or an acid next to something that gives off toxic gas when the two meet. Safe storage is organised by hazard, not by name, and the incompatible materials section of each safety data sheet tells you exactly what must be kept apart."
+    },
+    "ar": {
+      "title": "تخزين المواد الكيميائية بالترتيب الأبجدي خطر ينتظر أن يقع",
+      "home_summary": "المخزن المرتب أبجدياً قد يضع مادة مؤكسدة بجانب مذيب قابل للاشتعال، أو حمضاً بجانب مادة تطلق غازاً ساماً عند التقائهما. التخزين الآمن يُرتب حسب الخطر لا حسب الاسم، وقسم المواد غير المتوافقة في صحيفة بيانات السلامة يخبركم بالضبط بما يجب فصله."
+    }
+  },
+  {
     "iso": "2026-09-27",
     "slug": "a-lock-on-the-switch-is-not-zero-energy",
     "icon": "fa-lock",
