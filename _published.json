@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-06",
+    "slug": "psv-set-pressure-drifts-in-service",
+    "icon": "fa-gauge-high",
+    "color": "amber",
+    "en": {
+      "title": "A Safety Valve's Set Pressure Drifts, and Nothing Tells You",
+      "home_summary": "Heat, corrosion and seat damage move a safety valve away from its stamped set pressure, and nothing about the valve shows it. Only a bench test measures what it will actually do."
+    },
+    "ar": {
+      "title": "ضغط ضبط صمام الأمان ينحرف، ولا شيء يخبركم بذلك",
+      "home_summary": "الحرارة والتآكل وتلف المقعد تُبعد صمام الأمان عن ضغط ضبطه المختوم، ولا شيء في مظهره يُظهر ذلك. ولا يقيس ما سيفعله فعلاً إلا اختبار على المقعد."
+    }
+  },
+  {
     "iso": "2026-09-28",
     "slug": "chemicals-stored-alphabetically-is-a-hazard",
     "icon": "fa-flask",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "السلامة في أنظمة الغاز LPG تبدأ من التصميم لا من الفحص",
       "home_summary": "يُشغّل غاز البترول المسال المطابخ والمراجل وعمليات التسخين الصناعي في مختلف أنحاء اليمن والمنطقة، وعندما تفشل منظومة LPG فإنها نادراً ما تفشل بهدوء. معظم هذه المخاطر يُبنى في مرحلة التصميم قبل وقت طويل من فتح أي صمام: مسارات تنفيس أقل من المطلوب، ومسافات فصل غير كافية، ومواد غير مناسبة، وخزانات تُنصب دون مراعاة للتهوية أو مصادر الاشتعال."
-    }
-  },
-  {
-    "iso": "2026-08-24",
-    "slug": "certified-fire-protection-insurance-savings",
-    "icon": "fa-fire",
-    "color": "orange",
-    "en": {
-      "title": "Certified Fire Protection Can Cut Insurance Costs by Up to 85%",
-      "home_summary": "Fire risk is one of the costliest exposures facing industrial sites, warehouses, and NGO facilities alike — and one of the most preventable. Our NFPA Certified Fire Protection Specialists assess your facility against international fire safety standards, identify gaps before inspectors or insurers do, and help you document compliance that carriers recognize."
-    },
-    "ar": {
-      "title": "الحماية المعتمدة من الحرائق يمكن أن تخفض تكاليف التأمين بنسبة تصل إلى 85%",
-      "home_summary": "تُعد مخاطر الحريق من أكثر التهديدات كلفة التي تواجه المواقع الصناعية والمستودعات ومنشآت المنظمات غير الحكومية، وهي في الوقت نفسه من أكثرها قابلية للوقاية. يقوم فريقنا من أخصائيي الحماية من الحرائق المعتمدين من NFPA بتقييم منشأتكم وفق المعايير الدولية للسلامة من الحرائق، وتحديد الثغرات قبل أن يكتشفها المفتشون أو شركات التأمين، ومساعدتكم في توثيق الامتثال بما يُعتمد لدى شركات التأمين."
     }
   }
 ]
