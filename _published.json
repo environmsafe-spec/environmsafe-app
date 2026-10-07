@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-07",
+    "slug": "thermography-sees-the-fault-before-the-fire",
+    "icon": "fa-temperature-high",
+    "color": "orange",
+    "en": {
+      "title": "A Loose Terminal Heats Up for Months Before It Burns",
+      "home_summary": "A loose terminal heats for weeks before it fails, and nothing trips while it does. Infrared thermography finds it while the fix is still a ten-minute one."
+    },
+    "ar": {
+      "title": "الطرف المرتخي يسخن شهوراً قبل أن يحترق",
+      "home_summary": "الطرف المرتخي يسخن أسابيع قبل أن يفشل، ولا يُفصل شيء أثناء ذلك. والتصوير الحراري يجده وإصلاحه ما يزال عشر دقائق."
+    }
+  },
+  {
     "iso": "2026-10-06",
     "slug": "psv-set-pressure-drifts-in-service",
     "icon": "fa-gauge-high",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "تدريب NEBOSH وIOSH بالعربية: كفاءة دون حاجز اللغة",
       "home_summary": "الشهادة تثبت الحضور لا الكفاءة &mdash; والفجوة بينهما تتسع حين تُدرّس السلامة بلغة ثانية. وبوصفنا جهة معتمدة من NEBOSH وIOSH، نقدم الشهادة الدولية العامة بمسارين عربي وإنجليزي، ليُحدث المؤهل المعترف به دولياً فرقاً حقيقياً في الموقع."
-    }
-  },
-  {
-    "iso": "2026-08-25",
-    "slug": "lpg-safety-starts-at-design",
-    "icon": "fa-fire-flame-curved",
-    "color": "blue",
-    "en": {
-      "title": "LPG Safety Starts at Design, Not at Inspection",
-      "home_summary": "Liquefied petroleum gas powers kitchens, boilers, and process heat across Yemen and the wider region &mdash; and when an LPG installation fails, it rarely fails quietly. Most of that risk is built in long before anyone opens a valve: undersized relief paths, insufficient separation distances, unsuitable materials, and vessels sited with no regard for ventilation or ignition sources."
-    },
-    "ar": {
-      "title": "السلامة في أنظمة الغاز LPG تبدأ من التصميم لا من الفحص",
-      "home_summary": "يُشغّل غاز البترول المسال المطابخ والمراجل وعمليات التسخين الصناعي في مختلف أنحاء اليمن والمنطقة، وعندما تفشل منظومة LPG فإنها نادراً ما تفشل بهدوء. معظم هذه المخاطر يُبنى في مرحلة التصميم قبل وقت طويل من فتح أي صمام: مسارات تنفيس أقل من المطلوب، ومسافات فصل غير كافية، ومواد غير مناسبة، وخزانات تُنصب دون مراعاة للتهوية أو مصادر الاشتعال."
     }
   }
 ]
