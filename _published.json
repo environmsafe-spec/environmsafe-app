@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-08",
+    "slug": "the-fire-starts-after-the-welder-goes-home",
+    "icon": "fa-fire",
+    "color": "teal",
+    "en": {
+      "title": "Most Hot Work Fires Start After the Welder Has Gone Home",
+      "home_summary": "A hot work spark can smoulder in insulation for hours before it becomes a flame. That is why the fire watch after the job matters more than the one during it."
+    },
+    "ar": {
+      "title": "معظم حرائق الأعمال الساخنة تبدأ بعد أن يذهب اللحّام إلى بيته",
+      "home_summary": "شرارة عمل ساخن قد تتسمّط في العزل ساعات قبل أن تصير لهباً. ولهذا تهم حراسة الحريق بعد العمل أكثر من تلك التي أثناءه."
+    }
+  },
+  {
     "iso": "2026-10-07",
     "slug": "thermography-sees-the-fault-before-the-fire",
     "icon": "fa-temperature-high",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "لماذا يكتشف الرصد المستمر ما تغفله الفحوصات السنوية",
       "home_summary": "التآكل وحركة الأساسات وانحراف جودة الهواء والماء تتطور بصمت بين الفحوصات السنوية، إلى أن تظهر كعطل فعلي أو مخالفة امتثال. الرصد المستمر للبيئة والإنشاءات يسد هذه الفجوة ويجعل كل فحص تقوم به EnvironmSafe أكثر دقة، سواء كان الموقع منشأة صناعية أو مستودعاً أو أصلاً مائياً أو موقعاً تابعاً لمنظمة غير حكومية يُزار نادراً."
-    }
-  },
-  {
-    "iso": "2026-08-26",
-    "slug": "nebosh-iosh-training-in-arabic",
-    "icon": "fa-chalkboard-user",
-    "color": "teal",
-    "en": {
-      "title": "NEBOSH and IOSH Training in Arabic: Competence Without the Language Barrier",
-      "home_summary": "A certificate proves attendance, not competence &mdash; and the gap between the two widens when safety is taught in a second language. As a NEBOSH and IOSH accredited provider, we deliver the International General Certificate through both Arabic and English pathways, so an internationally recognised qualification actually changes what happens on site."
-    },
-    "ar": {
-      "title": "تدريب NEBOSH وIOSH بالعربية: كفاءة دون حاجز اللغة",
-      "home_summary": "الشهادة تثبت الحضور لا الكفاءة &mdash; والفجوة بينهما تتسع حين تُدرّس السلامة بلغة ثانية. وبوصفنا جهة معتمدة من NEBOSH وIOSH، نقدم الشهادة الدولية العامة بمسارين عربي وإنجليزي، ليُحدث المؤهل المعترف به دولياً فرقاً حقيقياً في الموقع."
     }
   }
 ]
