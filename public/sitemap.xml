@@ -207,6 +207,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-10-09-the-guard-removed-for-one-job.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-09-the-guard-removed-for-one-job.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-09-the-guard-removed-for-one-job.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-10-09-the-guard-removed-for-one-job.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-09-the-guard-removed-for-one-job.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-09-the-guard-removed-for-one-job.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-10-08-the-fire-starts-after-the-welder-goes-home.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-08-the-fire-starts-after-the-welder-goes-home.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-08-the-fire-starts-after-the-welder-goes-home.html"/>

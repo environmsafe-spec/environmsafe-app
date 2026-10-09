@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-09",
+    "slug": "the-guard-removed-for-one-job",
+    "icon": "fa-gears",
+    "color": "navy",
+    "en": {
+      "title": "The Guard Taken Off for One Job Is the One Never Put Back",
+      "home_summary": "Guards are rarely defeated by accident. They come off for a real task and stay off, because putting them back was nobody's job."
+    },
+    "ar": {
+      "title": "الحاجز الذي يُنزع لمهمة واحدة هو الحاجز الذي لا يعود",
+      "home_summary": "نادراً ما تُعطَّل الحواجز بالخطأ. فهي تُنزع لمهمة حقيقية وتبقى منزوعة، لأن إعادتها لم تكن مهمة أحد."
+    }
+  },
+  {
     "iso": "2026-10-08",
     "slug": "the-fire-starts-after-the-welder-goes-home",
     "icon": "fa-fire",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "لماذا ينبغي أن يسبق التقييم المستقل ثقتكم بتقرير الامتثال",
       "home_summary": "شهادة الامتثال تؤكد أن نظاماً ما فُحص مرة واحدة وفق معيار محدد، لكنها لا تؤكد أنه لا يزال يؤدي كذلك اليوم. التقييم المستقل لمنشآت الغاز LPG أو المراجل أو الأنظمة الكهربائية أو الحماية من الحرائق ينظر إلى ما هو أبعد من الورق، إلى الحالة الفعلية الحالية، ويمنح أصحاب المنشآت صورة مرتبة حسب الأولوية قبل أن تطرح شركة التأمين أو المدقق أو الجهة الرقابية السؤال ذاته."
-    }
-  },
-  {
-    "iso": "2026-08-27",
-    "slug": "continuous-monitoring-vs-annual-inspection",
-    "icon": "fa-magnifying-glass-chart",
-    "color": "green",
-    "en": {
-      "title": "Why Continuous Monitoring Catches What Annual Inspections Miss",
-      "home_summary": "Corrosion, foundation movement, and drifting air and water quality all develop quietly between annual inspections, until they surface as a failure or a compliance breach. Continuous structural and environmental monitoring closes that gap and makes every EnvironmSafe inspection sharper, whether the facility is an industrial site, a warehouse, a water or wastewater asset, or an NGO location visited only rarely."
-    },
-    "ar": {
-      "title": "لماذا يكتشف الرصد المستمر ما تغفله الفحوصات السنوية",
-      "home_summary": "التآكل وحركة الأساسات وانحراف جودة الهواء والماء تتطور بصمت بين الفحوصات السنوية، إلى أن تظهر كعطل فعلي أو مخالفة امتثال. الرصد المستمر للبيئة والإنشاءات يسد هذه الفجوة ويجعل كل فحص تقوم به EnvironmSafe أكثر دقة، سواء كان الموقع منشأة صناعية أو مستودعاً أو أصلاً مائياً أو موقعاً تابعاً لمنظمة غير حكومية يُزار نادراً."
     }
   }
 ]
