@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-10",
+    "slug": "noise-damage-is-silent-until-it-is-permanent",
+    "icon": "fa-ear-listen",
+    "color": "green",
+    "en": {
+      "title": "Nobody Notices Losing Their Hearing Until It Is Gone",
+      "home_summary": "Hearing loss is painless and gradual, so nobody notices until it is permanent. Exposure is logarithmic, which makes brief loud moments count far more than they feel."
+    },
+    "ar": {
+      "title": "لا يلاحظ أحد فقدان سمعه حتى يذهب",
+      "home_summary": "فقدان السمع بلا ألم وتدريجي، فلا يلاحظه أحد حتى يصير دائماً. والتعرض لوغاريتمي، ما يجعل اللحظات الصاخبة القصيرة تزن أكثر بكثير مما تبدو."
+    }
+  },
+  {
     "iso": "2026-10-09",
     "slug": "the-guard-removed-for-one-job",
     "icon": "fa-gears",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "خمس علامات تدل على أن نظام إخماد الحرائق لديكم يحتاج اهتماماً",
       "home_summary": "نظام إخماد حريق لم يُختبر تحت ظروف حقيقية هو افتراض، لا ضمانة. الكاشفات الصامتة، ورؤوس الرشاشات المطلية، ومسارات الخروج المسدودة، والأعطال غير الموثقة، كلها علامات إنذار شائعة على أن نظاماً ما تراجع بصمت منذ تشغيله."
-    }
-  },
-  {
-    "iso": "2026-08-28",
-    "slug": "independent-evaluation-before-compliance-signoff",
-    "icon": "fa-clipboard-check",
-    "color": "navy",
-    "en": {
-      "title": "Why an Independent Evaluation Should Come Before You Trust a Compliance Report",
-      "home_summary": "A compliance certificate confirms a system was checked once, against a named standard. It does not confirm the system still performs that way today."
-    },
-    "ar": {
-      "title": "لماذا ينبغي أن يسبق التقييم المستقل ثقتكم بتقرير الامتثال",
-      "home_summary": "شهادة الامتثال تؤكد أن نظاماً ما فُحص مرة واحدة وفق معيار محدد، لكنها لا تؤكد أنه لا يزال يؤدي كذلك اليوم. التقييم المستقل لمنشآت الغاز LPG أو المراجل أو الأنظمة الكهربائية أو الحماية من الحرائق ينظر إلى ما هو أبعد من الورق، إلى الحالة الفعلية الحالية، ويمنح أصحاب المنشآت صورة مرتبة حسب الأولوية قبل أن تطرح شركة التأمين أو المدقق أو الجهة الرقابية السؤال ذاته."
     }
   }
 ]
