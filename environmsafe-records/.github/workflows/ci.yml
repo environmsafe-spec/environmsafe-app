@@ -1,0 +1,92 @@
+name: Tests
+
+# Every push and pull request: type check, unit and document tests, database
+# security tests, then the browser tests twice – against the local stand-in
+# and against a real local Supabase stack (Auth, Storage, Edge Functions).
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ['54329:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Dependency vulnerability scan (fails on high)
+        run: npm audit --audit-level=high
+      - run: npx tsc -b
+      - name: Unit and generated-document tests
+        run: npx vitest run
+      - name: Database and Row Level Security tests
+        env: { DB_TEST_URL: postgres://postgres@127.0.0.1:54329/postgres }
+        run: node scripts/db-test.mjs
+      - name: Browser tests (local stand-in)
+        env: { DB_BASE: postgres://postgres@127.0.0.1:54329/postgres }
+        run: |
+          npx playwright install --with-deps chromium
+          ./scripts/e2e-local.sh
+      - name: No secrets in the repository or the built app
+        run: ./scripts/check-secrets.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-local
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14
+
+  e2e-supabase:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - name: Start local Supabase with our migrations
+        run: supabase start -x studio,imgproxy,inbucket,logflare,vector,supavisor
+      - name: Seed test users
+        run: |
+          eval "$(supabase status -o env | sed 's/^/export /')"
+          node scripts/ci-seed-users.mjs | tee -a "$GITHUB_ENV"
+          echo "E2E_API_URL=$API_URL" >> "$GITHUB_ENV"
+          echo "E2E_ANON_KEY=$ANON_KEY" >> "$GITHUB_ENV"
+      - name: Build and serve the app
+        run: |
+          VITE_SUPABASE_URL=$E2E_API_URL VITE_SUPABASE_ANON_KEY=$E2E_ANON_KEY VITE_PUBLIC_URL=http://localhost:4173 npx vite build --mode e2e
+          (VITE_SUPABASE_URL=$E2E_API_URL npx vite preview --port 4173 --strictPort &) ; sleep 3
+      - name: Browser tests against real Supabase
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-supabase
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14

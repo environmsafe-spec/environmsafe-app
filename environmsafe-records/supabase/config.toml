@@ -1,0 +1,54 @@
+# Local Supabase stack used by the CI end-to-end tests (supabase start).
+# The production project is configured in its dashboard; see docs/ADMIN_GUIDE.md.
+project_id = "environmsafe-records"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[studio]
+enabled = false
+
+[inbucket]
+enabled = false
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:4173"
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = false
+minimum_password_length = 10
+password_requirements = "lower_upper_letters_digits"
+
+[auth.email]
+enable_signup = false
+enable_confirmations = false
+
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[edge_runtime]
+enabled = true
+policy = "per_worker"
+
+[functions.admin-users]
+verify_jwt = true
+
+[analytics]
+enabled = false

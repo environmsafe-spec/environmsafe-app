@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">EnvironmSafe Records</string>
+    <string name="title_activity_main">EnvironmSafe Records</string>
+    <string name="package_name">com.environmsafe.records</string>
+    <string name="custom_url_scheme">com.environmsafe.records</string>
+</resources>

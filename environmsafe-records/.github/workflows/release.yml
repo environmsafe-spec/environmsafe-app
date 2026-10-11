@@ -1,0 +1,115 @@
+name: Release (website + Android app)
+
+# Builds the website and the signed Android APK, publishes both on Cloudflare
+# Pages (the APK at /download/EnvironmSafe-Records.apk with version.json), then
+# runs the smoke test against the live site.
+#
+# Secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, ANDROID_KEYSTORE_PASSPHRASE
+# Optional: E2E_ADMIN_EMAIL / E2E_ADMIN_PASSWORD / E2E_ADMIN_TOTP_SECRET for a live sign-in check.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', '*.md']
+  workflow_dispatch:
+    inputs:
+      notes:
+        description: 'What changed (shown with the update prompt)'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  PAGES_PROJECT: environmsafe-records
+  CUSTOM_DOMAIN: records.environmsafe.com
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Tests must pass first
+        run: npx tsc -b && npx vitest run
+      - name: Version
+        id: v
+        run: |
+          V=$(node -p "require('./package.json').version")
+          IFS=. read -r A B C <<< "$V"
+          echo "name=$V" >> "$GITHUB_OUTPUT"
+          echo "code=$((A*10000 + B*100 + C))" >> "$GITHUB_OUTPUT"
+      - name: Build the website
+        run: npx vite build
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - name: Build the signed APK
+        env:
+          APP_VERSION_NAME: ${{ steps.v.outputs.name }}
+          APP_VERSION_CODE: ${{ steps.v.outputs.code }}
+          PASS: ${{ secrets.ANDROID_KEYSTORE_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          test -n "$PASS" || { echo "::error::Add the ANDROID_KEYSTORE_PASSPHRASE secret"; exit 1; }
+          npx cap sync android
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in android/keystore/release.keystore.enc -out "$RUNNER_TEMP/release.keystore" -pass env:PASS
+          export ANDROID_KEYSTORE_PATH="$RUNNER_TEMP/release.keystore" ANDROID_KEYSTORE_PASSWORD="$PASS"
+          cd android && chmod +x gradlew && ./gradlew --no-daemon assembleRelease
+          "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner" verify --print-certs app/build/outputs/apk/release/app-release.apk | head -3
+          rm -f "$RUNNER_TEMP/release.keystore"
+      - name: Download page, version.json and security headers
+        env:
+          RELEASE_NOTES: ${{ inputs.notes }}
+        run: node scripts/make-site-files.mjs android/app/build/outputs/apk/release/app-release.apk
+      - name: Check no secrets were bundled
+        run: ./scripts/check-secrets.sh
+      - name: Publish to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@3.114.17 pages project create "$PAGES_PROJECT" --production-branch=main || true
+          npx --yes wrangler@3.114.17 pages deploy dist --project-name="$PAGES_PROJECT" --branch=main --commit-dirty=true
+      - name: Connect the custom domain (once)
+        continue-on-error: true
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/pages/projects/$PAGES_PROJECT/domains" \
+            -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" --data "{\"name\":\"$CUSTOM_DOMAIN\"}" || true
+          curl -fsS "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/pages/projects/$PAGES_PROJECT/domains/$CUSTOM_DOMAIN" -H "Authorization: Bearer $CF_TOKEN" | head -c 600 || true
+      - name: Smoke test the live site
+        env:
+          E2E_BASE_URL: https://${{ env.PAGES_PROJECT }}.pages.dev
+          E2E_ADMIN_EMAIL: ${{ secrets.E2E_ADMIN_EMAIL }}
+          E2E_ADMIN_PASSWORD: ${{ secrets.E2E_ADMIN_PASSWORD }}
+          E2E_ADMIN_TOTP_SECRET: ${{ secrets.E2E_ADMIN_TOTP_SECRET }}
+        run: |
+          npx playwright install --with-deps chromium
+          sleep 20
+          npx playwright test --config tests/smoke/playwright.smoke.config.ts
+      - name: Keep the APK with the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.v.outputs.name }}
+          name: EnvironmSafe Records ${{ steps.v.outputs.name }}
+          files: android/app/build/outputs/apk/release/app-release.apk
+          body: ${{ inputs.notes || 'Release build.' }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-${{ steps.v.outputs.name }}
+          path: |
+            android/app/build/outputs/apk/release/app-release.apk
+            dist/version.json
+            test-results/
+          retention-days: 30

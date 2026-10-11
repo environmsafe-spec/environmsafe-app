@@ -1,0 +1,80 @@
+name: Nightly backup + restore test
+
+# Every night: export the database (all data, the user list and a manifest of
+# every stored file), restore it into a fresh empty database to prove the backup
+# works, and keep it (encrypted) for 30 days as a private artifact.
+#
+# Secrets: SUPABASE_DB_PASSWORD, ANDROID_KEYSTORE_PASSPHRASE (also used to
+# encrypt the backup; or set BACKUP_PASSPHRASE). Optional: SUPABASE_DB_URL to
+# override the connection.
+
+on:
+  schedule:
+    - cron: '23 0 * * *'   # 03:23 Aden time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17
+        env: { POSTGRES_HOST_AUTH_METHOD: trust }
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: PostgreSQL 17 client
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSo /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      - name: Find the database connection
+        id: db
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          PW: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -n "$DB_URL" ]; then echo "::add-mask::$DB_URL"; echo "url=$DB_URL" >> "$GITHUB_OUTPUT"; exit 0; fi
+          REF=$(grep '^VITE_SUPABASE_URL=' .env.production | sed -E 's#.*https://([^.]+)\..*#\1#')
+          REGION=$(grep '^SUPABASE_REGION=' .env.production | cut -d= -f2)
+          ENC=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1],safe=''))" "$PW")
+          for H in aws-0-$REGION.pooler.supabase.com aws-1-$REGION.pooler.supabase.com; do
+            U="postgresql://postgres.$REF:$ENC@$H:5432/postgres?sslmode=require"
+            if psql "$U" -Atc 'select 1' >/dev/null 2>&1; then echo "::add-mask::$U"; echo "url=$U" >> "$GITHUB_OUTPUT"; echo "Connected through $H"; exit 0; fi
+          done
+          echo "::error::Could not connect to the database. Check SUPABASE_DB_PASSWORD (see docs/RUNBOOK.md)."; exit 1
+      - name: Back up and prove the restore
+        env:
+          SOURCE_URL: ${{ steps.db.outputs.url }}
+          TARGET_ADMIN_URL: postgres://postgres@localhost:5432/postgres
+          OUT: backup
+        run: ./scripts/backup-restore-test.sh | tee restore-log.txt
+      - name: Encrypt
+        env:
+          PASS: ${{ secrets.BACKUP_PASSPHRASE || secrets.ANDROID_KEYSTORE_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          cp restore-log.txt backup/
+          tar czf backup.tgz backup
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in backup.tgz -out "environmsafe-records-backup-$(date -u +%F).tgz.enc" -pass env:PASS
+          {
+            echo "### Backup $(date -u +%F)"
+            echo ""
+            echo '```'; tail -3 restore-log.txt; echo '```'
+            echo ""
+            echo "Tables and rows:"; echo '```'; cat backup/row-counts.txt; echo '```'
+            echo "Files listed in manifest: $(($(wc -l < backup/file-manifest.csv) - 1))"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backup-${{ github.run_number }}
+          path: environmsafe-records-backup-*.tgz.enc
+          retention-days: 30

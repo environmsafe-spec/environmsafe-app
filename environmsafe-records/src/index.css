@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-navy: #1b1b3a;
+  --color-navy-700: #2a2a55;
+  --color-navy-50: #eef0f7;
+  --color-accent: #e39b22;
+  --color-accent-600: #b9790f;
+  --color-accent-50: #fdf3e2;
+  --font-sans: Arial, "Liberation Sans", "Helvetica Neue", Helvetica, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f4f5f9;
+  --surface: #ffffff;
+  --text: #15152b;
+  --muted: #4b5066;
+  --line: #d4d7e2;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0e0e1c;
+  --surface: #191930;
+  --text: #f2f3f8;
+  --muted: #b3b7cc;
+  --line: #34365a;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.surface {
+  background: var(--surface);
+}
+.text-muted {
+  color: var(--muted);
+}
+.border-line {
+  border-color: var(--line);
+}
+
+/* Large, high-contrast form controls that are easy to use with gloves and in sunlight. */
+.input {
+  width: 100%;
+  min-height: 3rem;
+  border: 1.5px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+}
+.input:focus {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
+}
+textarea.input {
+  min-height: 6rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media print {
+  nav,
+  header {
+    display: none !important;
+  }
+}
