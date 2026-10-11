@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-11",
+    "slug": "the-scaffold-was-inspected-by-the-crew-that-built-it",
+    "icon": "fa-helmet-safety",
+    "color": "orange",
+    "en": {
+      "title": "A Scaffold Signed Off by the Crew That Built It Is Not Inspected",
+      "home_summary": "Scaffolds fail after modification, not erection. If the tag is older than the last change someone made, it describes a structure that no longer exists."
+    },
+    "ar": {
+      "title": "السقالة التي يعتمدها الطاقم الذي بناها ليست مفحوصة",
+      "home_summary": "تفشل السقالات بعد التعديل لا بعد التركيب. وإن كانت البطاقة أقدم من آخر تغيير أجراه أحدهم، فهي تصف هيكلاً لم يعد موجوداً."
+    }
+  },
+  {
     "iso": "2026-10-10",
     "slug": "noise-damage-is-silent-until-it-is-permanent",
     "icon": "fa-ear-listen",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الاعتمادات وراء كل تقييم تقدمه EnvironmSafe",
       "home_summary": "يستطيع أي طرف أن يدّعي اتباع معايير السلامة الدولية. أخصائيو حماية من الحرائق معتمدون من NFPA، وعمل هندسي متوافق مع معايير API، وتدريب معتمد من NEBOSH وIOSH، هي الاعتمادات وراء كل تقييم تقدمه EnvironmSafe، اختيرت لأنها المعايير ذاتها التي يخضع لها عملاؤنا، من المشغّلين الصناعيين إلى المنظمات الدولية غير الحكومية، عبر اليمن والمنطقة."
-    }
-  },
-  {
-    "iso": "2026-08-29",
-    "slug": "warning-signs-fire-suppression-needs-attention",
-    "icon": "fa-triangle-exclamation",
-    "color": "amber",
-    "en": {
-      "title": "Five Warning Signs Your Fire Suppression System Needs Attention",
-      "home_summary": "A fire suppression system that has never been tested under real conditions is an assumption, not a safeguard. Silent detectors, painted sprinkler heads, blocked exit routes, and undocumented faults are common warning signs that a system has quietly degraded since commissioning."
-    },
-    "ar": {
-      "title": "خمس علامات تدل على أن نظام إخماد الحرائق لديكم يحتاج اهتماماً",
-      "home_summary": "نظام إخماد حريق لم يُختبر تحت ظروف حقيقية هو افتراض، لا ضمانة. الكاشفات الصامتة، ورؤوس الرشاشات المطلية، ومسارات الخروج المسدودة، والأعطال غير الموثقة، كلها علامات إنذار شائعة على أن نظاماً ما تراجع بصمت منذ تشغيله."
     }
   }
 ]
