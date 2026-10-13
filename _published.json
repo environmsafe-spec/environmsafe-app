@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-13",
+    "slug": "a-generator-that-starts-is-not-one-that-carries-load",
+    "icon": "fa-bolt",
+    "color": "blue",
+    "en": {
+      "title": "A Standby Generator That Starts Is Not One That Will Carry the Load",
+      "home_summary": "A monthly no-load run proves the engine starts and slowly damages it. Only a load test shows whether the set will still be running at full output an hour into an outage."
+    },
+    "ar": {
+      "title": "المولّد الاحتياطي الذي يدور ليس المولّد الذي سيحمل الحمل",
+      "home_summary": "التشغيل الشهري بلا حمل يثبت أن المحرك يدور ويُتلفه ببطء. ولا يُظهر إلا اختبار الحمل هل ستبقى المجموعة تعمل بخرجها الكامل بعد ساعة من الانقطاع."
+    }
+  },
+  {
     "iso": "2026-10-11",
     "slug": "the-scaffold-was-inspected-by-the-crew-that-built-it",
     "icon": "fa-helmet-safety",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "أنظمة التكييف الصناعية نظام سلامة، لا نظام راحة فقط",
       "home_summary": "أنظمة التكييف تتحكم بالهواء الذي يتنفسه الناس ثماني ساعات متواصلة. تُشغّل لتناسب مبنى يومه الأول، ثم تُنقل الجدران وتُضاف عمليات دون إعادة ضبط التوازن، فتعمل المنشأة بكلفة طاقة كاملة وتقدم هواءً أسوأ من يوم تشغيلها."
-    }
-  },
-  {
-    "iso": "2026-08-30",
-    "slug": "certifications-behind-every-assessment",
-    "icon": "fa-certificate",
-    "color": "orange",
-    "en": {
-      "title": "The Certifications Behind Every EnvironmSafe Assessment",
-      "home_summary": "Anyone can claim to follow international safety standards. NFPA Certified Fire Protection Specialists, API-aligned engineering work, and NEBOSH and IOSH accredited training are the credentials behind every EnvironmSafe assessment, chosen because they are the same standards our clients, from industrial operators to international NGOs, are themselves answerable to across Yemen and the region."
-    },
-    "ar": {
-      "title": "الاعتمادات وراء كل تقييم تقدمه EnvironmSafe",
-      "home_summary": "يستطيع أي طرف أن يدّعي اتباع معايير السلامة الدولية. أخصائيو حماية من الحرائق معتمدون من NFPA، وعمل هندسي متوافق مع معايير API، وتدريب معتمد من NEBOSH وIOSH، هي الاعتمادات وراء كل تقييم تقدمه EnvironmSafe، اختيرت لأنها المعايير ذاتها التي يخضع لها عملاؤنا، من المشغّلين الصناعيين إلى المنظمات الدولية غير الحكومية، عبر اليمن والمنطقة."
     }
   }
 ]
