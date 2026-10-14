@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-14",
+    "slug": "an-lpg-tank-fails-where-you-cannot-see-it",
+    "icon": "fa-fire-flame-curved",
+    "color": "amber",
+    "en": {
+      "title": "An LPG Tank Fails Where Nobody Is Looking",
+      "home_summary": "LPG tanks corrode under their supports, beneath intact-looking insulation and in the vapour space — never on the painted surface everyone inspects."
+    },
+    "ar": {
+      "title": "خزان الغاز المسال يفشل حيث لا ينظر أحد",
+      "home_summary": "تتآكل خزانات الغاز المسال تحت دعاماتها، وتحت عزل يبدو سليماً، وفي حيّز البخار — لا على السطح المدهون الذي يفحصه الجميع."
+    }
+  },
+  {
     "iso": "2026-10-13",
     "slug": "a-generator-that-starts-is-not-one-that-carries-load",
     "icon": "fa-bolt",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "ما الذي يحدث فعلاً من أخطاء في مشاريع الإنشاء، ومتى",
       "home_summary": "نادراً ما تفشل المشاريع في لحظة واحدة، بل عبر قرارات صغيرة مبررة تحت ضغط الجدول. معظم ما يحدث من أخطاء تقرر في التصميم والشراء، ومنتصف المشروع هو حيث تُدفن أكلف الأخطاء داخل أعمال منتهية."
-    }
-  },
-  {
-    "iso": "2026-08-31",
-    "slug": "industrial-hvac-is-a-safety-system",
-    "icon": "fa-wind",
-    "color": "teal",
-    "en": {
-      "title": "Industrial HVAC Is a Safety System, Not Just a Comfort System",
-      "home_summary": "HVAC controls the air people breathe for eight hours at a stretch. Systems are commissioned to match a building on day one, then walls move and processes are added, and nobody rebalances."
-    },
-    "ar": {
-      "title": "أنظمة التكييف الصناعية نظام سلامة، لا نظام راحة فقط",
-      "home_summary": "أنظمة التكييف تتحكم بالهواء الذي يتنفسه الناس ثماني ساعات متواصلة. تُشغّل لتناسب مبنى يومه الأول، ثم تُنقل الجدران وتُضاف عمليات دون إعادة ضبط التوازن، فتعمل المنشأة بكلفة طاقة كاملة وتقدم هواءً أسوأ من يوم تشغيلها."
     }
   }
 ]
