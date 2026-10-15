@@ -7,4 +7,33 @@ Disallow: /agent.html
 Disallow: /receivables
 Disallow: /receivables.html
 
+# AI search crawlers — explicitly welcomed. Blocking these makes the site
+# invisible in ChatGPT, Claude, Perplexity and Google AI Overviews.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://www.environmsafe.com/sitemap.xml
