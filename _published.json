@@ -42,6 +42,20 @@
     }
   },
   {
+    "iso": "2026-10-11",
+    "slug": "certified-fire-protection-cuts-insurance-costs",
+    "icon": "fa-shield-halved",
+    "color": "teal",
+    "en": {
+      "title": "How Certified Fire Protection Cuts Insurance Costs",
+      "home_summary": "Certified fire protection systems do more than meet code. See how NFPA CFPS certification and documented compliance can cut insurance premiums by up to 85%."
+    },
+    "ar": {
+      "title": "كيف تخفض أنظمة الحماية من الحريق المعتمدة تكاليف التأمين",
+      "home_summary": "الحماية من الحريق المعتمدة ليست مجرد التزام بالكود. تعرف كيف تساهم شهادة NFPA CFPS والامتثال الموثق في خفض أقساط التأمين حتى 85%."
+    }
+  },
+  {
     "iso": "2026-10-10",
     "slug": "noise-damage-is-silent-until-it-is-permanent",
     "icon": "fa-ear-listen",

@@ -3,3 +3,14 @@
 # Keep these permanently: the old paths were published and may be bookmarked.
 /platform.html     /applications.html     301
 /ar/platform.html  /ar/applications.html  301
+
+# The fire-protection / insurance piece was published three times: 2026-08-24,
+# then again on 2026-10-11 and 2026-10-22, the last two sharing a slug. Three
+# URLs competing for the same search terms is three weak pages instead of one
+# strong one. The 10-11 version is kept - it is the longest and its slug is the
+# better keyword match - and the other two redirect onto it so that anything
+# already linking to or indexing them lands on the surviving page.
+/news/2026-08-24-certified-fire-protection-insurance-savings.html     /news/2026-10-11-certified-fire-protection-cuts-insurance-costs.html     301
+/ar/news/2026-08-24-certified-fire-protection-insurance-savings.html  /ar/news/2026-10-11-certified-fire-protection-cuts-insurance-costs.html  301
+/news/2026-10-22-certified-fire-protection-cuts-insurance-costs.html     /news/2026-10-11-certified-fire-protection-cuts-insurance-costs.html     301
+/ar/news/2026-10-22-certified-fire-protection-cuts-insurance-costs.html  /ar/news/2026-10-11-certified-fire-protection-cuts-insurance-costs.html  301
