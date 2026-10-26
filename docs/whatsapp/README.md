@@ -217,3 +217,31 @@ Preventive maintenance programmes, equipment repair, industrial and safety parts
 
 اطلب عرض سعر · Request a quote
 ```
+
+---
+
+## 4. Bulk upload (alternative to adding items by hand)
+
+`catalog.csv` holds the same nine items in Meta's data-feed format. Meta requires
+a price on every item, so each one is listed at **1 YER**; the title ends with
+"السعر حسب الطلب" and the description opens and closes with a note that the price
+is a placeholder and to get in touch for a quote.
+
+Before uploading, the images must be live: `image_link` points at
+`https://www.environmsafe.com/img/catalog/*.png`, which only exists once this
+branch is deployed. Meta rejects items whose image it can't download.
+
+1. Link WhatsApp to Meta: in the app, **Business tools → Facebook & Instagram**
+   (or **Accounts Center**) and connect the Meta business account.
+2. Open <https://business.facebook.com/commerce> → **Create a catalog** →
+   type **Ecommerce** (online products) → owner: your business account.
+3. In the catalog: **Catalog → Data sources → Add items → Data feed →
+   Upload once** → choose `catalog.csv` → currency **YER**.
+4. Wait for the upload report; fix and re-upload any rejected rows.
+5. In WhatsApp Manager / the app's **Catalog** screen, choose this catalog as
+   the one shown on WhatsApp.
+6. Create the three collections (table in section 3) in Commerce Manager under
+   **Catalog → Sets**, or in the app.
+
+If any items were already added by hand in the app, delete them first, or the
+catalog shows each service twice.
