@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-26",
+    "slug": "reversing-is-where-people-get-hit",
+    "icon": "fa-truck-moving",
+    "color": "orange",
+    "en": {
+      "title": "Reversing Is Where People Get Hit",
+      "home_summary": "Vehicles and pedestrians sharing the same ground is the hazard that injures most reliably, and reversing is its worst moment. Separation beats supervision, and a banksman only works if the stopping rule survives schedule pressure."
+    },
+    "ar": {
+      "title": "الرجوع للخلف هو موضع الدهس",
+      "home_summary": "مشاركة المركبات والمشاة الأرض نفسها هي الخطر الذي يصيب بأكبر انتظام، والرجوع للخلف أسوأ لحظاته. الفصل أقوى من الإشراف، والموجّه لا ينفع ما لم تصمد قاعدة التوقف تحت ضغط الجدول."
+    }
+  },
+  {
     "iso": "2026-10-14",
     "slug": "an-lpg-tank-fails-where-you-cannot-see-it",
     "icon": "fa-fire-flame-curved",
@@ -403,34 +417,6 @@
     "ar": {
       "title": "نظام إدارة السلامة هو ما يحدث حين لا يراقب أحد",
       "home_summary": "معظم المؤسسات تشغل نظامي سلامة في آن واحد: نظام موثق جاهز للتدقيق، ونظام تشغيلي تستخدمه الفرق فعلاً. والمسافة بينهما أفضل مؤشر منفرد على احتمال وقوع حادثة، ولا يراها تدقيق يقرأ الأوراق فقط."
-    }
-  },
-  {
-    "iso": "2026-09-02",
-    "slug": "deferred-maintenance-becomes-unplanned-failure",
-    "icon": "fa-gears",
-    "color": "green",
-    "en": {
-      "title": "Deferred Maintenance Becomes Unplanned Failure",
-      "home_summary": "Every deferred maintenance task is a decision to accept a failure at a time you do not choose. The repair invoice is the smallest part of the cost: lost production, emergency labour, expedited freight and secondary damage sit outside the maintenance budget entirely, which is why cutting that budget looks like a saving right up until it is not."
-    },
-    "ar": {
-      "title": "الصيانة المؤجلة تتحول إلى عطل غير مخطط له",
-      "home_summary": "كل مهمة صيانة مؤجلة قرار بقبول عطل في وقت لا تختارونه. فاتورة الإصلاح أصغر جزء من الكلفة: الإنتاج الضائع والعمالة الطارئة والشحن المستعجل والضرر الثانوي كلها خارج ميزانية الصيانة، ولهذا يبدو خفضها توفيراً."
-    }
-  },
-  {
-    "iso": "2026-09-01",
-    "slug": "what-goes-wrong-on-construction-projects",
-    "icon": "fa-hard-hat",
-    "color": "blue",
-    "en": {
-      "title": "What Actually Goes Wrong on Construction Projects, and When",
-      "home_summary": "Projects rarely fail in one dramatic moment. They fail through small, defensible decisions taken under schedule pressure."
-    },
-    "ar": {
-      "title": "ما الذي يحدث فعلاً من أخطاء في مشاريع الإنشاء، ومتى",
-      "home_summary": "نادراً ما تفشل المشاريع في لحظة واحدة، بل عبر قرارات صغيرة مبررة تحت ضغط الجدول. معظم ما يحدث من أخطاء تقرر في التصميم والشراء، ومنتصف المشروع هو حيث تُدفن أكلف الأخطاء داخل أعمال منتهية."
     }
   }
 ]
