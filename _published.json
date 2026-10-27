@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-27",
+    "slug": "lifting-gear-fails-at-the-weakest-link",
+    "icon": "fa-link-slash",
+    "color": "navy",
+    "en": {
+      "title": "Lifting Gear Fails at the Link Nobody Looked At",
+      "home_summary": "A certified crane with an uncertified sling is an uncertified lift. The load passes through the cheapest, most portable and least documented parts of the chain, and that is where lifts fail."
+    },
+    "ar": {
+      "title": "معدات الرفع تنهار عند الحلقة التي لم ينظر إليها أحد",
+      "home_summary": "رافعة معتمدة بحزام غير معتمد تساوي رفعاً غير معتمد. فالحمل يمر عبر أرخص أجزاء السلسلة وأكثرها تنقلاً وأقلها توثيقاً، وهناك يفشل الرفع."
+    }
+  },
+  {
     "iso": "2026-10-26",
     "slug": "reversing-is-where-people-get-hit",
     "icon": "fa-truck-moving",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "العمل في الأماكن المحصورة يقتل أصحاب الخبرة",
       "home_summary": "ضحايا حوادث الأماكن المحصورة غالباً ليسوا وافدين بلا تدريب، بل عمال أكفاء دخلوا المكان نفسه من قبل دون حادثة. الظروف تتغير بين دخول وآخر حتى لو لم يتغير شيء ظاهر في الخارج، ولهذا يُشترط الاختبار في كل مرة لا استنتاجه من التاريخ، ولهذا تهم خطة الإنقاذ المُتدرب عليها أكثر من أي ضابط آخر."
-    }
-  },
-  {
-    "iso": "2026-09-03",
-    "slug": "safety-management-system-when-nobody-is-watching",
-    "icon": "fa-shield-halved",
-    "color": "navy",
-    "en": {
-      "title": "A Safety Management System Is What Happens When Nobody Is Watching",
-      "home_summary": "Most organisations run two safety systems at once: the documented one that is audit-ready, and the operating one their crews actually use. The distance between them is the best single predictor of whether a facility has an incident, and no audit that only reads paperwork can see it."
-    },
-    "ar": {
-      "title": "نظام إدارة السلامة هو ما يحدث حين لا يراقب أحد",
-      "home_summary": "معظم المؤسسات تشغل نظامي سلامة في آن واحد: نظام موثق جاهز للتدقيق، ونظام تشغيلي تستخدمه الفرق فعلاً. والمسافة بينهما أفضل مؤشر منفرد على احتمال وقوع حادثة، ولا يراها تدقيق يقرأ الأوراق فقط."
     }
   }
 ]
