@@ -124,22 +124,22 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 
 | Collection | Code prefix | Items |
 |---|---|---|
+| المولدات وقطع غيارها | `ES-GEN` | 19 |
+| المعدات الصناعية وقطع غيارها | `ES-MCH` | 12 |
+| الصيانة وقطع الغيار | `ES-MNT` | 6 |
 | اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
-| السلامة والحماية من الحرائق | `ES-HSE` | 48 |
 | أنظمة الغاز LPG | `ES-LPG` | 6 |
+| أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
+| الهندسة والإنشاء | `ES-ENG` | 7 |
+| الفحص والمراقبة البيئية | `ES-INSP` | 8 |
 | تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
 | دورات NEBOSH وIOSH | `ES-TRN` | 12 |
-| الفحص والمراقبة البيئية | `ES-INSP` | 8 |
-| الهندسة والإنشاء | `ES-ENG` | 7 |
-| أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
-| الصيانة وقطع الغيار | `ES-MNT` | 6 |
-| المولدات وقطع غيارها | `ES-GEN` | 12 |
-| المعدات الصناعية وقطع غيارها | `ES-MCH` | 12 |
+| السلامة والحماية من الحرائق | `ES-HSE` | 48 |
 
-The HSE & fire protection collection also carries the safety supply lines
-(fire equipment, PPE, safety solutions, fall protection, gas detection).
-Generators and industrial machinery are parts-supply sections organised by
-engine make, system and part type. 131 items in total.
+Sections are in display order: parts supply and machinery first, safety last.
+Create the collections in this order. The HSE & fire protection collection
+also carries the safety supply lines (fire equipment, PPE, safety solutions,
+fall protection, gas detection). 138 items in total.
 
 ---
 
