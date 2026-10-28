@@ -111,7 +111,7 @@ python3 scripts/build_whatsapp_catalog.py   # writes catalog.csv (both copies)
 node scripts/render_catalog_images.cjs       # renders images for any new items
 ```
 
-Every item is listed at **1 YER** (Meta requires a price), its title ends with
+Every item is listed at **1 USD** (Meta requires a price), its title ends with
 "السعر حسب الطلب", and its description opens and closes with a note that the
 price is a placeholder and to get in touch for a quote.
 
@@ -157,7 +157,7 @@ website reaches the catalog within a day with no manual upload.
 1. Commerce Manager → **EnvironmSafe Services** → **Catalog → Data sources**.
 2. Open the existing data feed → **Settings** → **Replace / Add upload schedule**
    (wording varies) → URL `https://www.environmsafe.com/whatsapp-catalog.csv`,
-   frequency **Daily**, currency **YER**.
+   frequency **Daily**, currency **USD**.
    - Using the *existing* feed keeps the nine items already uploaded and adds
      the sub-items; item IDs match, so nothing is duplicated.
    - If the feed's settings offer no schedule, use **Upload** on the same feed

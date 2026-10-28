@@ -6,7 +6,7 @@ Writes the same CSV to two places:
   public/whatsapp-catalog.csv    - served at https://www.environmsafe.com/whatsapp-catalog.csv
                                    for a scheduled feed, so Meta picks up changes daily
 
-Meta requires a price on every item, so each is listed at 1 YER with a note
+Meta requires a price on every item, so each is listed at 1 USD with a note
 asking the customer to request a quote. Images are rendered separately by
 scripts/render_catalog_images.js.
 """
@@ -17,8 +17,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://www.environmsafe.com'
 
-NOTE_AR = 'السعر المعروض (1 ريال) رمزي فقط — تواصلوا معنا عبر واتساب أو على support@environmsafe.com لطلب عرض سعر.'
-NOTE_EN = 'The listed price (1 YER) is a placeholder only — message us on WhatsApp or email support@environmsafe.com to request a quote.'
+NOTE_AR = 'السعر المعروض (1 دولار) رمزي فقط — تواصلوا معنا عبر واتساب أو على support@environmsafe.com لطلب عرض سعر.'
+NOTE_EN = 'The listed price (1 USD) is a placeholder only — message us on WhatsApp or email support@environmsafe.com to request a quote.'
 TITLE_SUFFIX = ' – السعر حسب الطلب'
 
 FIELDS = ['id', 'title', 'description', 'availability', 'condition', 'price', 'link',
@@ -36,7 +36,7 @@ def row(item, service):
         'description': ' '.join([NOTE_AR, item['desc_ar'], item['desc_en'], NOTE_EN]),
         'availability': 'in stock',
         'condition': 'new',
-        'price': '1 YER',
+        'price': '1.00 USD',
         'link': service['link'],
         'image_link': f"{SITE}/img/catalog/{image_name(item)}.png",
         'brand': 'EnvironmSafe',
