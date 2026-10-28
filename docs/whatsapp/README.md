@@ -56,10 +56,10 @@ In the app: **Business tools → Greeting message / Away message / Quick replies
 
 ```
 أهلاً بكم في انفيرومسيف 👋
-أخبرونا بالخدمة المطلوبة ونبذة عن موقعكم، وسنرسل لكم عرض سعر. تصفحوا خدماتنا في الكتالوج أعلاه.
+أخبرونا بالخدمة المطلوبة ونبذة عن موقعكم، وسنرسل لكم عرض سعر. تصفحوا خدماتنا في الكتالوج: https://wa.me/c/967783402932
 
 Welcome to EnvironmSafe 👋
-Tell us which service you need and a little about your site, and we'll send you a quote. Browse our services in the catalog above.
+Tell us which service you need and a little about your site, and we'll send you a quote. Browse our services: https://wa.me/c/967783402932
 ```
 
 ### Away message (outside business hours)

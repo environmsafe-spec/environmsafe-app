@@ -48,6 +48,21 @@
     backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
+  // ── WhatsApp chat button ──────────────────────────────────
+  // Added here rather than in each page so every public page gets it from one place.
+  {
+    const ar = document.documentElement.lang === 'ar';
+    const text = ar ? 'مرحباً، أود طلب عرض سعر' : 'Hello, I would like to request a quote';
+    const wa = document.createElement('a');
+    wa.className = 'whatsapp-float';
+    wa.href = 'https://wa.me/967783402932?text=' + encodeURIComponent(text);
+    wa.target = '_blank';
+    wa.rel = 'noopener';
+    wa.setAttribute('aria-label', ar ? 'تواصلوا معنا عبر واتساب' : 'Chat with us on WhatsApp');
+    wa.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>';
+    document.body.appendChild(wa);
+  }
+
   // ── Mobile nav toggle ─────────────────────────────────────
   hamburger.addEventListener('click', () => {
     const open = hamburger.classList.toggle('open');

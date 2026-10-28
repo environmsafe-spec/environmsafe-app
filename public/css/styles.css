@@ -901,6 +901,22 @@ input, textarea, select {
 }
 .back-to-top:hover { background: var(--clr-primary-dk); transform: translateY(-2px); }
 
+/* WhatsApp chat button, injected by main.js; sits above the back-to-top button. */
+.whatsapp-float {
+  position: fixed;
+  bottom: 84px; right: 24px;
+  z-index: 900;
+  width: 54px; height: 54px;
+  background: #25D366;
+  color: var(--clr-white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: var(--shadow-md);
+  transition: transform .2s ease;
+}
+.whatsapp-float:hover { color: var(--clr-white); transform: scale(1.08); }
+
 /* ---------- Scroll Animations ---------- */
 .fade-up {
   opacity: 0;
