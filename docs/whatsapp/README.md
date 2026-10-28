@@ -56,10 +56,10 @@ In the app: **Business tools → Greeting message / Away message / Quick replies
 
 ```
 أهلاً بكم في انفيرومسيف 👋
-أخبرونا بالخدمة المطلوبة ونبذة عن موقعكم، وسنرسل لكم عرض سعر. تصفحوا خدماتنا في الكتالوج أعلاه.
+أخبرونا بالخدمة المطلوبة ونبذة عن موقعكم، وسنرسل لكم عرض سعر. تصفحوا خدماتنا في الكتالوج: https://wa.me/c/967783402932
 
 Welcome to EnvironmSafe 👋
-Tell us which service you need and a little about your site, and we'll send you a quote. Browse our services in the catalog above.
+Tell us which service you need and a little about your site, and we'll send you a quote. Browse our services: https://wa.me/c/967783402932
 ```
 
 ### Away message (outside business hours)
@@ -102,146 +102,71 @@ To prepare your quote, please send:
 
 ## 3. Catalog
 
-In the app: **Business tools → Catalog → Add new item**. For each item: add the
-image, the name, leave **Price** empty, paste the description, add the link, and
-set the item code under **More fields**.
-
-Then group them under **Catalog → ⋮ → Create collection**:
-
-| Collection | Items |
-|---|---|
-| الفحص والاختبار | ES-PSV, ES-EVAL, ES-INSP |
-| السلامة والتدريب | ES-HSE, ES-TRN |
-| الهندسة والأنظمة | ES-LPG, ES-ENG, ES-HVAC, ES-MNT |
-
-| Code | Name | Image | Link |
-|---|---|---|---|
-| ES-PSV | اختبار ومعايرة صمامات الأمان PSV | `psv.png` | `https://www.environmsafe.com/ar/services/psv.html` |
-| ES-HSE | السلامة والحماية من الحرائق | `hse.png` | `https://www.environmsafe.com/ar/services/hse.html` |
-| ES-LPG | أنظمة الغاز LPG | `lpg.png` | `https://www.environmsafe.com/ar/services/lpg-systems.html` |
-| ES-EVAL | تقييم سلامة الأنظمة | `evaluation.png` | `https://www.environmsafe.com/ar/services/evaluation.html` |
-| ES-TRN | دورات NEBOSH وIOSH | `training.png` | `https://www.environmsafe.com/ar/services/training.html` |
-| ES-INSP | الفحص والمراقبة البيئية | `inspection.png` | `https://www.environmsafe.com/ar/services/inspection-monitoring.html` |
-| ES-ENG | الهندسة والإنشاء | `engineering.png` | `https://www.environmsafe.com/ar/services/engineering-construction.html` |
-| ES-HVAC | أنظمة التكييف والتهوية HVAC | `hvac.png` | `https://www.environmsafe.com/ar/services/hvac.html` |
-| ES-MNT | الصيانة وقطع الغيار | `maintenance.png` | `https://www.environmsafe.com/ar/services/maintenance.html` |
-
-### Descriptions
-
-**ES-PSV**
+The catalog is generated, not typed in. **`items.json` is the source of truth**:
+fifteen categories (nine services, six supply categories), each with its sub-items. To change the catalog, edit that file and
+run:
 
 ```
-المزود الوحيد في المنطقة بمقعد اختبار معتمد لصمامات الأمان. فحص واختبار والتحقق من ضغط الفتح ومعايرة وصيانة وإصلاح وفق API 527 وAPI 576، مع إصدار الشهادات.
-
-The region's only certified PSV test bench. Inspection, testing, set-pressure verification, calibration, maintenance and repair of pressure safety valves to API 527 and API 576, with certification.
-
-اطلب عرض سعر · Request a quote
+python3 scripts/build_whatsapp_catalog.py   # writes catalog.csv (both copies)
+node scripts/render_catalog_images.cjs       # renders images for any new items
 ```
 
-**ES-HSE**
+Every item is listed at **1 YER** (Meta requires a price), its title ends with
+"السعر حسب الطلب", and its description opens and closes with a note that the
+price is a placeholder and to get in touch for a quote.
 
-```
-أنظمة إدارة السلامة، تقييم المخاطر، الاستجابة للطوارئ، التحقيق في الحوادث، الامتثال التنظيمي، والحماية الكاملة من الحرائق على يد مختصين معتمدين من NFPA. الامتثال الموثق قد يخفض أقساط التأمين حتى 85%.
+### Collections — one per service
 
-Safety management systems, risk assessment, emergency response, incident investigation, regulatory compliance and complete fire protection by NFPA-certified specialists. Documented fire-protection compliance can cut insurance premiums by up to 85%.
+In the WhatsApp app: **Catalog → Add new collection**, name it after the service
+and tick the service plus its sub-items (item codes start with the service code).
+In Commerce Manager the same grouping is available as **Sets** filtered on
+*Custom label 0* (Arabic service name) or *Product type* (English service name).
 
-اطلب عرض سعر · Request a quote
-```
+| Collection | Code prefix | Items |
+|---|---|---|
+| اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
+| السلامة والحماية من الحرائق | `ES-HSE` | 10 |
+| أنظمة الغاز LPG | `ES-LPG` | 6 |
+| تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
+| دورات NEBOSH وIOSH | `ES-TRN` | 12 |
+| الفحص والمراقبة البيئية | `ES-INSP` | 8 |
+| الهندسة والإنشاء | `ES-ENG` | 7 |
+| أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
+| الصيانة وقطع الغيار | `ES-MNT` | 6 |
+| معدات الحماية الشخصية | `ES-PPE` | 11 |
+| حلول السلامة | `ES-SAF` | 9 |
+| معدات الحماية من السقوط | `ES-FALL` | 7 |
+| أجهزة كشف الغاز | `ES-GAS` | 7 |
+| معدات الحماية من الحرائق | `ES-FIRE` | 9 |
+| أنظمة الري | `ES-IRR` | 7 |
 
-**ES-LPG**
-
-```
-تصميم وتركيب وفحص واعتماد أنظمة الغاز LPG وفق المعايير الدولية (NFPA): مسافات الفصل والتنفيس والتهوية والإغلاق الطارئ، للمنشآت الصناعية والتجارية.
-
-Design, installation, inspection and certification of LPG systems to international (NFPA) standards: separation distances, pressure relief, ventilation and emergency shutdown, for industrial and commercial sites.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-EVAL**
-
-```
-تقييم معتمد لأنظمة الغاز LPG والمراجل والأنظمة الكهربائية وأنظمة الحماية من الحرائق وفق المعايير الدولية، مع تقرير فجوات مرتب حسب الخطورة.
-
-Certified evaluation of LPG systems, boilers, electrical systems and fire protection against international standards, with a severity-ranked gap report you can act on.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-TRN**
-
-```
-تدريب سلامة معتمد بالعربية والإنجليزية: الشهادة الدولية العامة NEBOSH IGC، سلامة العمليات PSM، الدبلوم المستوى السادس، وبرامج IOSH للعمل والإدارة بأمان. دورات للأفراد ولمجموعات الشركات.
-
-Accredited safety training in Arabic and English: NEBOSH International General Certificate, Process Safety Management, Level 6 Diploma, and IOSH Working Safely and Managing Safely. Courses for individuals and company groups.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-INSP**
-
-```
-فحص هيكلي ومراقبة بيئية مستمرة تكشف المشكلات مبكراً، وتحافظ على الامتثال التنظيمي، وتحمي أصول منشأتكم.
-
-Structural inspection and continuous environmental monitoring that catch problems early, keep your facility compliant and protect your assets.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-ENG**
-
-```
-تصميم مدني وإدارة مشاريع وإشراف على التنفيذ من المفهوم حتى إغلاق المشروع، في الموعد وضمن الميزانية وبامتثال كامل.
-
-Civil engineering design, project management and site oversight from concept to closeout — on time, on budget and fully compliant.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-HVAC**
-
-```
-تصميم وتركيب وصيانة أنظمة التكييف والتهوية للمنشآت التجارية والصناعية: كفاءة في استهلاك الطاقة، وجودة هواء داخلي، وراحة حرارية موثوقة.
-
-Design, installation and maintenance of commercial and industrial HVAC systems: energy efficiency, indoor air quality and reliable thermal comfort.
-
-اطلب عرض سعر · Request a quote
-```
-
-**ES-MNT**
-
-```
-برامج صيانة وقائية وإصلاح معدات وتوريد قطع الغيار الصناعية وتجهيزات السلامة، مع تطبيق أنظمة CMMS، للحفاظ على استمرارية عملياتكم وتقليل التوقف غير المخطط له.
-
-Preventive maintenance programmes, equipment repair, industrial and safety parts supply, and CMMS implementation to keep your operations running and cut unplanned downtime.
-
-اطلب عرض سعر · Request a quote
-```
+The first nine collections are services; the last six are supply categories
+(modelled on REDA Safe's store sections, with EnvironmSafe's own wording and
+images). 119 items in total.
 
 ---
 
-## 4. Bulk upload (alternative to adding items by hand)
+## 4. Uploading to Meta
 
-`catalog.csv` holds the same nine items in Meta's data-feed format. Meta requires
-a price on every item, so each one is listed at **1 YER**; the title ends with
-"السعر حسب الطلب" and the description opens and closes with a note that the price
-is a placeholder and to get in touch for a quote.
+### Recommended: scheduled feed (Meta fetches the file daily)
 
-Before uploading, the images must be live: `image_link` points at
-`https://www.environmsafe.com/img/catalog/*.png`, which only exists once this
-branch is deployed. Meta rejects items whose image it can't download.
+The feed is published at **https://www.environmsafe.com/whatsapp-catalog.csv**.
+Once Commerce Manager fetches it on a schedule, any change merged into the
+website reaches the catalog within a day with no manual upload.
 
-1. Link WhatsApp to Meta: in the app, **Business tools → Facebook & Instagram**
-   (or **Accounts Center**) and connect the Meta business account.
-2. Open <https://business.facebook.com/commerce> → **Create a catalog** →
-   type **Ecommerce** (online products) → owner: your business account.
-3. In the catalog: **Catalog → Data sources → Add items → Data feed →
-   Upload once** → choose `catalog.csv` → currency **YER**.
-4. Wait for the upload report; fix and re-upload any rejected rows.
-5. In WhatsApp Manager / the app's **Catalog** screen, choose this catalog as
-   the one shown on WhatsApp.
-6. Create the three collections (table in section 3) in Commerce Manager under
-   **Catalog → Sets**, or in the app.
+1. Commerce Manager → **EnvironmSafe Services** → **Catalog → Data sources**.
+2. Open the existing data feed → **Settings** → **Replace / Add upload schedule**
+   (wording varies) → URL `https://www.environmsafe.com/whatsapp-catalog.csv`,
+   frequency **Daily**, currency **YER**.
+   - Using the *existing* feed keeps the nine items already uploaded and adds
+     the sub-items; item IDs match, so nothing is duplicated.
+   - If the feed's settings offer no schedule, use **Upload** on the same feed
+     with `catalog.csv` instead (same result, but manual each time).
+3. **Request update now** to fetch it immediately, then check **Items** and
+   **Issues**.
 
-If any items were already added by hand in the app, delete them first, or the
-catalog shows each service twice.
+### Manual: upload once
+
+Data sources → the existing feed → **Upload file** → `docs/whatsapp/catalog.csv`.
+Do not create a second feed: two feeds with the same item IDs conflict.
+

@@ -1,0 +1,924 @@
+{
+  "services": [
+    {
+      "code": "ES-PSV",
+      "name_ar": "اختبار ومعايرة صمامات الأمان PSV",
+      "name_en": "PSV Testing & Calibration",
+      "kicker": "PSV · صمامات الأمان",
+      "image": "psv",
+      "link": "https://www.environmsafe.com/ar/services/psv.html",
+      "desc_ar": "المزود الوحيد في المنطقة بمقعد اختبار معتمد لصمامات الأمان. فحص واختبار والتحقق من ضغط الفتح ومعايرة وصيانة وإصلاح وفق API 527 وAPI 576، مع إصدار الشهادات.",
+      "desc_en": "The region's only certified PSV test bench. Inspection, testing, set-pressure verification, calibration, maintenance and repair of pressure safety valves to API 527 and API 576, with certification.",
+      "items": [
+        {
+          "code": "ES-PSV-01",
+          "name_ar": "فحص صمامات الأمان",
+          "name_en": "PSV Inspection",
+          "desc_ar": "تقييم حالة الجسم والقرص والمقعد والنابض، ورصد التآكل والأضرار، والتحقق من لوحة البيانات، مع تقرير بالإجراءات الموصى بها وفق API 576.",
+          "desc_en": "Body, disc, seat and spring condition assessment, corrosion and damage mapping, nameplate verification, and a report with recommended actions per API 576."
+        },
+        {
+          "code": "ES-PSV-02",
+          "name_ar": "اختبار ضغط الفتح وإحكام المقعد",
+          "name_en": "Set Pressure & Seat Tightness Test",
+          "desc_ar": "التحقق من ضغط الفتح وقياس فرق الإغلاق واختبار إحكام المقعد وفق API 527 على مقعد اختبار معتمد بمعايرة متتبعة.",
+          "desc_en": "Set (pop) pressure verification, blowdown measurement and API 527 seat tightness testing on a certified bench with traceable calibration."
+        },
+        {
+          "code": "ES-PSV-03",
+          "name_ar": "معايرة صمامات الأمان",
+          "name_en": "PSV Calibration",
+          "desc_ar": "ضبط النابض للوصول إلى ضغط الفتح الصحيح وحساب CDTP، مع شهادة معايرة متتبعة وختم وبطاقة بعد المعايرة.",
+          "desc_en": "Spring adjustment to the correct set pressure, CDTP calculation, traceable calibration certificate, seal and tag."
+        },
+        {
+          "code": "ES-PSV-04",
+          "name_ar": "صيانة وعمرة صمامات الأمان",
+          "name_en": "PSV Maintenance & Overhaul",
+          "desc_ar": "فك كامل وتنظيف داخلي، وتلميع المقعد والقرص، وفحص النابض واستبداله، وتغيير الحشوات والأجزاء اللينة، ثم إعادة الاختبار والاعتماد.",
+          "desc_en": "Full disassembly and cleaning, seat and disc lapping, spring inspection and replacement, soft-parts replacement, then retest and recertification."
+        },
+        {
+          "code": "ES-PSV-05",
+          "name_ar": "إصلاح صمامات الأمان",
+          "name_en": "PSV Repair",
+          "desc_ar": "تقييم أضرار الجسم وإصلاحها، وإعادة تأهيل المقعد، واستبدال العمود والقرص والدليل، ومعالجة ضد التآكل، مع اختبار وشهادة بعد الإصلاح.",
+          "desc_en": "Body damage repair, seat reconditioning, spindle, disc and guide replacement, anti-corrosion treatment, post-repair test and certificate."
+        },
+        {
+          "code": "ES-PSV-06",
+          "name_ar": "سجل وشهادات صمامات الأمان",
+          "name_en": "PSV Register & Certification",
+          "desc_ar": "تقارير الفحص والاختبار، وشهادات المعايرة، وسجل الصيانة والإصلاح، وإدارة سجل صمامات الأمان، ووثائق الامتثال التنظيمي.",
+          "desc_en": "Inspection and test reports, calibration certificates, maintenance history, PSV register management and compliance documentation."
+        }
+      ]
+    },
+    {
+      "code": "ES-HSE",
+      "name_ar": "السلامة والحماية من الحرائق",
+      "name_en": "HSE & Fire Protection",
+      "kicker": "HSE · السلامة والحريق",
+      "image": "hse",
+      "link": "https://www.environmsafe.com/ar/services/hse.html",
+      "desc_ar": "أنظمة إدارة السلامة، تقييم المخاطر، الاستجابة للطوارئ، التحقيق في الحوادث، الامتثال التنظيمي، والحماية الكاملة من الحرائق على يد مختصين معتمدين من NFPA. الامتثال الموثق قد يخفض أقساط التأمين حتى 85%.",
+      "desc_en": "Safety management systems, risk assessment, emergency response, incident investigation, regulatory compliance and complete fire protection by NFPA-certified specialists. Documented fire-protection compliance can cut insurance premiums by up to 85%.",
+      "items": [
+        {
+          "code": "ES-HSE-01",
+          "name_ar": "نظام إدارة السلامة HSE",
+          "name_en": "HSE Management System",
+          "desc_ar": "إعداد السياسات والإجراءات، ودعم مراجعة الإدارة، وخطط التحسين المستمر، والمواءمة مع ISO 45001 وISO 14001.",
+          "desc_en": "Policies and procedures, management review support, continuous improvement planning and alignment with ISO 45001 and ISO 14001."
+        },
+        {
+          "code": "ES-HSE-02",
+          "name_ar": "تقييم المخاطر ودراسات HAZOP",
+          "name_en": "Risk Assessment & HAZOP",
+          "desc_ar": "تحليل مخاطر العمل JHA/JSA، ودراسات HAZOP، وإعداد مصفوفة المخاطر، وتوصيات إجراءات التحكم.",
+          "desc_en": "Job hazard analysis (JHA/JSA), HAZOP studies, risk matrix development and control measure recommendations."
+        },
+        {
+          "code": "ES-HSE-03",
+          "name_ar": "تدقيق الامتثال للسلامة",
+          "name_en": "HSE Compliance Audit",
+          "desc_ar": "مراجعات الامتثال التنظيمي، ودعم التدقيق الداخلي، وتدقيق طرف ثالث، ومتابعة حالات عدم المطابقة.",
+          "desc_en": "Regulatory compliance reviews, internal audit support, third-party HSE audits and non-conformance tracking."
+        },
+        {
+          "code": "ES-HSE-04",
+          "name_ar": "التحقيق في الحوادث",
+          "name_en": "Incident Investigation",
+          "desc_ar": "تحليل الأسباب الجذرية، وتوثيق الحوادث والإبلاغ عنها، وخطط الإجراءات التصحيحية، وبرامج الدروس المستفادة.",
+          "desc_en": "Root cause analysis, incident reporting and documentation, corrective action planning and lessons-learned programmes."
+        },
+        {
+          "code": "ES-HSE-05",
+          "name_ar": "الصحة المهنية وقياس التعرض",
+          "name_en": "Industrial Hygiene & Exposure Monitoring",
+          "desc_ar": "تقييمات الصحة المهنية، وقياس الهواء والضوضاء، واختيار معدات الحماية الشخصية، وبرامج مراقبة التعرض.",
+          "desc_en": "Industrial hygiene assessments, air and noise monitoring, PPE selection and exposure monitoring programmes."
+        },
+        {
+          "code": "ES-HSE-06",
+          "name_ar": "تقييم مخاطر الحريق",
+          "name_en": "Fire Risk Assessment",
+          "desc_ar": "تقييم مخاطر الحريق ومراجعة الامتثال لأكواد NFPA وتخطيط الاستجابة للطوارئ على يد فريق معتمد CFPS.",
+          "desc_en": "Fire risk assessment, NFPA code compliance review and emergency response planning by a CFPS-certified team."
+        },
+        {
+          "code": "ES-HSE-07",
+          "name_ar": "تصميم أنظمة إطفاء وإنذار الحريق",
+          "name_en": "Fire Suppression & Alarm Design",
+          "desc_ar": "تصميم أنظمة الرشاشات وFM-200 وCO₂، ومخططات إنذار الحريق، والحسابات الهيدروليكية وتحديد أقطار الأنابيب.",
+          "desc_en": "Sprinkler, FM-200 and CO₂ system design, fire alarm layout and specification, hydraulic calculations and pipe sizing."
+        },
+        {
+          "code": "ES-HSE-08",
+          "name_ar": "تركيب وتشغيل أنظمة الحريق",
+          "name_en": "Fire System Installation & Commissioning",
+          "desc_ar": "تركيب كامل للأنظمة على يد فرق معتمدة، واختبارات التشغيل ووثائق التسليم، وعقود الصيانة والخدمة.",
+          "desc_en": "Full system installation by certified teams, commissioning tests, handover documentation and service agreements."
+        },
+        {
+          "code": "ES-HSE-09",
+          "name_ar": "فحص واختبار أنظمة الحريق",
+          "name_en": "Fire System Inspection & Testing",
+          "desc_ar": "فحص الرشاشات واختبارات التدفق، والاختبار الوظيفي لإنذار الحريق، وفحص الطفايات ومواد الإطفاء.",
+          "desc_en": "Sprinkler inspection and flow tests, fire alarm functional testing, extinguisher and suppression agent checks."
+        }
+      ]
+    },
+    {
+      "code": "ES-LPG",
+      "name_ar": "أنظمة الغاز LPG",
+      "name_en": "LPG Systems",
+      "kicker": "LPG · أنظمة الغاز",
+      "image": "lpg",
+      "link": "https://www.environmsafe.com/ar/services/lpg-systems.html",
+      "desc_ar": "تصميم وتركيب وفحص واعتماد أنظمة الغاز LPG وفق المعايير الدولية (NFPA): مسافات الفصل والتنفيس والتهوية والإغلاق الطارئ، للمنشآت الصناعية والتجارية.",
+      "desc_en": "Design, installation, inspection and certification of LPG systems to international (NFPA) standards: separation distances, pressure relief, ventilation and emergency shutdown, for industrial and commercial sites.",
+      "items": [
+        {
+          "code": "ES-LPG-01",
+          "name_ar": "تصميم أنظمة الغاز LPG",
+          "name_en": "LPG System Design",
+          "desc_ar": "تحديد حجم الخزانات ومواقعها، ومسارات الشبكة وحسابات الضغط، وتحديد أجهزة السلامة ومواقعها.",
+          "desc_en": "Tank sizing and placement, pipe routing and pressure calculations, safety device specification and layout."
+        },
+        {
+          "code": "ES-LPG-02",
+          "name_ar": "خزانات وشبكات توزيع الغاز",
+          "name_en": "LPG Storage & Distribution",
+          "desc_ar": "توريد الخزانات الأرضية والسطحية، وأنظمة المانيفولد والمبخرات، وشبكات الضغط العالي والمنخفض، ومحطات العدادات والمنظمات.",
+          "desc_en": "Above- and underground tanks, manifold and vaporizer systems, high- and low-pressure piping, metering and regulator stations."
+        },
+        {
+          "code": "ES-LPG-03",
+          "name_ar": "تركيب وتشغيل أنظمة الغاز",
+          "name_en": "LPG Installation & Commissioning",
+          "desc_ar": "تركيب الخزانات وتثبيتها، وتركيب ولحام الأنابيب، واختبار التسرب والضغط، ووثائق التسليم وتدريب المشغلين.",
+          "desc_en": "Tank installation and anchoring, pipe fitting and welding, leak and pressure testing, handover documents and operator training."
+        },
+        {
+          "code": "ES-LPG-04",
+          "name_ar": "فحص واختبار أنظمة الغاز",
+          "name_en": "LPG Inspection & Safety Testing",
+          "desc_ar": "فحص سلامة الخزانات والتآكل، وكشف التسرب واختبار هبوط الضغط، واختبار صمامات الأمان وأجهزة التنفيس.",
+          "desc_en": "Tank integrity and corrosion inspection, leak detection and pressure-drop testing, safety and relief valve testing."
+        },
+        {
+          "code": "ES-LPG-05",
+          "name_ar": "ترخيص وامتثال أنظمة الغاز NFPA 58",
+          "name_en": "LPG Compliance & Certification",
+          "desc_ar": "الامتثال لـ NFPA 58، ودعم موافقات الجهات المحلية، ووثائق التأمين، ودعم الاعتماد والترخيص.",
+          "desc_en": "NFPA 58 compliance, local authority approval support, insurance documentation and certification support."
+        }
+      ]
+    },
+    {
+      "code": "ES-EVAL",
+      "name_ar": "تقييم سلامة الأنظمة",
+      "name_en": "Safety Evaluation",
+      "kicker": "Evaluation · التقييم",
+      "image": "evaluation",
+      "link": "https://www.environmsafe.com/ar/services/evaluation.html",
+      "desc_ar": "تقييم معتمد لأنظمة الغاز LPG والمراجل والأنظمة الكهربائية وأنظمة الحماية من الحرائق وفق المعايير الدولية، مع تقرير فجوات مرتب حسب الخطورة.",
+      "desc_en": "Certified evaluation of LPG systems, boilers, electrical systems and fire protection against international standards, with a severity-ranked gap report you can act on.",
+      "items": [
+        {
+          "code": "ES-EVAL-01",
+          "name_ar": "تقييم أنظمة الغاز LPG",
+          "name_en": "LPG System Evaluation",
+          "desc_ar": "كشف التسرب في الشبكة واختبار الضغط، والتحقق من صمامات الأمان، ومراجعة الامتثال لـ NFPA 58.",
+          "desc_en": "Pipe network leak detection and pressure testing, relief verification and NFPA 58 compliance review."
+        },
+        {
+          "code": "ES-EVAL-02",
+          "name_ar": "تقييم أداء المراجل",
+          "name_en": "Boiler Performance Evaluation",
+          "desc_ar": "تحليل كفاءة الاحتراق واستهلاك الوقود، وفحص وعاء الضغط، والتحقق من أنظمة التحكم والحماية، والامتثال لـ ASME.",
+          "desc_en": "Combustion efficiency and fuel analysis, pressure vessel inspection, safety control and interlock verification, ASME compliance."
+        },
+        {
+          "code": "ES-EVAL-03",
+          "name_ar": "تقييم السلامة الكهربائية",
+          "name_en": "Electrical Safety Evaluation",
+          "desc_ar": "فحص اللوحات والمفاتيح، والتحقق من التأريض والربط، وتحليل مخاطر القوس الكهربائي، وتدقيق الطاقة، والامتثال لـ IEC/NEC.",
+          "desc_en": "Panel and switchgear inspection, earthing and bonding verification, arc flash analysis, energy audit, IEC/NEC compliance."
+        },
+        {
+          "code": "ES-EVAL-04",
+          "name_ar": "تقييم أنظمة الحماية من الحرائق",
+          "name_en": "Fire Protection Evaluation",
+          "desc_ar": "مراجعة أنظمة الرشاشات والإطفاء، وفحص لوحات وكواشف الإنذار، والتحقق من الامتثال لـ NFPA 13 و72 و101.",
+          "desc_en": "Sprinkler and suppression review, alarm panel and detector inspection, NFPA 13, 72 and 101 compliance verification."
+        },
+        {
+          "code": "ES-EVAL-05",
+          "name_ar": "تقرير المخاطر وتحليل الفجوات",
+          "name_en": "Risk & Gap Report",
+          "desc_ar": "تحديد المخاطر وترتيبها، وتحليل الفجوات التنظيمية، وخطة الإجراءات التصحيحية، ووثائق التأمين والامتثال.",
+          "desc_en": "Hazard identification and ranking, regulatory gap analysis, corrective action plan, insurance and compliance documentation."
+        }
+      ]
+    },
+    {
+      "code": "ES-TRN",
+      "name_ar": "دورات NEBOSH وIOSH",
+      "name_en": "NEBOSH & IOSH Training",
+      "kicker": "Training · التدريب",
+      "image": "training",
+      "link": "https://www.environmsafe.com/ar/services/training.html",
+      "desc_ar": "تدريب سلامة معتمد بالعربية والإنجليزية: الشهادة الدولية العامة NEBOSH IGC، سلامة العمليات PSM، الدبلوم المستوى السادس، وبرامج IOSH للعمل والإدارة بأمان. دورات للأفراد ولمجموعات الشركات.",
+      "desc_en": "Accredited safety training in Arabic and English: NEBOSH International General Certificate, Process Safety Management, Level 6 Diploma, and IOSH Working Safely and Managing Safely. Courses for individuals and company groups.",
+      "items": [
+        {
+          "code": "ES-TRN-01",
+          "name_ar": "NEBOSH IGC بالعربية",
+          "name_en": "NEBOSH IGC — Arabic",
+          "desc_ar": "الشهادة الدولية العامة NEBOSH باللغة العربية: إدارة السلامة (NG1)، وتقييم المخاطر، والتقييم العملي (NG2).",
+          "desc_en": "NEBOSH International General Certificate in Arabic: managing safety (NG1), risk assessment and practical assessment (NG2)."
+        },
+        {
+          "code": "ES-TRN-02",
+          "name_ar": "NEBOSH IGC بالإنجليزية",
+          "name_en": "NEBOSH IGC — English",
+          "desc_ar": "الشهادة الدولية العامة NEBOSH باللغة الإنجليزية: إدارة السلامة (NG1)، وتقييم المخاطر، والتقييم العملي (NG2).",
+          "desc_en": "NEBOSH International General Certificate in English: managing safety (NG1), risk assessment and practical assessment (NG2)."
+        },
+        {
+          "code": "ES-TRN-03",
+          "name_ar": "NEBOSH سلامة العمليات PSM",
+          "name_en": "NEBOSH Process Safety Management",
+          "desc_ar": "تحديد مخاطر العمليات وHAZOP، والتحكم في مخاطر الحوادث الكبرى، وتحليل Bow-tie، وأنظمة SIS، وقيادة سلامة العمليات.",
+          "desc_en": "Process hazard identification and HAZOP, major accident hazard controls, bow-tie analysis, SIS and process safety leadership."
+        },
+        {
+          "code": "ES-TRN-04",
+          "name_ar": "دبلوم NEBOSH المستوى السادس",
+          "name_en": "NEBOSH Level 6 International Diploma",
+          "desc_ar": "إدارة المخاطر المتقدمة وأنظمة الإدارة الاستراتيجية، ومسار للعضوية المهنية CMIOSH.",
+          "desc_en": "Advanced risk management and strategic safety management systems; pathway to CMIOSH chartered membership."
+        },
+        {
+          "code": "ES-TRN-05",
+          "name_ar": "IOSH العمل بأمان",
+          "name_en": "IOSH Working Safely",
+          "desc_ar": "مسؤوليات السلامة، وتحديد المخاطر، وأسباب الحوادث والوقاية منها، وإجراءات الطوارئ، مع شهادة IOSH معترف بها دولياً.",
+          "desc_en": "Safety responsibilities, hazard identification, accident prevention and emergency procedures, with an internationally recognised IOSH certificate."
+        },
+        {
+          "code": "ES-TRN-06",
+          "name_ar": "IOSH الإدارة بأمان",
+          "name_en": "IOSH Managing Safely",
+          "desc_ar": "تقييم المخاطر والتحكم فيها، والتحقيق في الحوادث، والمسؤوليات القانونية للمديرين، وقياس أداء السلامة.",
+          "desc_en": "Assessing and controlling risk, investigating incidents, managers' legal responsibilities and measuring safety performance."
+        },
+        {
+          "code": "ES-TRN-07",
+          "name_ar": "شهادة NEBOSH للسلامة في العمل",
+          "name_en": "NEBOSH Health and Safety at Work Award",
+          "desc_ar": "أساسيات مسؤوليات السلامة وتحديد المخاطر وإجراءات الحماية الشخصية، مع شهادة NEBOSH.",
+          "desc_en": "Core safety responsibilities, hazard identification and personal protective measures, with a NEBOSH Award."
+        },
+        {
+          "code": "ES-TRN-08",
+          "name_ar": "شهادة NEBOSH للتوعية البيئية",
+          "name_en": "NEBOSH Environmental Awareness Award",
+          "desc_ar": "أساسيات التشريعات البيئية، وإدارة النفايات ومنع التلوث، وترشيد الطاقة والموارد.",
+          "desc_en": "Environmental legislation basics, waste management and pollution control, energy and resource conservation."
+        },
+        {
+          "code": "ES-TRN-09",
+          "name_ar": "NEBOSH مقدمة في التحقيق في الحوادث",
+          "name_en": "NEBOSH Introduction to Incident Investigation",
+          "desc_ar": "نماذج أسباب الحوادث، وتحليل الأسباب الجذرية، وجمع الأدلة ومقابلة الشهود، ومنهجية تحقيق منظمة.",
+          "desc_en": "Causation models, root cause analysis, evidence gathering and witness interviews, structured investigation methodology."
+        },
+        {
+          "code": "ES-TRN-10",
+          "name_ar": "تدريب الرفع والتعليق",
+          "name_en": "Lifting & Rigging Training",
+          "desc_ar": "تقنيات التعليق واختيار الحبال، وفحص المعدات قبل الاستخدام، وتخطيط عمليات الرفع، مع تمارين عملية في الموقع.",
+          "desc_en": "Rigging techniques and sling selection, pre-use equipment inspection, lift planning and practical on-site exercises."
+        },
+        {
+          "code": "ES-TRN-11",
+          "name_ar": "برنامج التحول في السلامة",
+          "name_en": "HSE Transformation Programme",
+          "desc_ar": "تقييم الفجوات الحالي، وخارطة طريق ISO 45001 وISO 14001، وبناء ثقافة السلامة، وتطبيق نظام إدارة المخاطر.",
+          "desc_en": "Current-state gap assessment, ISO 45001 and ISO 14001 roadmap, safety culture and risk management system implementation."
+        }
+      ]
+    },
+    {
+      "code": "ES-INSP",
+      "name_ar": "الفحص والمراقبة البيئية",
+      "name_en": "Inspection & Monitoring",
+      "kicker": "Inspection · الفحص",
+      "image": "inspection",
+      "link": "https://www.environmsafe.com/ar/services/inspection-monitoring.html",
+      "desc_ar": "فحص هيكلي ومراقبة بيئية مستمرة تكشف المشكلات مبكراً، وتحافظ على الامتثال التنظيمي، وتحمي أصول منشأتكم.",
+      "desc_en": "Structural inspection and continuous environmental monitoring that catch problems early, keep your facility compliant and protect your assets.",
+      "items": [
+        {
+          "code": "ES-INSP-01",
+          "name_ar": "فحص معدات الرفع LEEA",
+          "name_en": "LEEA Lifting Equipment Inspection",
+          "desc_ar": "فحص الرافعات واختبار الأحمال، واعتماد الرافعات الشوكية، وفحص ملحقات الرفع، مع تقارير معتمدة.",
+          "desc_en": "Crane inspection and load testing, forklift and telehandler certification, rigging inspection and certified reports."
+        },
+        {
+          "code": "ES-INSP-02",
+          "name_ar": "فحص الأوعية والأنظمة المضغوطة",
+          "name_en": "Pressure Systems Inspection",
+          "desc_ar": "فحص واعتماد المراجل، وتقييم أنظمة الهواء المضغوط، وفحص واعتماد أوعية الضغط وفق API 510.",
+          "desc_en": "Boiler inspection and certification, compressed air system assessment, pressure vessel inspection per API 510."
+        },
+        {
+          "code": "ES-INSP-03",
+          "name_ar": "الفحص غير الإتلافي NDT",
+          "name_en": "NDT Inspection",
+          "desc_ar": "الفحص بالموجات فوق الصوتية، والجسيمات المغناطيسية، والسوائل النافذة، والفحص البصري والأبعاد، مع تقارير معتمدة.",
+          "desc_en": "Ultrasonic, magnetic particle, dye penetrant, visual and dimensional testing, with certified reports."
+        },
+        {
+          "code": "ES-INSP-04",
+          "name_ar": "الفحص الإنشائي",
+          "name_en": "Structural Inspection",
+          "desc_ar": "فحص سلامة الأساسات والهياكل، وفحوصات ما قبل الإنشاء والاستلام النهائي، والتحقق من الامتثال للأكواد.",
+          "desc_en": "Foundation and structural integrity checks, pre-construction and final inspections, code compliance verification."
+        },
+        {
+          "code": "ES-INSP-05",
+          "name_ar": "مراقبة جودة الهواء",
+          "name_en": "Air Quality Monitoring",
+          "desc_ar": "أخذ عينات الهواء المحيط، واختبار انبعاثات المداخن، وجودة الهواء الداخلي، ومراقبة المركبات العضوية والجسيمات.",
+          "desc_en": "Ambient air sampling, stack emission testing, indoor air quality and VOC/particulate monitoring."
+        },
+        {
+          "code": "ES-INSP-06",
+          "name_ar": "مراقبة جودة المياه",
+          "name_en": "Water Quality Monitoring",
+          "desc_ar": "أخذ عينات المياه الجوفية والسطحية وتحليلها، وتقييم جريان مياه الأمطار.",
+          "desc_en": "Groundwater and surface water sampling and analysis, stormwater runoff assessment."
+        },
+        {
+          "code": "ES-INSP-07",
+          "name_ar": "أنظمة المراقبة المستمرة",
+          "name_en": "Continuous Monitoring Systems",
+          "desc_ar": "شبكات حساسات عن بعد، ولوحات بيانات لحظية، وأنظمة تنبيه، وإدارة البيانات والتقارير.",
+          "desc_en": "Remote sensor networks, real-time dashboards, alert systems, data management and reporting."
+        }
+      ]
+    },
+    {
+      "code": "ES-ENG",
+      "name_ar": "الهندسة والإنشاء",
+      "name_en": "Engineering & Construction",
+      "kicker": "Engineering · الهندسة",
+      "image": "engineering",
+      "link": "https://www.environmsafe.com/ar/services/engineering-construction.html",
+      "desc_ar": "تصميم مدني وإدارة مشاريع وإشراف على التنفيذ من المفهوم حتى إغلاق المشروع، في الموعد وضمن الميزانية وبامتثال كامل.",
+      "desc_en": "Civil engineering design, project management and site oversight from concept to closeout — on time, on budget and fully compliant.",
+      "items": [
+        {
+          "code": "ES-ENG-01",
+          "name_ar": "التصميم الإنشائي والأساسات",
+          "name_en": "Structural & Foundation Design",
+          "desc_ar": "التحليل والتصميم الإنشائي، وهندسة الأساسات، ومخططات ما بعد التنفيذ.",
+          "desc_en": "Structural analysis and design, foundation engineering and as-built documentation."
+        },
+        {
+          "code": "ES-ENG-02",
+          "name_ar": "إدارة المشاريع الإنشائية",
+          "name_en": "Construction Management",
+          "desc_ar": "تخطيط وجدولة المشاريع، وتنسيق المقاولين، وضبط الميزانية والتكاليف، وتقارير التقدم.",
+          "desc_en": "Project planning and scheduling, contractor coordination, budget and cost control, progress reporting."
+        },
+        {
+          "code": "ES-ENG-03",
+          "name_ar": "التصميم الهندسي البيئي",
+          "name_en": "Environmental Engineering Design",
+          "desc_ar": "تصميم أنظمة معالجة المياه العادمة وتصريف مياه الأمطار والمعالجة البيئية، وتخطيط منع التلوث.",
+          "desc_en": "Wastewater treatment, stormwater and remediation system design, pollution prevention planning."
+        },
+        {
+          "code": "ES-ENG-04",
+          "name_ar": "تخطيط وتطوير المواقع",
+          "name_en": "Site Development & Planning",
+          "desc_ar": "دراسات الجدوى والمخططات، وتسوية الأراضي، وتصميم وتنسيق المرافق، والتخطيط العام للموقع.",
+          "desc_en": "Feasibility and layout studies, grading, utility design and coordination, master site planning."
+        },
+        {
+          "code": "ES-ENG-05",
+          "name_ar": "دعم التراخيص والموافقات",
+          "name_en": "Permitting & Regulatory Support",
+          "desc_ar": "إعداد طلبات التراخيص، والتنسيق مع الجهات، ودعم المراجعات البيئية.",
+          "desc_en": "Permit applications, agency liaison and environmental review support."
+        },
+        {
+          "code": "ES-ENG-06",
+          "name_ar": "ضبط وضمان الجودة",
+          "name_en": "Quality Assurance & Control",
+          "desc_ar": "إعداد خطط QA/QC، واختبار المواد والتحقق منها، وفحص جودة التنفيذ، وإدارة عدم المطابقة.",
+          "desc_en": "QA/QC plans, materials testing and verification, workmanship inspections, non-conformance management."
+        }
+      ]
+    },
+    {
+      "code": "ES-HVAC",
+      "name_ar": "أنظمة التكييف والتهوية HVAC",
+      "name_en": "Industrial HVAC",
+      "kicker": "HVAC · التكييف",
+      "image": "hvac",
+      "link": "https://www.environmsafe.com/ar/services/hvac.html",
+      "desc_ar": "تصميم وتركيب وصيانة أنظمة التكييف والتهوية للمنشآت التجارية والصناعية: كفاءة في استهلاك الطاقة، وجودة هواء داخلي، وراحة حرارية موثوقة.",
+      "desc_en": "Design, installation and maintenance of commercial and industrial HVAC systems: energy efficiency, indoor air quality and reliable thermal comfort.",
+      "items": [
+        {
+          "code": "ES-HVAC-01",
+          "name_ar": "تصميم أنظمة التكييف",
+          "name_en": "HVAC System Design",
+          "desc_ar": "تصميم مجاري الهواء، والامتثال لمعايير ASHRAE، ونمذجة الطاقة وتحسينها.",
+          "desc_en": "Ductwork design, ASHRAE compliance, energy modelling and optimisation."
+        },
+        {
+          "code": "ES-HVAC-02",
+          "name_ar": "التهوية الصناعية",
+          "name_en": "Industrial Ventilation",
+          "desc_ar": "تصميم أنظمة الشفط الموضعي LEV، والتهوية العامة، وأنظمة التقاط الأبخرة.",
+          "desc_en": "Local exhaust ventilation (LEV) design, dilution ventilation and fume capture systems."
+        },
+        {
+          "code": "ES-HVAC-03",
+          "name_ar": "جودة الهواء والفلترة",
+          "name_en": "Air Quality & Filtration",
+          "desc_ar": "فلترة HEPA وMERV، وتنقية الهواء بالأشعة فوق البنفسجية، والتحكم في الرطوبة والضغط، وتكييف الغرف النظيفة.",
+          "desc_en": "HEPA and MERV filtration, UV-C purification, humidity and pressure control, clean room HVAC."
+        },
+        {
+          "code": "ES-HVAC-04",
+          "name_ar": "تركيب وتشغيل أنظمة التكييف",
+          "name_en": "HVAC Installation & Commissioning",
+          "desc_ar": "توريد المعدات وتركيبها، وموازنة الأنظمة واختبارها، وربطها بنظام BMS، وتقارير التشغيل.",
+          "desc_en": "Equipment supply and installation, system balancing and testing, BMS integration, commissioning reports."
+        },
+        {
+          "code": "ES-HVAC-05",
+          "name_ar": "الصيانة الوقائية للتكييف",
+          "name_en": "HVAC Preventive Maintenance",
+          "desc_ar": "صيانة موسمية، واستبدال الفلاتر، وتنظيف الملفات وفحصها، ومراقبة الأداء.",
+          "desc_en": "Seasonal tune-ups, filter replacement, coil cleaning and inspection, performance monitoring."
+        },
+        {
+          "code": "ES-HVAC-06",
+          "name_ar": "ترقيات كفاءة الطاقة",
+          "name_en": "Energy-Efficiency Upgrades",
+          "desc_ar": "تدقيق الطاقة، وترقية المعدات عالية الكفاءة، وتركيب محركات السرعة المتغيرة، والتحكم الذكي.",
+          "desc_en": "Energy audits, high-efficiency equipment upgrades, variable speed drives and smart controls."
+        }
+      ]
+    },
+    {
+      "code": "ES-MNT",
+      "name_ar": "الصيانة وقطع الغيار",
+      "name_en": "Maintenance & Parts",
+      "kicker": "Supply · الصيانة والتوريد",
+      "image": "maintenance",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "desc_ar": "برامج صيانة وقائية وإصلاح معدات وتوريد قطع الغيار الصناعية وتجهيزات السلامة، مع تطبيق أنظمة CMMS، للحفاظ على استمرارية عملياتكم وتقليل التوقف غير المخطط له.",
+      "desc_en": "Preventive maintenance programmes, equipment repair, industrial and safety parts supply, and CMMS implementation to keep your operations running and cut unplanned downtime.",
+      "items": [
+        {
+          "code": "ES-MNT-01",
+          "name_ar": "برامج الصيانة الوقائية",
+          "name_en": "Preventive Maintenance Programmes",
+          "desc_ar": "التشحيم والخدمة الدورية، ومراقبة حالة المعدات، ودمج الصيانة التنبؤية.",
+          "desc_en": "Lubrication and routine servicing, condition monitoring and predictive maintenance."
+        },
+        {
+          "code": "ES-MNT-02",
+          "name_ar": "إصلاح وعمرة المعدات",
+          "name_en": "Equipment Repair & Overhaul",
+          "desc_ar": "تشخيص الأعطال، والإصلاحات الميكانيكية والكهربائية، والعمرة الكاملة، والاستجابة الطارئة للإصلاح.",
+          "desc_en": "Diagnostics, mechanical and electrical repairs, full overhauls and emergency repair mobilisation."
+        },
+        {
+          "code": "ES-MNT-03",
+          "name_ar": "توريد قطع الغيار الصناعية",
+          "name_en": "Industrial Parts Sourcing",
+          "desc_ar": "قطع أصلية وبديلة، والقطع النادرة والمتوقفة، والشراء بالجملة، مع التحقق من الجودة والتتبع.",
+          "desc_en": "OEM and aftermarket parts, hard-to-find and obsolete parts, bulk procurement, quality verification and traceability."
+        },
+        {
+          "code": "ES-MNT-04",
+          "name_ar": "تطبيق نظام إدارة الصيانة CMMS",
+          "name_en": "CMMS Implementation",
+          "desc_ar": "إعداد سجل الأصول، وجدولة الصيانة، ونماذج أوامر العمل، وتدريب الموظفين، ودعم التشغيل.",
+          "desc_en": "Asset register, maintenance scheduling, work order templates, staff training and go-live support."
+        },
+        {
+          "code": "ES-MNT-05",
+          "name_ar": "صيانة وإصلاح معدات السلامة",
+          "name_en": "Safety Equipment Service & Repair",
+          "desc_ar": "فحص وصيانة ومعايرة معدات السلامة مثل أجهزة كشف الغاز وأجهزة التنفس وطفايات الحريق ومعدات الحماية من السقوط، مع تقارير وشهادات.",
+          "desc_en": "Inspection, servicing and calibration of safety equipment such as gas detectors, breathing apparatus, extinguishers and fall protection, with reports and certificates."
+        }
+      ]
+    },
+    {
+      "code": "ES-PPE",
+      "name_ar": "معدات الحماية الشخصية",
+      "name_en": "Personal Protective Equipment",
+      "kicker": "PPE · الحماية الشخصية",
+      "image": "es-ppe",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Head to toe · Certified to international standards",
+      "tagline_ar": "من الرأس إلى القدم · مطابقة للمعايير الدولية",
+      "desc_ar": "توريد معدات الحماية الشخصية للمواقع الصناعية والإنشائية، مختارة حسب المخاطر الفعلية في موقعكم ومطابقة للمعايير الدولية.",
+      "desc_en": "Personal protective equipment for industrial and construction sites, selected for the actual hazards on your site and certified to international standards.",
+      "items": [
+        {
+          "code": "ES-PPE-01",
+          "name_ar": "خوذ السلامة",
+          "name_en": "Safety Helmets",
+          "desc_ar": "خوذ صناعية بأحزمة قابلة للتعديل، مع خيارات العزل الكهربائي وملحقات واقي الوجه والأذن.",
+          "desc_en": "Industrial hard hats with adjustable harness, electrically insulated options and face-shield and ear-defender attachments."
+        },
+        {
+          "code": "ES-PPE-02",
+          "name_ar": "حماية العين والوجه",
+          "name_en": "Eye & Face Protection",
+          "desc_ar": "نظارات سلامة ونظارات مغلقة وواقيات وجه وأقنعة لحام ضد الشظايا والمواد الكيميائية والإشعاع.",
+          "desc_en": "Safety glasses, goggles, face shields and welding masks against impact, chemicals and radiation."
+        },
+        {
+          "code": "ES-PPE-03",
+          "name_ar": "حماية السمع",
+          "name_en": "Hearing Protection",
+          "desc_ar": "سدادات أذن وواقيات أذن خارجية بمستويات تخفيض ضوضاء مناسبة لبيئة العمل.",
+          "desc_en": "Ear plugs and ear muffs with noise reduction ratings matched to the workplace."
+        },
+        {
+          "code": "ES-PPE-04",
+          "name_ar": "حماية الجهاز التنفسي",
+          "name_en": "Respiratory Protection",
+          "desc_ar": "كمامات وأقنعة نصف وجه ووجه كامل وفلاتر، وأجهزة تنفس ذاتية SCBA.",
+          "desc_en": "Disposable respirators, half- and full-face masks, filters and self-contained breathing apparatus (SCBA)."
+        },
+        {
+          "code": "ES-PPE-05",
+          "name_ar": "قفازات السلامة",
+          "name_en": "Safety Gloves",
+          "desc_ar": "قفازات ميكانيكية ومقاومة للقطع والحرارة والمواد الكيميائية، وقفازات عازلة للكهرباء.",
+          "desc_en": "Mechanical, cut-, heat- and chemical-resistant gloves, and electrical insulating gloves."
+        },
+        {
+          "code": "ES-PPE-06",
+          "name_ar": "ملابس العمل الواقية",
+          "name_en": "Protective Workwear",
+          "desc_ar": "أفرولات وملابس عمل مقاومة للهب وعاكسة للرؤية العالية.",
+          "desc_en": "Coveralls, flame-resistant and high-visibility workwear."
+        },
+        {
+          "code": "ES-PPE-07",
+          "name_ar": "أحذية السلامة",
+          "name_en": "Safety Footwear",
+          "desc_ar": "أحذية وجزمات سلامة بمقدمة واقية ونعل مقاوم للانزلاق والثقب والزيوت.",
+          "desc_en": "Safety shoes and boots with protective toe caps and slip-, puncture- and oil-resistant soles."
+        },
+        {
+          "code": "ES-PPE-08",
+          "name_ar": "بدلات المواد الخطرة والكيميائية",
+          "name_en": "Hazmat & Chemical Suits",
+          "desc_ar": "بدلات واقية من المواد الكيميائية والخطرة بمستويات حماية مختلفة.",
+          "desc_en": "Chemical and hazmat protective suits across protection levels."
+        },
+        {
+          "code": "ES-PPE-09",
+          "name_ar": "معدات الحماية من القوس الكهربائي",
+          "name_en": "Arc Flash Protection",
+          "desc_ar": "بدلات وأقنعة وقفازات الحماية من القوس الكهربائي حسب مستوى الطاقة المحسوب.",
+          "desc_en": "Arc flash suits, hoods and gloves rated to the calculated incident energy."
+        },
+        {
+          "code": "ES-PPE-10",
+          "name_ar": "ملابس ومعدات رجال الإطفاء",
+          "name_en": "Firefighter Protective Gear",
+          "desc_ar": "بدلات رجال الإطفاء والخوذ والأحذية والقفازات وأغطية الرأس.",
+          "desc_en": "Firefighter suits, helmets, boots, gloves and flash hoods."
+        }
+      ]
+    },
+    {
+      "code": "ES-SAF",
+      "name_ar": "حلول السلامة",
+      "name_en": "Safety Solutions",
+      "kicker": "Safety · حلول السلامة",
+      "image": "es-saf",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Emergency · Spill · Signage · Lockout",
+      "tagline_ar": "الطوارئ · الانسكابات · اللوحات · العزل",
+      "desc_ar": "توريد حلول السلامة للمواقع الصناعية: معدات الطوارئ واحتواء الانسكابات واللوحات الإرشادية وأنظمة العزل والحواجز.",
+      "desc_en": "Site safety solutions: emergency equipment, spill containment, signage, lockout/tagout and barriers.",
+      "items": [
+        {
+          "code": "ES-SAF-01",
+          "name_ar": "دش الطوارئ وغسيل العيون",
+          "name_en": "Emergency Showers & Eyewash",
+          "desc_ar": "محطات دش طوارئ وغسيل عيون ثابتة ومحمولة للمواقع الصناعية والمختبرات.",
+          "desc_en": "Fixed and portable emergency showers and eyewash stations for industrial sites and labs."
+        },
+        {
+          "code": "ES-SAF-02",
+          "name_ar": "أطقم احتواء الانسكابات",
+          "name_en": "Spill Containment Kits",
+          "desc_ar": "أطقم انسكابات ومواد ماصة ومنصات احتواء للزيوت والمواد الكيميائية.",
+          "desc_en": "Spill kits, absorbents and containment pallets for oils and chemicals."
+        },
+        {
+          "code": "ES-SAF-03",
+          "name_ar": "خزائن تخزين المواد الخطرة",
+          "name_en": "Hazardous Material Storage Cabinets",
+          "desc_ar": "خزائن آمنة لتخزين المواد القابلة للاشتعال والكيميائية والأسطوانات.",
+          "desc_en": "Safety cabinets for flammable liquids, chemicals and gas cylinders."
+        },
+        {
+          "code": "ES-SAF-04",
+          "name_ar": "أنظمة العزل والإقفال LOTO",
+          "name_en": "Lockout / Tagout (LOTO)",
+          "desc_ar": "أقفال وبطاقات ومحطات عزل الطاقة للعمل الآمن على المعدات.",
+          "desc_en": "Padlocks, tags, hasps and lockout stations for safe energy isolation."
+        },
+        {
+          "code": "ES-SAF-05",
+          "name_ar": "لوحات السلامة الإرشادية",
+          "name_en": "Safety Signage",
+          "desc_ar": "لوحات تحذير وإلزام ومنع وطوارئ بالعربية والإنجليزية، ولوحات فوسفورية للمخارج.",
+          "desc_en": "Warning, mandatory, prohibition and emergency signs in Arabic and English, and photoluminescent exit signs."
+        },
+        {
+          "code": "ES-SAF-06",
+          "name_ar": "الحواجز وأدوات تنظيم المرور",
+          "name_en": "Barriers & Traffic Control",
+          "desc_ar": "أقماع وحواجز وأشرطة تحذيرية وعواكس لتأمين مناطق العمل والطرق.",
+          "desc_en": "Cones, barriers, warning tape and reflectors to secure work zones and roads."
+        },
+        {
+          "code": "ES-SAF-07",
+          "name_ar": "حقائب ومحطات الإسعافات الأولية",
+          "name_en": "First Aid Kits & Stations",
+          "desc_ar": "حقائب وخزائن إسعافات أولية مجهزة حسب عدد العاملين ونوع المخاطر.",
+          "desc_en": "First aid kits and cabinets stocked for headcount and hazard type."
+        },
+        {
+          "code": "ES-SAF-08",
+          "name_ar": "معدات الأماكن المغلقة",
+          "name_en": "Confined Space Equipment",
+          "desc_ar": "حوامل ثلاثية ورافعات إنقاذ ومراوح تهوية لأعمال الأماكن المغلقة.",
+          "desc_en": "Tripods, rescue winches and ventilation blowers for confined space work."
+        }
+      ]
+    },
+    {
+      "code": "ES-FALL",
+      "name_ar": "معدات الحماية من السقوط",
+      "name_en": "Fall Protection",
+      "kicker": "Fall · الحماية من السقوط",
+      "image": "es-fall",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Harnesses · Lifelines · Anchors · Rescue",
+      "tagline_ar": "أحزمة · حبال نجاة · نقاط تثبيت · إنقاذ",
+      "desc_ar": "توريد أنظمة الحماية من السقوط للعمل على المرتفعات، مع المساعدة في اختيار النظام المناسب وفحصه الدوري.",
+      "desc_en": "Fall protection systems for work at height, with help selecting the right system and periodic inspection.",
+      "items": [
+        {
+          "code": "ES-FALL-01",
+          "name_ar": "أحزمة الأمان الكاملة",
+          "name_en": "Full-Body Harnesses",
+          "desc_ar": "أحزمة أمان كاملة للجسم للعمل على المرتفعات والأماكن المغلقة والأعمال الكهربائية.",
+          "desc_en": "Full-body harnesses for work at height, confined spaces and electrical work."
+        },
+        {
+          "code": "ES-FALL-02",
+          "name_ar": "الحبال الواصلة الماصة للصدمات",
+          "name_en": "Shock-Absorbing Lanyards",
+          "desc_ar": "حبال واصلة مفردة ومزدوجة مع ماص صدمات وخطافات أمان.",
+          "desc_en": "Single and twin lanyards with energy absorbers and safety hooks."
+        },
+        {
+          "code": "ES-FALL-03",
+          "name_ar": "حبال النجاة ذاتية الارتداد",
+          "name_en": "Self-Retracting Lifelines",
+          "desc_ar": "وحدات ارتداد ذاتي توقف السقوط خلال مسافة قصيرة.",
+          "desc_en": "Self-retracting units that arrest a fall within a short distance."
+        },
+        {
+          "code": "ES-FALL-04",
+          "name_ar": "نقاط ومثبتات الربط",
+          "name_en": "Anchor Points & Connectors",
+          "desc_ar": "نقاط تثبيت دائمة ومؤقتة وأحزمة تثبيت وكارابينات.",
+          "desc_en": "Permanent and temporary anchors, anchor straps and karabiners."
+        },
+        {
+          "code": "ES-FALL-05",
+          "name_ar": "أنظمة حبال النجاة الأفقية",
+          "name_en": "Horizontal Lifeline Systems",
+          "desc_ar": "أنظمة حبال نجاة أفقية للأسطح والجسور والهياكل.",
+          "desc_en": "Horizontal lifeline systems for roofs, bridges and structures."
+        },
+        {
+          "code": "ES-FALL-06",
+          "name_ar": "أطقم الإنقاذ والإنزال",
+          "name_en": "Rescue & Descent Kits",
+          "desc_ar": "أطقم إنقاذ وإنزال آمن للعامل بعد توقف السقوط.",
+          "desc_en": "Rescue and controlled-descent kits for recovering a worker after a fall."
+        }
+      ]
+    },
+    {
+      "code": "ES-GAS",
+      "name_ar": "أجهزة كشف الغاز",
+      "name_en": "Gas Detection",
+      "kicker": "Gas · كشف الغاز",
+      "image": "es-gas",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Portable · Fixed · Calibration",
+      "tagline_ar": "محمولة · ثابتة · معايرة",
+      "desc_ar": "توريد أجهزة كشف الغاز المحمولة والثابتة مع المعايرة والفحص الدوري، لحماية العاملين من الغازات السامة والقابلة للاشتعال ونقص الأكسجين.",
+      "desc_en": "Portable and fixed gas detection with calibration and bump testing, protecting workers from toxic and flammable gases and oxygen deficiency.",
+      "items": [
+        {
+          "code": "ES-GAS-01",
+          "name_ar": "كاشف غاز محمول أحادي",
+          "name_en": "Single-Gas Portable Detectors",
+          "desc_ar": "أجهزة شخصية لكشف غاز واحد مثل H₂S أو CO أو O₂ مع إنذار صوتي ومرئي واهتزاز.",
+          "desc_en": "Personal monitors for one gas such as H₂S, CO or O₂, with audible, visual and vibrating alarms."
+        },
+        {
+          "code": "ES-GAS-02",
+          "name_ar": "كاشف غاز محمول متعدد",
+          "name_en": "Multi-Gas Portable Detectors",
+          "desc_ar": "أجهزة محمولة لكشف عدة غازات معاً (قابل للاشتعال، O₂، H₂S، CO) لأعمال الأماكن المغلقة.",
+          "desc_en": "Portable monitors for several gases at once (LEL, O₂, H₂S, CO) for confined space entry."
+        },
+        {
+          "code": "ES-GAS-03",
+          "name_ar": "أنظمة كشف الغاز الثابتة",
+          "name_en": "Fixed Gas Detection Systems",
+          "desc_ar": "حساسات ثابتة ولوحات تحكم وإنذار لغرف الغاز ومحطات LPG والمصانع.",
+          "desc_en": "Fixed sensors, controllers and alarms for gas rooms, LPG stations and plants."
+        },
+        {
+          "code": "ES-GAS-04",
+          "name_ar": "كاشف تسرب الغاز LPG",
+          "name_en": "LPG Leak Detectors",
+          "desc_ar": "كواشف تسرب غاز LPG للمطابخ التجارية ومحطات التعبئة وغرف الخزانات.",
+          "desc_en": "LPG leak detectors for commercial kitchens, filling stations and tank rooms."
+        },
+        {
+          "code": "ES-GAS-05",
+          "name_ar": "محطات الفحص والمعايرة",
+          "name_en": "Bump Test & Calibration Stations",
+          "desc_ar": "محطات لفحص الاستجابة والمعايرة الآلية لأجهزة الكشف المحمولة.",
+          "desc_en": "Docking stations for automatic bump testing and calibration of portable detectors."
+        },
+        {
+          "code": "ES-GAS-06",
+          "name_ar": "غازات المعايرة وملحقاتها",
+          "name_en": "Calibration Gas & Accessories",
+          "desc_ar": "أسطوانات غاز المعايرة والمنظمات ومضخات أخذ العينات.",
+          "desc_en": "Calibration gas cylinders, regulators and sampling pumps."
+        }
+      ]
+    },
+    {
+      "code": "ES-FIRE",
+      "name_ar": "معدات الحماية من الحرائق",
+      "name_en": "Fire Protection Equipment",
+      "kicker": "Fire · معدات الحريق",
+      "image": "es-fire",
+      "link": "https://www.environmsafe.com/ar/services/hse.html",
+      "tagline_en": "Extinguishers · Detection · Suppression",
+      "tagline_ar": "طفايات · كشف · إطفاء",
+      "desc_ar": "توريد معدات الحماية من الحرائق وتركيبها وفحصها، مع اختيارها حسب نوع الخطر وأكواد NFPA.",
+      "desc_en": "Fire protection equipment supplied, installed and inspected, selected for the hazard and NFPA codes.",
+      "items": [
+        {
+          "code": "ES-FIRE-01",
+          "name_ar": "طفايات الحريق",
+          "name_en": "Fire Extinguishers",
+          "desc_ar": "طفايات بودرة وCO₂ ورغوة وماء بالأحجام المناسبة لكل فئة خطر، مع الفحص الدوري.",
+          "desc_en": "Dry powder, CO₂, foam and water extinguishers sized for each hazard class, with periodic inspection."
+        },
+        {
+          "code": "ES-FIRE-02",
+          "name_ar": "خراطيم وفوهات الحريق",
+          "name_en": "Fire Hoses & Nozzles",
+          "desc_ar": "خراطيم حريق وفوهات ووصلات بالمقاسات القياسية.",
+          "desc_en": "Fire hoses, nozzles and couplings in standard sizes."
+        },
+        {
+          "code": "ES-FIRE-03",
+          "name_ar": "بكرات وصناديق خراطيم الحريق",
+          "name_en": "Hose Reels & Cabinets",
+          "desc_ar": "بكرات خراطيم وصناديق حريق مجهزة للتركيب الداخلي والخارجي.",
+          "desc_en": "Hose reels and equipped fire cabinets for indoor and outdoor installation."
+        },
+        {
+          "code": "ES-FIRE-04",
+          "name_ar": "رغوة الإطفاء",
+          "name_en": "Firefighting Foam",
+          "desc_ar": "مركزات رغوة لحرائق السوائل القابلة للاشتعال ومعدات الخلط.",
+          "desc_en": "Foam concentrates for flammable-liquid fires and proportioning equipment."
+        },
+        {
+          "code": "ES-FIRE-05",
+          "name_ar": "كواشف الحريق ولوحات الإنذار",
+          "name_en": "Fire Detectors & Alarm Panels",
+          "desc_ar": "كواشف دخان وحرارة ولهب، ولوحات إنذار تقليدية وعنونة، ونقاط إنذار يدوية.",
+          "desc_en": "Smoke, heat and flame detectors, conventional and addressable panels, manual call points."
+        },
+        {
+          "code": "ES-FIRE-06",
+          "name_ar": "أنظمة ومواد الإطفاء",
+          "name_en": "Suppression Systems & Agents",
+          "desc_ar": "أنظمة إطفاء FM-200 وCO₂ وأنظمة إطفاء المطابخ.",
+          "desc_en": "FM-200, CO₂ and kitchen hood suppression systems."
+        },
+        {
+          "code": "ES-FIRE-07",
+          "name_ar": "بطانيات الحريق",
+          "name_en": "Fire Blankets",
+          "desc_ar": "بطانيات إطفاء للمطابخ والمختبرات والورش.",
+          "desc_en": "Fire blankets for kitchens, labs and workshops."
+        },
+        {
+          "code": "ES-FIRE-08",
+          "name_ar": "إنارة الطوارئ ولوحات المخارج",
+          "name_en": "Emergency Lighting & Exit Signs",
+          "desc_ar": "وحدات إنارة طوارئ ولوحات مخارج مضيئة ببطاريات احتياطية.",
+          "desc_en": "Emergency light fittings and illuminated exit signs with battery backup."
+        }
+      ]
+    },
+    {
+      "code": "ES-IRR",
+      "name_ar": "أنظمة الري",
+      "name_en": "Irrigation Systems",
+      "kicker": "Irrigation · الري",
+      "image": "es-irr",
+      "link": "https://www.environmsafe.com/ar/contact.html",
+      "tagline_en": "Drip · Sprinkler · Pumps · Control",
+      "tagline_ar": "تنقيط · رش · مضخات · تحكم",
+      "desc_ar": "توريد وتركيب أنظمة الري للمزارع والحدائق والمواقع الصناعية، مع تصميم يناسب مصدر المياه والمساحة.",
+      "desc_en": "Irrigation systems for farms, landscapes and industrial sites, designed around the water source and area.",
+      "items": [
+        {
+          "code": "ES-IRR-01",
+          "name_ar": "أنظمة الري بالتنقيط",
+          "name_en": "Drip Irrigation Systems",
+          "desc_ar": "خطوط تنقيط ونقاطات ومنظمات ضغط لتوفير المياه في الزراعة والحدائق.",
+          "desc_en": "Drip lines, emitters and pressure regulators for water-efficient farming and landscaping."
+        },
+        {
+          "code": "ES-IRR-02",
+          "name_ar": "أنظمة الري بالرش",
+          "name_en": "Sprinkler Irrigation Systems",
+          "desc_ar": "رشاشات ثابتة ودوارة ومسدسات رش للمسطحات والحقول.",
+          "desc_en": "Fixed and rotating sprinklers and rain guns for lawns and fields."
+        },
+        {
+          "code": "ES-IRR-03",
+          "name_ar": "مضخات الري",
+          "name_en": "Irrigation Pumps",
+          "desc_ar": "مضخات سطحية وغاطسة وشمسية حسب مصدر المياه والضغط المطلوب.",
+          "desc_en": "Surface, submersible and solar pumps matched to the water source and required pressure."
+        },
+        {
+          "code": "ES-IRR-04",
+          "name_ar": "الفلاتر ووحدات التسميد",
+          "name_en": "Filters & Fertigation Units",
+          "desc_ar": "فلاتر رملية وشبكية وقرصية ووحدات حقن الأسمدة.",
+          "desc_en": "Sand, screen and disc filters and fertiliser injection units."
+        },
+        {
+          "code": "ES-IRR-05",
+          "name_ar": "وحدات التحكم والمؤقتات",
+          "name_en": "Controllers & Timers",
+          "desc_ar": "وحدات تحكم ومؤقتات وصمامات كهربائية لجدولة الري آلياً.",
+          "desc_en": "Controllers, timers and solenoid valves for automatic irrigation scheduling."
+        },
+        {
+          "code": "ES-IRR-06",
+          "name_ar": "الأنابيب والقطع",
+          "name_en": "Pipes & Fittings",
+          "desc_ar": "أنابيب PE وPVC وقطع التوصيل والصمامات.",
+          "desc_en": "PE and PVC pipes, fittings and valves."
+        }
+      ]
+    }
+  ]
+}
