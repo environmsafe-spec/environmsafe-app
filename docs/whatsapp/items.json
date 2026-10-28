@@ -126,6 +126,272 @@
           "name_en": "Fire System Inspection & Testing",
           "desc_ar": "فحص الرشاشات واختبارات التدفق، والاختبار الوظيفي لإنذار الحريق، وفحص الطفايات ومواد الإطفاء.",
           "desc_en": "Sprinkler inspection and flow tests, fire alarm functional testing, extinguisher and suppression agent checks."
+        },
+        {
+          "code": "ES-HSE-10",
+          "name_ar": "طفايات الحريق",
+          "name_en": "Fire Extinguishers",
+          "desc_ar": "طفايات بودرة وCO₂ ورغوة وماء بالأحجام المناسبة لكل فئة خطر، مع الفحص الدوري.",
+          "desc_en": "Dry powder, CO₂, foam and water extinguishers sized for each hazard class, with periodic inspection."
+        },
+        {
+          "code": "ES-HSE-11",
+          "name_ar": "خراطيم وفوهات الحريق",
+          "name_en": "Fire Hoses & Nozzles",
+          "desc_ar": "خراطيم حريق وفوهات ووصلات بالمقاسات القياسية.",
+          "desc_en": "Fire hoses, nozzles and couplings in standard sizes."
+        },
+        {
+          "code": "ES-HSE-12",
+          "name_ar": "بكرات وصناديق خراطيم الحريق",
+          "name_en": "Hose Reels & Cabinets",
+          "desc_ar": "بكرات خراطيم وصناديق حريق مجهزة للتركيب الداخلي والخارجي.",
+          "desc_en": "Hose reels and equipped fire cabinets for indoor and outdoor installation."
+        },
+        {
+          "code": "ES-HSE-13",
+          "name_ar": "رغوة الإطفاء",
+          "name_en": "Firefighting Foam",
+          "desc_ar": "مركزات رغوة لحرائق السوائل القابلة للاشتعال ومعدات الخلط.",
+          "desc_en": "Foam concentrates for flammable-liquid fires and proportioning equipment."
+        },
+        {
+          "code": "ES-HSE-14",
+          "name_ar": "كواشف الحريق ولوحات الإنذار",
+          "name_en": "Fire Detectors & Alarm Panels",
+          "desc_ar": "كواشف دخان وحرارة ولهب، ولوحات إنذار تقليدية وعنونة، ونقاط إنذار يدوية.",
+          "desc_en": "Smoke, heat and flame detectors, conventional and addressable panels, manual call points."
+        },
+        {
+          "code": "ES-HSE-15",
+          "name_ar": "أنظمة ومواد الإطفاء",
+          "name_en": "Suppression Systems & Agents",
+          "desc_ar": "أنظمة إطفاء FM-200 وCO₂ وأنظمة إطفاء المطابخ.",
+          "desc_en": "FM-200, CO₂ and kitchen hood suppression systems."
+        },
+        {
+          "code": "ES-HSE-16",
+          "name_ar": "بطانيات الحريق",
+          "name_en": "Fire Blankets",
+          "desc_ar": "بطانيات إطفاء للمطابخ والمختبرات والورش.",
+          "desc_en": "Fire blankets for kitchens, labs and workshops."
+        },
+        {
+          "code": "ES-HSE-17",
+          "name_ar": "إنارة الطوارئ ولوحات المخارج",
+          "name_en": "Emergency Lighting & Exit Signs",
+          "desc_ar": "وحدات إنارة طوارئ ولوحات مخارج مضيئة ببطاريات احتياطية.",
+          "desc_en": "Emergency light fittings and illuminated exit signs with battery backup."
+        },
+        {
+          "code": "ES-HSE-18",
+          "name_ar": "خوذ السلامة",
+          "name_en": "Safety Helmets",
+          "desc_ar": "خوذ صناعية بأحزمة قابلة للتعديل، مع خيارات العزل الكهربائي وملحقات واقي الوجه والأذن.",
+          "desc_en": "Industrial hard hats with adjustable harness, electrically insulated options and face-shield and ear-defender attachments."
+        },
+        {
+          "code": "ES-HSE-19",
+          "name_ar": "حماية العين والوجه",
+          "name_en": "Eye & Face Protection",
+          "desc_ar": "نظارات سلامة ونظارات مغلقة وواقيات وجه وأقنعة لحام ضد الشظايا والمواد الكيميائية والإشعاع.",
+          "desc_en": "Safety glasses, goggles, face shields and welding masks against impact, chemicals and radiation."
+        },
+        {
+          "code": "ES-HSE-20",
+          "name_ar": "حماية السمع",
+          "name_en": "Hearing Protection",
+          "desc_ar": "سدادات أذن وواقيات أذن خارجية بمستويات تخفيض ضوضاء مناسبة لبيئة العمل.",
+          "desc_en": "Ear plugs and ear muffs with noise reduction ratings matched to the workplace."
+        },
+        {
+          "code": "ES-HSE-21",
+          "name_ar": "حماية الجهاز التنفسي",
+          "name_en": "Respiratory Protection",
+          "desc_ar": "كمامات وأقنعة نصف وجه ووجه كامل وفلاتر، وأجهزة تنفس ذاتية SCBA.",
+          "desc_en": "Disposable respirators, half- and full-face masks, filters and self-contained breathing apparatus (SCBA)."
+        },
+        {
+          "code": "ES-HSE-22",
+          "name_ar": "قفازات السلامة",
+          "name_en": "Safety Gloves",
+          "desc_ar": "قفازات ميكانيكية ومقاومة للقطع والحرارة والمواد الكيميائية، وقفازات عازلة للكهرباء.",
+          "desc_en": "Mechanical, cut-, heat- and chemical-resistant gloves, and electrical insulating gloves."
+        },
+        {
+          "code": "ES-HSE-23",
+          "name_ar": "ملابس العمل الواقية",
+          "name_en": "Protective Workwear",
+          "desc_ar": "أفرولات وملابس عمل مقاومة للهب وعاكسة للرؤية العالية.",
+          "desc_en": "Coveralls, flame-resistant and high-visibility workwear."
+        },
+        {
+          "code": "ES-HSE-24",
+          "name_ar": "أحذية السلامة",
+          "name_en": "Safety Footwear",
+          "desc_ar": "أحذية وجزمات سلامة بمقدمة واقية ونعل مقاوم للانزلاق والثقب والزيوت.",
+          "desc_en": "Safety shoes and boots with protective toe caps and slip-, puncture- and oil-resistant soles."
+        },
+        {
+          "code": "ES-HSE-25",
+          "name_ar": "بدلات المواد الخطرة والكيميائية",
+          "name_en": "Hazmat & Chemical Suits",
+          "desc_ar": "بدلات واقية من المواد الكيميائية والخطرة بمستويات حماية مختلفة.",
+          "desc_en": "Chemical and hazmat protective suits across protection levels."
+        },
+        {
+          "code": "ES-HSE-26",
+          "name_ar": "معدات الحماية من القوس الكهربائي",
+          "name_en": "Arc Flash Protection",
+          "desc_ar": "بدلات وأقنعة وقفازات الحماية من القوس الكهربائي حسب مستوى الطاقة المحسوب.",
+          "desc_en": "Arc flash suits, hoods and gloves rated to the calculated incident energy."
+        },
+        {
+          "code": "ES-HSE-27",
+          "name_ar": "ملابس ومعدات رجال الإطفاء",
+          "name_en": "Firefighter Protective Gear",
+          "desc_ar": "بدلات رجال الإطفاء والخوذ والأحذية والقفازات وأغطية الرأس.",
+          "desc_en": "Firefighter suits, helmets, boots, gloves and flash hoods."
+        },
+        {
+          "code": "ES-HSE-28",
+          "name_ar": "دش الطوارئ وغسيل العيون",
+          "name_en": "Emergency Showers & Eyewash",
+          "desc_ar": "محطات دش طوارئ وغسيل عيون ثابتة ومحمولة للمواقع الصناعية والمختبرات.",
+          "desc_en": "Fixed and portable emergency showers and eyewash stations for industrial sites and labs."
+        },
+        {
+          "code": "ES-HSE-29",
+          "name_ar": "أطقم احتواء الانسكابات",
+          "name_en": "Spill Containment Kits",
+          "desc_ar": "أطقم انسكابات ومواد ماصة ومنصات احتواء للزيوت والمواد الكيميائية.",
+          "desc_en": "Spill kits, absorbents and containment pallets for oils and chemicals."
+        },
+        {
+          "code": "ES-HSE-30",
+          "name_ar": "خزائن تخزين المواد الخطرة",
+          "name_en": "Hazardous Material Storage Cabinets",
+          "desc_ar": "خزائن آمنة لتخزين المواد القابلة للاشتعال والكيميائية والأسطوانات.",
+          "desc_en": "Safety cabinets for flammable liquids, chemicals and gas cylinders."
+        },
+        {
+          "code": "ES-HSE-31",
+          "name_ar": "أنظمة العزل والإقفال LOTO",
+          "name_en": "Lockout / Tagout (LOTO)",
+          "desc_ar": "أقفال وبطاقات ومحطات عزل الطاقة للعمل الآمن على المعدات.",
+          "desc_en": "Padlocks, tags, hasps and lockout stations for safe energy isolation."
+        },
+        {
+          "code": "ES-HSE-32",
+          "name_ar": "لوحات السلامة الإرشادية",
+          "name_en": "Safety Signage",
+          "desc_ar": "لوحات تحذير وإلزام ومنع وطوارئ بالعربية والإنجليزية، ولوحات فوسفورية للمخارج.",
+          "desc_en": "Warning, mandatory, prohibition and emergency signs in Arabic and English, and photoluminescent exit signs."
+        },
+        {
+          "code": "ES-HSE-33",
+          "name_ar": "الحواجز وأدوات تنظيم المرور",
+          "name_en": "Barriers & Traffic Control",
+          "desc_ar": "أقماع وحواجز وأشرطة تحذيرية وعواكس لتأمين مناطق العمل والطرق.",
+          "desc_en": "Cones, barriers, warning tape and reflectors to secure work zones and roads."
+        },
+        {
+          "code": "ES-HSE-34",
+          "name_ar": "حقائب ومحطات الإسعافات الأولية",
+          "name_en": "First Aid Kits & Stations",
+          "desc_ar": "حقائب وخزائن إسعافات أولية مجهزة حسب عدد العاملين ونوع المخاطر.",
+          "desc_en": "First aid kits and cabinets stocked for headcount and hazard type."
+        },
+        {
+          "code": "ES-HSE-35",
+          "name_ar": "معدات الأماكن المغلقة",
+          "name_en": "Confined Space Equipment",
+          "desc_ar": "حوامل ثلاثية ورافعات إنقاذ ومراوح تهوية لأعمال الأماكن المغلقة.",
+          "desc_en": "Tripods, rescue winches and ventilation blowers for confined space work."
+        },
+        {
+          "code": "ES-HSE-36",
+          "name_ar": "أحزمة الأمان الكاملة",
+          "name_en": "Full-Body Harnesses",
+          "desc_ar": "أحزمة أمان كاملة للجسم للعمل على المرتفعات والأماكن المغلقة والأعمال الكهربائية.",
+          "desc_en": "Full-body harnesses for work at height, confined spaces and electrical work."
+        },
+        {
+          "code": "ES-HSE-37",
+          "name_ar": "الحبال الواصلة الماصة للصدمات",
+          "name_en": "Shock-Absorbing Lanyards",
+          "desc_ar": "حبال واصلة مفردة ومزدوجة مع ماص صدمات وخطافات أمان.",
+          "desc_en": "Single and twin lanyards with energy absorbers and safety hooks."
+        },
+        {
+          "code": "ES-HSE-38",
+          "name_ar": "حبال النجاة ذاتية الارتداد",
+          "name_en": "Self-Retracting Lifelines",
+          "desc_ar": "وحدات ارتداد ذاتي توقف السقوط خلال مسافة قصيرة.",
+          "desc_en": "Self-retracting units that arrest a fall within a short distance."
+        },
+        {
+          "code": "ES-HSE-39",
+          "name_ar": "نقاط ومثبتات الربط",
+          "name_en": "Anchor Points & Connectors",
+          "desc_ar": "نقاط تثبيت دائمة ومؤقتة وأحزمة تثبيت وكارابينات.",
+          "desc_en": "Permanent and temporary anchors, anchor straps and karabiners."
+        },
+        {
+          "code": "ES-HSE-40",
+          "name_ar": "أنظمة حبال النجاة الأفقية",
+          "name_en": "Horizontal Lifeline Systems",
+          "desc_ar": "أنظمة حبال نجاة أفقية للأسطح والجسور والهياكل.",
+          "desc_en": "Horizontal lifeline systems for roofs, bridges and structures."
+        },
+        {
+          "code": "ES-HSE-41",
+          "name_ar": "أطقم الإنقاذ والإنزال",
+          "name_en": "Rescue & Descent Kits",
+          "desc_ar": "أطقم إنقاذ وإنزال آمن للعامل بعد توقف السقوط.",
+          "desc_en": "Rescue and controlled-descent kits for recovering a worker after a fall."
+        },
+        {
+          "code": "ES-HSE-42",
+          "name_ar": "كاشف غاز محمول أحادي",
+          "name_en": "Single-Gas Portable Detectors",
+          "desc_ar": "أجهزة شخصية لكشف غاز واحد مثل H₂S أو CO أو O₂ مع إنذار صوتي ومرئي واهتزاز.",
+          "desc_en": "Personal monitors for one gas such as H₂S, CO or O₂, with audible, visual and vibrating alarms."
+        },
+        {
+          "code": "ES-HSE-43",
+          "name_ar": "كاشف غاز محمول متعدد",
+          "name_en": "Multi-Gas Portable Detectors",
+          "desc_ar": "أجهزة محمولة لكشف عدة غازات معاً (قابل للاشتعال، O₂، H₂S، CO) لأعمال الأماكن المغلقة.",
+          "desc_en": "Portable monitors for several gases at once (LEL, O₂, H₂S, CO) for confined space entry."
+        },
+        {
+          "code": "ES-HSE-44",
+          "name_ar": "أنظمة كشف الغاز الثابتة",
+          "name_en": "Fixed Gas Detection Systems",
+          "desc_ar": "حساسات ثابتة ولوحات تحكم وإنذار لغرف الغاز ومحطات LPG والمصانع.",
+          "desc_en": "Fixed sensors, controllers and alarms for gas rooms, LPG stations and plants."
+        },
+        {
+          "code": "ES-HSE-45",
+          "name_ar": "كاشف تسرب الغاز LPG",
+          "name_en": "LPG Leak Detectors",
+          "desc_ar": "كواشف تسرب غاز LPG للمطابخ التجارية ومحطات التعبئة وغرف الخزانات.",
+          "desc_en": "LPG leak detectors for commercial kitchens, filling stations and tank rooms."
+        },
+        {
+          "code": "ES-HSE-46",
+          "name_ar": "محطات الفحص والمعايرة",
+          "name_en": "Bump Test & Calibration Stations",
+          "desc_ar": "محطات لفحص الاستجابة والمعايرة الآلية لأجهزة الكشف المحمولة.",
+          "desc_en": "Docking stations for automatic bump testing and calibration of portable detectors."
+        },
+        {
+          "code": "ES-HSE-47",
+          "name_ar": "غازات المعايرة وملحقاتها",
+          "name_en": "Calibration Gas & Accessories",
+          "desc_ar": "أسطوانات غاز المعايرة والمنظمات ومضخات أخذ العينات.",
+          "desc_en": "Calibration gas cylinders, regulators and sampling pumps."
         }
       ]
     },
@@ -525,398 +791,6 @@
           "name_en": "Safety Equipment Service & Repair",
           "desc_ar": "فحص وصيانة ومعايرة معدات السلامة مثل أجهزة كشف الغاز وأجهزة التنفس وطفايات الحريق ومعدات الحماية من السقوط، مع تقارير وشهادات.",
           "desc_en": "Inspection, servicing and calibration of safety equipment such as gas detectors, breathing apparatus, extinguishers and fall protection, with reports and certificates."
-        }
-      ]
-    },
-    {
-      "code": "ES-PPE",
-      "name_ar": "معدات الحماية الشخصية",
-      "name_en": "Personal Protective Equipment",
-      "kicker": "PPE · الحماية الشخصية",
-      "image": "es-ppe",
-      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
-      "tagline_en": "Head to toe · Certified to international standards",
-      "tagline_ar": "من الرأس إلى القدم · مطابقة للمعايير الدولية",
-      "desc_ar": "توريد معدات الحماية الشخصية للمواقع الصناعية والإنشائية، مختارة حسب المخاطر الفعلية في موقعكم ومطابقة للمعايير الدولية.",
-      "desc_en": "Personal protective equipment for industrial and construction sites, selected for the actual hazards on your site and certified to international standards.",
-      "items": [
-        {
-          "code": "ES-PPE-01",
-          "name_ar": "خوذ السلامة",
-          "name_en": "Safety Helmets",
-          "desc_ar": "خوذ صناعية بأحزمة قابلة للتعديل، مع خيارات العزل الكهربائي وملحقات واقي الوجه والأذن.",
-          "desc_en": "Industrial hard hats with adjustable harness, electrically insulated options and face-shield and ear-defender attachments."
-        },
-        {
-          "code": "ES-PPE-02",
-          "name_ar": "حماية العين والوجه",
-          "name_en": "Eye & Face Protection",
-          "desc_ar": "نظارات سلامة ونظارات مغلقة وواقيات وجه وأقنعة لحام ضد الشظايا والمواد الكيميائية والإشعاع.",
-          "desc_en": "Safety glasses, goggles, face shields and welding masks against impact, chemicals and radiation."
-        },
-        {
-          "code": "ES-PPE-03",
-          "name_ar": "حماية السمع",
-          "name_en": "Hearing Protection",
-          "desc_ar": "سدادات أذن وواقيات أذن خارجية بمستويات تخفيض ضوضاء مناسبة لبيئة العمل.",
-          "desc_en": "Ear plugs and ear muffs with noise reduction ratings matched to the workplace."
-        },
-        {
-          "code": "ES-PPE-04",
-          "name_ar": "حماية الجهاز التنفسي",
-          "name_en": "Respiratory Protection",
-          "desc_ar": "كمامات وأقنعة نصف وجه ووجه كامل وفلاتر، وأجهزة تنفس ذاتية SCBA.",
-          "desc_en": "Disposable respirators, half- and full-face masks, filters and self-contained breathing apparatus (SCBA)."
-        },
-        {
-          "code": "ES-PPE-05",
-          "name_ar": "قفازات السلامة",
-          "name_en": "Safety Gloves",
-          "desc_ar": "قفازات ميكانيكية ومقاومة للقطع والحرارة والمواد الكيميائية، وقفازات عازلة للكهرباء.",
-          "desc_en": "Mechanical, cut-, heat- and chemical-resistant gloves, and electrical insulating gloves."
-        },
-        {
-          "code": "ES-PPE-06",
-          "name_ar": "ملابس العمل الواقية",
-          "name_en": "Protective Workwear",
-          "desc_ar": "أفرولات وملابس عمل مقاومة للهب وعاكسة للرؤية العالية.",
-          "desc_en": "Coveralls, flame-resistant and high-visibility workwear."
-        },
-        {
-          "code": "ES-PPE-07",
-          "name_ar": "أحذية السلامة",
-          "name_en": "Safety Footwear",
-          "desc_ar": "أحذية وجزمات سلامة بمقدمة واقية ونعل مقاوم للانزلاق والثقب والزيوت.",
-          "desc_en": "Safety shoes and boots with protective toe caps and slip-, puncture- and oil-resistant soles."
-        },
-        {
-          "code": "ES-PPE-08",
-          "name_ar": "بدلات المواد الخطرة والكيميائية",
-          "name_en": "Hazmat & Chemical Suits",
-          "desc_ar": "بدلات واقية من المواد الكيميائية والخطرة بمستويات حماية مختلفة.",
-          "desc_en": "Chemical and hazmat protective suits across protection levels."
-        },
-        {
-          "code": "ES-PPE-09",
-          "name_ar": "معدات الحماية من القوس الكهربائي",
-          "name_en": "Arc Flash Protection",
-          "desc_ar": "بدلات وأقنعة وقفازات الحماية من القوس الكهربائي حسب مستوى الطاقة المحسوب.",
-          "desc_en": "Arc flash suits, hoods and gloves rated to the calculated incident energy."
-        },
-        {
-          "code": "ES-PPE-10",
-          "name_ar": "ملابس ومعدات رجال الإطفاء",
-          "name_en": "Firefighter Protective Gear",
-          "desc_ar": "بدلات رجال الإطفاء والخوذ والأحذية والقفازات وأغطية الرأس.",
-          "desc_en": "Firefighter suits, helmets, boots, gloves and flash hoods."
-        }
-      ]
-    },
-    {
-      "code": "ES-SAF",
-      "name_ar": "حلول السلامة",
-      "name_en": "Safety Solutions",
-      "kicker": "Safety · حلول السلامة",
-      "image": "es-saf",
-      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
-      "tagline_en": "Emergency · Spill · Signage · Lockout",
-      "tagline_ar": "الطوارئ · الانسكابات · اللوحات · العزل",
-      "desc_ar": "توريد حلول السلامة للمواقع الصناعية: معدات الطوارئ واحتواء الانسكابات واللوحات الإرشادية وأنظمة العزل والحواجز.",
-      "desc_en": "Site safety solutions: emergency equipment, spill containment, signage, lockout/tagout and barriers.",
-      "items": [
-        {
-          "code": "ES-SAF-01",
-          "name_ar": "دش الطوارئ وغسيل العيون",
-          "name_en": "Emergency Showers & Eyewash",
-          "desc_ar": "محطات دش طوارئ وغسيل عيون ثابتة ومحمولة للمواقع الصناعية والمختبرات.",
-          "desc_en": "Fixed and portable emergency showers and eyewash stations for industrial sites and labs."
-        },
-        {
-          "code": "ES-SAF-02",
-          "name_ar": "أطقم احتواء الانسكابات",
-          "name_en": "Spill Containment Kits",
-          "desc_ar": "أطقم انسكابات ومواد ماصة ومنصات احتواء للزيوت والمواد الكيميائية.",
-          "desc_en": "Spill kits, absorbents and containment pallets for oils and chemicals."
-        },
-        {
-          "code": "ES-SAF-03",
-          "name_ar": "خزائن تخزين المواد الخطرة",
-          "name_en": "Hazardous Material Storage Cabinets",
-          "desc_ar": "خزائن آمنة لتخزين المواد القابلة للاشتعال والكيميائية والأسطوانات.",
-          "desc_en": "Safety cabinets for flammable liquids, chemicals and gas cylinders."
-        },
-        {
-          "code": "ES-SAF-04",
-          "name_ar": "أنظمة العزل والإقفال LOTO",
-          "name_en": "Lockout / Tagout (LOTO)",
-          "desc_ar": "أقفال وبطاقات ومحطات عزل الطاقة للعمل الآمن على المعدات.",
-          "desc_en": "Padlocks, tags, hasps and lockout stations for safe energy isolation."
-        },
-        {
-          "code": "ES-SAF-05",
-          "name_ar": "لوحات السلامة الإرشادية",
-          "name_en": "Safety Signage",
-          "desc_ar": "لوحات تحذير وإلزام ومنع وطوارئ بالعربية والإنجليزية، ولوحات فوسفورية للمخارج.",
-          "desc_en": "Warning, mandatory, prohibition and emergency signs in Arabic and English, and photoluminescent exit signs."
-        },
-        {
-          "code": "ES-SAF-06",
-          "name_ar": "الحواجز وأدوات تنظيم المرور",
-          "name_en": "Barriers & Traffic Control",
-          "desc_ar": "أقماع وحواجز وأشرطة تحذيرية وعواكس لتأمين مناطق العمل والطرق.",
-          "desc_en": "Cones, barriers, warning tape and reflectors to secure work zones and roads."
-        },
-        {
-          "code": "ES-SAF-07",
-          "name_ar": "حقائب ومحطات الإسعافات الأولية",
-          "name_en": "First Aid Kits & Stations",
-          "desc_ar": "حقائب وخزائن إسعافات أولية مجهزة حسب عدد العاملين ونوع المخاطر.",
-          "desc_en": "First aid kits and cabinets stocked for headcount and hazard type."
-        },
-        {
-          "code": "ES-SAF-08",
-          "name_ar": "معدات الأماكن المغلقة",
-          "name_en": "Confined Space Equipment",
-          "desc_ar": "حوامل ثلاثية ورافعات إنقاذ ومراوح تهوية لأعمال الأماكن المغلقة.",
-          "desc_en": "Tripods, rescue winches and ventilation blowers for confined space work."
-        }
-      ]
-    },
-    {
-      "code": "ES-FALL",
-      "name_ar": "معدات الحماية من السقوط",
-      "name_en": "Fall Protection",
-      "kicker": "Fall · الحماية من السقوط",
-      "image": "es-fall",
-      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
-      "tagline_en": "Harnesses · Lifelines · Anchors · Rescue",
-      "tagline_ar": "أحزمة · حبال نجاة · نقاط تثبيت · إنقاذ",
-      "desc_ar": "توريد أنظمة الحماية من السقوط للعمل على المرتفعات، مع المساعدة في اختيار النظام المناسب وفحصه الدوري.",
-      "desc_en": "Fall protection systems for work at height, with help selecting the right system and periodic inspection.",
-      "items": [
-        {
-          "code": "ES-FALL-01",
-          "name_ar": "أحزمة الأمان الكاملة",
-          "name_en": "Full-Body Harnesses",
-          "desc_ar": "أحزمة أمان كاملة للجسم للعمل على المرتفعات والأماكن المغلقة والأعمال الكهربائية.",
-          "desc_en": "Full-body harnesses for work at height, confined spaces and electrical work."
-        },
-        {
-          "code": "ES-FALL-02",
-          "name_ar": "الحبال الواصلة الماصة للصدمات",
-          "name_en": "Shock-Absorbing Lanyards",
-          "desc_ar": "حبال واصلة مفردة ومزدوجة مع ماص صدمات وخطافات أمان.",
-          "desc_en": "Single and twin lanyards with energy absorbers and safety hooks."
-        },
-        {
-          "code": "ES-FALL-03",
-          "name_ar": "حبال النجاة ذاتية الارتداد",
-          "name_en": "Self-Retracting Lifelines",
-          "desc_ar": "وحدات ارتداد ذاتي توقف السقوط خلال مسافة قصيرة.",
-          "desc_en": "Self-retracting units that arrest a fall within a short distance."
-        },
-        {
-          "code": "ES-FALL-04",
-          "name_ar": "نقاط ومثبتات الربط",
-          "name_en": "Anchor Points & Connectors",
-          "desc_ar": "نقاط تثبيت دائمة ومؤقتة وأحزمة تثبيت وكارابينات.",
-          "desc_en": "Permanent and temporary anchors, anchor straps and karabiners."
-        },
-        {
-          "code": "ES-FALL-05",
-          "name_ar": "أنظمة حبال النجاة الأفقية",
-          "name_en": "Horizontal Lifeline Systems",
-          "desc_ar": "أنظمة حبال نجاة أفقية للأسطح والجسور والهياكل.",
-          "desc_en": "Horizontal lifeline systems for roofs, bridges and structures."
-        },
-        {
-          "code": "ES-FALL-06",
-          "name_ar": "أطقم الإنقاذ والإنزال",
-          "name_en": "Rescue & Descent Kits",
-          "desc_ar": "أطقم إنقاذ وإنزال آمن للعامل بعد توقف السقوط.",
-          "desc_en": "Rescue and controlled-descent kits for recovering a worker after a fall."
-        }
-      ]
-    },
-    {
-      "code": "ES-GAS",
-      "name_ar": "أجهزة كشف الغاز",
-      "name_en": "Gas Detection",
-      "kicker": "Gas · كشف الغاز",
-      "image": "es-gas",
-      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
-      "tagline_en": "Portable · Fixed · Calibration",
-      "tagline_ar": "محمولة · ثابتة · معايرة",
-      "desc_ar": "توريد أجهزة كشف الغاز المحمولة والثابتة مع المعايرة والفحص الدوري، لحماية العاملين من الغازات السامة والقابلة للاشتعال ونقص الأكسجين.",
-      "desc_en": "Portable and fixed gas detection with calibration and bump testing, protecting workers from toxic and flammable gases and oxygen deficiency.",
-      "items": [
-        {
-          "code": "ES-GAS-01",
-          "name_ar": "كاشف غاز محمول أحادي",
-          "name_en": "Single-Gas Portable Detectors",
-          "desc_ar": "أجهزة شخصية لكشف غاز واحد مثل H₂S أو CO أو O₂ مع إنذار صوتي ومرئي واهتزاز.",
-          "desc_en": "Personal monitors for one gas such as H₂S, CO or O₂, with audible, visual and vibrating alarms."
-        },
-        {
-          "code": "ES-GAS-02",
-          "name_ar": "كاشف غاز محمول متعدد",
-          "name_en": "Multi-Gas Portable Detectors",
-          "desc_ar": "أجهزة محمولة لكشف عدة غازات معاً (قابل للاشتعال، O₂، H₂S، CO) لأعمال الأماكن المغلقة.",
-          "desc_en": "Portable monitors for several gases at once (LEL, O₂, H₂S, CO) for confined space entry."
-        },
-        {
-          "code": "ES-GAS-03",
-          "name_ar": "أنظمة كشف الغاز الثابتة",
-          "name_en": "Fixed Gas Detection Systems",
-          "desc_ar": "حساسات ثابتة ولوحات تحكم وإنذار لغرف الغاز ومحطات LPG والمصانع.",
-          "desc_en": "Fixed sensors, controllers and alarms for gas rooms, LPG stations and plants."
-        },
-        {
-          "code": "ES-GAS-04",
-          "name_ar": "كاشف تسرب الغاز LPG",
-          "name_en": "LPG Leak Detectors",
-          "desc_ar": "كواشف تسرب غاز LPG للمطابخ التجارية ومحطات التعبئة وغرف الخزانات.",
-          "desc_en": "LPG leak detectors for commercial kitchens, filling stations and tank rooms."
-        },
-        {
-          "code": "ES-GAS-05",
-          "name_ar": "محطات الفحص والمعايرة",
-          "name_en": "Bump Test & Calibration Stations",
-          "desc_ar": "محطات لفحص الاستجابة والمعايرة الآلية لأجهزة الكشف المحمولة.",
-          "desc_en": "Docking stations for automatic bump testing and calibration of portable detectors."
-        },
-        {
-          "code": "ES-GAS-06",
-          "name_ar": "غازات المعايرة وملحقاتها",
-          "name_en": "Calibration Gas & Accessories",
-          "desc_ar": "أسطوانات غاز المعايرة والمنظمات ومضخات أخذ العينات.",
-          "desc_en": "Calibration gas cylinders, regulators and sampling pumps."
-        }
-      ]
-    },
-    {
-      "code": "ES-FIRE",
-      "name_ar": "معدات الحماية من الحرائق",
-      "name_en": "Fire Protection Equipment",
-      "kicker": "Fire · معدات الحريق",
-      "image": "es-fire",
-      "link": "https://www.environmsafe.com/ar/services/hse.html",
-      "tagline_en": "Extinguishers · Detection · Suppression",
-      "tagline_ar": "طفايات · كشف · إطفاء",
-      "desc_ar": "توريد معدات الحماية من الحرائق وتركيبها وفحصها، مع اختيارها حسب نوع الخطر وأكواد NFPA.",
-      "desc_en": "Fire protection equipment supplied, installed and inspected, selected for the hazard and NFPA codes.",
-      "items": [
-        {
-          "code": "ES-FIRE-01",
-          "name_ar": "طفايات الحريق",
-          "name_en": "Fire Extinguishers",
-          "desc_ar": "طفايات بودرة وCO₂ ورغوة وماء بالأحجام المناسبة لكل فئة خطر، مع الفحص الدوري.",
-          "desc_en": "Dry powder, CO₂, foam and water extinguishers sized for each hazard class, with periodic inspection."
-        },
-        {
-          "code": "ES-FIRE-02",
-          "name_ar": "خراطيم وفوهات الحريق",
-          "name_en": "Fire Hoses & Nozzles",
-          "desc_ar": "خراطيم حريق وفوهات ووصلات بالمقاسات القياسية.",
-          "desc_en": "Fire hoses, nozzles and couplings in standard sizes."
-        },
-        {
-          "code": "ES-FIRE-03",
-          "name_ar": "بكرات وصناديق خراطيم الحريق",
-          "name_en": "Hose Reels & Cabinets",
-          "desc_ar": "بكرات خراطيم وصناديق حريق مجهزة للتركيب الداخلي والخارجي.",
-          "desc_en": "Hose reels and equipped fire cabinets for indoor and outdoor installation."
-        },
-        {
-          "code": "ES-FIRE-04",
-          "name_ar": "رغوة الإطفاء",
-          "name_en": "Firefighting Foam",
-          "desc_ar": "مركزات رغوة لحرائق السوائل القابلة للاشتعال ومعدات الخلط.",
-          "desc_en": "Foam concentrates for flammable-liquid fires and proportioning equipment."
-        },
-        {
-          "code": "ES-FIRE-05",
-          "name_ar": "كواشف الحريق ولوحات الإنذار",
-          "name_en": "Fire Detectors & Alarm Panels",
-          "desc_ar": "كواشف دخان وحرارة ولهب، ولوحات إنذار تقليدية وعنونة، ونقاط إنذار يدوية.",
-          "desc_en": "Smoke, heat and flame detectors, conventional and addressable panels, manual call points."
-        },
-        {
-          "code": "ES-FIRE-06",
-          "name_ar": "أنظمة ومواد الإطفاء",
-          "name_en": "Suppression Systems & Agents",
-          "desc_ar": "أنظمة إطفاء FM-200 وCO₂ وأنظمة إطفاء المطابخ.",
-          "desc_en": "FM-200, CO₂ and kitchen hood suppression systems."
-        },
-        {
-          "code": "ES-FIRE-07",
-          "name_ar": "بطانيات الحريق",
-          "name_en": "Fire Blankets",
-          "desc_ar": "بطانيات إطفاء للمطابخ والمختبرات والورش.",
-          "desc_en": "Fire blankets for kitchens, labs and workshops."
-        },
-        {
-          "code": "ES-FIRE-08",
-          "name_ar": "إنارة الطوارئ ولوحات المخارج",
-          "name_en": "Emergency Lighting & Exit Signs",
-          "desc_ar": "وحدات إنارة طوارئ ولوحات مخارج مضيئة ببطاريات احتياطية.",
-          "desc_en": "Emergency light fittings and illuminated exit signs with battery backup."
-        }
-      ]
-    },
-    {
-      "code": "ES-IRR",
-      "name_ar": "أنظمة الري",
-      "name_en": "Irrigation Systems",
-      "kicker": "Irrigation · الري",
-      "image": "es-irr",
-      "link": "https://www.environmsafe.com/ar/contact.html",
-      "tagline_en": "Drip · Sprinkler · Pumps · Control",
-      "tagline_ar": "تنقيط · رش · مضخات · تحكم",
-      "desc_ar": "توريد وتركيب أنظمة الري للمزارع والحدائق والمواقع الصناعية، مع تصميم يناسب مصدر المياه والمساحة.",
-      "desc_en": "Irrigation systems for farms, landscapes and industrial sites, designed around the water source and area.",
-      "items": [
-        {
-          "code": "ES-IRR-01",
-          "name_ar": "أنظمة الري بالتنقيط",
-          "name_en": "Drip Irrigation Systems",
-          "desc_ar": "خطوط تنقيط ونقاطات ومنظمات ضغط لتوفير المياه في الزراعة والحدائق.",
-          "desc_en": "Drip lines, emitters and pressure regulators for water-efficient farming and landscaping."
-        },
-        {
-          "code": "ES-IRR-02",
-          "name_ar": "أنظمة الري بالرش",
-          "name_en": "Sprinkler Irrigation Systems",
-          "desc_ar": "رشاشات ثابتة ودوارة ومسدسات رش للمسطحات والحقول.",
-          "desc_en": "Fixed and rotating sprinklers and rain guns for lawns and fields."
-        },
-        {
-          "code": "ES-IRR-03",
-          "name_ar": "مضخات الري",
-          "name_en": "Irrigation Pumps",
-          "desc_ar": "مضخات سطحية وغاطسة وشمسية حسب مصدر المياه والضغط المطلوب.",
-          "desc_en": "Surface, submersible and solar pumps matched to the water source and required pressure."
-        },
-        {
-          "code": "ES-IRR-04",
-          "name_ar": "الفلاتر ووحدات التسميد",
-          "name_en": "Filters & Fertigation Units",
-          "desc_ar": "فلاتر رملية وشبكية وقرصية ووحدات حقن الأسمدة.",
-          "desc_en": "Sand, screen and disc filters and fertiliser injection units."
-        },
-        {
-          "code": "ES-IRR-05",
-          "name_ar": "وحدات التحكم والمؤقتات",
-          "name_en": "Controllers & Timers",
-          "desc_ar": "وحدات تحكم ومؤقتات وصمامات كهربائية لجدولة الري آلياً.",
-          "desc_en": "Controllers, timers and solenoid valves for automatic irrigation scheduling."
-        },
-        {
-          "code": "ES-IRR-06",
-          "name_ar": "الأنابيب والقطع",
-          "name_en": "Pipes & Fittings",
-          "desc_ar": "أنابيب PE وPVC وقطع التوصيل والصمامات.",
-          "desc_en": "PE and PVC pipes, fittings and valves."
         }
       ]
     }
