@@ -207,6 +207,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-28-a-bund-is-not-a-bund-until-it-is-tested.html"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-10-27-lifting-gear-fails-at-the-weakest-link.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-10-27-lifting-gear-fails-at-the-weakest-link.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-10-27-lifting-gear-fails-at-the-weakest-link.html"/>

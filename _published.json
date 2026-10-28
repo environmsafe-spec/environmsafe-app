@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-28",
+    "slug": "a-bund-is-not-a-bund-until-it-is-tested",
+    "icon": "fa-oil-well",
+    "color": "teal",
+    "en": {
+      "title": "A Bund Is Not a Bund Until Somebody Tests It",
+      "home_summary": "Secondary containment is built once and then assumed permanent. It usually fails through an open drain valve or a volume filled with rainwater and stored drums — small, reversible things nobody owns."
+    },
+    "ar": {
+      "title": "الحوض المانع ليس مانعاً حتى يختبره أحد",
+      "home_summary": "يُبنى الاحتواء الثانوي مرة ويُفترض دائماً. وهو يفشل عادة عبر صمام تصريف مفتوح أو حجم امتلأ بمياه المطر وبراميل مخزنة — أمور صغيرة قابلة للعكس لا يملكها أحد."
+    }
+  },
+  {
     "iso": "2026-10-27",
     "slug": "lifting-gear-fails-at-the-weakest-link",
     "icon": "fa-link-slash",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "نشغّل الآن مقعد الاختبار المعتمد الوحيد لصمامات الأمان PSV في المنطقة",
       "home_summary": "صمام الأمان الذي لا يفتح عند الضغط الصحيح لا يعطي تحذيراً. تشغّل EnvironmSafe الآن مقعد الاختبار المعتمد الوحيد في المنطقة — فحص، اختبار، معايرة، صيانة وإصلاح وفق API 527 وAPI 576."
-    }
-  },
-  {
-    "iso": "2026-09-04",
-    "slug": "confined-space-entry-kills-experienced-people",
-    "icon": "fa-door-closed",
-    "color": "teal",
-    "en": {
-      "title": "Confined Space Work Kills Experienced People",
-      "home_summary": "The victims in confined space incidents are usually not untrained newcomers. They are competent workers who entered the same space before without incident."
-    },
-    "ar": {
-      "title": "العمل في الأماكن المحصورة يقتل أصحاب الخبرة",
-      "home_summary": "ضحايا حوادث الأماكن المحصورة غالباً ليسوا وافدين بلا تدريب، بل عمال أكفاء دخلوا المكان نفسه من قبل دون حادثة. الظروف تتغير بين دخول وآخر حتى لو لم يتغير شيء ظاهر في الخارج، ولهذا يُشترط الاختبار في كل مرة لا استنتاجه من التاريخ، ولهذا تهم خطة الإنقاذ المُتدرب عليها أكثر من أي ضابط آخر."
     }
   }
 ]
