@@ -103,7 +103,7 @@ To prepare your quote, please send:
 ## 3. Catalog
 
 The catalog is generated, not typed in. **`items.json` is the source of truth**:
-nine services, each with its sub-items. To change the catalog, edit that file and
+eleven sections (nine services plus generator and machinery parts supply), each with its sub-items. To change the catalog, edit that file and
 run:
 
 ```
@@ -133,10 +133,13 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 | الهندسة والإنشاء | `ES-ENG` | 7 |
 | أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
 | الصيانة وقطع الغيار | `ES-MNT` | 6 |
+| المولدات وقطع غيارها | `ES-GEN` | 12 |
+| المعدات الصناعية وقطع غيارها | `ES-MCH` | 12 |
 
 The HSE & fire protection collection also carries the safety supply lines
 (fire equipment, PPE, safety solutions, fall protection, gas detection).
-107 items in total.
+Generators and industrial machinery are parts-supply sections organised by
+engine make, system and part type. 131 items in total.
 
 ---
 

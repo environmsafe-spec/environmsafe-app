@@ -793,6 +793,188 @@
           "desc_en": "Inspection, servicing and calibration of safety equipment such as gas detectors, breathing apparatus, extinguishers and fall protection, with reports and certificates."
         }
       ]
+    },
+    {
+      "code": "ES-GEN",
+      "name_ar": "المولدات وقطع غيارها",
+      "name_en": "Generators & Generator Parts",
+      "kicker": "Generators · المولدات",
+      "image": "es-gen",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Gensets · Perkins · Caterpillar · Cummins",
+      "tagline_ar": "مولدات · قطع غيار · بيركنز · كاتربيلر · كمنز",
+      "desc_ar": "توريد مولدات الديزل وقطع غيارها لجميع الماركات الرئيسية، من الفلاتر والقطع الاستهلاكية إلى قطع العمرة الكاملة والأنظمة الكهربائية.",
+      "desc_en": "Diesel generator sets and spare parts for all major makes, from filters and consumables to complete overhaul parts and electrical systems.",
+      "items": [
+        {
+          "code": "ES-GEN-01",
+          "name_ar": "مولدات الديزل",
+          "name_en": "Diesel Generator Sets",
+          "desc_ar": "توريد مولدات ديزل مفتوحة وكاتمة للصوت بقدرات تشغيل رئيسية واحتياطية، مع حساب القدرة المناسبة للأحمال.",
+          "desc_en": "Open and silent-canopy diesel gensets in prime and standby ratings, sized to your load."
+        },
+        {
+          "code": "ES-GEN-02",
+          "name_ar": "لوحات التحويل الأوتوماتيكي والتحكم",
+          "name_en": "ATS & Generator Control Panels",
+          "desc_ar": "لوحات تحويل أوتوماتيكي ATS، ولوحات تزامن، ووحدات تحكم المولدات وشاشاتها.",
+          "desc_en": "Automatic transfer switches, synchronising panels, and generator controllers and displays."
+        },
+        {
+          "code": "ES-GEN-03",
+          "name_ar": "قطع غيار مولدات بيركنز Perkins",
+          "name_en": "Perkins Generator Parts",
+          "desc_ar": "قطع غيار لمحركات ومولدات Perkins: فلاتر، حشوات، قطع المحرك، نظام الوقود والتبريد. قطع أصلية OEM وبديلة عالية الجودة، مع التحقق من رقم القطعة حسب الرقم التسلسلي للمحرك.",
+          "desc_en": "Parts for Perkins engines and generators: filters, gaskets, engine, fuel and cooling parts. Genuine OEM and quality aftermarket parts, matched by part number to your engine serial number."
+        },
+        {
+          "code": "ES-GEN-04",
+          "name_ar": "قطع غيار مولدات كاتربيلر Caterpillar",
+          "name_en": "Caterpillar Generator Parts",
+          "desc_ar": "قطع غيار لمحركات ومولدات Caterpillar: فلاتر، حشوات، قطع المحرك، نظام الوقود والتبريد. قطع أصلية OEM وبديلة عالية الجودة، مع التحقق من رقم القطعة حسب الرقم التسلسلي للمحرك.",
+          "desc_en": "Parts for Caterpillar engines and generators: filters, gaskets, engine, fuel and cooling parts. Genuine OEM and quality aftermarket parts, matched by part number to your engine serial number."
+        },
+        {
+          "code": "ES-GEN-05",
+          "name_ar": "قطع غيار مولدات كمنز Cummins",
+          "name_en": "Cummins Generator Parts",
+          "desc_ar": "قطع غيار لمحركات ومولدات Cummins: فلاتر، حشوات، قطع المحرك، نظام الوقود والتبريد. قطع أصلية OEM وبديلة عالية الجودة، مع التحقق من رقم القطعة حسب الرقم التسلسلي للمحرك.",
+          "desc_en": "Parts for Cummins engines and generators: filters, gaskets, engine, fuel and cooling parts. Genuine OEM and quality aftermarket parts, matched by part number to your engine serial number."
+        },
+        {
+          "code": "ES-GEN-06",
+          "name_ar": "قطع غيار ماركات أخرى",
+          "name_en": "Other Engine Makes",
+          "desc_ar": "قطع غيار لمحركات Volvo Penta وMTU وDoosan وDeutz وFG Wilson وغيرها حسب الطلب. قطع أصلية OEM وبديلة عالية الجودة، مع التحقق من رقم القطعة حسب الرقم التسلسلي للمحرك.",
+          "desc_en": "Parts for Volvo Penta, MTU, Doosan, Deutz, FG Wilson and other makes on request. Genuine OEM and quality aftermarket parts, matched by part number to your engine serial number."
+        },
+        {
+          "code": "ES-GEN-07",
+          "name_ar": "الفلاتر والقطع الاستهلاكية",
+          "name_en": "Filters & Service Kits",
+          "desc_ar": "فلاتر الزيت والوقود والهواء وفواصل الماء، وأطقم الصيانة الدورية للمولدات.",
+          "desc_en": "Oil, fuel and air filters, water separators and scheduled service kits."
+        },
+        {
+          "code": "ES-GEN-08",
+          "name_ar": "قطع عمرة المحرك",
+          "name_en": "Engine Overhaul Parts",
+          "desc_ar": "مكابس وشنابر وقمصان وسبائك ومحامل، وصمامات، وأطقم حشوات علوية وسفلية.",
+          "desc_en": "Pistons, rings, liners, main and con-rod bearings, valves, and top and bottom gasket sets."
+        },
+        {
+          "code": "ES-GEN-09",
+          "name_ar": "نظام الوقود",
+          "name_en": "Fuel System Parts",
+          "desc_ar": "بخاخات، ومضخات حقن، ومضخات رفع الوقود، وأنابيب ووصلات الوقود.",
+          "desc_en": "Injectors, injection pumps, lift pumps, fuel lines and fittings."
+        },
+        {
+          "code": "ES-GEN-10",
+          "name_ar": "نظام التبريد",
+          "name_en": "Cooling System Parts",
+          "desc_ar": "رديترات، ومضخات مياه، وثرموستات، ومراوح وسيور، وخراطيم التبريد.",
+          "desc_en": "Radiators, water pumps, thermostats, fans and belts, coolant hoses."
+        },
+        {
+          "code": "ES-GEN-11",
+          "name_ar": "الدينامو والأنظمة الكهربائية",
+          "name_en": "Alternator & Electrical Parts",
+          "desc_ar": "منظمات الجهد AVR، وقطع الدينامو، وسلفات التشغيل، ودينامو الشحن، والبطاريات، والحساسات.",
+          "desc_en": "AVRs, alternator parts, starter motors, charging alternators, batteries and sensors."
+        }
+      ]
+    },
+    {
+      "code": "ES-MCH",
+      "name_ar": "المعدات الصناعية وقطع غيارها",
+      "name_en": "Industrial Machinery & Spare Parts",
+      "kicker": "Machinery · المعدات",
+      "image": "es-mch",
+      "link": "https://www.environmsafe.com/ar/services/maintenance.html",
+      "tagline_en": "Mechanical · Electrical · Electronic · Instrumentation",
+      "tagline_ar": "ميكانيكية · كهربائية · إلكترونية · أجهزة قياس",
+      "desc_ar": "توريد المعدات الصناعية وقطع غيارها الميكانيكية والكهربائية والإلكترونية وأجهزة القياس والتحكم، للمصانع ومحطات الطاقة والمنشآت التجارية.",
+      "desc_en": "Industrial machinery and mechanical, electrical, electronic and instrumentation spare parts for plants, power stations and commercial facilities.",
+      "items": [
+        {
+          "code": "ES-MCH-01",
+          "name_ar": "المضخات وقطع غيارها",
+          "name_en": "Pumps & Pump Parts",
+          "desc_ar": "مضخات طرد مركزي وغاطسة ومضخات إزاحة، مع الدفاعات وحلقات التآكل والأعمدة.",
+          "desc_en": "Centrifugal, submersible and positive-displacement pumps, with impellers, wear rings and shafts."
+        },
+        {
+          "code": "ES-MCH-02",
+          "name_ar": "الضواغط وقطع غيارها",
+          "name_en": "Compressors & Compressor Parts",
+          "desc_ar": "ضواغط هواء ترددية ولولبية، مع الصمامات والفلاتر والفواصل وأطقم الصيانة.",
+          "desc_en": "Reciprocating and screw air compressors, with valves, filters, separators and service kits."
+        },
+        {
+          "code": "ES-MCH-03",
+          "name_ar": "القطع الميكانيكية",
+          "name_en": "Mechanical Parts",
+          "desc_ar": "مكابس وشنابر، وأعمدة، وتروس، ووصلات، وجلب، وقطع التآكل للآلات الصناعية.",
+          "desc_en": "Pistons and rings, shafts, gears, couplings, bushings and wear parts for industrial machines."
+        },
+        {
+          "code": "ES-MCH-04",
+          "name_ar": "المحامل",
+          "name_en": "Bearings",
+          "desc_ar": "محامل كروية وأسطوانية ومخروطية، ووحدات المحامل والكراسي.",
+          "desc_en": "Ball, roller and tapered bearings, bearing units and pillow blocks."
+        },
+        {
+          "code": "ES-MCH-05",
+          "name_ar": "المانعات والحشوات",
+          "name_en": "Seals, Gaskets & O-Rings",
+          "desc_ar": "مانعات ميكانيكية، وأويل سيل، وحلقات O-ring، وحشوات، ومواد الحشو.",
+          "desc_en": "Mechanical seals, oil seals, O-rings, gaskets and gland packing."
+        },
+        {
+          "code": "ES-MCH-06",
+          "name_ar": "السيور ونقل الحركة",
+          "name_en": "Belts & Power Transmission",
+          "desc_ar": "سيور V وسيور التوقيت، والجنازير والتروس المسننة، والبكرات والوصلات.",
+          "desc_en": "V-belts, timing belts, chains and sprockets, pulleys and couplings."
+        },
+        {
+          "code": "ES-MCH-07",
+          "name_ar": "الهيدروليك والهواء المضغوط",
+          "name_en": "Hydraulics & Pneumatics",
+          "desc_ar": "مضخات وأسطوانات وصمامات هيدروليكية، وخراطيم ووصلات، ومكونات الهواء المضغوط.",
+          "desc_en": "Hydraulic pumps, cylinders and valves, hoses and fittings, pneumatic components."
+        },
+        {
+          "code": "ES-MCH-08",
+          "name_ar": "الصمامات الصناعية",
+          "name_en": "Industrial Valves",
+          "desc_ar": "صمامات بوابة وكروية وفراشة وعدم رجوع لخطوط المياه والوقود والبخار.",
+          "desc_en": "Gate, ball, butterfly and check valves for water, fuel and steam lines."
+        },
+        {
+          "code": "ES-MCH-09",
+          "name_ar": "القطع الكهربائية",
+          "name_en": "Electrical Parts",
+          "desc_ar": "محركات كهربائية، وكونتاكتورات، وقواطع، وريليهات، ومغيرات سرعة VFD، وكابلات.",
+          "desc_en": "Electric motors, contactors, breakers, relays, variable frequency drives and cables."
+        },
+        {
+          "code": "ES-MCH-10",
+          "name_ar": "القطع الإلكترونية والتحكم",
+          "name_en": "Electronic & Control Parts",
+          "desc_ar": "وحدات PLC، وشاشات HMI، ومزودات الطاقة، ولوحات التحكم الإلكترونية.",
+          "desc_en": "PLC modules, HMIs, power supplies and electronic control boards."
+        },
+        {
+          "code": "ES-MCH-11",
+          "name_ar": "أجهزة القياس والتحكم",
+          "name_en": "Instrumentation",
+          "desc_ar": "مرسلات الضغط والحرارة والمستوى والتدفق، والعدادات والمفاتيح، وصمامات التحكم والمحددات.",
+          "desc_en": "Pressure, temperature, level and flow transmitters, gauges and switches, control valves and positioners."
+        }
+      ]
     }
   ]
 }
