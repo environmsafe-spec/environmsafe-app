@@ -103,7 +103,7 @@ To prepare your quote, please send:
 ## 3. Catalog
 
 The catalog is generated, not typed in. **`items.json` is the source of truth**:
-nine services, each with its sub-items. To change the catalog, edit that file and
+fifteen categories (nine services, six supply categories), each with its sub-items. To change the catalog, edit that file and
 run:
 
 ```
@@ -125,31 +125,24 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 | Collection | Code prefix | Items |
 |---|---|---|
 | اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
-| السلامة والحماية من الحرائق | `ES-HSE` | 16 |
+| السلامة والحماية من الحرائق | `ES-HSE` | 10 |
 | أنظمة الغاز LPG | `ES-LPG` | 6 |
 | تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
 | دورات NEBOSH وIOSH | `ES-TRN` | 12 |
 | الفحص والمراقبة البيئية | `ES-INSP` | 8 |
 | الهندسة والإنشاء | `ES-ENG` | 7 |
 | أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
-| الصيانة وقطع الغيار | `ES-MNT` | 14 |
+| الصيانة وقطع الغيار | `ES-MNT` | 6 |
+| معدات الحماية الشخصية | `ES-PPE` | 11 |
+| حلول السلامة | `ES-SAF` | 9 |
+| معدات الحماية من السقوط | `ES-FALL` | 7 |
+| أجهزة كشف الغاز | `ES-GAS` | 7 |
+| معدات الحماية من الحرائق | `ES-FIRE` | 9 |
+| أنظمة الري | `ES-IRR` | 7 |
 
-### Items to confirm before they go live
-
-These product types come from REDA Safe's store categories and are **not** on
-environmsafe.com's own service pages. Keep them only if EnvironmSafe actually
-supplies them; otherwise delete them from `items.json` and rebuild.
-
-| Code | Item |
-|---|---|
-| `ES-HSE-13` | خراطيم وفوهات الحريق — Fire Hoses & Nozzles |
-| `ES-HSE-14` | رغوة الإطفاء — Firefighting Foam |
-| `ES-HSE-15` | ملابس ومعدات رجال الإطفاء — Firefighter Protective Gear |
-| `ES-MNT-11` | دش الطوارئ وغسيل العيون — Emergency Showers & Eyewash |
-| `ES-MNT-12` | أطقم احتواء الانسكابات — Spill Containment Kits |
-| `ES-MNT-13` | معدات الحماية من القوس الكهربائي — Arc Flash Protective Equipment |
-
-All other sub-items are taken from the services listed on environmsafe.com.
+The first nine collections are services; the last six are supply categories
+(modelled on REDA Safe's store sections, with EnvironmSafe's own wording and
+images). 119 items in total.
 
 ---
 

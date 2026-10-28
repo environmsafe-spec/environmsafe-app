@@ -40,7 +40,13 @@ body{width:1080px;height:1080px;font-family:'DejaVu Sans',sans-serif;background:
   const p = await browser.newPage({ viewport: { width: 1080, height: 1080 } });
   let n = 0;
   for (const s of services) {
-    // The nine service images were rendered earlier with their own taglines; keep them.
+    // The nine original service images were rendered by hand earlier; categories
+    // that carry a tagline get their cover image rendered here.
+    if (s.tagline_en) {
+      await p.setContent(page({ en: s.name_en, ar: s.name_ar, subEn: s.tagline_en, subAr: s.tagline_ar }));
+      await p.screenshot({ path: path.join(out, `${s.image}.png`) });
+      n++;
+    }
     for (const it of s.items) {
       await p.setContent(page({ en: it.name_en, ar: it.name_ar, kicker: s.kicker }));
       await p.screenshot({ path: path.join(out, `${it.code.toLowerCase()}.png`) });
