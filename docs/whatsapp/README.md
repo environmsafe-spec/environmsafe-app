@@ -103,7 +103,7 @@ To prepare your quote, please send:
 ## 3. Catalog
 
 The catalog is generated, not typed in. **`items.json` is the source of truth**:
-fifteen categories (nine services, six supply categories), each with its sub-items. To change the catalog, edit that file and
+nine services, each with its sub-items. To change the catalog, edit that file and
 run:
 
 ```
@@ -125,7 +125,7 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 | Collection | Code prefix | Items |
 |---|---|---|
 | اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
-| السلامة والحماية من الحرائق | `ES-HSE` | 10 |
+| السلامة والحماية من الحرائق | `ES-HSE` | 48 |
 | أنظمة الغاز LPG | `ES-LPG` | 6 |
 | تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
 | دورات NEBOSH وIOSH | `ES-TRN` | 12 |
@@ -133,16 +133,10 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 | الهندسة والإنشاء | `ES-ENG` | 7 |
 | أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
 | الصيانة وقطع الغيار | `ES-MNT` | 6 |
-| معدات الحماية الشخصية | `ES-PPE` | 11 |
-| حلول السلامة | `ES-SAF` | 9 |
-| معدات الحماية من السقوط | `ES-FALL` | 7 |
-| أجهزة كشف الغاز | `ES-GAS` | 7 |
-| معدات الحماية من الحرائق | `ES-FIRE` | 9 |
-| أنظمة الري | `ES-IRR` | 7 |
 
-The first nine collections are services; the last six are supply categories
-(modelled on REDA Safe's store sections, with EnvironmSafe's own wording and
-images). 119 items in total.
+The HSE & fire protection collection also carries the safety supply lines
+(fire equipment, PPE, safety solutions, fall protection, gas detection).
+107 items in total.
 
 ---
 
