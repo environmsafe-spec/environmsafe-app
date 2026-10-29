@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-29",
+    "slug": "generator-exhaust-finds-the-open-window",
+    "icon": "fa-smog",
+    "color": "amber",
+    "en": {
+      "title": "Generator Exhaust Finds the Open Window",
+      "home_summary": "A generator is sited for cable runs and fuel access, and the exhaust gets decided last. Commissioning runs twenty minutes with nobody inside; a real outage runs nine hours with the building full."
+    },
+    "ar": {
+      "title": "عادم المولد يجد النافذة المفتوحة",
+      "home_summary": "يوضع المولد حسب مسار الكابل ووصول الوقود، ويُقرر العادم أخيراً. التشغيل التجريبي عشرون دقيقة ولا أحد داخل المبنى، والانقطاع الحقيقي تسع ساعات والمبنى ممتلئ."
+    }
+  },
+  {
     "iso": "2026-10-28",
     "slug": "a-bund-is-not-a-bund-until-it-is-tested",
     "icon": "fa-oil-well",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "تصريح العمل هو ما يمنع تصادم فريقين",
       "home_summary": "الحوادث الخطيرة في المواقع متعددة المقاولين نادراً ما تتضمن تصرفاً متهوراً واضحاً، بل نشاطين معقولين كانا آمنين منفصلين وقاتلين مجتمعين: عمل ساخن قرب خزان يفرغه آخر، وحفر فوق خدمة غير مرسومة. لم يكن أحد مهملاً، ولم يكن أحد يتحدث إلى الآخر، ونظام التصاريح موجود ليجعل ذلك الحديث إلزامياً."
-    }
-  },
-  {
-    "iso": "2026-09-05",
-    "slug": "psv-certified-test-bench-only-provider",
-    "icon": "fa-gauge-high",
-    "color": "amber",
-    "en": {
-      "title": "We Now Operate the Region's Only Certified PSV Test Bench",
-      "home_summary": "A pressure safety valve that fails to open at the correct pressure does not give a warning. EnvironmSafe now operates the region's only certified PSV test bench — delivering API 527 and API 576 compliant inspection, testing, calibration, maintenance and repair."
-    },
-    "ar": {
-      "title": "نشغّل الآن مقعد الاختبار المعتمد الوحيد لصمامات الأمان PSV في المنطقة",
-      "home_summary": "صمام الأمان الذي لا يفتح عند الضغط الصحيح لا يعطي تحذيراً. تشغّل EnvironmSafe الآن مقعد الاختبار المعتمد الوحيد في المنطقة — فحص، اختبار، معايرة، صيانة وإصلاح وفق API 527 وAPI 576."
     }
   }
 ]
