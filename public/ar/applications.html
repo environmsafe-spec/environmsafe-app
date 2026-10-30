@@ -208,8 +208,42 @@
           </div>
         </div>
 
+        <!-- سجلات EnvironmSafe (تطبيق الفحص الميداني) -->
+        <div class="app-card fade-up" id="records">
+          <div class="app-card__head">
+            <div class="app-card__icon app-card__icon--teal"><i class="fa-solid fa-helmet-safety"></i></div>
+            <div class="app-card__heading">
+              <h3 class="app-card__title">سجلات EnvironmSafe – تطبيق الفحص الميداني</h3>
+              <span class="app-card__url">inspection.environmsafe.com</span>
+            </div>
+          </div>
+          <span class="app-card__status app-card__status--live">يعمل</span>
+          <div class="app-card__badges">
+            <span class="access-badge access-badge--staff"><i class="fa-solid fa-user-lock"></i> للموظفين فقط</span>
+          </div>
+          <p class="app-card__desc">
+            تطبيق المفتش في الموقع، مع وجود الإنترنت أو بدونه. تُفحص الغلايات وأوعية الضغط
+            وصمامات الأمان ومعدات الرفع وفق ASME وAPI وNBIC وLOLER، وتصدر من السجل نفسه
+            التقارير اليومية والملاحظات ومسوحات السماكة والشهادات. يُثبّت على أندرويد وآيفون.
+          </p>
+          <ul class="app-card__list">
+            <li><i class="fa-solid fa-check"></i> يعمل دون اتصال ويزامن عند عودة الشبكة</li>
+            <li><i class="fa-solid fa-check"></i> قوائم تحقق وصور ومسوحات سماكة بالموجات فوق الصوتية مع معدل التآكل والعمر المتبقي</li>
+            <li><i class="fa-solid fa-check"></i> تقارير يومية وتقارير نهائية بصيغة Word وPDF</li>
+            <li><i class="fa-solid fa-check"></i> متابعة الملاحظات حتى الإغلاق والتحقق</li>
+            <li><i class="fa-solid fa-check"></i> شهادات مرقّمة برمز QR للتحقق</li>
+            <li><i class="fa-solid fa-check"></i> واجهة بالعربية والإنجليزية</li>
+          </ul>
+          <div class="app-card__foot">
+            <a href="https://inspection.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
+              دخول الموظفين <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <span class="app-card__note">للموظفين الجدد: اضغط «طلب وصول» في شاشة الدخول</span>
+          </div>
+        </div>
+
         <!-- سجلّ الفحص -->
-        <div class="app-card fade-up" id="inspection">
+        <div class="app-card app-card--planned fade-up" id="inspection">
           <div class="app-card__head">
             <div class="app-card__icon app-card__icon--teal"><i class="fa-solid fa-file-shield"></i></div>
             <div class="app-card__heading">
@@ -217,7 +251,7 @@
               <span class="app-card__url">platform.environmsafe.com</span>
             </div>
           </div>
-          <span class="app-card__status app-card__status--live">يعمل</span>
+          <span class="app-card__status app-card__status--planned">حلّ محله تطبيق سجلات EnvironmSafe</span>
           <div class="app-card__badges">
             <span class="access-badge access-badge--staff"><i class="fa-solid fa-user-lock"></i> للموظفين فقط</span>
           </div>
@@ -238,7 +272,8 @@
             <a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
               الدخول إلى سجلّ الفحص <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
-            <span class="app-card__note">الحسابات بدعوة عبر البريد الإلكتروني فقط</span>
+            <a href="#records" class="service-card__cta">للفحوصات الجديدة: استخدم سجلات EnvironmSafe <i class="fa-solid fa-arrow-left"></i></a>
+            <span class="app-card__note">يبقى متاحاً للسجلات السابقة فقط</span>
           </div>
         </div>
 
@@ -300,6 +335,7 @@
             <a href="https://platform.environmsafe.com" target="_blank" rel="noopener" class="btn btn--primary">
               التحقق من شهادة <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
+            <a href="https://inspection.environmsafe.com/verify" target="_blank" rel="noopener" class="service-card__cta">الشهادات التي يحمل رمز QR فيها العنوان inspection.environmsafe.com <i class="fa-solid fa-arrow-left"></i></a>
           </div>
         </div>
 
