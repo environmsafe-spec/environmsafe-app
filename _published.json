@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-30",
+    "slug": "the-fire-door-propped-open-with-a-bucket",
+    "icon": "fa-door-closed",
+    "color": "orange",
+    "en": {
+      "title": "The Fire Door Propped Open With a Bucket",
+      "home_summary": "A fire door only works closed, and compartmentation is carried almost entirely by doors. The wedge holding one open is a symptom of a building working against its occupants, not a discipline problem."
+    },
+    "ar": {
+      "title": "باب الحريق الموضوع عليه دلو ليبقى مفتوحاً",
+      "home_summary": "باب الحريق لا يعمل إلا مغلقاً، والتقسيم الحريقي تحمله الأبواب كلها تقريباً. والدلو الذي يُبقي أحدها مفتوحاً عَرَض لمبنى يعمل ضد شاغليه، لا مشكلة انضباط."
+    }
+  },
+  {
     "iso": "2026-10-29",
     "slug": "generator-exhaust-finds-the-open-window",
     "icon": "fa-smog",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "وميض القوس الكهربائي: الخطر الذي لا تقيّمه معظم المنشآت",
       "home_summary": "تنقسم الحوادث الكهربائية إلى نوعين: الصعق الذي يحترس منه الجميع، ووميض القوس الذي لم تقيّمه معظم المنشآت خارج الصناعات الثقيلة والذي يسبب الإصابات الكارثية. والظروف التي تصنعه عادية تماماً: أداة تسقط، ووصلة مرتخية تسخن بصمت منذ أشهر، وغبار وحرارة يتلفان العزل، وقارض في لوحة توزيع."
-    }
-  },
-  {
-    "iso": "2026-09-06",
-    "slug": "permit-to-work-stops-two-crews-colliding",
-    "icon": "fa-file-signature",
-    "color": "orange",
-    "en": {
-      "title": "A Permit to Work Is What Stops Two Crews Colliding",
-      "home_summary": "Serious incidents on multi-contractor sites rarely involve one obviously reckless act. They involve two reasonable activities that were safe alone and lethal together: hot work near a tank someone else was draining, an excavation over an unmapped service."
-    },
-    "ar": {
-      "title": "تصريح العمل هو ما يمنع تصادم فريقين",
-      "home_summary": "الحوادث الخطيرة في المواقع متعددة المقاولين نادراً ما تتضمن تصرفاً متهوراً واضحاً، بل نشاطين معقولين كانا آمنين منفصلين وقاتلين مجتمعين: عمل ساخن قرب خزان يفرغه آخر، وحفر فوق خدمة غير مرسومة. لم يكن أحد مهملاً، ولم يكن أحد يتحدث إلى الآخر، ونظام التصاريح موجود ليجعل ذلك الحديث إلزامياً."
     }
   }
 ]
