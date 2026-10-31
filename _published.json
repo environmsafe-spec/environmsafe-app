@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-10-31",
+    "slug": "a-respirator-nobody-fit-tested",
+    "icon": "fa-head-side-mask",
+    "color": "blue",
+    "en": {
+      "title": "A Respirator Nobody Fit Tested Is Decoration",
+      "home_summary": "A leaking respirator feels exactly like one that seals, so its failure is invisible to the wearer. Fit is individual and measured on a named person — a CE mark on the box records nothing about whether anyone is protected."
+    },
+    "ar": {
+      "title": "كمامة لم يختبر أحد إحكامها زينة",
+      "home_summary": "الكمامة المتسربة تُحَس تماماً كالمحكمة، فيكون فشلها غير مرئي لمرتديها. والإحكام فردي يُقاس على شخص مسمّى، وعلامة المطابقة على العلبة لا تسجل شيئاً عن حماية أحد."
+    }
+  },
+  {
     "iso": "2026-10-30",
     "slug": "the-fire-door-propped-open-with-a-bucket",
     "icon": "fa-door-closed",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "فحص الغلايات: ما الذي يُفحص فعلياً",
       "home_summary": "معظم الغلايات في الخدمة تحمل شهادة، وعدد أقل بكثير يحمل بياناً صادقاً عمّا فُحص لنيلها. المشكلة المعتادة ليست غياب الشهادة بل نطاقها الأضيق مما يعتقده المشغل، والأعطال الأهم هي التي لا تعطي أي إنذار: قشور تعزل أنبوباً، أو قاطع انخفاض ماء لم يُختبر وظيفياً قط."
-    }
-  },
-  {
-    "iso": "2026-09-07",
-    "slug": "arc-flash-the-electrical-hazard-nobody-assesses",
-    "icon": "fa-bolt",
-    "color": "amber",
-    "en": {
-      "title": "Arc Flash: The Electrical Hazard Most Facilities Never Assess",
-      "home_summary": "Electrical incidents split into two kinds. Shock, which everyone guards against, and arc flash, which most facilities outside heavy industry have never assessed and which causes the catastrophic injuries."
-    },
-    "ar": {
-      "title": "وميض القوس الكهربائي: الخطر الذي لا تقيّمه معظم المنشآت",
-      "home_summary": "تنقسم الحوادث الكهربائية إلى نوعين: الصعق الذي يحترس منه الجميع، ووميض القوس الذي لم تقيّمه معظم المنشآت خارج الصناعات الثقيلة والذي يسبب الإصابات الكارثية. والظروف التي تصنعه عادية تماماً: أداة تسقط، ووصلة مرتخية تسخن بصمت منذ أشهر، وغبار وحرارة يتلفان العزل، وقارض في لوحة توزيع."
     }
   }
 ]
