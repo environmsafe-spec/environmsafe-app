@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-01",
+    "slug": "nothing-changed-except-everything",
+    "icon": "fa-arrows-rotate",
+    "color": "green",
+    "en": {
+      "title": "Nothing Changed, Except Everything",
+      "home_summary": "Most incidents follow a change nobody assessed — a substituted part, a new supplier, a temporary bypass that stayed. Management of change fails when it is heavy, and the expiry date is the part most often left out."
+    },
+    "ar": {
+      "title": "لم يتغير شيء، سوى كل شيء",
+      "home_summary": "معظم الحوادث تتبع تغييراً لم يقيّمه أحد: قطعة مستبدلة أو مورّد جديد أو تجاوز مؤقت بقي. وتفشل إدارة التغيير حين تثقل، وتاريخ الانتهاء أكثر أجزائها إغفالاً."
+    }
+  },
+  {
     "iso": "2026-10-31",
     "slug": "a-respirator-nobody-fit-tested",
     "icon": "fa-head-side-mask",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "تمرين الإخلاء ليس بروفة حقيقية",
       "home_summary": "التمرين المعتاد مُعلن ويجري صباحاً في طقس جيد مع وردية كاملة ودون زوار، ويخرج الجميع من الباب نفسه. هو يثبت أن الناس يستطيعون الخروج فقط."
-    }
-  },
-  {
-    "iso": "2026-09-08",
-    "slug": "boiler-inspection-what-is-actually-checked",
-    "icon": "fa-temperature-high",
-    "color": "green",
-    "en": {
-      "title": "Boiler Inspection: What Is Actually Being Checked",
-      "home_summary": "Most boilers in service carry a certificate. Far fewer carry an honest account of what was examined to earn it."
-    },
-    "ar": {
-      "title": "فحص الغلايات: ما الذي يُفحص فعلياً",
-      "home_summary": "معظم الغلايات في الخدمة تحمل شهادة، وعدد أقل بكثير يحمل بياناً صادقاً عمّا فُحص لنيلها. المشكلة المعتادة ليست غياب الشهادة بل نطاقها الأضيق مما يعتقده المشغل، والأعطال الأهم هي التي لا تعطي أي إنذار: قشور تعزل أنبوباً، أو قاطع انخفاض ماء لم يُختبر وظيفياً قط."
     }
   }
 ]
