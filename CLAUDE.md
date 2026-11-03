@@ -17,8 +17,9 @@ the site says so. It has happened twice.
 ls -1 _queue/*.json | wc -l          # 0 means the pipeline is dead
 ```
 
-As of 3 November 2026 the queue is empty and runs #42 and #43 have failed.
-Refilling it is described under *Daily posts* below.
+It ran empty on 1 November 2026 (runs #42 and #43 failed; 2 November has no
+post). Refilled on 3 November: 15 posts, `0024`–`0038`, carrying it to
+**18 November 2026**. Refill again before then, as described under *Daily posts*.
 
 ---
 
@@ -249,7 +250,7 @@ that card's wording until they are live.
 
 ## Open items
 
-- **Refill `_queue/`** — empty, workflow failing daily since 2 November.
+- **Refill `_queue/` before 18 November** — the last queued post (`0038`) publishes that day.
 - **`UCSPI` and `United Sponge Company`** on the partners section are probably
   one company, and the real name may be *National* Company for Sponge & Plastic
   Industry rather than *United*. Needs the client's confirmation.
