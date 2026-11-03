@@ -1581,30 +1581,28 @@ input, textarea, select {
   .partner-card img { max-height: 52px; max-width: 110px; }
 }
 
-.partners__more { margin-top: 36px; text-align: center; }
-.partners__more-title { font-size: 1.05rem; margin: 0 0 6px; color: var(--clr-text); }
-.partners__more-sub { font-size: .95rem; color: var(--clr-text-md); margin: 0 0 18px; }
-.partners__names {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
+.partner-card--name {
+  flex-direction: column;
   gap: 10px;
-  justify-content: center;
+  text-align: center;
 }
-.partners__names li {
-  padding: 8px 16px;
-  border: 1.5px solid var(--clr-border);
-  border-radius: 999px;
-  background: var(--clr-white);
-  color: var(--clr-text);
+.partner-card__mark {
+  width: 30px;
+  height: 30px;
+  color: var(--clr-primary);
+  opacity: .5;
+  transition: opacity var(--transition);
+}
+.partner-card--name:hover .partner-card__mark { opacity: 1; }
+.partner-card--name span {
   font-size: .95rem;
-  line-height: 1.3;
+  font-weight: 600;
+  color: var(--clr-text);
+  line-height: 1.25;
 }
-@media (max-width: 640px) {
-  .partners__names { gap: 8px; }
-  .partners__names li { padding: 7px 13px; font-size: .88rem; }
+@media (max-width: 600px) {
+  .partner-card__mark { width: 26px; height: 26px; }
+  .partner-card--name span { font-size: .85rem; }
 }
 
 /* ====================================================
