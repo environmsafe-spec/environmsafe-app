@@ -1581,6 +1581,32 @@ input, textarea, select {
   .partner-card img { max-height: 52px; max-width: 110px; }
 }
 
+.partners__more { margin-top: 36px; text-align: center; }
+.partners__more-title { font-size: 1.05rem; margin: 0 0 6px; color: var(--clr-text); }
+.partners__more-sub { font-size: .95rem; color: var(--clr-text-md); margin: 0 0 18px; }
+.partners__names {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.partners__names li {
+  padding: 8px 16px;
+  border: 1.5px solid var(--clr-border);
+  border-radius: 999px;
+  background: var(--clr-white);
+  color: var(--clr-text);
+  font-size: .95rem;
+  line-height: 1.3;
+}
+@media (max-width: 640px) {
+  .partners__names { gap: 8px; }
+  .partners__names li { padding: 7px 13px; font-size: .88rem; }
+}
+
 /* ====================================================
    Certifications Trust Bar
    ==================================================== */
