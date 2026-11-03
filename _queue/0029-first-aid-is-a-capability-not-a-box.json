@@ -1,0 +1,29 @@
+{
+  "slug": "first-aid-is-a-capability-not-a-box",
+  "icon": "fa-kit-medical",
+  "color": "teal",
+  "en": {
+    "title": "First Aid Is a Capability, Not a Box on the Wall",
+    "meta_desc": "A first aid box satisfies an inspector. Whether anyone trained is on shift, can be found in four minutes and knows the way out is a different question entirely.",
+    "category": "Training & Competence",
+    "body": "<p>Most sites can show you a first aid box. Fewer can answer the question that matters: if somebody collapses in the plant room at two in the morning, who comes, how long do they take, and what do they do when they get there?</p><h2>What a box does not tell you</h2><ul><li><strong>Coverage across shifts.</strong> Trained staff cluster on days. Nights and weekends are when supervision is thinnest and the response is slowest.</li><li><strong>Whether the training is current.</strong> Certificates expire, and the skills fade faster than the certificate does.</li><li><strong>Whether anyone can be found.</strong> A name on a notice board is not a response if nobody knows which radio channel or extension reaches them.</li><li><strong>Whether the contents match the hazards.</strong> A standard box is the wrong kit for chemical burns, eye injuries or an LPG flash burn, and the right kit is useless if it is locked in an office.</li><li><strong>Whether anyone has checked it.</strong> Boxes are raided for plasters and never restocked.</li></ul><h2>Getting the casualty out</h2><p>The part most often missing is everything after the first few minutes. Who calls, and on what number. Where the ambulance comes in, and who opens the gate. Who meets it. How a stretcher gets down from a plant room or out of a confined space - which is a rescue problem, not a first aid one, and needs equipment and practice.</p><p>In a facility far from a hospital, that journey is most of the outcome, and it is the part nobody rehearses.</p><h2>The question to ask this week</h2><p>Pick your worst shift - the smallest crew, the quietest hour - and walk it through out loud. Name the person who responds. Name who calls. Name who opens the gate. If any of those names is missing, you have a first aid box rather than a first aid capability, and the difference only shows on the day.</p>",
+    "cta_heading": "Would Your Night Shift Know What to Do?",
+    "cta_text": "Our accredited trainers deliver NEBOSH and IOSH programmes in Arabic and English, on your site, built around the hazards your crews actually work with.",
+    "cta_label": "Explore Training",
+    "cta_href": "../services/training.html",
+    "teaser": "Most sites can show you a first aid box. Fewer can say who comes if somebody collapses in the plant room at two in the morning, how long they take, and who opens the gate for the ambulance. The box satisfies an inspector; the rest decides the outcome.",
+    "home_summary": "A first aid box satisfies an inspector. Who responds on the night shift, how they are found, and how a casualty actually gets out of a plant room is a different question, and it is rarely rehearsed."
+  },
+  "ar": {
+    "title": "الإسعاف الأولي قدرة لا صندوق على الجدار",
+    "meta_desc": "صندوق الإسعاف يُرضي المفتش. أما وجود مدرَّب في المناوبة، وإمكان الوصول إليه في أربع دقائق، ومعرفته بالطريق، فسؤال آخر تماماً.",
+    "category": "التدريب والكفاءة",
+    "body": "<p>معظم المواقع تستطيع أن تريكم صندوق إسعاف. وأقلها يستطيع الإجابة عن السؤال الذي يهم: إن سقط أحدهم في غرفة المعدات الساعة الثانية فجراً، فمن يأتي، وكم يستغرق، وماذا يفعل حين يصل؟</p><h2>ما لا يخبركم به الصندوق</h2><ul><li><strong>التغطية عبر المناوبات.</strong> يتجمع المدرَّبون في النهار. والليالي والعطل هي حيث يكون الإشراف أرق والاستجابة أبطأ.</li><li><strong>هل التدريب ساري المفعول.</strong> الشهادات تنتهي، والمهارات تخبو أسرع من الشهادة.</li><li><strong>هل يمكن العثور على أحد.</strong> اسم على لوحة إعلانات ليس استجابة إن لم يعرف أحد أي قناة لاسلكي أو تحويلة تصل إليه.</li><li><strong>هل تناسب المحتويات المخاطر.</strong> الصندوق القياسي عدة خاطئة لحروق كيميائية أو إصابات عين أو حرق وميضي من غاز، والعدة الصحيحة بلا فائدة إن كانت مقفلة في مكتب.</li><li><strong>هل فحصها أحد.</strong> تُستنزف الصناديق من اللاصقات ولا يعاد تعبئتها.</li></ul><h2>إخراج المصاب</h2><p>الجزء الأكثر غياباً هو كل ما بعد الدقائق الأولى. من يتصل وعلى أي رقم. ومن أين تدخل سيارة الإسعاف ومن يفتح البوابة. ومن يستقبلها. وكيف تنزل نقالة من غرفة معدات أو تخرج من حيز ضيق، وهذه مسألة إنقاذ لا إسعاف، وتحتاج معدات وتمريناً.</p><p>وفي منشأة بعيدة عن مستشفى تكون تلك الرحلة معظم النتيجة، وهي الجزء الذي لا يتمرن عليه أحد.</p><h2>السؤال الذي يُطرح هذا الأسبوع</h2><p>اختاروا أسوأ مناوبة لديكم، أصغر طاقم وأهدأ ساعة، وامشوا بها بصوت عالٍ. سمّوا من يستجيب. وسمّوا من يتصل. وسمّوا من يفتح البوابة. فإن غاب أي من تلك الأسماء، فلديكم صندوق إسعاف لا قدرة إسعاف، والفرق لا يظهر إلا يوم الحاجة.</p>",
+    "cta_heading": "هل تعرف مناوبتكم الليلية ما الذي تفعله؟",
+    "cta_text": "يقدم مدربونا المعتمدون برامج نيبوش وأيوش بالعربية والإنجليزية، في موقعكم، مبنية على المخاطر التي تعمل بها فرقكم فعلاً.",
+    "cta_label": "خدمات التدريب",
+    "cta_href": "../services/training.html",
+    "teaser": "معظم المواقع تريكم صندوق إسعاف. وأقلها يستطيع أن يقول من يأتي إن سقط أحدهم في غرفة المعدات الساعة الثانية فجراً، وكم يستغرق، ومن يفتح البوابة لسيارة الإسعاف. الصندوق يرضي المفتش، والباقي يقرر النتيجة.",
+    "home_summary": "صندوق الإسعاف يرضي المفتش. أما من يستجيب في المناوبة الليلية، وكيف يُعثر عليه، وكيف يخرج المصاب فعلاً من غرفة معدات، فسؤال آخر نادراً ما يُتمرن عليه."
+  }
+}

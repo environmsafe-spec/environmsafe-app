@@ -1,0 +1,29 @@
+{
+  "slug": "the-exit-that-is-blocked-on-the-day",
+  "icon": "fa-door-open",
+  "color": "orange",
+  "en": {
+    "title": "The Exit That Is Blocked on the Day It Matters",
+    "meta_desc": "Escape routes are designed once and eroded daily. Stock against a corridor wall, a chained fire exit and a sign pointing at a locked door undo the whole design.",
+    "category": "Fire Protection",
+    "body": "<p>Means of escape is the one safety system that must work while people are frightened, the lights may be out and the air is filling with smoke. It is also the system most easily degraded, because every step that degrades it is reasonable on the day it happens.</p><h2>How a good design becomes a bad one</h2><ul><li><strong>Storage in the route.</strong> Stock against a corridor wall, a pallet in a stairwell, a trolley parked at the top of stairs. Each narrows the route or becomes an obstacle in the dark.</li><li><strong>A chained or padlocked final exit.</strong> Almost always done for security, and it converts an exit into a trap. Security and escape are both solvable with hardware that releases from inside.</li><li><strong>Signs pointing at doors that are now locked</strong>, or at a route that was changed when the building was altered.</li><li><strong>Emergency lighting that nobody has tested.</strong> It only has to work on the one day the mains fails, and a dead battery is invisible until then.</li><li><strong>Doors that open the wrong way</strong> for the number of people using them, or that need a key, a code or two hands.</li></ul><h2>The arithmetic nobody redoes</h2><p>Escape routes are sized for an occupancy. Facilities change use: an office becomes a training room, a store becomes a workshop, a shift grows. The route that was adequate for twelve people is still the route when sixty are in the building, and nobody recalculated because nothing visibly changed.</p><h2>The walk that finds it</h2><p>Start at the furthest point from an exit and walk out the way a stranger would, following only the signs. Do it after hours, when the stock arrives and the corridor is used as a staging area. Then do it in the dark, with the lights switched off, and see whether the emergency lighting actually takes you to a door that opens.</p><p>Everything found that way is cheap to fix. Everything missed is found during an evacuation.</p>",
+    "cta_heading": "When Did Someone Last Walk Your Escape Routes After Hours?",
+    "cta_text": "We assess fire protection as an installed system - escape routes, compartmentation, detection, emergency lighting and suppression - and report what to fix first.",
+    "cta_label": "Explore Evaluation Services",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "Means of escape must work while people are frightened and the lights are out, and it is the system most easily degraded - because every step that degrades it is reasonable on the day it happens. Stock in a corridor, a chained exit, a sign pointing at a locked door.",
+    "home_summary": "Escape routes are designed once and eroded daily by reasonable decisions: stock in a corridor, an exit chained for security, a sign pointing at a door that was locked years ago."
+  },
+  "ar": {
+    "title": "المخرج المسدود في اليوم الذي يهم",
+    "meta_desc": "تُصمَّم مسارات الهروب مرة وتتآكل يومياً. بضاعة على جدار ممر، ومخرج حريق مقيد بسلسلة، ولوحة تشير إلى باب مقفل، تُبطل التصميم كله.",
+    "category": "الحماية من الحرائق",
+    "body": "<p>وسائل الهروب هي نظام السلامة الوحيد الذي يجب أن يعمل والناس خائفون وربما الإنارة مطفأة والهواء يمتلئ دخاناً. وهو أيضاً أسهل الأنظمة تدهوراً، لأن كل خطوة تُدهوره تبدو معقولة يوم حدوثها.</p><h2>كيف يصير التصميم الجيد سيئاً</h2><ul><li><strong>التخزين في المسار.</strong> بضاعة على جدار ممر، ومنصة في بيت درج، وعربة متوقفة أعلى السلم. كل منها يضيّق المسار أو يصير عائقاً في الظلام.</li><li><strong>مخرج نهائي مقيد بسلسلة أو قفل.</strong> يُفعل للأمن دائماً تقريباً، فيحوّل المخرج إلى مصيدة. والأمن والهروب كلاهما قابل للحل بملحقات تُفتح من الداخل.</li><li><strong>لوحات تشير إلى أبواب صارت مقفلة</strong>، أو إلى مسار تغيّر حين عُدّل المبنى.</li><li><strong>إنارة طوارئ لم يختبرها أحد.</strong> عليها أن تعمل في اليوم الوحيد الذي تنقطع فيه الكهرباء، والبطارية الميتة غير مرئية حتى ذلك الحين.</li><li><strong>أبواب تُفتح في الاتجاه الخطأ</strong> لعدد مستخدميها، أو تحتاج مفتاحاً أو رمزاً أو يدين.</li></ul><h2>الحساب الذي لا يعيده أحد</h2><p>تُحسب مسارات الهروب لعدد إشغال معين. والمنشآت تغيّر استخدامها: مكتب يصير قاعة تدريب، ومخزن يصير ورشة، ومناوبة تكبر. والمسار الذي كفى اثني عشر شخصاً ما زال هو المسار حين يكون في المبنى ستون، ولم يُعد أحد الحساب لأن لا شيء تغيّر بوضوح.</p><h2>الجولة التي تكتشف ذلك</h2><p>ابدأوا من أبعد نقطة عن مخرج واخرجوا كما يخرج غريب، متتبعين اللوحات وحدها. افعلوها بعد الدوام حين تصل البضاعة ويُستخدم الممر منطقة تجهيز. ثم افعلوها في الظلام والإنارة مطفأة، وانظروا هل تأخذكم إنارة الطوارئ فعلاً إلى باب يُفتح.</p><p>كل ما يُكتشف بهذه الطريقة رخيص الإصلاح. وكل ما يفوت يُكتشف أثناء إخلاء حقيقي.</p>",
+    "cta_heading": "متى مشى أحد مسارات الهروب لديكم بعد الدوام؟",
+    "cta_text": "نقيّم الحماية من الحرائق كمنظومة مركّبة: مسارات الهروب والتقسيم الحريقي والكشف وإنارة الطوارئ والإطفاء، ونبيّن ما يجب إصلاحه أولاً.",
+    "cta_label": "خدمات التقييم",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "يجب أن تعمل وسائل الهروب والناس خائفون والإنارة مطفأة، وهي أسهل الأنظمة تدهوراً لأن كل خطوة تُدهورها تبدو معقولة يوم حدوثها: بضاعة في ممر، ومخرج مقيد بسلسلة، ولوحة تشير إلى باب مقفل.",
+    "home_summary": "تُصمَّم مسارات الهروب مرة وتتآكل يومياً بقرارات معقولة: بضاعة في ممر، ومخرج قُيّد للأمن، ولوحة تشير إلى باب أُقفل منذ سنوات."
+  }
+}

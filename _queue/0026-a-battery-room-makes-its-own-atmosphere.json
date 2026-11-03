@@ -1,0 +1,29 @@
+{
+  "slug": "a-battery-room-makes-its-own-atmosphere",
+  "icon": "fa-car-battery",
+  "color": "navy",
+  "en": {
+    "title": "A Battery Room Makes Its Own Explosive Atmosphere",
+    "meta_desc": "Lead-acid batteries on charge give off hydrogen. In an unventilated battery room it collects at the ceiling, and an ordinary light switch is enough.",
+    "category": "Safety Evaluation",
+    "body": "<p>The room holding the UPS or generator starting batteries is usually small, often windowless, and frequently used to store things. It is also the only room in the building that manufactures a flammable gas as part of normal operation.</p><h2>Hydrogen behaves unhelpfully</h2><p>Lead-acid batteries release hydrogen while charging, and more of it during equalisation or when a charger is faulty. Hydrogen is far lighter than air, so it rises and collects at the ceiling - exactly where nobody looks and where the light fitting is. It has no smell at all, and its flammable range is unusually wide, so it needs very little to ignite once it has gathered.</p><h2>What the room needs</h2><ul><li><strong>Ventilation at high level</strong>, sized for the charging load, and actually open. A battery room with a blocked high-level vent is the common finding.</li><li><strong>No ignition sources at ceiling height</strong>: switches, relays and unsuitable light fittings belong outside the room or need the right rating.</li><li><strong>Nothing stored in it.</strong> Battery rooms attract boxes, cleaning chemicals and spare parts, which block ventilation and add fuel.</li><li><strong>Spill provision</strong> for the electrolyte, which is acid, plus eyewash within reach and signage people can act on.</li><li><strong>Charger condition</strong>, because overcharging is what turns a normal trickle of gas into a serious one.</li></ul><h2>The pattern worth recognising</h2><p>Battery rooms are rarely designed badly at the start. They degrade: a vent gets blocked by a stored pallet, a failed extract fan is never reported because nothing obviously stops working, a charger develops a fault that shows only as batteries needing topping up more often than they used to.</p><p>That last one is the useful signal. If a battery bank is consuming noticeably more water than it did, something is overcharging it, and the room is making more hydrogen than its ventilation was sized for.</p>",
+    "cta_heading": "Has Your Battery Room Been Assessed as a Hazardous Area?",
+    "cta_text": "We evaluate facilities against the applicable international standards and report findings ranked by severity, each mapped to a corrective action.",
+    "cta_label": "Explore Evaluation Services",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "The UPS or generator battery room is small, often windowless, and usually used for storage. It is also the only room in the building that manufactures a flammable gas in normal operation - one that is odourless, rises to the ceiling, and ignites easily.",
+    "home_summary": "Lead-acid batteries on charge give off hydrogen, which is odourless and collects at the ceiling where the light fitting is. Battery rooms rarely start badly; they degrade as vents get blocked and chargers develop faults."
+  },
+  "ar": {
+    "title": "غرفة البطاريات تصنع جوّاً قابلاً للانفجار بنفسها",
+    "meta_desc": "بطاريات الرصاص الحمضية أثناء الشحن تطلق الهيدروجين. وفي غرفة بطاريات غير مهواة يتجمع عند السقف، ومفتاح إنارة عادي يكفي.",
+    "category": "تقييم السلامة",
+    "body": "<p>الغرفة التي تضم بطاريات نظام الطاقة غير المنقطعة أو بطاريات بدء المولد صغيرة عادة، وبلا نوافذ غالباً، وتُستخدم كثيراً للتخزين. وهي أيضاً الغرفة الوحيدة في المبنى التي تصنع غازاً قابلاً للاشتعال كجزء من تشغيلها الطبيعي.</p><h2>الهيدروجين يتصرف على نحو غير مُعين</h2><p>تطلق بطاريات الرصاص الحمضية الهيدروجين أثناء الشحن، وأكثر منه أثناء شحن المعادلة أو حين يكون الشاحن معطلاً. والهيدروجين أخف من الهواء بكثير فيرتفع ويتجمع عند السقف، في الموضع الذي لا ينظر إليه أحد وحيث وحدة الإنارة. ولا رائحة له إطلاقاً، ومداه القابل للاشتعال واسع على نحو غير معتاد، فيحتاج قليلاً جداً ليشتعل بعد أن يتجمع.</p><h2>ما تحتاجه الغرفة</h2><ul><li><strong>تهوية عند المستوى العلوي</strong> محسوبة لحمل الشحن، ومفتوحة فعلاً. وغرفة بطاريات بفتحة علوية مسدودة هي الملاحظة الشائعة.</li><li><strong>لا مصادر إشعال عند ارتفاع السقف</strong>: المفاتيح والمرحّلات ووحدات الإنارة غير المناسبة مكانها خارج الغرفة أو تحتاج التصنيف الصحيح.</li><li><strong>لا شيء مخزّن فيها.</strong> تجتذب غرف البطاريات الصناديق ومواد التنظيف وقطع الغيار، فتسد التهوية وتضيف وقوداً.</li><li><strong>ترتيب للانسكاب</strong> للإلكتروليت وهو حمض، مع غسول عيون في المتناول ولوحات يستطيع الناس التصرف بها.</li><li><strong>حالة الشاحن</strong>، فالشحن الزائد هو ما يحوّل تدفق الغاز الطبيعي إلى تدفق خطير.</li></ul><h2>النمط الذي يستحق التعرف عليه</h2><p>نادراً ما تُصمَّم غرف البطاريات تصميماً سيئاً من البداية، بل تتدهور: تُسد فتحة بمنصة مخزّنة، ولا يُبلَّغ عن مروحة شفط معطلة لأن لا شيء يتوقف عن العمل بوضوح، ويظهر في الشاحن عطل لا يبدو إلا كبطاريات تحتاج إضافة ماء أكثر مما اعتادت.</p><p>وتلك الأخيرة هي الإشارة المفيدة. فإن صارت مجموعة بطاريات تستهلك ماءً أكثر بوضوح مما كانت، فشيء ما يشحنها زائداً، والغرفة تنتج هيدروجيناً أكثر مما حُسبت له تهويتها.</p>",
+    "cta_heading": "هل قُيّمت غرفة البطاريات لديكم كمنطقة خطرة؟",
+    "cta_text": "نقيّم المنشآت وفق المعايير الدولية المعمول بها، ونصنّف الملاحظات حسب الخطورة مع إجراء تصحيحي لكل منها.",
+    "cta_label": "خدمات التقييم",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "غرفة بطاريات الطوارئ أو المولد صغيرة وبلا نوافذ غالباً وتُستخدم للتخزين. وهي أيضاً الغرفة الوحيدة التي تصنع غازاً قابلاً للاشتعال في تشغيلها الطبيعي: غاز بلا رائحة يرتفع إلى السقف ويشتعل بسهولة.",
+    "home_summary": "بطاريات الرصاص الحمضية أثناء الشحن تطلق هيدروجيناً بلا رائحة يتجمع عند السقف حيث وحدة الإنارة. ونادراً ما تبدأ غرف البطاريات سيئة، بل تتدهور مع سد الفتحات وأعطال الشواحن."
+  }
+}

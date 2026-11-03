@@ -1,0 +1,29 @@
+{
+  "slug": "the-air-receiver-nobody-tests",
+  "icon": "fa-wind",
+  "color": "blue",
+  "en": {
+    "title": "The Air Receiver Is a Pressure Vessel Nobody Treats Like One",
+    "meta_desc": "Compressed air receivers hold enough stored energy to destroy a plant room, yet are inspected far less often than boilers because nothing about them looks dangerous.",
+    "category": "Inspection & Monitoring",
+    "body": "<p>Boilers get respect. They are obviously hot, obviously under pressure, and the inspection regime around them reflects it. The air receiver standing next to the compressor is treated as part of the furniture, and it is a pressure vessel holding a large amount of stored energy behind a wall that corrodes from the inside.</p><h2>Why the inside is the problem</h2><p>Compressing air condenses the water that was in it. That water collects in the bottom of the receiver, and unless it is drained it sits against the steel continuously. Corrosion works from the inside out, so the vessel looks sound from the outside for the entire time it is thinning. An external visual tells you very little.</p><p>Automatic drain traps fail closed more often than anyone notices, because a trap that has stopped draining makes no noise and shows no warning.</p><h2>What inspection should establish</h2><ul><li><strong>Wall thickness</strong>, measured, against the original specification rather than against last year's guess.</li><li><strong>Internal condition</strong> where access allows, particularly the bottom third.</li><li><strong>The safety valve</strong>: set pressure verified on a test bench, not visually inspected in place. A relief valve that has never been lifted is an assumption.</li><li><strong>The drain</strong>: proven to actually discharge, and the automatic trap proven to cycle.</li><li><strong>The pressure gauge and switch</strong>, since a stuck gauge hides a rising system pressure.</li></ul><h2>What stored energy means</h2><p>A pressure vessel failing is not a leak. The energy stored in compressed air is released instantly and takes the vessel wall with it. That is why the standards treat receivers as examinable items with intervals, and why an uninspected receiver is one of the few things on a site that can kill somebody who is simply walking past.</p><p>The documentation matters as much as the condition. An insurer asking what you knew and when will want the examination record, and it cannot be produced afterwards.</p>",
+    "cta_heading": "Is Your Air Receiver on an Inspection Schedule?",
+    "cta_text": "We inspect pressure equipment against the applicable standards, verify safety valves on a certified test bench, and issue the traceable certificates insurers and auditors ask for.",
+    "cta_label": "Explore Inspection Services",
+    "cta_href": "../services/inspection-monitoring.html",
+    "teaser": "Boilers get respect because they obviously look dangerous. The air receiver beside the compressor does not, and it is a pressure vessel corroding from the inside where the condensed water sits. It looks sound from outside for the whole time it is thinning.",
+    "home_summary": "An air receiver is a pressure vessel holding serious stored energy, corroding from the inside where condensed water collects. It looks sound externally for the entire time its wall is thinning."
+  },
+  "ar": {
+    "title": "خزان الهواء وعاء ضغط لا يعامله أحد كذلك",
+    "meta_desc": "تحمل خزانات الهواء المضغوط طاقة مخزنة تكفي لتدمير غرفة معدات، ومع ذلك تُفحص أقل بكثير من المراجل لأن لا شيء فيها يبدو خطراً.",
+    "category": "التفتيش والمراقبة",
+    "body": "<p>تنال المراجل احتراماً. فهي ساخنة بوضوح وتحت ضغط بوضوح، ونظام التفتيش حولها يعكس ذلك. أما خزان الهواء الواقف بجوار الضاغط فيُعامَل كجزء من الأثاث، وهو وعاء ضغط يحمل قدراً كبيراً من الطاقة المخزنة خلف جدار يتآكل من الداخل.</p><h2>لماذا الداخل هو المشكلة</h2><p>ضغط الهواء يكثّف ما فيه من ماء. ويتجمع ذلك الماء في قاع الخزان، وما لم يُصرَّف يبقى ملامساً للفولاذ باستمرار. والتآكل يعمل من الداخل إلى الخارج، فيبدو الوعاء سليماً من الخارج طوال المدة التي يرق فيها جداره. والفحص البصري الخارجي لا يقول إلا القليل.</p><p>ومصائد التصريف الأوتوماتيكية تفشل مغلقةً أكثر مما يلاحظ أحد، لأن المصيدة التي كفّت عن التصريف لا تصدر صوتاً ولا تعطي إنذاراً.</p><h2>ما الذي ينبغي أن يثبته الفحص</h2><ul><li><strong>سماكة الجدار</strong> مقيسةً مقابل المواصفة الأصلية، لا مقابل تقدير العام الماضي.</li><li><strong>الحالة الداخلية</strong> حيث يسمح الوصول، وخاصة الثلث السفلي.</li><li><strong>صمام الأمان</strong>: ضغط فتحه مُتحقق منه على مقعد اختبار، لا مفحوصاً بصرياً في مكانه. فصمام تنفيس لم يُرفع قط مجرد افتراض.</li><li><strong>التصريف</strong>: مُثبت أنه يصرّف فعلاً، والمصيدة الأوتوماتيكية مُثبت أنها تعمل دورياً.</li><li><strong>مقياس الضغط والمفتاح</strong>، فالمقياس العالق يخفي ارتفاع ضغط المنظومة.</li></ul><h2>ماذا تعني الطاقة المخزنة</h2><p>فشل وعاء الضغط ليس تسرباً. فالطاقة المخزنة في الهواء المضغوط تتحرر في لحظة وتأخذ جدار الوعاء معها. ولهذا تعامل المعايير الخزانات كأصناف قابلة للفحص بفترات محددة، ولهذا يكون الخزان غير المفحوص من قلة ما في الموقع مما قد يقتل شخصاً يمر بجواره فحسب.</p><p>والتوثيق لا يقل أهمية عن الحالة. فشركة التأمين حين تسأل ماذا كنتم تعرفون ومتى ستطلب سجل الفحص، ولا يمكن إنتاجه لاحقاً.</p>",
+    "cta_heading": "هل خزان الهواء لديكم ضمن جدول فحص؟",
+    "cta_text": "نفحص معدات الضغط وفق المعايير المعمول بها، ونتحقق من صمامات الأمان على مقعد اختبار معتمد، ونصدر الشهادات القابلة للتتبع التي يطلبها المؤمّنون والمدققون.",
+    "cta_label": "خدمات التفتيش",
+    "cta_href": "../services/inspection-monitoring.html",
+    "teaser": "تنال المراجل احتراماً لأنها تبدو خطرة بوضوح. أما خزان الهواء بجوار الضاغط فلا، وهو وعاء ضغط يتآكل من الداخل حيث يستقر الماء المتكثف. ويبدو سليماً من الخارج طوال المدة التي يرق فيها جداره.",
+    "home_summary": "خزان الهواء وعاء ضغط يحمل طاقة مخزنة كبيرة، ويتآكل من الداخل حيث يتجمع الماء المتكثف. ويبدو سليماً من الخارج طوال المدة التي يرق فيها جداره."
+  }
+}

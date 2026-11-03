@@ -1,0 +1,29 @@
+{
+  "slug": "the-water-tank-nobody-opens",
+  "icon": "fa-droplet",
+  "color": "teal",
+  "en": {
+    "title": "The Water Tank Nobody Has Opened in Five Years",
+    "meta_desc": "Stored water serves drinking, washing and often the fire system. Tanks go unopened for years, and sediment, sunlight and a missing screen do the rest.",
+    "category": "HSE Management",
+    "body": "<p>Almost every facility stores water. It feeds taps, washrooms, kitchens and in many buildings the fire system as well. The tank is usually on the roof, it was cleaned when the building opened, and nobody has lifted the lid since.</p><h2>What happens in a tank left alone</h2><ul><li><strong>Sediment</strong> builds a layer on the floor that holds everything arriving with the supply, and the draw-off point is usually close to it.</li><li><strong>Light</strong> through a translucent tank or an ill-fitting lid grows algae, which changes taste and odour and feeds everything else.</li><li><strong>A missing or torn insect screen</strong> on the vent or overflow lets in insects, dust and occasionally birds and rodents. The overflow is the most common way in.</li><li><strong>Warmth</strong> on an unshaded roof holds the water in the range where organisms multiply fastest, which in this climate is most of the year.</li><li><strong>Stagnation</strong> in an oversized tank, where water sits for days before it is used at all.</li></ul><h2>Why fire storage is the quiet one</h2><p>A dedicated fire tank is worse, because the water is never drawn. It sits for years by design. Sediment accumulates, and the first time it moves is when the pump starts under emergency demand and pulls everything off the floor straight into the system.</p><h2>What a sensible regime looks like</h2><p>Open and inspect the tank internally on a schedule and record what you find. Clean and disinfect when the condition calls for it, not on a date in a calendar. Confirm every lid seals, every vent and overflow is screened, and the tank is shaded or insulated. Where water quality matters, sample and test rather than judging by eye.</p><p>The whole thing takes an hour, and the cost of not doing it lands as illness among staff or as a fire system that delivers sediment to a sprinkler head at the one moment it matters.</p>",
+    "cta_heading": "When Was Your Water Storage Last Opened and Inspected?",
+    "cta_text": "We assess facilities against the applicable standards - water storage, fire systems, electrical and LPG - and report what to fix first, ranked by severity.",
+    "cta_label": "Explore Evaluation Services",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "Stored water feeds taps, kitchens and often the fire system. The tank was cleaned when the building opened and nobody has lifted the lid since. Sediment, sunlight through an ill-fitting cover, an unscreened overflow and a warm roof do the rest.",
+    "home_summary": "The water tank was cleaned when the building opened, and nobody has opened it since. A dedicated fire tank is worse, because the water is never drawn and the sediment only moves when the pump finally starts."
+  },
+  "ar": {
+    "title": "خزان الماء الذي لم يفتحه أحد منذ خمس سنوات",
+    "meta_desc": "الماء المخزن يخدم الشرب والغسيل وغالباً نظام الحريق. تبقى الخزانات مغلقة سنوات، ويتكفل الرسوب وأشعة الشمس وشبكة مفقودة بالباقي.",
+    "category": "إدارة السلامة والصحة والبيئة",
+    "body": "<p>تكاد كل منشأة تخزن ماءً. يغذي الصنابير ودورات المياه والمطابخ، وفي كثير من المباني نظام الحريق أيضاً. والخزان عادة على السطح، نُظّف يوم افتتاح المبنى، ولم يرفع أحد غطاءه منذ ذلك الحين.</p><h2>ماذا يحدث في خزان يُترك وحده</h2><ul><li><strong>الرسوب</strong> يبني طبقة على القاع تحتجز كل ما يصل مع التغذية، ومأخذ السحب قريب منها عادة.</li><li><strong>الضوء</strong> عبر خزان شبه شفاف أو غطاء غير محكم ينمّي الطحالب، فتتغير الرائحة والمذاق وتتغذى عليها بقية الكائنات.</li><li><strong>شبكة حشرات مفقودة أو ممزقة</strong> على فتحة التنفيس أو الفائض تُدخل الحشرات والغبار وأحياناً الطيور والقوارض. والفائض أشيع المداخل.</li><li><strong>الدفء</strong> على سطح غير مظلل يُبقي الماء في المدى الذي تتكاثر فيه الكائنات أسرع ما يكون، وهو في هذا المناخ معظم العام.</li><li><strong>الركود</strong> في خزان أكبر من الحاجة، حيث يبقى الماء أياماً قبل أن يُستخدم أصلاً.</li></ul><h2>لماذا خزان الحريق هو الصامت</h2><p>خزان الحريق المخصص أسوأ، لأن الماء لا يُسحب منه أبداً. يبقى سنوات بحكم التصميم. يتراكم الرسوب، وأول مرة يتحرك فيها تكون حين تبدأ المضخة تحت طلب الطوارئ فتسحب كل ما على القاع إلى داخل المنظومة.</p><h2>كيف يبدو نظام معقول</h2><p>افتحوا الخزان وافحصوه من الداخل وفق جدول وسجلوا ما وجدتم. نظفوا وعقّموا حين تستدعي الحالة، لا حين يأتي تاريخ في تقويم. وتأكدوا أن كل غطاء محكم، وكل تنفيس وفائض مغطى بشبكة، وأن الخزان مظلل أو معزول. وحيث تهم جودة الماء، خذوا عينات واختبروها بدل الحكم بالعين.</p><p>كل ذلك يستغرق ساعة، وكلفة تركه تظهر مرضاً بين الموظفين، أو نظام حريق يوصل الرسوب إلى رأس رشاش في اللحظة الوحيدة التي يهم فيها.</p>",
+    "cta_heading": "متى فُتح خزان الماء لديكم وفُحص؟",
+    "cta_text": "نقيّم المنشآت وفق المعايير المعمول بها: تخزين المياه وأنظمة الحريق والكهرباء والغاز، ونبيّن ما يجب إصلاحه أولاً مرتباً حسب الخطورة.",
+    "cta_label": "خدمات التقييم",
+    "cta_href": "../services/evaluation.html",
+    "teaser": "الماء المخزن يغذي الصنابير والمطابخ وغالباً نظام الحريق. نُظّف الخزان يوم افتتاح المبنى ولم يرفع أحد غطاءه منذ ذلك. ويتكفل الرسوب والضوء عبر غطاء غير محكم وفائض بلا شبكة وسطح حار بالباقي.",
+    "home_summary": "نُظّف خزان الماء يوم افتتاح المبنى ولم يفتحه أحد منذ ذلك. وخزان الحريق أسوأ، لأن الماء لا يُسحب منه والرسوب لا يتحرك إلا حين تبدأ المضخة أخيراً."
+  }
+}

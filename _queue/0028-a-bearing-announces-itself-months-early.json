@@ -1,0 +1,29 @@
+{
+  "slug": "a-bearing-announces-itself-months-early",
+  "icon": "fa-gauge-high",
+  "color": "green",
+  "en": {
+    "title": "A Bearing Announces Itself Months Before It Fails",
+    "meta_desc": "Rotating equipment rarely fails without warning. Vibration changes long before heat, noise or a breakdown, and that gap is where planned work becomes possible.",
+    "category": "Inspection & Monitoring",
+    "body": "<p>When a pump or a fan fails, the account afterwards is usually that it went without warning. It almost never did. Rotating equipment degrades along a fairly predictable path, and the earliest stages are measurable long before anything is audible or hot.</p><h2>The order things become detectable</h2><p>A developing bearing fault shows up first as a change in high-frequency vibration, weeks or months ahead. Later it becomes audible. Later still it runs hot. By the time a technician on a walk-round can hear or feel it, most of the useful warning has already been spent.</p><p>That order is why a walk-round, however diligent, is a late detector. It is not a criticism of the person walking round; the information simply is not available to a hand and an ear yet.</p><h2>What the warning buys you</h2><p>Not avoided maintenance - the bearing still has to be changed. What it buys is choosing when. A planned change is a scheduled shutdown, the right part in stock, a day shift and an hour of work. The same bearing failing on its own terms is an unplanned outage, a damaged shaft, a courier charge and a night crew.</p><h2>What to measure, and how often</h2><ul><li><strong>Overall vibration</strong> on the critical machines, at the same points each time, trended rather than compared to a single limit.</li><li><strong>Temperature</strong> at bearing housings, which is a second, later signal that confirms the first.</li><li><strong>A baseline</strong> taken when the machine is known good. Without it a reading is a number with nothing to compare against, which is the usual reason monitoring programmes produce nothing.</li><li><strong>Enough frequency</strong> that a trend exists. Two readings a year is not a trend.</li></ul><p>Start with the machines whose failure stops production or safety systems, not with everything that rotates. A short list measured properly beats a long list measured occasionally.</p>",
+    "cta_heading": "Do You Know Which of Your Machines Is Already Failing?",
+    "cta_text": "We provide condition monitoring for rotating and structural assets - vibration, temperature and trend reporting your engineers and insurers can use.",
+    "cta_label": "Explore Monitoring Services",
+    "cta_href": "../services/inspection-monitoring.html",
+    "teaser": "When a pump fails, the account afterwards is that it went without warning. It almost never did. A bearing fault is measurable in vibration weeks or months before it is audible, and hot later still - so a walk-round, however diligent, is a late detector.",
+    "home_summary": "Rotating equipment rarely fails without warning. A bearing fault shows in vibration months before it is audible or hot, and that gap is the difference between a scheduled hour and an unplanned outage."
+  },
+  "ar": {
+    "title": "المحمل يعلن عن نفسه قبل أشهر من فشله",
+    "meta_desc": "نادراً ما تفشل المعدات الدوارة بلا إنذار. يتغير الاهتزاز قبل الحرارة والصوت والعطل بكثير، وتلك الفجوة هي حيث يصير العمل المخطط ممكناً.",
+    "category": "التفتيش والمراقبة",
+    "body": "<p>حين تفشل مضخة أو مروحة، تكون الرواية بعدها عادة أنها ذهبت بلا إنذار. ولم يحدث ذلك تقريباً أبداً. فالمعدات الدوارة تتدهور على مسار متوقع إلى حد كبير، ومراحله الأولى قابلة للقياس قبل أن يُسمع شيء أو يسخن بوقت طويل.</p><h2>ترتيب ما يصير قابلاً للكشف</h2><p>يظهر عطل المحمل الناشئ أولاً كتغير في الاهتزاز عالي التردد، قبل أسابيع أو أشهر. ثم يصير مسموعاً. ثم يسخن بعد ذلك. وحين يستطيع فني في جولة أن يسمعه أو يحسه، يكون معظم الإنذار المفيد قد أُنفق.</p><p>وهذا الترتيب هو سبب كون الجولة، مهما كانت دؤوبة، كاشفاً متأخراً. وليس في ذلك انتقاد لمن يجول، فالمعلومة ببساطة ليست متاحة بعدُ ليد وأذن.</p><h2>ماذا يشتري لكم الإنذار</h2><p>ليس تجنّب الصيانة، فالمحمل يجب أن يُغيَّر على أي حال. ما يشتريه هو اختيار الوقت. فالتغيير المخطط توقف مجدول وقطعة متوفرة ومناوبة نهارية وساعة عمل. والمحمل نفسه حين يفشل بشروطه هو انقطاع غير مخطط وعمود تالف ورسوم شحن مستعجل وطاقم ليلي.</p><h2>ماذا يُقاس، وكم مرة</h2><ul><li><strong>الاهتزاز الكلي</strong> على الآلات الحرجة، عند النقاط ذاتها كل مرة، متتبَّعاً كاتجاه لا مقارَناً بحد واحد.</li><li><strong>الحرارة</strong> عند بيوت المحامل، وهي إشارة ثانية متأخرة تؤكد الأولى.</li><li><strong>خط أساس</strong> يُؤخذ والآلة معروفة السلامة. فبدونه تكون القراءة رقماً بلا ما يُقارن به، وهذا السبب المعتاد لعدم إنتاج برامج المراقبة شيئاً.</li><li><strong>تواتر كافٍ</strong> ليوجد اتجاه. فقراءتان في العام ليستا اتجاهاً.</li></ul><p>ابدأوا بالآلات التي يوقف فشلها الإنتاج أو أنظمة السلامة، لا بكل ما يدور. فقائمة قصيرة تُقاس جيداً أفضل من قائمة طويلة تُقاس أحياناً.</p>",
+    "cta_heading": "هل تعرفون أي آلاتكم في طريقها إلى الفشل الآن؟",
+    "cta_text": "نقدم مراقبة الحالة للأصول الدوارة والإنشائية: الاهتزاز والحرارة وتقارير الاتجاه التي يستخدمها مهندسوكم وشركة التأمين.",
+    "cta_label": "خدمات المراقبة",
+    "cta_href": "../services/inspection-monitoring.html",
+    "teaser": "حين تفشل مضخة تكون الرواية أنها ذهبت بلا إنذار. ولم يحدث ذلك تقريباً. فعطل المحمل قابل للقياس في الاهتزاز قبل أسابيع أو أشهر من سماعه، ويسخن بعد ذلك، فالجولة مهما كانت دؤوبة كاشف متأخر.",
+    "home_summary": "نادراً ما تفشل المعدات الدوارة بلا إنذار. يظهر عطل المحمل في الاهتزاز قبل أشهر من سماعه أو سخونته، وتلك الفجوة هي الفرق بين ساعة مجدولة وانقطاع غير مخطط."
+  }
+}
