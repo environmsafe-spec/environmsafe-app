@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-03",
+    "slug": "diesel-goes-off-in-the-tank",
+    "icon": "fa-gas-pump",
+    "color": "amber",
+    "en": {
+      "title": "Diesel Goes Off in the Tank, and Takes the Generator With It",
+      "home_summary": "Standby generators are tested monthly and recorded as ready, but nobody examines the fuel. Water condenses, microbes grow at the interface, and the filters block in the ninth hour of a real outage."
+    },
+    "ar": {
+      "title": "الديزل يفسد في الخزان ويأخذ المولد معه",
+      "home_summary": "تُختبر مولدات الطوارئ شهرياً وتُسجَّل جاهزة، لكن لا أحد يفحص الوقود. يتكثف الماء وتنمو الأحياء الدقيقة عند الفاصل، وتنسد الفلاتر في الساعة التاسعة من انقطاع حقيقي."
+    }
+  },
+  {
     "iso": "2026-11-01",
     "slug": "nothing-changed-except-everything",
     "icon": "fa-arrows-rotate",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "كاشف الغاز الذي يقرأ صفراً ليس بالضرورة يعمل",
       "home_summary": "كاشف يقرأ صفراً بضوء أخضر يعني إما أن لا غاز هناك أو أن الجهاز لم يعد قادراً على التمييز، والأمران متطابقان من الخارج. الحساسات تفقد حساسيتها بالحرارة والرطوبة والغبار والعمر دون إنذار."
-    }
-  },
-  {
-    "iso": "2026-09-09",
-    "slug": "a-drill-is-not-a-rehearsal",
-    "icon": "fa-person-running",
-    "color": "blue",
-    "en": {
-      "title": "A Fire Drill Is Not the Same Thing as a Rehearsal",
-      "home_summary": "The usual drill is announced, held mid-morning in good weather with a full day shift and no visitors, and everyone leaves by the door they came in through. It proves people can walk outside."
-    },
-    "ar": {
-      "title": "تمرين الإخلاء ليس بروفة حقيقية",
-      "home_summary": "التمرين المعتاد مُعلن ويجري صباحاً في طقس جيد مع وردية كاملة ودون زوار، ويخرج الجميع من الباب نفسه. هو يثبت أن الناس يستطيعون الخروج فقط."
     }
   }
 ]
