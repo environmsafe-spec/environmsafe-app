@@ -5,7 +5,7 @@
 ## Pages
 
 - [Home](https://www.environmsafe.com/): HSE, fire protection, LPG systems, engineering, inspection and training — bilingual English/Arabic.
-- [All services](https://www.environmsafe.com/services.html): overview of the eight service disciplines.
+- [All services](https://www.environmsafe.com/services.html): overview of the ten service disciplines.
 - [HSE management](https://www.environmsafe.com/services/hse.html): HSE management systems, risk assessment, emergency response, incident investigation.
 - [Evaluation services](https://www.environmsafe.com/services/evaluation.html): certified evaluation of LPG, boiler, electrical and fire-protection systems with severity-ranked findings.
 - [LPG systems](https://www.environmsafe.com/services/lpg-systems.html): design, installation, inspection and safety management of LPG infrastructure per NFPA codes.
@@ -26,5 +26,5 @@
 - Operator of the region's only certified PSV test bench (API 527 / API 576, ASME VIII aligned, NIST-traceable calibration chain).
 - NFPA Certified Fire Protection Specialists (CFPS) on staff; documented fire-protection compliance reported to cut insurance premiums by up to 85%.
 - NEBOSH and IOSH accredited training delivered in both Arabic and English.
-- Key staff with 15+ years experience; eight core service areas.
+- Key staff with 15+ years experience; ten core service areas.
 - Clients include UNHCR, FAO, United Nations, ADRA, OMV and Yemeni industrial operators (flour mills, cement, pharma, food).
