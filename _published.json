@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-04",
+    "slug": "the-air-receiver-nobody-tests",
+    "icon": "fa-wind",
+    "color": "blue",
+    "en": {
+      "title": "The Air Receiver Is a Pressure Vessel Nobody Treats Like One",
+      "home_summary": "An air receiver is a pressure vessel holding serious stored energy, corroding from the inside where condensed water collects. It looks sound externally for the entire time its wall is thinning."
+    },
+    "ar": {
+      "title": "خزان الهواء وعاء ضغط لا يعامله أحد كذلك",
+      "home_summary": "خزان الهواء وعاء ضغط يحمل طاقة مخزنة كبيرة، ويتآكل من الداخل حيث يتجمع الماء المتكثف. ويبدو سليماً من الخارج طوال المدة التي يرق فيها جداره."
+    }
+  },
+  {
     "iso": "2026-11-03",
     "slug": "diesel-goes-off-in-the-tank",
     "icon": "fa-gas-pump",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "التأهيل المسبق للمقاولين: الأسئلة التي تتنبأ بشيء فعلاً",
       "home_summary": "ملف تأهيل مليء بالشهادات يخبركم أن الشركة قادرة على إنتاج أوراق، ولا يخبركم من سيقف في موقعكم الثلاثاء القادم، ولا بما قيل له قبل وصوله، ولا بما يحدث حين يصطدم بيان الطريقة بجدار ليس في المكان الذي تقوله الرسومات. حفنة من الأسئلة المختلفة تتنبأ بأكثر من ذلك بكثير."
-    }
-  },
-  {
-    "iso": "2026-09-10",
-    "slug": "gas-detectors-fail-quietly",
-    "icon": "fa-gauge-high",
-    "color": "teal",
-    "en": {
-      "title": "A Gas Detector That Reads Zero Is Not Necessarily Working",
-      "home_summary": "A detector reading zero with a green light means either there is no gas or the instrument can no longer tell, and the two look identical from outside. Sensors lose sensitivity to heat, humidity, dust and simple age without any warning."
-    },
-    "ar": {
-      "title": "كاشف الغاز الذي يقرأ صفراً ليس بالضرورة يعمل",
-      "home_summary": "كاشف يقرأ صفراً بضوء أخضر يعني إما أن لا غاز هناك أو أن الجهاز لم يعد قادراً على التمييز، والأمران متطابقان من الخارج. الحساسات تفقد حساسيتها بالحرارة والرطوبة والغبار والعمر دون إنذار."
     }
   }
 ]
