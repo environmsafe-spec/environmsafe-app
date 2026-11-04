@@ -1415,6 +1415,9 @@ input, textarea, select {
 .page-hero__bg--lpg {
   background: linear-gradient(135deg, #121D33 0%, #1B2A4A 50%, #7c3d00 100%);
 }
+.page-hero__bg--calibration {
+  background: linear-gradient(135deg, #0a1424 0%, #0a2d4a 55%, #0d7f8a 100%);
+}
 
 /* ====================================================
    Service Detail Page Styles
