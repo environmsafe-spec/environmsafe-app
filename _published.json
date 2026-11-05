@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-05",
+    "slug": "the-water-tank-nobody-opens",
+    "icon": "fa-droplet",
+    "color": "teal",
+    "en": {
+      "title": "The Water Tank Nobody Has Opened in Five Years",
+      "home_summary": "The water tank was cleaned when the building opened, and nobody has opened it since. A dedicated fire tank is worse, because the water is never drawn and the sediment only moves when the pump finally starts."
+    },
+    "ar": {
+      "title": "خزان الماء الذي لم يفتحه أحد منذ خمس سنوات",
+      "home_summary": "نُظّف خزان الماء يوم افتتاح المبنى ولم يفتحه أحد منذ ذلك. وخزان الحريق أسوأ، لأن الماء لا يُسحب منه والرسوب لا يتحرك إلا حين تبدأ المضخة أخيراً."
+    }
+  },
+  {
     "iso": "2026-11-04",
     "slug": "the-air-receiver-nobody-tests",
     "icon": "fa-wind",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "التأريض والربط التكافئي ليسا الشيء نفسه",
       "home_summary": "أحدهما يمنح تيار العطل طريق العودة، والآخر يمنعكم من أن تكونوا أنتم الطريق."
-    }
-  },
-  {
-    "iso": "2026-09-11",
-    "slug": "the-contractor-questionnaire-nobody-reads",
-    "icon": "fa-clipboard-check",
-    "color": "amber",
-    "en": {
-      "title": "Prequalifying a Contractor: The Questions That Actually Predict Anything",
-      "home_summary": "A prequalification pack full of certificates tells you a company can produce paperwork. It does not tell you who will actually stand on your site next Tuesday, what they were told before they arrived, or what happens when the method statement meets a wall that is not where the drawing says it is."
-    },
-    "ar": {
-      "title": "التأهيل المسبق للمقاولين: الأسئلة التي تتنبأ بشيء فعلاً",
-      "home_summary": "ملف تأهيل مليء بالشهادات يخبركم أن الشركة قادرة على إنتاج أوراق، ولا يخبركم من سيقف في موقعكم الثلاثاء القادم، ولا بما قيل له قبل وصوله، ولا بما يحدث حين يصطدم بيان الطريقة بجدار ليس في المكان الذي تقوله الرسومات. حفنة من الأسئلة المختلفة تتنبأ بأكثر من ذلك بكثير."
     }
   }
 ]
