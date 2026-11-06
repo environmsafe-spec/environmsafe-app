@@ -278,22 +278,50 @@ input, textarea, select {
   align-items: center;
   padding-top: var(--header-h);
   overflow: hidden;
+  border-bottom: 1px solid var(--clr-border);
 }
+/* Light hero (November 2026): white-to-grey with navy text, and an amber arc
+   on the outer edge that echoes the arc in the logo. It replaced a dark navy
+   gradient. The arc is decoration only and sits behind the content. */
 .hero__bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(135deg, var(--clr-primary-dk) 0%, var(--clr-secondary) 55%, #0a1424 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--clr-light) 65%, #eaeef5 100%);
   z-index: 0;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -140px;
+  top: calc(var(--header-h) + 8px);
+  width: 560px;
+  height: 560px;
+  border: 34px solid var(--clr-accent);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  z-index: 0;
+  pointer-events: none;
+}
+[dir="rtl"] .hero::after {
+  right: auto;
+  left: -140px;
+  border-color: var(--clr-accent);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(25deg);
+}
+/* On narrow screens the text fills the width, so the arc would run behind it. */
+@media (max-width: 860px) {
+  .hero::after { display: none; }
 }
 .hero__bg::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(42,63,110,.25) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(10,45,74,.4) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B2A4A' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .hero__content {
   position: relative;
@@ -305,9 +333,9 @@ input, textarea, select {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255,255,255,.85);
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.2);
+  color: var(--clr-primary);
+  background: rgba(27,42,74,.06);
+  border: 1px solid rgba(27,42,74,.15);
   padding: .4em 1.1em;
   border-radius: 99px;
   font-size: .82rem;
@@ -319,16 +347,16 @@ input, textarea, select {
   font-family: var(--font-head);
   font-size: clamp(2.4rem, 6vw, 4rem);
   font-weight: 800;
-  color: var(--clr-white);
+  color: var(--clr-primary);
   line-height: 1.15;
   margin-bottom: 16px;
 }
 .hero__title .highlight {
-  color: #5ddb97;
+  color: var(--clr-accent);
 }
 .hero__subtitle {
   font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(255,255,255,.75);
+  color: var(--clr-text-md);
   max-width: 580px;
   margin-bottom: 28px;
   line-height: 1.75;
@@ -338,6 +366,18 @@ input, textarea, select {
   flex-wrap: wrap;
   gap: 14px;
 }
+.hero .btn--primary {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: var(--clr-primary);
+}
+.hero .btn--primary:hover { background: var(--clr-accent-dk); border-color: var(--clr-accent-dk); }
+.hero .btn--outline {
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  background: transparent;
+}
+.hero .btn--outline:hover { background: var(--clr-primary); color: var(--clr-white); }
 
 .hero__scroll-indicator {
   /* Hidden: the hero is no longer a full screen, so the section below is already visible
