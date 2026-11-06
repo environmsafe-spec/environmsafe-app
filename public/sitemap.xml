@@ -221,6 +221,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html"/>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-06-a-battery-room-makes-its-own-atmosphere.html"/>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-11-05-the-water-tank-nobody-opens.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-05-the-water-tank-nobody-opens.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-05-the-water-tank-nobody-opens.html"/>

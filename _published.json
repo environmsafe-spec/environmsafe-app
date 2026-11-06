@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-06",
+    "slug": "a-battery-room-makes-its-own-atmosphere",
+    "icon": "fa-car-battery",
+    "color": "navy",
+    "en": {
+      "title": "A Battery Room Makes Its Own Explosive Atmosphere",
+      "home_summary": "Lead-acid batteries on charge give off hydrogen, which is odourless and collects at the ceiling where the light fitting is. Battery rooms rarely start badly; they degrade as vents get blocked and chargers develop faults."
+    },
+    "ar": {
+      "title": "غرفة البطاريات تصنع جوّاً قابلاً للانفجار بنفسها",
+      "home_summary": "بطاريات الرصاص الحمضية أثناء الشحن تطلق هيدروجيناً بلا رائحة يتجمع عند السقف حيث وحدة الإنارة. ونادراً ما تبدأ غرف البطاريات سيئة، بل تتدهور مع سد الفتحات وأعطال الشواحن."
+    }
+  },
+  {
     "iso": "2026-11-05",
     "slug": "the-water-tank-nobody-opens",
     "icon": "fa-droplet",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الحزام هو الجزء السهل: نقاط التثبيت ومسافة السقوط الحرة",
       "home_summary": "الأحزمة تُفحص، أما نقطة التثبيت فوق والمسافة تحت فتُفترض عادة."
-    }
-  },
-  {
-    "iso": "2026-09-12",
-    "slug": "earthing-is-not-the-same-as-bonding",
-    "icon": "fa-bolt",
-    "color": "blue",
-    "en": {
-      "title": "Earthing and Bonding Are Not the Same Thing",
-      "home_summary": "One gives fault current a path home. The other stops you becoming the path. They are not interchangeable."
-    },
-    "ar": {
-      "title": "التأريض والربط التكافئي ليسا الشيء نفسه",
-      "home_summary": "أحدهما يمنح تيار العطل طريق العودة، والآخر يمنعكم من أن تكونوا أنتم الطريق."
     }
   }
 ]
