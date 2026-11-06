@@ -237,10 +237,14 @@ still present and can be deleted.
   `js/feedback.js`, the sitemap, `llms.txt` and `lib/knowledge.js`. Service
   pages link their quote buttons to `contact.html?service=<slug>#contactForm`,
   which pre-selects the option. Calibration was missed from the form once.
-- **Environmental services are not offered.** Do not describe environmental
-  assessments, monitoring, remediation or ISO 14001 consulting as services.
-  The brand line "Environmental · Safety · Engineering" and the NEBOSH
-  Environmental Award course are fine.
+- **Environmental services are planned, not offered.** They appear only as
+  *coming soon*: a dashed card on both homepages, a box on both HSE pages, and
+  a quote-form option (`data-svc="environmental"`). Keep the wording general
+  ("environmental monitoring and compliance services") until the scope is
+  decided; do not list specific environmental services as available, and do
+  not add them to the menus or the service count. The brand line
+  "Environmental · Safety · Engineering" and the NEBOSH Environmental Award
+  course are fine.
 - **Calibration is laboratory-only.** On-site calibration of large or installed
   equipment is shown as *coming soon*; do not list it as available.
 - Social links: LinkedIn and Facebook only. There is no Twitter/X account —
