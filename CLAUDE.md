@@ -254,6 +254,11 @@ still present and can be deleted.
 - **Homepage hero is light** (white-to-grey, navy text, amber arc echoing the
   logo; the arc is hidden under 860 px and mirrored on Arabic). The rest of the
   site keeps navy and amber.
+- **Bump the stylesheet version after editing `css/styles.css`.** Every page
+  links `css/styles.css?v=YYYYMMDD`. Browsers and Cloudflare keep serving a
+  cached stylesheet otherwise: the light-hero change was on `main` and did not
+  show on the live site until the link changed. Replace the `?v=` value in
+  every `public/**/*.html` (templates included) in the same commit.
 - Social links: LinkedIn and Facebook only. There is no Twitter/X account —
   that icon was removed deliberately.
 
