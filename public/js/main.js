@@ -9,6 +9,18 @@
   const backToTop = document.getElementById('backToTop');
   const form      = document.getElementById('contactForm');
 
+  // ── Quote form: pre-select the service a service page linked from ──
+  // Service pages link to contact.html?service=<slug>; the matching <option>
+  // carries data-svc="<slug>". Unknown or missing slugs leave the list alone.
+  try {
+    const svcSelect = document.getElementById('service');
+    const svcSlug = new URLSearchParams(location.search).get('service');
+    if (svcSelect && svcSlug && /^[a-z-]+$/.test(svcSlug)) {
+      const opt = svcSelect.querySelector('option[data-svc="' + svcSlug + '"]');
+      if (opt) opt.selected = true;
+    }
+  } catch (e) {}
+
   // ── Current year ──────────────────────────────────────────
   document.querySelectorAll('.year').forEach(el => {
     el.textContent = new Date().getFullYear();

@@ -115,7 +115,7 @@
         <span class="section__tag">اتصل بنا</span>
         <h2 class="section__title" style="text-align:right;">لنتحدث عن مشروعك</h2>
         <p class="contact__text">
-          سواء كنت بحاجة إلى تقييم بيئي أو تدقيق سلامة أو دعم هندسي أو توريد
+          سواء كنت بحاجة إلى تدقيق سلامة أو فحص أو معايرة أجهزة أو دعم هندسي أو توريد
           قطع غيار — فريقنا جاهز للمساعدة. املأ النموذج أو تواصل معنا مباشرة.
         </p>
 
@@ -169,12 +169,16 @@
         <div class="contact__services-list">
           <p class="contact__services-label">يمكننا المساعدة في:</p>
           <div class="contact__service-tags">
-            <span>الصحة والسلامة والبيئة</span>
+            <span>الصحة والسلامة</span>
             <span>التقييم</span>
-            <span>الفحص والمراقبة</span>
+            <span>أنظمة الغاز</span>
+            <span>الفحص</span>
             <span>الهندسة والإنشاء</span>
-            <span>تكييف الهواء</span>
+            <span>التكييف</span>
             <span>الصيانة وقطع الغيار</span>
+            <span>التدريب</span>
+            <span>اختبار صمامات PSV</span>
+            <span>المعايرة</span>
           </div>
         </div>
       </div>
@@ -206,14 +210,19 @@
           <label for="service">الخدمة المطلوبة <span>*</span></label>
           <select id="service" name="service" required>
             <option value="" disabled selected>اختر خدمة...</option>
-            <option>الصحة والسلامة والبيئة (HSE)</option>
-            <option>التقييم البيئي</option>
-            <option>الفحص والمراقبة</option>
-            <option>الهندسة والإنشاء</option>
-            <option>تكييف الهواء والتهوية (HVAC)</option>
-            <option>خدمات الصيانة وقطع الغيار</option>
-            <option>خدمات متعددة</option>
-            <option>غير محدد — أحتاج استشارة</option>
+            <option value="HSE (Health, Safety &amp; Environment)" data-svc="hse">الصحة والسلامة والبيئة (HSE)</option>
+            <option value="Evaluation" data-svc="evaluation">التقييم</option>
+            <option value="LPG Systems" data-svc="lpg-systems">أنظمة الغاز LPG</option>
+            <option value="Inspection &amp; Monitoring" data-svc="inspection-monitoring">الفحص والمراقبة</option>
+            <option value="Engineering &amp; Construction" data-svc="engineering-construction">الهندسة والإنشاء</option>
+            <option value="HVAC" data-svc="hvac">تكييف الهواء والتهوية (HVAC)</option>
+            <option value="Maintenance &amp; Parts Supply" data-svc="maintenance">الصيانة وتوريد قطع الغيار</option>
+            <option value="Training" data-svc="training">التدريب</option>
+            <option value="PSV Testing &amp; Calibration" data-svc="psv">اختبار ومعايرة صمامات الأمان PSV</option>
+            <option value="Calibration Services" data-svc="calibration">خدمات المعايرة</option>
+            <option value="Environmental Services (coming soon)" data-svc="environmental">الخدمات البيئية (قريباً)</option>
+            <option value="Multiple Services" data-svc="multiple">خدمات متعددة</option>
+            <option value="Not Sure — Need Consultation" data-svc="consultation">غير محدد — أحتاج استشارة</option>
           </select>
           <span class="form__error" id="serviceError"></span>
         </div>
@@ -242,7 +251,7 @@
         <a href="index.html" class="logo logo--light">
           <img src="../img/logo.png" alt="EnvironmSafe" class="logo__img" />
         </a>
-        <p>حلول متخصصة في البيئة والسلامة والإنشاء والفحص والهندسة وتوريد قطع الغيار.</p>
+        <p>حلول متخصصة في السلامة والفحص والهندسة والإنشاء والمعايرة وتوريد قطع الغيار.</p>
         <div class="contact__social">
           <a href="https://www.linkedin.com/company/environmsafe-for-engineering-trading-and-services-ltd" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://www.facebook.com/profile.php?id=61593600667213" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>

@@ -230,6 +230,23 @@ still present and can be deleted.
   left alone.
 - Address is `VX8C+7C Al Mansourah, Aden, Yemen`; coordinates 12.8532 /
   44.9724.
+- **Adding a service** touches more than its page: the nav dropdown and footer
+  list on every page (news templates included), both homepage service grids,
+  the quote form `<select id="service">` in both `contact.html` files (each
+  `<option>` has an English `value` and a `data-svc` slug), the slug map in
+  `js/feedback.js`, the sitemap, `llms.txt` and `lib/knowledge.js`. Service
+  pages link their quote buttons to `contact.html?service=<slug>#contactForm`,
+  which pre-selects the option. Calibration was missed from the form once.
+- **Environmental services are planned, not offered.** They appear only as
+  *coming soon*: a dashed card on both homepages, a box on both HSE pages, and
+  a quote-form option (`data-svc="environmental"`). Keep the wording general
+  ("environmental monitoring and compliance services") until the scope is
+  decided; do not list specific environmental services as available, and do
+  not add them to the menus or the service count. The brand line
+  "Environmental · Safety · Engineering" and the NEBOSH Environmental Award
+  course are fine.
+- **Calibration is laboratory-only.** On-site calibration of large or installed
+  equipment is shown as *coming soon*; do not list it as available.
 - Social links: LinkedIn and Facebook only. There is no Twitter/X account —
   that icon was removed deliberately.
 
