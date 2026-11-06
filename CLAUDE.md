@@ -248,7 +248,7 @@ still present and can be deleted.
 - **Calibration is laboratory-only.** On-site calibration of large or installed
   equipment is shown as *coming soon*; do not list it as available.
 - **Website forms do not send email.** The quote, feedback, complaint and
-  grievance forms post into Google Forms owned by `environmsafe.gm@gmail.com`
+  grievance forms post into Google Forms owned by `akram.ghaleb2@gmail.com`
   (ids in `public/js/form-config.js`). Email per response comes from the Apps
   Script in `docs/forms/` installed inside each form; see its README.
 - **Homepage hero is light** (white-to-grey, navy text, amber arc echoing the

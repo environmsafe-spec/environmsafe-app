@@ -5,7 +5,7 @@ complaint, grievance) do not send email themselves. Each one posts into a
 Google Form (`public/js/form-config.js` holds the form ids), and the answers
 are stored as responses in that form.
 
-The forms are owned by **environmsafe.gm@gmail.com**. Google Forms on its own
+The forms are owned by **akram.ghaleb2@gmail.com**. Google Forms on its own
 emails only the owner, only if notifications are switched on, and only a
 "new response" alert with no details. That is why a test quote sent from the
 website produced no email.
@@ -16,7 +16,7 @@ customer's email address.
 
 ## Install it in the quote form (about 3 minutes)
 
-1. Sign in to Google as **environmsafe.gm@gmail.com**.
+1. Sign in to Google as **akram.ghaleb2@gmail.com**.
 2. Open the website's quote-request form in **edit** mode.
 3. Three-dot menu (⋮) → **Apps Script**. A new tab opens.
 4. Delete the placeholder `function myFunction() {}` and paste the whole of
