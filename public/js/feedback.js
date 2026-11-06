@@ -61,6 +61,8 @@
     'hvac':                    ['HVAC', 'تكييف الهواء والتهوية'],
     'maintenance':             ['Maintenance & Parts', 'الصيانة وقطع الغيار'],
     'training':                ['Training', 'التدريب'],
+    'psv':                     ['PSV Testing & Calibration', 'اختبار ومعايرة صمامات الأمان PSV'],
+    'calibration':             ['Calibration Services', 'خدمات المعايرة'],
     'fire-protection':         ['Fire Protection', 'الحماية من الحرائق']
   };
   function prettySvc(s) {

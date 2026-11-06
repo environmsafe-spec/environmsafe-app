@@ -147,7 +147,7 @@
         <span class="section__tag">Contact Us</span>
         <h2 class="section__title" style="text-align:left;">Let's Talk About Your Project</h2>
         <p class="contact__text">
-          Whether you need an environmental assessment, a safety audit, engineering
+          Whether you need a safety audit, an inspection, instrument calibration, engineering
           support, or parts supply — our team is ready to help. Fill out the form
           or reach us directly using the details below.
         </p>
@@ -202,12 +202,16 @@
         <div class="contact__services-list">
           <p class="contact__services-label">We can help with:</p>
           <div class="contact__service-tags">
-            <span>Environmental</span>
-            <span>Safety</span>
-            <span>Construction</span>
+            <span>HSE</span>
+            <span>Evaluation</span>
+            <span>LPG Systems</span>
             <span>Inspection</span>
-            <span>Engineering</span>
-            <span>Parts &amp; Supply</span>
+            <span>Engineering &amp; Construction</span>
+            <span>HVAC</span>
+            <span>Maintenance &amp; Parts</span>
+            <span>Training</span>
+            <span>PSV Testing</span>
+            <span>Calibration</span>
           </div>
         </div>
       </div>
@@ -239,14 +243,18 @@
           <label for="service">Service Needed <span>*</span></label>
           <select id="service" name="service" required>
             <option value="" disabled selected>Select a service...</option>
-            <option>Environmental Services</option>
-            <option>Safety Management</option>
-            <option>Construction Services</option>
-            <option>Inspection Services</option>
-            <option>Engineering Solutions</option>
-            <option>Parts &amp; Supply</option>
-            <option>Multiple Services</option>
-            <option>Not Sure — Need Consultation</option>
+            <option value="HSE (Health, Safety &amp; Environment)" data-svc="hse">HSE (Health, Safety &amp; Environment)</option>
+            <option value="Evaluation" data-svc="evaluation">Evaluation</option>
+            <option value="LPG Systems" data-svc="lpg-systems">LPG Systems</option>
+            <option value="Inspection &amp; Monitoring" data-svc="inspection-monitoring">Inspection &amp; Monitoring</option>
+            <option value="Engineering &amp; Construction" data-svc="engineering-construction">Engineering &amp; Construction</option>
+            <option value="HVAC" data-svc="hvac">HVAC</option>
+            <option value="Maintenance &amp; Parts Supply" data-svc="maintenance">Maintenance &amp; Parts Supply</option>
+            <option value="Training" data-svc="training">Training</option>
+            <option value="PSV Testing &amp; Calibration" data-svc="psv">PSV Testing &amp; Calibration</option>
+            <option value="Calibration Services" data-svc="calibration">Calibration Services</option>
+            <option value="Multiple Services" data-svc="multiple">Multiple Services</option>
+            <option value="Not Sure — Need Consultation" data-svc="consultation">Not Sure — Need Consultation</option>
           </select>
           <span class="form__error" id="serviceError"></span>
         </div>
@@ -275,7 +283,7 @@
         <a href="index.html" class="logo logo--light">
           <img src="./img/logo.png" alt="EnvironmSafe" class="logo__img" />
         </a>
-        <p>Expert environmental, safety, construction, inspection, engineering &amp; parts supply solutions.</p>
+        <p>Expert safety, inspection, engineering, construction, calibration &amp; parts supply solutions.</p>
         <div class="contact__social">
           <a href="https://www.linkedin.com/company/environmsafe-for-engineering-trading-and-services-ltd" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://www.facebook.com/profile.php?id=61593600667213" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>

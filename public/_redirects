@@ -4,6 +4,11 @@
 /platform.html     /applications.html     301
 /ar/platform.html  /ar/applications.html  301
 
+# services.html was an early English-only overview listing services the company
+# does not offer (environmental assessments, remediation). The homepage service
+# grid replaced it; nothing links to it, but it may be bookmarked or indexed.
+/services.html     /#services             301
+
 # The fire-protection / insurance piece was published three times: 2026-08-24,
 # then again on 2026-10-11 and 2026-10-22, the last two sharing a slug. Three
 # URLs competing for the same search terms is three weak pages instead of one
