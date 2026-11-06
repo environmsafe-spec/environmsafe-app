@@ -333,6 +333,104 @@
       ]
     },
     {
+      "code": "ES-CAL",
+      "name_ar": "خدمات المعايرة",
+      "name_en": "Calibration Services",
+      "kicker": "Calibration · المعايرة",
+      "image": "calibration",
+      "tagline_en": "Electrical · Pressure · Temperature · Laboratory · Biomedical",
+      "tagline_ar": "كهربائية · ضغط · حرارة · مختبرات · أجهزة طبية",
+      "link": "https://www.environmsafe.com/ar/services/calibration.html",
+      "desc_ar": "معايرة معتمدة في المختبر لأجهزة القياس الكهربائية والصناعية والمخبرية والطبية، عبر مختبرات شريكة معتمدة وفق ISO/IEC 17025 من المركز السعودي للاعتماد SAAC وخدمة الاعتماد الدولية IAS، مع شهادة معايرة قابلة للتتبع لكل جهاز.",
+      "desc_en": "Accredited laboratory calibration of electrical, industrial, laboratory and biomedical instruments through ISO/IEC 17025 partner laboratories accredited by SAAC and IAS, with a traceable calibration certificate for every instrument.",
+      "items": [
+        {
+          "code": "ES-CAL-01",
+          "name_ar": "أجهزة الاختبار والقياس الكهربائية",
+          "name_en": "Electrical Test & Measurement Instruments",
+          "desc_ar": "أجهزة القياس المتعددة حتى 1000 فولت، والأمبيرات الكلّابية حتى 2000 أمبير، وأجهزة اختبار العزل حتى 5 كيلوفولت، وأجهزة قياس التأريض والميكرو أوم، ومحللات السلامة الكهربائية وPAT، والأوسيلوسكوب. لجميع الشركات الرئيسية ومنها Fluke وMegger وHioki وKyoritsu.",
+          "desc_en": "Multimeters up to 1000 V, clamp meters up to 2000 A, insulation testers up to 5 kV, earth and micro-ohm meters, electrical safety analysers and PAT testers, oscilloscopes. All major makes, including Fluke, Megger, Hioki and Kyoritsu."
+        },
+        {
+          "code": "ES-CAL-02",
+          "name_ar": "المعايرات الكهربائية والمصادر المرجعية",
+          "name_en": "Electrical Calibrators & Reference Sources",
+          "desc_ar": "المعايرات متعددة الوظائف ومعايرات الحلقات والعمليات، ومصادر الجهد والتيار، ومحاكيات المزدوجات الحرارية وRTD، وصناديق المقاومة العشرية، ومعايير المقاومة والسعة.",
+          "desc_en": "Multifunction, loop and process calibrators, voltage and current sources, thermocouple and RTD simulators, decade resistance boxes, resistance and capacitance standards."
+        },
+        {
+          "code": "ES-CAL-03",
+          "name_ar": "أجهزة القدرة والطاقة والجهد العالي",
+          "name_en": "Power, Energy & High-Voltage Instruments",
+          "desc_ar": "عدادات الطاقة، ومحللات القدرة وجودة الطاقة بما فيها التوافقيات، وأجهزة قياس الجهد العالي حتى 100 كيلوفولت، وأجهزة اختبار Tan Delta وSF6، وماكينات اللحام، ومقاييس الألياف البصرية وOTDR.",
+          "desc_en": "Energy meters, power and power-quality analysers including harmonics, high-voltage meters and probes up to 100 kV, tan delta and SF6 test equipment, welding machines, fibre-optic meters and OTDRs."
+        },
+        {
+          "code": "ES-CAL-04",
+          "name_ar": "أجهزة الضغط والتفريغ",
+          "name_en": "Pressure & Vacuum Instruments",
+          "desc_ar": "مقاييس الضغط حتى 1400 بار، ومرسلات ومفاتيح ومسجلات الضغط، وأجهزة قياس التفريغ وفرق الضغط، ومعايرات الضغط الرقمية ومضخات الاختبار.",
+          "desc_en": "Pressure gauges up to 1400 bar, pressure transmitters, switches and chart recorders, vacuum and differential pressure instruments, digital pressure calibrators and test pumps."
+        },
+        {
+          "code": "ES-CAL-05",
+          "name_ar": "أجهزة قياس الحرارة والرطوبة",
+          "name_en": "Temperature & Humidity Instruments",
+          "desc_ar": "موازين الحرارة من ‎−100‎ إلى 700 درجة مئوية، ومجسات ومرسلات المزدوجات الحرارية وRTD، ومعايرات الحرارة الجافة والسائلة، وموازين الحرارة بالأشعة تحت الحمراء وكاميرات التصوير الحراري، وأجهزة قياس الرطوبة ومسجلات البيانات.",
+          "desc_en": "Thermometers from −100 °C to 700 °C, thermocouple and RTD probes and transmitters, dry-well and liquid-bath calibrators, infrared thermometers and thermal imagers, thermo-hygrometers and data loggers."
+        },
+        {
+          "code": "ES-CAL-06",
+          "name_ar": "أجهزة التدفق وسرعة الهواء",
+          "name_en": "Flow & Air Velocity Instruments",
+          "desc_ar": "مفاتيح التدفق والروتاميترات وعدادات تدفق السوائل، وعدادات التدفق المحمولة بالموجات فوق الصوتية، وعدادات تدفق الهواء والغاز، ومقاييس سرعة الهواء وأجهزة Balometer.",
+          "desc_en": "Flow switches, rotameters and liquid flowmeters, portable ultrasonic flowmeters, air and gas flowmeters, anemometers and balometers."
+        },
+        {
+          "code": "ES-CAL-07",
+          "name_ar": "الكتلة والوزن",
+          "name_en": "Mass & Weighing",
+          "desc_ar": "الموازين التحليلية والدقيقة والمكتبية حتى 50 كغ، وأثقال الاختبار من فئات OIML ‏E1 إلى M3.",
+          "desc_en": "Analytical, precision and bench balances up to 50 kg, and test weights of OIML classes E1 to M3."
+        },
+        {
+          "code": "ES-CAL-08",
+          "name_ar": "أجهزة القياس الأبعادي والمساحي",
+          "name_en": "Dimensional & Surveying Instruments",
+          "desc_ar": "القدمات والميكرومترات ومقاييس القرص والارتفاع والتجاويف، والقوالب القياسية، ومقاييس سماكة الطلاء، وأشرطة القياس، ومناخل الاختبار، وأجهزة الثيودوليت والمحطات الشاملة وأجهزة التسوية.",
+          "desc_en": "Calipers, micrometers, dial, height and bore gauges, gauge blocks, coating thickness gauges, measuring tapes, test sieves, theodolites, total stations and auto levels."
+        },
+        {
+          "code": "ES-CAL-09",
+          "name_ar": "أجهزة القوة والعزم والقياس الميكانيكي",
+          "name_en": "Force, Torque & Mechanical Instruments",
+          "desc_ar": "مفاتيح العزم حتى 3000 نيوتن·متر، وأجهزة اختبار العزم، ومقاييس القوة وخلايا الحمل، ومقاييس سرعة الدوران، وأجهزة قياس صلادة Shore، والأنيار المغناطيسية.",
+          "desc_en": "Torque wrenches up to 3000 N·m, torque testers, force gauges and load cells, tachometers, Shore hardness testers and MPI yokes."
+        },
+        {
+          "code": "ES-CAL-10",
+          "name_ar": "كواشف الغاز وأجهزة السلامة",
+          "name_en": "Gas Detectors & HSE Instruments",
+          "desc_ar": "كواشف الغاز O₂ وCO وCH₄ وH₂S وCl₂ وNH₃ وNO₂، وأجهزة تحليل الغازات، وأجهزة قياس مستوى الصوت والاهتزاز وشدة الإضاءة.",
+          "desc_en": "Gas detectors for O₂, CO, CH₄, H₂S, Cl₂, NH₃ and NO₂, gas analysers, sound level meters, vibration meters and light meters."
+        },
+        {
+          "code": "ES-CAL-11",
+          "name_ar": "أجهزة المختبرات والتحليل",
+          "name_en": "Laboratory & Analytical Instruments",
+          "desc_ar": "الماصّات الدقيقة والأدوات الزجاجية الحجمية، وأجهزة قياس الأس الهيدروجيني والتوصيلية والأملاح الذائبة، وأجهزة قياس اللون والعكارة والانكسار واللزوجة.",
+          "desc_en": "Micropipettes and volumetric glassware, pH, conductivity and TDS meters, colorimeters, turbidity meters, refractometers and viscometers."
+        },
+        {
+          "code": "ES-CAL-12",
+          "name_ar": "الأجهزة الطبية",
+          "name_en": "Biomedical Equipment",
+          "desc_ar": "التحقق من أداء أجهزة إزالة الرجفان، وأجهزة مراقبة المرضى، وأجهزة تخطيط القلب، وأجهزة قياس ضغط الدم غير الجراحية، وأجهزة قياس أكسجين الدم، ومحللات تدفق الغازات الطبية.",
+          "desc_en": "Performance verification of defibrillators, patient monitors, ECG machines, NIBP monitors, pulse oximeters and medical gas-flow analysers."
+        }
+      ]
+    },
+    {
       "code": "ES-LPG",
       "name_ar": "أنظمة الغاز LPG",
       "name_en": "LPG Systems",
@@ -458,13 +556,6 @@
           "desc_en": "Project planning and scheduling, contractor coordination, budget and cost control, progress reporting."
         },
         {
-          "code": "ES-ENG-03",
-          "name_ar": "التصميم الهندسي البيئي",
-          "name_en": "Environmental Engineering Design",
-          "desc_ar": "تصميم أنظمة معالجة المياه العادمة وتصريف مياه الأمطار والمعالجة البيئية، وتخطيط منع التلوث.",
-          "desc_en": "Wastewater treatment, stormwater and remediation system design, pollution prevention planning."
-        },
-        {
           "code": "ES-ENG-04",
           "name_ar": "تخطيط وتطوير المواقع",
           "name_en": "Site Development & Planning",
@@ -475,8 +566,8 @@
           "code": "ES-ENG-05",
           "name_ar": "دعم التراخيص والموافقات",
           "name_en": "Permitting & Regulatory Support",
-          "desc_ar": "إعداد طلبات التراخيص، والتنسيق مع الجهات، ودعم المراجعات البيئية.",
-          "desc_en": "Permit applications, agency liaison and environmental review support."
+          "desc_ar": "إعداد طلبات التراخيص، والتنسيق مع الجهات، ودعم المراجعات التنظيمية.",
+          "desc_en": "Permit applications, agency liaison and regulatory review support."
         },
         {
           "code": "ES-ENG-06",
@@ -489,13 +580,15 @@
     },
     {
       "code": "ES-INSP",
-      "name_ar": "الفحص والمراقبة البيئية",
+      "name_ar": "الفحص والمراقبة",
       "name_en": "Inspection & Monitoring",
       "kicker": "Inspection · الفحص",
       "image": "inspection",
+      "tagline_en": "Structural · Lifting · Pressure Systems · NDT",
+      "tagline_ar": "هيكلي · معدات الرفع · الأنظمة المضغوطة · الفحص غير التدميري",
       "link": "https://www.environmsafe.com/ar/services/inspection-monitoring.html",
-      "desc_ar": "فحص هيكلي ومراقبة بيئية مستمرة تكشف المشكلات مبكراً، وتحافظ على الامتثال التنظيمي، وتحمي أصول منشأتكم.",
-      "desc_en": "Structural inspection and continuous environmental monitoring that catch problems early, keep your facility compliant and protect your assets.",
+      "desc_ar": "فحص هيكلي وفحص معدات الرفع والأنظمة المضغوطة والفحص غير التدميري، مع مراقبة مستمرة تكشف المشكلات مبكراً، وتحافظ على الامتثال التنظيمي، وتحمي أصول منشأتكم.",
+      "desc_en": "Structural, lifting-equipment, pressure-system and NDT inspection with continuous monitoring that catch problems early, keep your facility compliant and protect your assets.",
       "items": [
         {
           "code": "ES-INSP-01",
@@ -524,20 +617,6 @@
           "name_en": "Structural Inspection",
           "desc_ar": "فحص سلامة الأساسات والهياكل، وفحوصات ما قبل الإنشاء والاستلام النهائي، والتحقق من الامتثال للأكواد.",
           "desc_en": "Foundation and structural integrity checks, pre-construction and final inspections, code compliance verification."
-        },
-        {
-          "code": "ES-INSP-05",
-          "name_ar": "مراقبة جودة الهواء",
-          "name_en": "Air Quality Monitoring",
-          "desc_ar": "أخذ عينات الهواء المحيط، واختبار انبعاثات المداخن، وجودة الهواء الداخلي، ومراقبة المركبات العضوية والجسيمات.",
-          "desc_en": "Ambient air sampling, stack emission testing, indoor air quality and VOC/particulate monitoring."
-        },
-        {
-          "code": "ES-INSP-06",
-          "name_ar": "مراقبة جودة المياه",
-          "name_en": "Water Quality Monitoring",
-          "desc_ar": "أخذ عينات المياه الجوفية والسطحية وتحليلها، وتقييم جريان مياه الأمطار.",
-          "desc_en": "Groundwater and surface water sampling and analysis, stormwater runoff assessment."
         },
         {
           "code": "ES-INSP-07",
@@ -698,8 +777,8 @@
           "code": "ES-HSE-01",
           "name_ar": "نظام إدارة السلامة HSE",
           "name_en": "HSE Management System",
-          "desc_ar": "إعداد السياسات والإجراءات، ودعم مراجعة الإدارة، وخطط التحسين المستمر، والمواءمة مع ISO 45001 وISO 14001.",
-          "desc_en": "Policies and procedures, management review support, continuous improvement planning and alignment with ISO 45001 and ISO 14001."
+          "desc_ar": "إعداد السياسات والإجراءات، ودعم مراجعة الإدارة، وخطط التحسين المستمر، والمواءمة مع ISO 45001.",
+          "desc_en": "Policies and procedures, management review support, continuous improvement planning and alignment with ISO 45001."
         },
         {
           "code": "ES-HSE-02",

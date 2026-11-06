@@ -34,7 +34,7 @@ In the app: **Settings → Business tools → Business profile**.
 السلامة والحماية من الحرائق، الغاز LPG، اختبار صمامات PSV، ودورات NEBOSH وIOSH في عدن. راسلنا لطلب عرض سعر.
 ```
 
-### Description (max 512 characters — 383)
+### Description (max 512 characters — 444)
 
 ```
 انفيرومسيف للهندسة والتجارة والخدمات – عدن. خدمات الصحة والسلامة والبيئة والهندسة للمنشآت في اليمن والمنطقة:
@@ -42,6 +42,7 @@ In the app: **Settings → Business tools → Business profile**.
 • الحماية من الحرائق وأنظمة إدارة السلامة
 • تصميم وتركيب وفحص أنظمة الغاز LPG
 • تقييم سلامة المراجل والأنظمة الكهربائية
+• معايرة معتمدة لأجهزة القياس الكهربائية والصناعية والمخبرية
 • دورات NEBOSH وIOSH بالعربية والإنجليزية
 راسلنا لطلب عرض سعر.
 ```
@@ -103,7 +104,7 @@ To prepare your quote, please send:
 ## 3. Catalog
 
 The catalog is generated, not typed in. **`items.json` is the source of truth**:
-eleven sections (nine services plus generator and machinery parts supply), each with its sub-items. To change the catalog, edit that file and
+twelve sections (ten services plus generator and machinery parts supply), each with its sub-items. To change the catalog, edit that file and
 run:
 
 ```
@@ -128,10 +129,11 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 | المعدات الصناعية وقطع غيارها | `ES-MCH` | 12 |
 | الصيانة وقطع الغيار | `ES-MNT` | 6 |
 | اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
+| خدمات المعايرة | `ES-CAL` | 13 |
 | أنظمة الغاز LPG | `ES-LPG` | 6 |
 | أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
-| الهندسة والإنشاء | `ES-ENG` | 7 |
-| الفحص والمراقبة البيئية | `ES-INSP` | 8 |
+| الهندسة والإنشاء | `ES-ENG` | 6 |
+| الفحص والمراقبة | `ES-INSP` | 6 |
 | تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
 | دورات NEBOSH وIOSH | `ES-TRN` | 12 |
 | السلامة والحماية من الحرائق | `ES-HSE` | 48 |
@@ -139,7 +141,10 @@ In Commerce Manager the same grouping is available as **Sets** filtered on
 Sections are in display order: parts supply and machinery first, safety last.
 Create the collections in this order. The HSE & fire protection collection
 also carries the safety supply lines (fire equipment, PPE, safety solutions,
-fall protection, gas detection). 138 items in total.
+fall protection, gas detection). 148 items in total.
+
+Environmental services are planned but not offered, so they have no catalog
+items; add them when the service launches.
 
 ---
 
