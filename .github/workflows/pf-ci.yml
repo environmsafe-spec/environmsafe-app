@@ -1,0 +1,47 @@
+name: ES-PF CI
+
+on:
+  pull_request:
+    paths: ['pf/**', '.github/workflows/pf-ci.yml']
+  push:
+    branches: [main]
+    paths: ['pf/**', '.github/workflows/pf-ci.yml']
+
+jobs:
+  database:
+    name: Database tests (pgTAP)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Postgres 16 + pgTAP
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q postgresql-16 postgresql-16-pgtap libtap-parser-sourcehandler-pgtap-perl
+      - name: Start a throw-away cluster
+        run: |
+          D=$RUNNER_TEMP/pg
+          mkdir -p $D && sudo chown postgres $D
+          sudo -u postgres /usr/lib/postgresql/16/bin/initdb -D $D/data -U postgres -A trust >/dev/null
+          sudo -u postgres /usr/lib/postgresql/16/bin/pg_ctl -D $D/data -o "-p 54329 -k $D" -l $D/log start
+          echo "PGHOST=$D" >> $GITHUB_ENV
+          echo "PGPORT=54329" >> $GITHUB_ENV
+      - name: Run migrations and tests
+        run: pf/db/scripts/test.sh
+
+  web:
+    name: Web app (typecheck, unit tests, build)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: pf/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pf/web/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
