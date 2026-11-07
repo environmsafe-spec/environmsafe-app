@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { documentTotal, emptyDoc, journalDifference, missingForPosting, newLine, toDocumentRow, toLineRows, usdEquivalent, type KindInfo } from './logic'
+import { computeTradeLines, documentTotal, emptyDoc, journalDifference, missingForPosting, newLine, toDocumentRow, toLineRows, tradeTotals, usdEquivalent, type KindInfo } from './logic'
 
 const base: Omit<KindInfo, 'kind'> = {
-  number_type: 'payment', direction: 'out', has_lines: false, money_account: 'required', party_role: null,
+  number_type: 'payment', direction: 'out', has_lines: false, money_account: 'required', party_role: null, creates_journal: true,
   party_required: false, allows_fee: true, approval_applies: true, settles: [], post_permission: 'docs.post_money',
   name_en: '', name_ar: '', sort: 1,
 }
@@ -62,4 +62,37 @@ describe('row builders', () => {
     expect(rows[0].side).toBe('D')
   })
   it('converts to USD', () => expect(usdEquivalent(15560, 1556)).toBe(10))
+})
+
+describe('trade documents', () => {
+  const po: KindInfo = { ...base, kind: 'purchase_order', has_lines: true, money_account: 'none', party_role: 'supplier', party_required: true, allows_fee: false, approval_applies: false, creates_journal: false, post_permission: 'docs.post' }
+  const sample = () => {
+    const s = { ...emptyDoc('2026-11-01'), party_id: 'sup' }
+    s.lines = [
+      { ...newLine(), item_id: 'nalco', description: 'TRAC102.11R', qty: 25, unit_price: 12.19 },
+      { ...newLine('D', 'charge'), description: 'Surcharge 12%', percent: 12 },
+      { ...newLine('D', 'tax'), description: 'Tax', percent: 5, percent_base: 'items' as const },
+    ]
+    return s
+  }
+  it('computes the sample PO like the database (304.75 + 36.57 + 15.24 = 356.56)', () => {
+    expect(computeTradeLines(sample().lines).map((l) => l.amount)).toEqual([304.75, 36.57, 15.24])
+    expect(tradeTotals(sample().lines)).toMatchObject({ items: 304.75, untaxed: 341.32, tax: 15.24, total: 356.56 })
+    expect(documentTotal(po, sample())).toBe(356.56)
+  })
+  it('tax on the untaxed amount and a discount', () => {
+    const lines = [{ ...newLine(), item_id: 'x', qty: 2, unit_price: 50 }, { ...newLine('D', 'discount'), description: 'Discount', percent: 10 }, { ...newLine('D', 'tax'), description: 'VAT', percent: 5, percent_base: 'untaxed' as const }]
+    expect(tradeTotals(lines)).toMatchObject({ items: 100, discounts: 10, untaxed: 90, tax: 4.5, total: 94.5 })
+  })
+  it('every product line needs an item; other lines a description', () => {
+    const s = sample()
+    s.lines[0].item_id = null
+    s.lines[1].description = ''
+    expect(missingForPosting(po, s, { hasAttachment: false, accountNeedsProject: () => false })).toEqual(['line1.item', 'line2.description'])
+  })
+  it('sends quantities, prices and percentages to the database', () => {
+    const rows = toLineRows(po, sample(), 'doc', 'co')
+    expect(rows.map((r) => [r.line_kind, r.amount, r.percent ?? null])).toEqual([['item', 304.75, null], ['charge', 36.57, 12], ['tax', 15.24, 5]])
+    expect(rows[0]).toMatchObject({ qty: 25, unit_price: 12.19 })
+  })
 })

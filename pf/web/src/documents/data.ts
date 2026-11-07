@@ -61,3 +61,19 @@ export async function sha256Hex(file: Blob): Promise<string> {
   const buf = await crypto.subtle.digest('SHA-256', await file.arrayBuffer())
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }
+
+export interface Item { id: string; code: string; name_en: string; name_ar: string | null; kind: 'goods' | 'service'; unit: string; last_cost: number | null; last_sale_price: number | null; default_expense_account_id: string | null; default_revenue_account_id: string | null; is_active: boolean }
+export const useItems = () => useCompanyTable<Item>('items', 'id, code, name_en, name_ar, kind, unit, last_cost, last_sale_price, default_expense_account_id, default_revenue_account_id, is_active')
+
+export function useCompanySettings() {
+  const { company } = useAuth()
+  return useQuery({
+    queryKey: ['company-settings', company?.company_id],
+    enabled: Boolean(company),
+    staleTime: 300_000,
+    queryFn: async () => {
+      const { data } = await supabase.from('companies').select('settings').eq('id', company!.company_id)
+      return ((data ?? [])[0]?.settings ?? {}) as Record<string, unknown>
+    },
+  })
+}

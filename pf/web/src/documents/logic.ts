@@ -4,6 +4,11 @@ export type DocKind =
   | 'expense' | 'supplier_payment' | 'customer_receipt' | 'refund_to_customer' | 'refund_from_supplier'
   | 'transfer' | 'expense_claim' | 'claim_reimbursement' | 'salary' | 'employee_advance'
   | 'advance_repayment' | 'employee_offset' | 'owner_drawings' | 'manual_journal'
+  | 'purchase_order' | 'supplier_bill' | 'quotation' | 'sales_invoice' | 'credit_note'
+
+export const TRADE_KINDS: DocKind[] = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note']
+export const isTrade = (k: DocKind) => TRADE_KINDS.includes(k)
+export const SALES_KINDS: DocKind[] = ['quotation', 'sales_invoice', 'credit_note']
 
 export interface KindInfo {
   kind: DocKind
@@ -17,6 +22,7 @@ export interface KindInfo {
   approval_applies: boolean
   settles: DocKind[]
   post_permission: string
+  creates_journal: boolean
   name_en: string
   name_ar: string
   sort: number
@@ -29,13 +35,28 @@ export const ACTION_GROUPS: Record<'pay' | 'receive' | 'transfer' | 'claim', Doc
   transfer: ['transfer'],
   claim: ['expense_claim', 'employee_offset'],
 }
+export const TRADE_GROUP: DocKind[] = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note']
+
+/** Next document in the chain, offered as a button on an issued / posted document. */
+export const CONVERSIONS: Partial<Record<DocKind, DocKind>> = {
+  purchase_order: 'supplier_bill', quotation: 'sales_invoice', sales_invoice: 'credit_note',
+}
+
+export type LineKind = 'item' | 'charge' | 'discount' | 'tax'
 
 export interface LineState {
   key: string
+  line_kind: LineKind
   gl_account_id: string | null
   project_id: string | null
   item_id: string | null
   description: string
+  detail: string
+  qty: number | ''
+  unit: string
+  unit_price: number | ''
+  percent: number | ''
+  percent_base: 'items' | 'untaxed'
   amount: number | ''
   side: 'D' | 'C'
 }
@@ -54,6 +75,11 @@ export interface DocState {
   counter_rate: number | ''
   purpose: 'payable' | 'deposit'
   currency: string
+  due_date: string
+  valid_until: string
+  attention: string
+  party_reference: string
+  terms: string
   reference_no: string
   description: string
   notes: string
@@ -65,14 +91,41 @@ export interface DocState {
 const num = (v: number | '' | null | undefined) => (typeof v === 'number' && Number.isFinite(v) ? v : 0)
 const round2 = (n: number) => Math.round(n * 100) / 100
 
-export function newLine(side: 'D' | 'C' = 'D'): LineState {
-  return { key: Math.random().toString(36).slice(2), gl_account_id: null, project_id: null, item_id: null, description: '', amount: '', side }
+export function newLine(side: 'D' | 'C' = 'D', line_kind: LineKind = 'item'): LineState {
+  return {
+    key: Math.random().toString(36).slice(2), line_kind, gl_account_id: null, project_id: null, item_id: null,
+    description: '', detail: '', qty: 1, unit: '', unit_price: '', percent: '', percent_base: 'items', amount: '', side,
+  }
+}
+
+/**
+ * Recompute trade lines exactly as the database does at posting:
+ * item = qty x unit price; charge / discount % of the item subtotal; tax % of items or of the untaxed amount.
+ */
+export function computeTradeLines(lines: LineState[]): LineState[] {
+  const withItems = lines.map((l) =>
+    l.line_kind === 'item' && typeof l.unit_price === 'number' && typeof l.qty === 'number'
+      ? { ...l, amount: round2(l.qty * l.unit_price) } : l)
+  const items = withItems.filter((l) => l.line_kind === 'item').reduce((a, l) => a + num(l.amount), 0)
+  const withCharges = withItems.map((l) =>
+    (l.line_kind === 'charge' || l.line_kind === 'discount') && typeof l.percent === 'number' ? { ...l, amount: round2(items * l.percent / 100) } : l)
+  const untaxed = withCharges.reduce((a, l) => a + (l.line_kind === 'item' || l.line_kind === 'charge' ? num(l.amount) : l.line_kind === 'discount' ? -num(l.amount) : 0), 0)
+  return withCharges.map((l) =>
+    l.line_kind === 'tax' && typeof l.percent === 'number' ? { ...l, amount: round2((l.percent_base === 'untaxed' ? untaxed : items) * l.percent / 100) } : l)
+}
+
+export function tradeTotals(lines: LineState[]) {
+  const c = computeTradeLines(lines)
+  const sum = (k: LineKind) => round2(c.filter((l) => l.line_kind === k).reduce((a, l) => a + num(l.amount), 0))
+  const items = sum('item'), charges = sum('charge'), discounts = sum('discount'), tax = sum('tax')
+  return { items, charges, discounts, untaxed: round2(items + charges - discounts), tax, total: round2(items + charges - discounts + tax) }
 }
 
 export function emptyDoc(today: string): DocState {
   return {
     doc_date: today, money_account_id: null, counter_money_account_id: null, party_id: null,
     amount: '', counter_amount: '', fee_amount: '', rate: '', counter_rate: '', purpose: 'payable', currency: 'USD',
+    due_date: '', valid_until: '', attention: '', party_reference: '', terms: '',
     reference_no: '', description: '', notes: '', no_document_reason: '', lines: [newLine()], links: [],
   }
 }
@@ -80,6 +133,7 @@ export function emptyDoc(today: string): DocState {
 /** Total of a document as the user will see it (lines for line kinds; links for offsets). */
 export function documentTotal(k: KindInfo, s: DocState): number {
   if (k.kind === 'manual_journal') return round2(s.lines.filter((l) => l.side === 'D').reduce((a, l) => a + num(l.amount), 0))
+  if (isTrade(k.kind)) return tradeTotals(s.lines).total
   if (k.has_lines) return round2(s.lines.reduce((a, l) => a + num(l.amount), 0))
   if (k.kind === 'employee_offset') return round2(s.links.reduce((a, l) => a + num(l.amount), 0) / 2)
   return round2(num(s.amount))
@@ -101,7 +155,16 @@ export function missingForPosting(k: KindInfo, s: DocState, opts: { hasAttachmen
     if (!s.counter_money_account_id) m.push('to_account')
     if (s.counter_money_account_id && s.counter_money_account_id === s.money_account_id) m.push('same_account')
   }
-  if (k.has_lines) {
+  if (isTrade(k.kind)) {
+    const lines = computeTradeLines(s.lines)
+    if (!lines.some((l) => l.line_kind === 'item')) m.push('lines')
+    lines.forEach((l, i) => {
+      if (l.line_kind === 'item' && !l.item_id) m.push(`line${i + 1}.item`)
+      if (l.line_kind !== 'item' && !l.description.trim()) m.push(`line${i + 1}.description`)
+      if (!(num(l.amount) > 0)) m.push(`line${i + 1}.amount`)
+      if (k.creates_journal && l.gl_account_id && opts.accountNeedsProject(l.gl_account_id) && !l.project_id) m.push(`line${i + 1}.project`)
+    })
+  } else if (k.has_lines) {
     if (s.lines.length === 0) m.push('lines')
     s.lines.forEach((l, i) => {
       if (!(num(l.amount) > 0)) m.push(`line${i + 1}.amount`)
@@ -135,6 +198,11 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
     fee_amount: k.allows_fee ? num(s.fee_amount) : 0,
     ...(typeof s.rate === 'number' ? { rate: s.rate } : {}),
     purpose: k.kind === 'supplier_payment' ? s.purpose : null,
+    due_date: ['supplier_bill', 'sales_invoice'].includes(k.kind) && s.due_date ? s.due_date : null,
+    valid_until: ['purchase_order', 'quotation'].includes(k.kind) ? nul(s.valid_until) : null,
+    attention: nul(s.attention),
+    party_reference: nul(s.party_reference),
+    terms: nul(s.terms),
     // Without a bank account the user picks the currency (claims, journals, unpaid salary).
     ...(k.money_account === 'none' || !s.money_account_id ? { currency: s.currency } : {}),
     reference_no: nul(s.reference_no),
@@ -146,13 +214,22 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
 
 export function toLineRows(k: KindInfo, s: DocState, documentId: string, companyId: string) {
   if (!k.has_lines) return []
-  return s.lines
+  const trade = isTrade(k.kind)
+  const lines = trade ? computeTradeLines(s.lines) : s.lines
+  return lines
     .filter((l) => num(l.amount) > 0)
     .map((l, i) => ({
       company_id: companyId, document_id: documentId, line_no: i + 1,
-      gl_account_id: l.gl_account_id, project_id: l.project_id, item_id: l.item_id,
+      line_kind: trade ? l.line_kind : 'item',
+      gl_account_id: l.gl_account_id, project_id: l.project_id, item_id: l.line_kind === 'item' ? l.item_id : null,
       description: l.description.trim() || null, amount: num(l.amount),
       side: k.kind === 'manual_journal' ? l.side : 'D',
+      ...(trade ? {
+        detail: l.detail.trim() || null, qty: l.line_kind === 'item' ? num(l.qty) || 1 : 1, unit: l.unit.trim() || null,
+        unit_price: l.line_kind === 'item' && typeof l.unit_price === 'number' ? l.unit_price : null,
+        percent: l.line_kind !== 'item' && typeof l.percent === 'number' ? l.percent : null,
+        percent_base: l.line_kind === 'tax' && typeof l.percent === 'number' ? l.percent_base : null,
+      } : {}),
     }))
 }
 

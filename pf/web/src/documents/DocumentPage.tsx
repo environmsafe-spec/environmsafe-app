@@ -3,7 +3,7 @@ import {
   SimpleGrid, Stack, Table, Text, TextInput, Textarea, Title,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
-import { IconChevronDown, IconPaperclip, IconPlus, IconTrash } from '@tabler/icons-react'
+import { IconArrowRight, IconChevronDown, IconPaperclip, IconPlus, IconPrinter, IconTrash } from '@tabler/icons-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,12 +12,13 @@ import { useAuth } from '../auth/AuthProvider'
 import { formatMoney, localName } from '../lib/format'
 import { supabase } from '../lib/supabase'
 import {
-  lastAccount, partyMatchesRole, sha256Hex, useDocKinds, useGlAccounts, useMoneyAccounts, useParties, useProjects,
+  lastAccount, partyMatchesRole, sha256Hex, useCompanySettings, useDocKinds, useGlAccounts, useMoneyAccounts, useParties, useProjects,
 } from './data'
 import {
-  documentTotal, emptyDoc, journalDifference, missingForPosting, newLine, toDocumentRow, toLineRows, usdEquivalent,
-  type DocKind, type DocState, type KindInfo,
+  CONVERSIONS, documentTotal, emptyDoc, isTrade, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
+  type DocKind, type DocState, type KindInfo, type LineKind,
 } from './logic'
+import { TradeLines } from './TradeLines'
 
 interface DocRow {
   id: string; kind: DocKind; status: 'draft' | 'submitted' | 'posted' | 'void'; number: string | null; temp_number: string
@@ -26,6 +27,8 @@ interface DocRow {
   purpose: 'payable' | 'deposit' | null; reference_no: string | null; description: string | null; notes: string | null
   no_document_reason: string | null; journal_entry_id: string | null; reversal_entry_id: string | null
   void_reason: string | null; created_by: string | null; posted_at: string | null
+  due_date: string | null; valid_until: string | null; attention: string | null; party_reference: string | null; terms: string | null
+  revision: number; revision_of_id: string | null; source_document_id: string | null
 }
 interface Attachment { id: string; file_name: string; storage_path: string; size_bytes: number | null; sha256: string | null; uploaded_at: string }
 
@@ -62,11 +65,14 @@ function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_docu
     fee_amount: Number(d.fee_amount) || '', rate: Number(d.rate), counter_rate: d.counter_rate ? Number(d.counter_rate) : '',
     purpose: d.purpose ?? 'payable', currency: d.currency, reference_no: d.reference_no ?? '', description: d.description ?? '', notes: d.notes ?? '',
     no_document_reason: d.no_document_reason ?? '',
+    due_date: d.due_date ?? '', valid_until: d.valid_until ?? '', attention: d.attention ?? '', party_reference: d.party_reference ?? '', terms: d.terms ?? '',
     lines: lines.length
       ? lines.map((l) => ({
-          key: String(l.id), gl_account_id: (l.gl_account_id as string) ?? null, project_id: (l.project_id as string) ?? null,
-          item_id: (l.item_id as string) ?? null, description: (l.description as string) ?? '', amount: Number(l.amount),
-          side: (l.side as 'D' | 'C') ?? 'D',
+          key: String(l.id), line_kind: ((l.line_kind as LineKind) ?? 'item'), gl_account_id: (l.gl_account_id as string) ?? null,
+          project_id: (l.project_id as string) ?? null, item_id: (l.item_id as string) ?? null, description: (l.description as string) ?? '',
+          detail: (l.detail as string) ?? '', qty: l.qty != null ? Number(l.qty) : 1, unit: (l.unit as string) ?? '',
+          unit_price: l.unit_price != null ? Number(l.unit_price) : '', percent: l.percent != null ? Number(l.percent) : '',
+          percent_base: ((l.percent_base as 'items' | 'untaxed') ?? 'items'), amount: Number(l.amount), side: (l.side as 'D' | 'C') ?? 'D',
         }))
       : [newLine()],
     links: links.map((l) => ({ to_document_id: l.to_document_id, amount: Number(l.amount) })),
@@ -88,6 +94,7 @@ export function DocumentPage() {
   const gl = useGlAccounts()
   const projects = useProjects()
   const existing = useDocument(id)
+  const settings = useCompanySettings()
 
   const kind: DocKind | undefined = (existing.data?.doc.kind ?? kindParam) as DocKind | undefined
   const k = kinds.data?.find((x) => x.kind === kind)
@@ -101,6 +108,7 @@ export function DocumentPage() {
   const [moreOpen, setMoreOpen] = useState(false)
   const [voidOpen, setVoidOpen] = useState(false)
   const [voidReason, setVoidReason] = useState('')
+  const [printing, setPrinting] = useState(false)
   const loadedFor = useRef<string | null>(null)
 
   useEffect(() => {
@@ -109,6 +117,14 @@ export function DocumentPage() {
       setS(stateFrom(existing.data.doc, existing.data.lines, existing.data.links))
     }
   }, [existing.data])
+
+  // New PO / quotation / invoice: start from the company's standard terms.
+  useEffect(() => {
+    if (id || !k || !isTrade(k.kind) || s.terms || !settings.data) return
+    const key = { purchase_order: 'po_terms', quotation: 'quotation_terms', sales_invoice: 'invoice_terms' }[k.kind as string]
+    const terms = key ? (settings.data[key] as string | undefined) : undefined
+    if (terms) setS((p) => ({ ...p, terms }))
+  }, [id, k, settings.data, s.terms])
 
   // Kinds without a money account must not carry the remembered one.
   useEffect(() => {
@@ -203,7 +219,10 @@ export function DocumentPage() {
         const { data, error } = await supabase.rpc('post_document', { p_id: docId })
         if (error) throw error
         const st = (data as { status: string } | null)?.status
-        notifications.show({ color: st === 'posted' ? 'green' : 'yellow', message: st === 'posted' ? t('doc.postedOk') : t('doc.sentForApproval') })
+        notifications.show({
+          color: st === 'posted' ? 'green' : 'yellow',
+          message: st === 'posted' ? (k?.creates_journal === false ? t('trade.issued') : t('doc.postedOk')) : t('doc.sentForApproval'),
+        })
       } else {
         notifications.show({ color: 'green', message: t('common.saved') })
       }
@@ -242,6 +261,17 @@ export function DocumentPage() {
     const { data, error } = await supabase.storage.from('documents').createSignedUrl(a.storage_path, 120)
     if (error) return fail(error)
     window.open(data.signedUrl, '_blank', 'noopener')
+  }
+
+  const print = async () => {
+    if (!doc) return
+    setPrinting(true)
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-pdf', { body: { document_id: doc.id } })
+      if (error || !data?.url) throw new Error(t('trade.printFailed'))
+      window.open(data.url as string, '_blank', 'noopener')
+      if (data.stored) refresh(doc.id)
+    } catch (e) { fail(e as Error) } finally { setPrinting(false) }
   }
 
   if (!k || (id && existing.isLoading)) return <Text c="dimmed">{t('common.loading')}</Text>
@@ -283,10 +313,19 @@ export function DocumentPage() {
           <Title order={3}>{kindName}</Title>
           <Text c="dimmed" size="sm">{doc ? (doc.number ?? doc.temp_number) : t('doc.new')}</Text>
         </Stack>
-        {doc && <Badge size="lg" color={statusColor} variant="light">{t(`doc.${doc.status}`)}</Badge>}
+        {doc && <Badge size="lg" color={statusColor} variant="light">
+          {doc.status === 'posted' && !k.creates_journal ? t('trade.issued') : t(`doc.${doc.status}`)}
+          {doc.revision > 0 ? ` · Rev.${doc.revision}` : ''}
+        </Badge>}
       </Group>
 
       {doc?.status === 'void' && <Alert color="red">{t('doc.void')}: {doc.void_reason}</Alert>}
+      {(doc?.source_document_id || doc?.revision_of_id) && (
+        <Group gap="xs">
+          {doc.source_document_id && <Anchor size="sm" onClick={() => navigate(`/entries/${doc.source_document_id}`)}>← {t('trade.source')}</Anchor>}
+          {doc.revision_of_id && <Anchor size="sm" onClick={() => navigate(`/entries/${doc.revision_of_id}`)}>← Rev.{doc.revision - 1}</Anchor>}
+        </Group>
+      )}
       {(duplicates.data ?? []).length > 0 && doc?.status !== 'posted' && (
         <Alert color="orange" title={t('doc.duplicates')}>
           {(duplicates.data ?? []).map((d) => (
@@ -327,9 +366,27 @@ export function DocumentPage() {
                 onChange={(v) => setS((p) => ({ ...p, currency: v ?? 'USD', rate: '', links: [] }))} />
             )}
             <TextInput label={t('doc.description')} value={s.description} onChange={(e) => set('description', e.currentTarget.value)} disabled={readOnly} />
+            {['supplier_bill', 'sales_invoice'].includes(k.kind) && (
+              <TextInput type="date" label={t('trade.dueDate')} value={s.due_date} onChange={(e) => set('due_date', e.currentTarget.value)} disabled={readOnly} />
+            )}
+            {['purchase_order', 'quotation'].includes(k.kind) && (
+              <TextInput type="date" label={t('trade.validUntil')} value={s.valid_until} onChange={(e) => set('valid_until', e.currentTarget.value)} disabled={readOnly} />
+            )}
+            {isTrade(k.kind) && (
+              <TextInput label={t('trade.partyRef')} value={s.party_reference} onChange={(e) => set('party_reference', e.currentTarget.value)} disabled={readOnly} />
+            )}
+            {isTrade(k.kind) && (
+              <TextInput label={t('trade.attention')} value={s.attention} onChange={(e) => set('attention', e.currentTarget.value)} disabled={readOnly} />
+            )}
           </SimpleGrid>
 
-          {k.has_lines && (
+          {k.has_lines && isTrade(k.kind) && (
+            <TradeLines k={k} s={s} setS={setS} readOnly={readOnly} projectOptions={projectOptions} currency={currency}
+              accountOptions={(gl.data ?? []).filter((a) => a.is_postable && a.is_active && !a.control_kind
+                && (SALES_KINDS.includes(k.kind) ? ['income', 'liability'].includes(a.account_type) : ['expense', 'asset'].includes(a.account_type)))
+                .map((a) => ({ value: a.id, label: `${a.code} · ${localName(a, lang)}` }))} />
+          )}
+          {k.has_lines && !isTrade(k.kind) && (
             <LinesEditor k={k} s={s} setS={setS} readOnly={readOnly} accountOptions={lineAccountOptions} projectOptions={projectOptions}
               glById={glById} currency={currency} />
           )}
@@ -354,6 +411,7 @@ export function DocumentPage() {
                     <Text size="sm" flex={1}>{o.number} · {o.doc_date} · {o.description ?? ''} <Text span c="dimmed">({t(`doc.open`)} <bdi>{formatMoney(o.open_amount, o.currency)}</bdi>)</Text></Text>
                     {link && (
                       <NumberInput w={140} size="sm" value={link.amount} disabled={readOnly} max={Number(o.open_amount)} decimalScale={2}
+                        aria-label={`${t('doc.settles')} ${o.number}`}
                         onChange={(v) => setS((p) => ({ ...p, links: p.links.map((l) => (l.to_document_id === o.id ? { ...l, amount: typeof v === 'number' ? v : '' } : l)) }))} />
                     )}
                   </Group>
@@ -390,6 +448,10 @@ export function DocumentPage() {
                 <TextInput label={t('doc.noDocReason')} value={s.no_document_reason} onChange={(e) => set('no_document_reason', e.currentTarget.value)} disabled={readOnly} />
               )}
               <Textarea label={t('doc.notes')} value={s.notes} onChange={(e) => set('notes', e.currentTarget.value)} disabled={readOnly} autosize minRows={1} />
+              {isTrade(k.kind) && (
+                <Textarea label={t('trade.terms')} value={s.terms} onChange={(e) => set('terms', e.currentTarget.value)} disabled={readOnly}
+                  autosize minRows={3} style={{ gridColumn: '1 / -1' }} />
+              )}
             </SimpleGrid>
           </Collapse>
         </Stack>
@@ -427,7 +489,9 @@ export function DocumentPage() {
           <Button variant="default" loading={save.isPending} onClick={() => void onSave(false)}>{t('doc.saveDraft')}</Button>
         )}
         {!readOnly && can(k.post_permission) && (
-          <Button loading={save.isPending || rpc.isPending} disabled={missing.length > 0} onClick={() => void onSave(true)}>{t('doc.saveAndPost')}</Button>
+          <Button loading={save.isPending || rpc.isPending} disabled={missing.length > 0} onClick={() => void onSave(true)}>
+            {k.creates_journal ? t('doc.saveAndPost') : t('trade.saveAndIssue')}
+          </Button>
         )}
         {doc?.status === 'submitted' && can('docs.approve') && (
           <>
@@ -440,6 +504,18 @@ export function DocumentPage() {
         )}
         {doc && (doc.status === 'void' || doc.status === 'posted') && can('docs.create') && (
           <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'duplicate_document', args: { p_id: doc.id } }, { onSuccess: (newId) => navigate(`/entries/${newId as string}`) })}>{t('doc.copy')}</Button>
+        )}
+        {doc?.status === 'posted' && CONVERSIONS[k.kind] && can('docs.create') && (
+          <Button variant="light" rightSection={<IconArrowRight size={16} />}
+            onClick={() => rpc.mutate({ fn: 'convert_document', args: { p_id: doc.id, p_kind: CONVERSIONS[k.kind] } }, { onSuccess: (newId) => navigate(`/entries/${newId as string}`) })}>
+            {t(`trade.convert.${CONVERSIONS[k.kind]}`)}
+          </Button>
+        )}
+        {doc?.status === 'posted' && ['purchase_order', 'quotation'].includes(k.kind) && can('docs.create') && (
+          <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'revise_document', args: { p_id: doc.id } }, { onSuccess: (newId) => navigate(`/entries/${newId as string}`) })}>{t('trade.revise')}</Button>
+        )}
+        {doc && (isTrade(k.kind) || k.money_account !== 'none') && (
+          <Button variant="default" leftSection={<IconPrinter size={16} />} loading={printing} onClick={() => void print()}>{t('trade.print')}</Button>
         )}
       </Group>
 

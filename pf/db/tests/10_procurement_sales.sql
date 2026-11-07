@@ -1,7 +1,7 @@
 -- Procurement and sales: PO (with surcharge and tax lines, Rev.N), bill from PO, payments that settle
 -- bills (with FX), quotation -> invoice, receipts, credit notes, aging, statements, verification.
 begin;
-select plan(44);
+select plan(46);
 select tests.phase2_fixtures();
 update public.parties set payment_terms_days = 30 where name_en = 'T Customer';
 
@@ -50,9 +50,14 @@ select is((select source_document_id from public.documents where id = :'bill'), 
 select alike(tests.post_as('procurement@es.test', :'bill'), 'ERROR: Line 1 (TRAC102.11R (Nalco)): choose the expense / asset account%', 'a bill needs an account for each item');
 update public.items set default_expense_account_id = tests.acct('5200') where name_en like 'TRAC%';
 select alike(tests.post_as('procurement@es.test', :'bill'), 'ERROR: Account 5200 Materials and spare parts needs a project%', 'cost lines need a project');
-update public.document_lines set project_id = tests.project('T Project A') where document_id = :'bill';
+update public.document_lines set project_id = tests.project('T Project A') where document_id = :'bill' and line_kind = 'item';
 update public.documents set party_reference = 'SEC-INV-778', doc_date = '2026-11-05' where id = :'bill';
+select tests.login('procurement@es.test');
+select is((select count(*)::int from public.find_duplicates(:'bill')), 0, 'a bill is not flagged as a duplicate of its own PO');
+select tests.logout();
 select is(tests.post_as('procurement@es.test', :'bill'), 'posted', 'procurement posts the bill');
+select is((select count(*)::int from public.document_lines where document_id = :'bill' and project_id is null), 0,
+  'surcharge and tax lines take the project of the product line');
 select is(tests.je(:'bill'), '5200 D 365.70 | 5200 D 43.88 | 5200 D 18.29 | 2000 C 427.87', 'bill: cost lines (incl. surcharge and tax) Dr, Cr accounts payable');
 select is((select number || ' due ' || due_date from public.documents where id = :'bill'), 'BILL-2026-0001 due 2026-11-05', 'bill numbering; due date = date + supplier terms (0)');
 select is((select count(*)::int from public.aging(tests.es(), 'ap', '2026-11-30')), 1, 'the bill shows in AP aging');

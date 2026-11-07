@@ -183,7 +183,10 @@ begin
             'email', 'support@environmsafe.com',
             'website', 'www.environmsafe.com',
             'invoice_bank_line', 'Al Kuraimi Bank acct 3108401426',
-            'approval_threshold_usd', 1000))
+            'approval_threshold_usd', 1000,
+            'po_terms', E'Payment: As agreed upon delivery and receipt of the original invoice\nDelivery: EnvironmSafe, Aden\nInvoice To: EnvironmSafe For Engineering, Trading, and Services Ltd, Aden-Alburaqah, Yemen | Attn: General Manager | support@environmsafe.com',
+            'invoice_terms', E'Payment: As agreed\nBank: Al Kuraimi Bank, account no. 3108401426 (EnvironmSafe for Engineering, Trading, and Services Ltd)',
+            'quotation_terms', E'Validity: 30 days\nPayment: As agreed'))
   on conflict (id) do nothing;
 
   perform app.seed_chart_of_accounts(p_company_id);

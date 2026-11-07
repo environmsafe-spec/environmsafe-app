@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import { useDocKinds } from '../documents/data'
-import { ACTION_GROUPS, type DocKind } from '../documents/logic'
+import { ACTION_GROUPS, TRADE_GROUP, type DocKind } from '../documents/logic'
 import { formatMoney, localName } from '../lib/format'
 import { supabase } from '../lib/supabase'
 
@@ -42,8 +42,8 @@ export function HomePage() {
     },
   })
 
-  const group = (g: keyof typeof ACTION_GROUPS, label: string, icon: typeof IconCash) => {
-    const list = ACTION_GROUPS[g].filter((k) => kinds.data?.some((x) => x.kind === k))
+  const group = (g: keyof typeof ACTION_GROUPS | 'trade', label: string, icon: typeof IconCash) => {
+    const list = (g === 'trade' ? TRADE_GROUP : ACTION_GROUPS[g]).filter((k) => kinds.data?.some((x) => x.kind === k))
     if (list.length === 1) return <Tile key={g} label={label} icon={icon} disabled={!canCreate} onClick={() => navigate(`/entries/new/${list[0]}`)} />
     return (
       <Menu key={g} position="bottom" width={260} disabled={!canCreate}>
@@ -71,7 +71,7 @@ export function HomePage() {
         {group('receive', t('home.receive'), IconReceipt2)}
         {group('transfer', t('home.transfer'), IconArrowsExchange)}
         {group('claim', t('home.claim'), IconUserDollar)}
-        <Tile label={t('home.billInvoice')} icon={IconFileInvoice} disabled />
+        {group('trade', t('home.billInvoice'), IconFileInvoice)}
         <Tile label={t('home.upload')} icon={IconUpload} disabled />
       </SimpleGrid>
 

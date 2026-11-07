@@ -314,6 +314,13 @@ begin
     if l.gl_account_id is distinct from v_acc then
       update public.document_lines set gl_account_id = v_acc where id = l.id;
     end if;
+    -- Surcharge / discount / tax lines follow the project of the first product line.
+    if l.line_kind <> 'item' and l.project_id is null then
+      update public.document_lines
+         set project_id = (select project_id from public.document_lines
+                           where document_id = d.id and line_kind = 'item' and project_id is not null order by line_no limit 1)
+       where id = l.id;
+    end if;
   end loop;
 end $$;
 
@@ -1032,7 +1039,8 @@ language sql stable security definer set search_path = '' as $$
   join public.documents o on o.company_id = d.company_id and o.id <> d.id and o.status <> 'void'
   where d.id = p_id
     and app.has_perm(d.company_id, 'docs.view')
-    and ( (o.party_id = d.party_id and o.amount = d.amount and o.doc_date = d.doc_date and d.amount > 0)
+    and ( (o.party_id = d.party_id and o.amount = d.amount and o.doc_date = d.doc_date and d.amount > 0
+           and o.kind = d.kind and o.id is distinct from d.source_document_id and o.source_document_id is distinct from d.id)
        or (d.reference_no is not null and trim(d.reference_no) <> '' and o.reference_no = d.reference_no
            and o.money_account_id is not distinct from d.money_account_id) )
 $$;
