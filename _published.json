@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-07",
+    "slug": "the-exit-that-is-blocked-on-the-day",
+    "icon": "fa-door-open",
+    "color": "orange",
+    "en": {
+      "title": "The Exit That Is Blocked on the Day It Matters",
+      "home_summary": "Escape routes are designed once and eroded daily by reasonable decisions: stock in a corridor, an exit chained for security, a sign pointing at a door that was locked years ago."
+    },
+    "ar": {
+      "title": "المخرج المسدود في اليوم الذي يهم",
+      "home_summary": "تُصمَّم مسارات الهروب مرة وتتآكل يومياً بقرارات معقولة: بضاعة في ممر، ومخرج قُيّد للأمن، ولوحة تشير إلى باب أُقفل منذ سنوات."
+    }
+  },
+  {
     "iso": "2026-11-06",
     "slug": "a-battery-room-makes-its-own-atmosphere",
     "icon": "fa-car-battery",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "مضخة الحريق التي تعمل ليست مضخة تؤدي المطلوب",
       "home_summary": "الاختبار الأسبوعي يثبت أن المضخة تبدأ، ولا يقول شيئاً عن التدفق والضغط حين يهمان."
-    }
-  },
-  {
-    "iso": "2026-09-13",
-    "slug": "the-harness-is-the-easy-part",
-    "icon": "fa-link",
-    "color": "purple",
-    "en": {
-      "title": "The Harness Is the Easy Part: Anchor Points and Fall Clearance",
-      "home_summary": "Harnesses get inspected. The anchor above and the clearance below are usually just assumed."
-    },
-    "ar": {
-      "title": "الحزام هو الجزء السهل: نقاط التثبيت ومسافة السقوط الحرة",
-      "home_summary": "الأحزمة تُفحص، أما نقطة التثبيت فوق والمسافة تحت فتُفترض عادة."
     }
   }
 ]
