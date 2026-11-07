@@ -259,6 +259,15 @@ still present and can be deleted.
   cached stylesheet otherwise: the light-hero change was on `main` and did not
   show on the live site until the link changed. Replace the `?v=` value in
   every `public/**/*.html` (templates included) in the same commit.
+- **Icons are self-hosted.** Font Awesome 6.5.0 is served from
+  `public/vendor/fontawesome/` (linked as `/vendor/fontawesome/css/all.min.css`),
+  not the cdnjs CDN: on slow mobile data the CDN font often failed and every
+  icon showed as an empty box. Do not switch back to a CDN link. The WhatsApp
+  and back-to-top icons are inline SVG in `js/main.js`.
+- **Floating buttons on phones (< 900 px):** nothing floats over content. The
+  WhatsApp button sits in the header bar beside the menu (`.header-wa`), and
+  back-to-top is a small tab on the side edge (right; left on Arabic). Wide
+  screens keep both floating bottom-right.
 - Social links: LinkedIn and Facebook only. There is no Twitter/X account —
   that icon was removed deliberately.
 
