@@ -957,6 +957,35 @@ input, textarea, select {
 }
 .whatsapp-float:hover { color: var(--clr-white); transform: scale(1.08); }
 
+/* Phones and tablets: nothing floats over the page content.
+   WhatsApp moves into the header bar (top); back-to-top becomes a small tab
+   on the side edge, clear of Android's gesture bar and browser toolbar. */
+.header-wa { display: none; }
+@media (max-width: 899px) {
+  .whatsapp-float { display: none; }
+  .header-wa {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%;
+    background: #25D366; color: var(--clr-white);
+    font-size: 1.35rem;
+  }
+  .header-wa:hover, .header-wa:focus-visible { color: var(--clr-white); }
+  .header__inner { gap: 12px; }
+  .back-to-top {
+    top: 50%; bottom: auto;
+    right: 0; left: auto;
+    width: 38px; height: 46px;
+    border-radius: 10px 0 0 10px;
+    transform: translate(16px, -50%);
+    opacity: 0;
+  }
+  .back-to-top.visible { opacity: .85; transform: translate(0, -50%); }
+  .back-to-top:hover { transform: translate(0, -50%); }
+  [dir="rtl"] .back-to-top { right: auto; left: 0; border-radius: 0 10px 10px 0; transform: translate(-16px, -50%); }
+  [dir="rtl"] .back-to-top.visible, [dir="rtl"] .back-to-top:hover { transform: translate(0, -50%); }
+}
+
 /* ---------- Scroll Animations ---------- */
 .fade-up {
   opacity: 0;
