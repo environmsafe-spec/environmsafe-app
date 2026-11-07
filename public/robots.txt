@@ -6,6 +6,7 @@ Disallow: /agent
 Disallow: /agent.html
 Disallow: /receivables
 Disallow: /receivables.html
+Disallow: /verify
 
 # AI search crawlers — explicitly welcomed. Blocking these makes the site
 # invisible in ChatGPT, Claude, Perplexity and Google AI Overviews.
