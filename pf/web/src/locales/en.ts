@@ -117,6 +117,19 @@ const en = {
     b: { current: 'Not due', '1-30': '1–30 days', '31-60': '31–60', '61-90': '61–90', '90+': '90+' },
   },
   proc: { orders: 'Purchase orders', bills: 'Supplier bills', invoices: 'Invoices', quotations: 'Quotations', creditNotes: 'Credit notes' },
+  ai: {
+    help: 'Take a photo or choose files: bank slips, remittance receipts, supplier invoices, shop receipts (Arabic or English). Each one becomes a pre-filled draft for you to check.',
+    camera: 'Take photo', files: 'Choose files', uploading: 'Uploading…', reading: 'Reading…', open: 'Open draft', failed: 'Failed',
+    tooBig: 'File is larger than 10 MB', reviewAll: 'Review the {{n}} drafts one by one', neverPosts: 'Nothing is posted automatically: open each draft, check it against the voucher, then post.',
+    checkTitle: 'Read by AI: please check', prev: 'Previous', next: 'Next voucher', batchPos: 'Voucher {{i}} of {{n}}',
+    kind: { expense: 'Expense (paid now)', supplier_payment: 'Supplier payment', customer_receipt: 'Customer receipt', transfer: 'Transfer', supplier_bill: 'Supplier bill' },
+  },
+  rec: {
+    title: 'Recurring documents', help: 'Monthly salaries, rent, subscriptions: each template copies its document as a draft on the chosen day. Drafts are never posted automatically.',
+    month: 'Month', generate: 'Create drafts for this month', created: '{{n}} draft(s) created', day: 'Day of month', last: 'Last created',
+    none: 'No templates yet. Open a posted document and choose "Make monthly".', make: 'Make monthly',
+    makeHelp: 'A draft copy of this document will be created every month on this day.', saved: 'Monthly template saved',
+  },
   settings: {
     users: 'Users & roles', periods: 'Periods', audit: 'Audit log', company: 'Company',
     close: 'Close', reopen: 'Reopen', reopenReason: 'Why reopen this period?', closedBy: 'Closed',

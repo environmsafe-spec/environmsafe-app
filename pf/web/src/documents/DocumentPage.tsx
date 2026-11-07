@@ -3,11 +3,11 @@ import {
   SimpleGrid, Stack, Table, Text, TextInput, Textarea, Title,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
-import { IconArrowRight, IconChevronDown, IconPaperclip, IconPlus, IconPrinter, IconTrash } from '@tabler/icons-react'
+import { IconArrowRight, IconChevronDown, IconPaperclip, IconPlus, IconPrinter, IconRepeat, IconTrash } from '@tabler/icons-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import { formatMoney, localName } from '../lib/format'
 import { supabase } from '../lib/supabase'
@@ -109,6 +109,35 @@ export function DocumentPage() {
   const [voidOpen, setVoidOpen] = useState(false)
   const [voidReason, setVoidReason] = useState('')
   const [printing, setPrinting] = useState(false)
+  const [recOpen, setRecOpen] = useState(false)
+  const [recName, setRecName] = useState('')
+  const [recDay, setRecDay] = useState(28)
+  const [params] = useSearchParams()
+  const batch = (params.get('batch') ?? '').split(',').filter(Boolean)
+  const batchPos = id ? batch.indexOf(id) : -1
+
+  // The voucher image / PDF shown next to the form (first image or PDF attached).
+  const previewFile = existing.data?.files.find((f) => /\.(jpe?g|png|webp|gif|pdf)$/i.test(f.file_name))
+  const preview = useQuery({
+    queryKey: ['preview', previewFile?.storage_path],
+    enabled: Boolean(previewFile),
+    staleTime: 240_000,
+    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.storage.from('documents').createSignedUrl(previewFile!.storage_path, 300)
+      if (error) return null
+      return { url: data.signedUrl, pdf: /\.pdf$/i.test(previewFile!.file_name) }
+    },
+  })
+  // What the AI could not settle on its own, shown until the draft is posted.
+  const aiWarnings = useQuery({
+    queryKey: ['ai-warnings', id],
+    enabled: Boolean(id),
+    queryFn: async () => {
+      const { data } = await supabase.from('ai_extractions').select('warnings').eq('document_id', id!).order('created_at', { ascending: false }).limit(1)
+      return ((data ?? [])[0]?.warnings ?? []) as string[]
+    },
+  })
   const loadedFor = useRef<string | null>(null)
 
   useEffect(() => {
@@ -274,6 +303,14 @@ export function DocumentPage() {
     } catch (e) { fail(e as Error) } finally { setPrinting(false) }
   }
 
+  const makeRecurring = async () => {
+    if (!doc) return
+    const { error } = await supabase.from('recurring_templates').insert({ company_id: cid, name: recName.trim(), source_document_id: doc.id, day_of_month: recDay })
+    if (error) return fail(error)
+    setRecOpen(false)
+    notifications.show({ color: 'green', message: t('rec.saved') })
+  }
+
   if (!k || (id && existing.isLoading)) return <Text c="dimmed">{t('common.loading')}</Text>
   if (existing.error) return <Alert color="red">{(existing.error as Error).message}</Alert>
 
@@ -306,8 +343,13 @@ export function DocumentPage() {
     }))
   }
 
-  return (
+  const main = (
     <Stack maw={900}>
+      {(aiWarnings.data ?? []).length > 0 && doc?.status === 'draft' && (
+        <Alert color="gold" title={t('ai.checkTitle')}>
+          {(aiWarnings.data ?? []).map((w) => <div key={w}>• {w}</div>)}
+        </Alert>
+      )}
       <Group justify="space-between" wrap="wrap">
         <Stack gap={0}>
           <Title order={3}>{kindName}</Title>
@@ -517,7 +559,18 @@ export function DocumentPage() {
         {doc && (isTrade(k.kind) || k.money_account !== 'none') && (
           <Button variant="default" leftSection={<IconPrinter size={16} />} loading={printing} onClick={() => void print()}>{t('trade.print')}</Button>
         )}
+        {doc?.status === 'posted' && !isTrade(k.kind) && k.kind !== 'manual_journal' && can('docs.create') && (
+          <Button variant="subtle" leftSection={<IconRepeat size={16} />} onClick={() => { setRecName(doc.description ?? kindName); setRecOpen(true) }}>{t('rec.make')}</Button>
+        )}
       </Group>
+
+      {batch.length > 1 && (
+        <Group justify="space-between" className="no-print">
+          <Button variant="default" disabled={batchPos <= 0} onClick={() => navigate(`/entries/${batch[batchPos - 1]}?batch=${batch.join(',')}`)}>← {t('ai.prev')}</Button>
+          <Text size="sm" c="dimmed">{t('ai.batchPos', { i: batchPos + 1, n: batch.length })}</Text>
+          <Button disabled={batchPos >= batch.length - 1} onClick={() => navigate(`/entries/${batch[batchPos + 1]}?batch=${batch.join(',')}`)}>{t('ai.next')} →</Button>
+        </Group>
+      )}
 
       {doc?.journal_entry_id && (
         <JournalView lines={journal.data ?? []} entryId={doc.journal_entry_id} reversalId={doc.reversal_entry_id} glById={glById}
@@ -533,7 +586,29 @@ export function DocumentPage() {
           </Button>
         </Stack>
       </Modal>
+
+      <Modal opened={recOpen} onClose={() => setRecOpen(false)} title={t('rec.make')}>
+        <Stack>
+          <Text size="sm" c="dimmed">{t('rec.makeHelp')}</Text>
+          <TextInput label={t('common.name')} value={recName} onChange={(e) => setRecName(e.currentTarget.value)} data-autofocus />
+          <NumberInput label={t('rec.day')} min={1} max={28} value={recDay} onChange={(v) => setRecDay(typeof v === 'number' ? v : 1)} />
+          <Button disabled={!recName.trim()} onClick={() => void makeRecurring()}>{t('common.save')}</Button>
+        </Stack>
+      </Modal>
     </Stack>
+  )
+
+  if (!preview.data) return main
+  // Side by side on wide screens: the voucher next to the form (spec: AI review).
+  return (
+    <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+      {main}
+      <Card withBorder p="xs" className="no-print" style={{ position: 'sticky', top: 70, alignSelf: 'start' }}>
+        {preview.data.pdf
+          ? <iframe title="voucher" src={preview.data.url} style={{ width: '100%', height: '80vh', border: 0 }} />
+          : <img alt="voucher" src={preview.data.url} style={{ width: '100%', maxHeight: '85vh', objectFit: 'contain' }} />}
+      </Card>
+    </SimpleGrid>
   )
 }
 

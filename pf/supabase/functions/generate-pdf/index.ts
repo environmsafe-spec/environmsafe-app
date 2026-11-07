@@ -15,7 +15,7 @@ const cors = {
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, 'Content-Type': 'application/json' } })
 
-async function sha256(bytes: Uint8Array) {
+async function sha256(bytes: Uint8Array<ArrayBuffer>) {
   const d = await crypto.subtle.digest('SHA-256', bytes)
   return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }

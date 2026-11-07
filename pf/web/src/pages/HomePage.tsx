@@ -72,7 +72,7 @@ export function HomePage() {
         {group('transfer', t('home.transfer'), IconArrowsExchange)}
         {group('claim', t('home.claim'), IconUserDollar)}
         {group('trade', t('home.billInvoice'), IconFileInvoice)}
-        <Tile label={t('home.upload')} icon={IconUpload} disabled />
+        <Tile label={t('home.upload')} icon={IconUpload} disabled={!canCreate} onClick={() => navigate('/upload')} />
       </SimpleGrid>
 
       <SimpleGrid cols={{ base: 1, md: 2 }}>

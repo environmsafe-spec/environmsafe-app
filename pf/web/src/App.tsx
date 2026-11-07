@@ -8,6 +8,8 @@ import {
   coaConfig, customersConfig, employeesConfig, itemsConfig, moneyAccountsConfig, projectsConfig, ratesConfig, suppliersConfig,
 } from './masterdata/configs'
 import { MasterDataPage } from './masterdata/MasterDataPage'
+import { RecurringPage } from './ai/RecurringPage'
+import { UploadPage } from './ai/UploadPage'
 import { DocumentPage } from './documents/DocumentPage'
 import { EntriesPage } from './documents/EntriesPage'
 import { HomePage } from './pages/HomePage'
@@ -41,6 +43,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route index element={<HomePage />} />
         <Route path="entries" element={<EntriesPage />} />
+        <Route path="upload" element={<UploadPage />} />
         <Route path="entries/new/:kind" element={<DocumentPage key="new" />} />
         <Route path="entries/:id" element={<DocumentPage />} />
 
@@ -96,6 +99,7 @@ export default function App() {
           { path: 'rates', label: 'md.rates' },
           { path: 'employees', label: 'md.employees' },
           { path: 'periods', label: 'settings.periods' },
+          { path: 'recurring', label: 'rec.title', show: can('docs.view') },
           { path: 'users', label: 'settings.users', show: can('users.manage') || can('audit.view') },
           { path: 'audit', label: 'settings.audit', show: can('audit.view') }]} />}>
           <Route index element={<Navigate to="accounts" replace />} />
@@ -104,6 +108,7 @@ export default function App() {
           <Route path="rates" element={md(ratesConfig)} />
           <Route path="employees" element={md(employeesConfig)} />
           <Route path="periods" element={<PeriodsPage />} />
+          <Route path="recurring" element={<RecurringPage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="audit" element={<AuditLogPage />} />
         </Route>
