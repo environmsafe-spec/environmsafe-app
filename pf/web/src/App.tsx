@@ -8,6 +8,8 @@ import {
   coaConfig, customersConfig, employeesConfig, itemsConfig, moneyAccountsConfig, projectsConfig, ratesConfig, suppliersConfig,
 } from './masterdata/configs'
 import { MasterDataPage } from './masterdata/MasterDataPage'
+import { DocumentPage } from './documents/DocumentPage'
+import { EntriesPage } from './documents/EntriesPage'
 import { HomePage } from './pages/HomePage'
 import { PlaceholderPage } from './pages/PlaceholderPage'
 import { AuditLogPage } from './pages/settings/AuditLogPage'
@@ -28,7 +30,9 @@ export default function App() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="entries" element={<PlaceholderPage title="nav.entries" />} />
+        <Route path="entries" element={<EntriesPage />} />
+        <Route path="entries/new/:kind" element={<DocumentPage key="new" />} />
+        <Route path="entries/:id" element={<DocumentPage />} />
 
         <Route path="procurement" element={<SectionTabs base="/procurement" tabs={[
           { path: 'suppliers', label: 'md.suppliers' }, { path: 'items', label: 'md.items' }]} />}>
