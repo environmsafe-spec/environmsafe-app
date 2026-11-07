@@ -86,3 +86,65 @@ begin
   perform set_config('request.jwt.claims', '', true);
   return n;
 end $$;
+
+-- ---------------- Phase 2 helpers ----------------
+create or replace function tests.logout() returns void
+language plpgsql as $$
+begin
+  perform set_config('role', 'postgres', true);
+  perform set_config('request.jwt.claims', '', true);
+end $$;
+
+-- Money accounts, parties and projects used by the posting tests (call inside the test transaction).
+create or replace function tests.phase2_fixtures() returns void
+language plpgsql as $$
+begin
+  insert into public.money_accounts (company_id, code, name_en, kind, currency, legacy_id) values
+    (tests.es(), '', 'T Kuraimi USD', 'bank', 'USD', 'T-USD'),
+    (tests.es(), '', 'T Kuraimi YER', 'bank', 'YER', 'T-YER'),
+    (tests.es(), '', 'T Qutaibi SAR', 'exchange', 'SAR', 'T-SAR');
+  insert into public.parties (company_id, code, primary_kind, name_en, treat_withdrawals_as_drawings) values
+    (tests.es(), '', 'supplier', 'T Supplier', false),
+    (tests.es(), '', 'customer', 'T Customer', false),
+    (tests.es(), '', 'employee', 'T Employee', false),
+    (tests.es(), '', 'owner',    'T Owner',    false),
+    (tests.es(), '', 'employee', 'T Drawer',   true);
+  insert into public.projects (company_id, code, name_en) values
+    (tests.es(), '', 'T Project A'), (tests.es(), '', 'T Project B');
+end $$;
+
+create or replace function tests.ma(p_legacy text) returns uuid
+language sql stable as $$ select id from public.money_accounts where legacy_id = p_legacy $$;
+create or replace function tests.party(p_name text) returns uuid
+language sql stable as $$ select id from public.parties where name_en = p_name $$;
+create or replace function tests.project(p_name text) returns uuid
+language sql stable as $$ select id from public.projects where name_en = p_name $$;
+create or replace function tests.acct(p_code text) returns uuid
+language sql stable as $$ select id from public.gl_accounts where company_id = tests.es() and code = p_code $$;
+
+-- Compact view of a document's journal: '6200 D 60.00 | 1000-001 C 60.00'
+create or replace function tests.je(p_doc uuid, p_kind text default 'posting') returns text
+language sql stable as $$
+  select string_agg(g.code || ' ' || case when jl.debit > 0 then 'D ' || jl.debit else 'C ' || jl.credit end, ' | ' order by jl.line_no)
+  from public.journal_entries je
+  join public.journal_lines jl on jl.entry_id = je.id
+  join public.gl_accounts g on g.id = jl.account_id
+  where je.document_id = p_doc and je.kind = p_kind
+$$;
+
+-- Post as a user; returns the resulting status (or the error message).
+create or replace function tests.post_as(p_email text, p_doc uuid) returns text
+language plpgsql as $$
+declare v text;
+begin
+  perform tests.login(p_email);
+  begin
+    select status::text into v from public.post_document(p_doc);
+  exception when others then
+    v := 'ERROR: ' || sqlerrm;
+  end;
+  perform tests.logout();
+  return v;
+end $$;
+
+grant execute on all functions in schema tests to authenticated, anon, service_role;
