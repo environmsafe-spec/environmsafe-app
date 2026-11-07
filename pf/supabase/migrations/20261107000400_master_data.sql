@@ -30,6 +30,7 @@ create table public.parties (
   job_title                     text,
   -- Employee withdrawals that are really owner drawings (spec section 4).
   treat_withdrawals_as_drawings boolean not null default false,
+  payment_terms_days            smallint check (payment_terms_days is null or payment_terms_days between 0 and 365),
   notes                         text,
   is_active                     boolean not null default true,
   created_at                    timestamptz not null default now(),

@@ -34,6 +34,7 @@ create table public.doc_kinds (
   approval_applies  boolean not null default false,
   settles           public.doc_kind[] not null default '{}',
   post_permission   text not null references public.permissions(code),
+  creates_journal   boolean not null default true,   -- false for POs and quotations (commitments, not accounting)
   name_en           text not null,
   name_ar           text not null,
   sort              smallint not null
@@ -52,7 +53,7 @@ values
   ('customer_receipt',     'receipt',       'in',       false, 'required', 'customer',          true,  true,  false, '{}',                                        'docs.post_money', 'Customer receipt',          'قبض من عميل',            80),
   ('refund_from_supplier', 'receipt',       'in',       false, 'required', 'supplier',          true,  true,  false, '{}',                                        'docs.post_money', 'Refund from supplier',      'استرداد من مورد',        90),
   ('advance_repayment',    'receipt',       'in',       false, 'required', 'employee',          true,  true,  false, '{employee_advance}',                        'docs.post_money', 'Advance repayment',         'سداد سلفة',             100),
-  ('transfer',             'transfer',      'transfer', false, 'required', null,                false, true,  true,  '{}',                                        'docs.post_money', 'Transfer between accounts', 'تحويل بين الحسابات',    110),
+  ('transfer',             'transfer',      'transfer', false, 'required', null,                false, true,  false,  '{}',                                        'docs.post_money', 'Transfer between accounts', 'تحويل بين الحسابات',    110),
   ('expense_claim',        'expense_claim', 'none',     true,  'none',     'employee_or_owner', true,  false, false, '{}',                                        'docs.post_money', 'Expense claim',             'مطالبة مصروفات',        120),
   ('employee_offset',      'journal',       'none',     false, 'none',     'employee',          true,  false, false, '{expense_claim,employee_advance}',          'docs.post_money', 'Offset claims against advance', 'مقاصة مطالبات مع سلفة', 130),
   ('manual_journal',       'journal',       'none',     true,  'none',     null,                false, false, false, '{}',                                        'journal.manual',  'Manual journal',            'قيد يدوي',              140);
@@ -78,6 +79,15 @@ create table public.documents (
   counter_rate              numeric(18, 6) check (counter_rate is null or counter_rate > 0),
   fee_amount                numeric(18, 2) not null default 0 check (fee_amount >= 0),
   purpose                   text check (purpose in ('payable', 'deposit')),
+  due_date                  date,                         -- bills / invoices (aging)
+  valid_until               date,                         -- quotations / POs
+  revision                  smallint not null default 0,  -- PO / quotation Rev.N (same number)
+  revision_of_id            uuid references public.documents(id),
+  source_document_id        uuid references public.documents(id),   -- bill from PO, invoice from quotation...
+  verify_token              uuid not null default gen_random_uuid() unique,  -- QR verification page
+  attention                 text,                         -- "Attn:" line on printed documents
+  party_reference           text,                         -- supplier quotation no. / customer PO no.
+  terms                     text,                         -- Terms & Conditions printed on the document
   reference_no              text,
   description               text,
   notes                     text,
@@ -100,7 +110,7 @@ create table public.documents (
   updated_at                timestamptz not null default now(),
   updated_by                uuid,
   unique (company_id, id),
-  unique (company_id, number),
+  unique (company_id, number, revision),
   foreign key (company_id, party_id)                 references public.parties(company_id, id),
   foreign key (company_id, money_account_id)         references public.money_accounts(company_id, id),
   foreign key (company_id, counter_money_account_id) references public.money_accounts(company_id, id),
@@ -120,8 +130,12 @@ create table public.document_lines (
   company_id    uuid not null references public.companies(id),
   document_id   uuid not null references public.documents(id) on delete cascade,
   line_no       smallint not null default 1,
+  line_kind     text not null default 'item' check (line_kind in ('item', 'charge', 'discount', 'tax')),
   item_id       uuid,
   description   text,
+  detail        text,                                    -- second (italic) line on printed documents
+  percent       numeric(9, 4) check (percent is null or percent >= 0),
+  percent_base  text check (percent_base in ('items', 'untaxed')),
   qty           numeric(18, 4) not null default 1 check (qty > 0),
   unit          text,
   unit_price    numeric(18, 4),

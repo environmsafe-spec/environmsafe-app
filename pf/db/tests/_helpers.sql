@@ -148,3 +148,16 @@ begin
 end $$;
 
 grant execute on all functions in schema tests to authenticated, anon, service_role;
+
+-- What an anonymous visitor of the QR verification page sees.
+create or replace function tests.anon_verify(p_token uuid) returns text
+language plpgsql as $$
+declare v text; n int;
+begin
+  perform set_config('request.jwt.claims', '{"role":"anon"}', true);
+  perform set_config('role', 'anon', true);
+  select count(*), max(status || ' ' || total) into n, v from public.verify_document(p_token);
+  perform tests.logout();
+  return coalesce(v, 'none:' || n);
+end $$;
+grant execute on function tests.anon_verify(uuid) to anon, authenticated;

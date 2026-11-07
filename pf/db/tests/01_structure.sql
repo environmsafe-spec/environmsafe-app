@@ -22,8 +22,8 @@ select is(
   (select count(*)::int from pg_proc p join pg_namespace n on n.oid = p.pronamespace
    where n.nspname = 'public' and p.prokind = 'f'
      and has_function_privilege('anon', p.oid, 'execute')
-     and p.proname not like '\_%' and p.oid not in (select objid from pg_depend where deptype = 'e')),
-  0, 'anon cannot execute any of our API functions');
+     and p.proname not like '\_%' and p.proname <> 'verify_document' and p.oid not in (select objid from pg_depend where deptype = 'e')),
+  0, 'anon cannot execute any of our API functions (except the public QR verification)');
 
 select ok(not has_function_privilege('authenticated', 'app.next_seq(uuid,text,text)', 'execute'),
   'API users cannot call the numbering function directly');
