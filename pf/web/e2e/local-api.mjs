@@ -32,11 +32,13 @@ function whereClause(params, values) {
   const parts = []
   for (const [key, raw] of params) {
     if (['select', 'order', 'limit', 'offset', 'columns'].includes(key)) continue
-    const m = /^(eq|neq|in|is)\.(.*)$/s.exec(raw)
+    const m = /^(eq|neq|in|is|gte|lte|gt|lt)\.(.*)$/s.exec(raw)
     if (!m) throw Object.assign(new Error(`unsupported filter ${key}=${raw}`), { status: 400 })
     const [, op, v] = m
     if (op === 'eq') { values.push(v); parts.push(`${ident(key)} = $${values.length}`) }
     if (op === 'neq') { values.push(v); parts.push(`${ident(key)} <> $${values.length}`) }
+    const cmp = { gte: '>=', lte: '<=', gt: '>', lt: '<' }[op]
+    if (cmp) { values.push(v); parts.push(`${ident(key)} ${cmp} $${values.length}`) }
     if (op === 'is') parts.push(`${ident(key)} is ${v === 'null' ? 'null' : v === 'true' ? 'true' : 'false'}`)
     if (op === 'in') {
       const items = v.replace(/^\(|\)$/g, '').split(',').map((x) => x.replace(/^"|"$/g, ''))

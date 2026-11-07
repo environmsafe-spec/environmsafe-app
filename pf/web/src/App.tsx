@@ -14,6 +14,8 @@ import { HomePage } from './pages/HomePage'
 import { VerifyPage } from './pages/VerifyPage'
 import { AgingPage } from './reports/AgingPage'
 import { StatementPage } from './reports/StatementPage'
+import { AssetsPage, AuditPackPage, BankBookPage, PartyBalancesPage, ProjectPlPage } from './reports/OperationalPages'
+import { BalanceSheetPage, CashFlowPage, EquityPage, GeneralLedgerPage, ProfitLossPage, TrialBalancePage } from './reports/StatementPages'
 import { AuditLogPage } from './pages/settings/AuditLogPage'
 import { PeriodsPage } from './pages/settings/PeriodsPage'
 import { UsersPage } from './pages/settings/UsersPage'
@@ -64,11 +66,28 @@ export default function App() {
 
         <Route path="projects" element={md(projectsConfig)} />
         <Route path="reports" element={<SectionTabs base="/reports" tabs={[
-          { path: 'ar', label: 'rep.arAging' }, { path: 'ap', label: 'rep.apAging' }, { path: 'statement', label: 'rep.statement' }]} />}>
-          <Route index element={<Navigate to="ar" replace />} />
+          { path: 'pl', label: 'rep.tabs.pl', show: can('reports.financial') }, { path: 'bs', label: 'rep.tabs.bs', show: can('reports.financial') },
+          { path: 'cf', label: 'rep.tabs.cf', show: can('reports.financial') }, { path: 'equity', label: 'rep.tabs.eq', show: can('reports.financial') },
+          { path: 'tb', label: 'rep.tabs.tb', show: can('reports.financial') }, { path: 'gl', label: 'rep.tabs.gl', show: can('reports.financial') },
+          { path: 'ar', label: 'rep.tabs.ar' }, { path: 'ap', label: 'rep.tabs.ap' }, { path: 'statement', label: 'rep.tabs.st' },
+          { path: 'projects', label: 'rep.tabs.prj' }, { path: 'bank', label: 'rep.tabs.bank', show: can('docs.view') },
+          { path: 'balances', label: 'rep.tabs.pb' }, { path: 'assets', label: 'rep.tabs.fa' },
+          { path: 'audit', label: 'rep.tabs.pack', show: can('reports.financial') }]} />}>
+          <Route index element={<Navigate to={can('reports.financial') ? 'pl' : 'ar'} replace />} />
+          <Route path="pl" element={<ProfitLossPage />} />
+          <Route path="bs" element={<BalanceSheetPage />} />
+          <Route path="cf" element={<CashFlowPage />} />
+          <Route path="equity" element={<EquityPage />} />
+          <Route path="tb" element={<TrialBalancePage />} />
+          <Route path="gl" element={<GeneralLedgerPage />} />
           <Route path="ar" element={<AgingPage key="ar" side="ar" />} />
           <Route path="ap" element={<AgingPage key="ap" side="ap" />} />
           <Route path="statement" element={<StatementPage />} />
+          <Route path="projects" element={<ProjectPlPage />} />
+          <Route path="bank" element={<BankBookPage />} />
+          <Route path="balances" element={<PartyBalancesPage />} />
+          <Route path="assets" element={<AssetsPage />} />
+          <Route path="audit" element={<AuditPackPage />} />
         </Route>
 
         <Route path="settings" element={<SectionTabs base="/settings" tabs={[
