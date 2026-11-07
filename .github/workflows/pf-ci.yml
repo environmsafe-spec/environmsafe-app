@@ -46,3 +46,23 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  pdf:
+    name: Printed documents (visual match with the samples)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: pf/pdf
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -q && sudo apt-get install -y -q fonts-noto-core
+      - run: pip install -r requirements-dev.txt
+      - run: python -m tests.visual
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdf-overlays
+          path: pf/pdf/tests/out/
