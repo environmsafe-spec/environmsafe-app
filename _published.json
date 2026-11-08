@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-08",
+    "slug": "kitchen-hood-fire-that-travels-up-the-duct",
+    "icon": "fa-utensils",
+    "color": "green",
+    "en": {
+      "title": "The Kitchen Fire That Travels Up the Duct",
+      "home_summary": "Grease builds up inside kitchen hoods and ducts, and the extract fan draws flame straight into it. A wet chemical system and regular duct cleaning keep a pan fire from becoming a building fire."
+    },
+    "ar": {
+      "title": "حريق المطبخ الذي يصعد إلى قناة الشفط",
+      "home_summary": "تتراكم الدهون داخل شفاطات المطابخ وقنواتها، وتسحب المروحة اللهب إليها مباشرة. ونظام الإطفاء الكيميائي الرطب وتنظيف القنوات بانتظام يمنعان تحوّل حريق المقلاة إلى حريق مبنى."
+    }
+  },
+  {
     "iso": "2026-11-07",
     "slug": "the-exit-that-is-blocked-on-the-day",
     "icon": "fa-door-open",
