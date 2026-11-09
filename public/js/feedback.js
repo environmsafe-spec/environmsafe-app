@@ -32,6 +32,16 @@
             : ['On time','Clear communication','Quality of work','Professional team','Good value','Something else']
   };
 
+  var LABEL_EN = { bad: 'Not good', ok: 'Okay', good: 'Great' };
+  var CHIPS_EN = {
+    neg: ['Took too long','Poor communication','Quality of work','Staff conduct','Price','Something else'],
+    pos: ['On time','Clear communication','Quality of work','Professional team','Good value','Something else']
+  };
+  function toEnglishReason(label) {
+    for (var k in CHIPS) { var i = CHIPS[k].indexOf(label); if (i > -1) return CHIPS_EN[k][i]; }
+    return label;
+  }
+
   var rating = null;
   var picked = [];
 
@@ -121,8 +131,10 @@
 
     var p = E.linkParams();
     E.send('feedback', {
-      rating:  LABEL[rating],
-      reasons: picked,
+      // Both language pages send the same English values, so the Google Form
+      // (and anything filtering its responses) never sees two spellings.
+      rating:  LABEL_EN[rating],
+      reasons: picked.map(toEnglishReason),
       comment: document.getElementById('fbComment').value.trim(),
       jobRef:  p.ref,
       service: p.svc,

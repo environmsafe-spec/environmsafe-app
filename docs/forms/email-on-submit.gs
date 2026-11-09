@@ -8,7 +8,7 @@
  * can answer straight from your inbox.
  *
  * SET-UP (once per form, about 3 minutes; see docs/forms/README.md):
- *   1. Sign in as the account that owns the form (environmsafe.gm@gmail.com).
+ *   1. Sign in as the account that owns the form (akram.ghaleb2@gmail.com).
  *   2. Open the form in edit mode -> three-dot menu -> Apps Script.
  *   3. Delete the placeholder code, paste this whole file, and edit NOTIFY_TO.
  *   4. Save, choose `setup` in the function list, and press Run.

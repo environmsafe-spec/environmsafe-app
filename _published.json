@@ -1,5 +1,33 @@
 [
   {
+    "iso": "2026-11-09",
+    "slug": "combustible-dust-the-second-explosion",
+    "icon": "fa-industry",
+    "color": "blue",
+    "en": {
+      "title": "The Dust on the Beams Is the Second Explosion",
+      "home_summary": "Fine dust settling on beams and ducts is the fuel for the secondary blast that destroys plants. A Dust Hazard Analysis under NFPA 652 shows where it collects and how to control it."
+    },
+    "ar": {
+      "title": "الغبار على الجسور العلوية هو الانفجار الثاني",
+      "home_summary": "الغبار الناعم المستقر على الجسور والقنوات هو وقود الانفجار الثانوي الذي يدمّر المصانع. ويكشف تحليل مخاطر الغبار وفق NFPA 652 أين يتجمع وكيف يُضبط."
+    }
+  },
+  {
+    "iso": "2026-11-08",
+    "slug": "kitchen-hood-fire-that-travels-up-the-duct",
+    "icon": "fa-utensils",
+    "color": "green",
+    "en": {
+      "title": "The Kitchen Fire That Travels Up the Duct",
+      "home_summary": "Grease builds up inside kitchen hoods and ducts, and the extract fan draws flame straight into it. A wet chemical system and regular duct cleaning keep a pan fire from becoming a building fire."
+    },
+    "ar": {
+      "title": "حريق المطبخ الذي يصعد إلى قناة الشفط",
+      "home_summary": "تتراكم الدهون داخل شفاطات المطابخ وقنواتها، وتسحب المروحة اللهب إليها مباشرة. ونظام الإطفاء الكيميائي الرطب وتنظيف القنوات بانتظام يمنعان تحوّل حريق المقلاة إلى حريق مبنى."
+    }
+  },
+  {
     "iso": "2026-11-07",
     "slug": "the-exit-that-is-blocked-on-the-day",
     "icon": "fa-door-open",
