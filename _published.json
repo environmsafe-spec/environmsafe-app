@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-09",
+    "slug": "combustible-dust-the-second-explosion",
+    "icon": "fa-industry",
+    "color": "blue",
+    "en": {
+      "title": "The Dust on the Beams Is the Second Explosion",
+      "home_summary": "Fine dust settling on beams and ducts is the fuel for the secondary blast that destroys plants. A Dust Hazard Analysis under NFPA 652 shows where it collects and how to control it."
+    },
+    "ar": {
+      "title": "الغبار على الجسور العلوية هو الانفجار الثاني",
+      "home_summary": "الغبار الناعم المستقر على الجسور والقنوات هو وقود الانفجار الثانوي الذي يدمّر المصانع. ويكشف تحليل مخاطر الغبار وفق NFPA 652 أين يتجمع وكيف يُضبط."
+    }
+  },
+  {
     "iso": "2026-11-08",
     "slug": "kitchen-hood-fire-that-travels-up-the-duct",
     "icon": "fa-utensils",

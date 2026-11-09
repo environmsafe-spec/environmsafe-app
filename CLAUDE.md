@@ -17,9 +17,10 @@ the site says so. It has happened twice.
 ls -1 _queue/*.json | wc -l          # 0 means the pipeline is dead
 ```
 
-As of 4 November 2026 the queue holds posts `0025`–`0040`, enough for 5–20
-November. **It runs dry on 21 November** unless more are added. (It emptied on
-1 November and runs #42 and #43 failed before it was refilled.) Refilling it is
+As of 9 November 2026 the queue holds 12 posts, enough for 10–21 November.
+**It runs dry on 22 November** unless more are added. Posts were also added by
+hand on 8 and 9 November; each one needs a `_published.json` entry or the next
+publish drops it from the homepage (see *Traps* below). Refilling the queue is
 described under *Daily posts* below.
 
 ---
@@ -289,7 +290,7 @@ that card's wording until they are live.
 
 ## Open items
 
-- **Refill `_queue/` before 21 November** — the current queue ends with the 20 November post.
+- **Refill `_queue/` before 22 November** — the current queue ends with the 21 November post.
 - **`UCSPI` and `United Sponge Company`** on the partners section are probably
   one company, and the real name may be *National* Company for Sponge & Plastic
   Industry rather than *United*. Needs the client's confirmation.
