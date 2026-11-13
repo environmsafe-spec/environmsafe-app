@@ -45,3 +45,12 @@ This plan replaces each one with a free Neon or Cloudflare part. **The database 
 - A **Neon** account (free) and an API key.
 - A **Cloudflare API token** for Workers, R2, Hyperdrive and Pages.
 - Both are entered in the secure credential form, never in chat.
+
+## Progress
+- **14 Nov 2026, step 1:**
+  - Neon project `my-first-project` (`delicate-forest-20988170`, AWS us-east-1, Postgres 18), branch **`staging`**.
+  - All migrations load unchanged.
+  - **All 301 database tests pass on Neon** (`espf_test`, a throw-away database).
+  - Database **`espf`** holds the schema, the company, the chart (55 accounts) and the migration job, ready for the old records.
+- This build sandbox can only reach Neon over port 443. `db/scripts/neon-bridge.mjs` tunnels psql / pg_prove over Neon's WebSocket endpoint.
+- The tests no longer assume a superuser named `postgres`.

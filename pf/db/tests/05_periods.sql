@@ -10,7 +10,7 @@ select is(tests.try_as('accountant@es.test', $$select public.close_period(tests.
 
 select tests.login('accountant@es.test');
 select public.close_period(tests.es(), 2026, 6);
-select set_config('role', 'postgres', true);
+select set_config('role', 'none', true);
 
 select is((select status::text from public.fiscal_periods where company_id = tests.es() and year = 2026 and month = 6), 'closed', 'accountant closed June 2026');
 select throws_ok($$select app.assert_period_open(tests.es(), '2026-06-15')$$, 'P0001', null, 'Closed period rejects posting');

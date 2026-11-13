@@ -1,5 +1,6 @@
 -- Local-only stand-in for the parts of Supabase the migrations rely on.
 -- NEVER run this against a real Supabase project: there these objects already exist.
+-- Also used on Neon, where nothing provides them (the API Worker sets request.jwt.claims).
 -- Mirrors Supabase behaviour: roles anon/authenticated/service_role, auth.users,
 -- auth.uid()/auth.jwt()/auth.role() reading the PostgREST JWT claims setting.
 
@@ -15,6 +16,9 @@ begin
     create role service_role nologin noinherit bypassrls;
   end if;
 end $$;
+
+-- On a hosted Postgres (Neon) the owner is not a superuser: let it switch to these roles, as the tests do.
+do $$ begin execute format('grant anon, authenticated, service_role to %I', current_user); end $$;
 
 create schema if not exists extensions;
 create schema if not exists auth;

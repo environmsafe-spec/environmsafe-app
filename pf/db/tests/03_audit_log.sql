@@ -6,7 +6,7 @@ select tests.login('accountant@es.test');
 insert into public.projects (company_id, code, name_en) values (tests.es(), '', 'Audit Test Project');
 update public.projects set budget_amount = 500, budget_currency = 'USD' where name_en = 'Audit Test Project';
 delete from public.projects where name_en = 'Audit Test Project';
-select set_config('role', 'postgres', true);
+select set_config('role', 'none', true);
 
 select is((select count(*)::int from public.audit_log where table_name = 'projects' and after ->> 'name_en' = 'Audit Test Project' and action = 'INSERT'),
   1, 'INSERT recorded');

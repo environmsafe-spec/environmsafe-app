@@ -69,7 +69,7 @@ begin
     when sqlstate 'TOK01' then v_res := 'ok:' || sqlerrm;
     when others then v_res := sqlstate;
   end;
-  perform set_config('role', 'postgres', true);
+  perform set_config('role', 'none', true);
   perform set_config('request.jwt.claims', '', true);
   return v_res;
 end $$;
@@ -82,7 +82,7 @@ declare
 begin
   perform tests.login(p_email, p_aal);
   execute 'select count(*) from (' || p_sql || ') q' into n;
-  perform set_config('role', 'postgres', true);
+  perform set_config('role', 'none', true);
   perform set_config('request.jwt.claims', '', true);
   return n;
 end $$;
@@ -91,7 +91,7 @@ end $$;
 create or replace function tests.logout() returns void
 language plpgsql as $$
 begin
-  perform set_config('role', 'postgres', true);
+  perform set_config('role', 'none', true);
   perform set_config('request.jwt.claims', '', true);
 end $$;
 
