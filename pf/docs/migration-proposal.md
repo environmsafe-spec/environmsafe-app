@@ -1,4 +1,4 @@
-# Phase 6: Migration proposal (for your approval before anything runs)
+# Phase 6: Migration plan (decisions recorded 13 Nov 2026)
 
 Source: old app, Supabase project `mcgjrsfsppdcnvolqsgs`, table `es_records`, company `dee3dc12-…`.
 I only **read** it (summary queries, no copies of your records in this repository). Nothing in it was changed.
@@ -38,25 +38,45 @@ Live transactions by type and old status:
 - 79 are consistent; 6 carry only `amount`.
 - Rule: **value = `amount`, or else the debit/credit figure.** Nothing needs guessing, so no record is flagged for this.
 
-## 2. Old type → new document (posting rules from Phase 2/3)
+## 2. Old type → new document
 
 | Old type | New document | Notes |
 |---|---|---|
-| EXPENSE | Expense (paid now) | Account from the category (table 3), else **6990 Other operating expenses**, listed for review. Fee rows stay separate expenses (your rule). |
-| PAYMENT OUT | Supplier payment | With an item: a supplier bill + its payment (same date), so the item catalogue and AP stay right. With an employee and no supplier: salary or advance, see question B. |
-| SALARY | Salary (paid from the account) | No account: salary owed (Cr 2100). |
-| RECEIPT | Customer receipt | Settles the customer's INVOICE OUT where amount and customer match; otherwise on account. |
-| INVOICE OUT | Sales invoice | Revenue account by service line: 4100 Inspection by default; I'll propose per project if you prefer. |
-| EXPENSE CLAIM | Expense claim (employee or owner) | Reimbursed later by the matching PAYMENT OUT / SALARY when linked; otherwise left open in employee payables. |
-| OWNER DRAWINGS | Owner drawings | Dr 3200. |
+| EXPENSE, company account | Expense (paid now) | Account from the category (table 3), else **6990**; "Bank fee…" lines → **6900**. Employee/supplier kept on the document as information. |
+| EXPENSE, employee, **no account** | **Expense claim** of that employee (still owed) | Decision B. Only **5** records: 1 Approved YER 204.00 and 4 Drafts (SAR/USD, 139.14 in total). |
+| EXPENSE / PAYMENT OUT from **USD-AKRAM-QUT** or with no account and no employee | Expense claim of the **owner** (Cr 2200 owner current account) | Decision F. |
+| PAYMENT OUT against an EXPENSE CLAIM (`againstRef`) | Claim reimbursement, linked to the claim | |
+| PAYMENT OUT, salary category | Salary | |
+| PAYMENT OUT with supplier **and item** | Supplier bill + its payment (same date) | Keeps item prices and payables right. |
+| PAYMENT OUT with supplier, no item | Expense with the supplier | 5900 when it has a project, else 6990. |
+| PAYMENT OUT to an employee, no claim linked | Claim reimbursement (unlinked) | Decision B: they had paid personally. Listed for review. |
+| SALARY | Salary (paid); no account → salary owed (Cr 2100) | |
+| RECEIPT | Customer receipt | Settles the invoice in `againstRef`, else the oldest open invoice of the same customer, currency and amount. |
+| INVOICE OUT | Sales invoice → **accounts receivable** | Decision D. Revenue 4100; generator projects **4250**, ADRA maintenance 4200 (decision G). |
+| EXPENSE CLAIM | Expense claim (employee, or owner) | |
+| OWNER DRAWINGS | Owner drawings (Dr 3200) | From the personal account: listed, no company effect. |
 | TRANSFER OUT + TRANSFER IN (paired by `againstRef`) | **One** transfer | Unpaired legs go to the exceptions list. |
 | ADVANCE TO EMPLOYEE | Employee advance | |
-| DEPOSIT PAID | Supplier payment, purpose "deposit / guarantee" (1260) | |
-| SALES RETURN | Credit note against the invoice in `againstRef` | |
-| REFUND TO CUSTOMER / FROM SUPPLIER | Refund documents | |
-| **LOAN IN** (1 record, 1,000,000 YER, Draft) | Manual journal Dr bank, Cr **new account 2500 Loans payable** | Question E. |
+| DEPOSIT PAID | Supplier payment, purpose deposit (1260) | |
+| SALES RETURN, REFUND TO CUSTOMER on the INV account | Credit note against the invoice | All 3 are drafts: they stay drafts. |
+| REFUND FROM SUPPLIER | Refund from supplier | |
+| **LOAN IN** TRX-UL-0149 (YER 1,000,000, Draft) | **Advance repayment** by the employee, linked to TRX-0283 | Decision E: Yasmeen's bus advance, paid back. Stays a draft (A) until you post it. |
 
-Every migrated document keeps the old ID (`TRX-0001`, `TRX-UL-0174`) in **Old ID**, its date, references, project and attachments, and is marked *migrated*. Deleted records with data (43) come in as **void** with "Deleted in old app". The 445 empty tombstones are only listed in the migration log.
+**Statuses (decision A):**
+- Approved / Paid / Closed → posted.
+- Draft → stays a draft, with nothing changed. Some are new records since 7 Nov.
+- Cancelled → void.
+- Deleted with data → void, "Deleted in the old app".
+- The 445 empty records are only listed.
+
+A record that cannot be posted (for example, the amount is missing) stays a draft, and the reason is listed.
+
+Every migrated document keeps:
+- the old ID (`TRX-0001`) and the date;
+- references, the project and the attachments;
+- a note with the old type and status, `againstRef`, case number and phase.
+
+Overheads without a project go to the internal project **General**.
 
 ## 3. Old categories → GL accounts (20 live)
 
@@ -87,52 +107,42 @@ Only ~110 of 752 transactions have a category, so for the rest **the type decide
 - expense → 6990; salary → 6100; invoice → 4100; and so on.
 - Every expense that lands on 6990 or 5900 without a category goes on a **"review account" list** you can fix in the new app after migration (by void + corrected copy, or one reclassification journal).
 
-## 4. Old bank / cash accounts → new money accounts (26 live)
+## 4. Old bank / cash accounts → new money accounts
 
-All old opening balances are **0 or empty** (question C).
+**Opening balances: 0 (decision C).** The old records are taken as closed.
 
-| Old | Name | Ccy | Bank in old app | Txns | → New account |
-|---|---|---|---|---|---|
-| ACC-0003 | USD-Kur | USD | Al Kuraimi | 274 | Kuraimi USD (bank) |
-| ACC-0007 | SAR-Kur | SAR | Al Kuraimi | 78 | Kuraimi SAR (bank) |
-| ACC-0008 | YER-KUR | YER | Al Kuraimi | 40 | Kuraimi YER (bank) |
-| ACC-0009 | USD-Qut | USD | Al Qutaibi | 77 | Qutaibi USD (exchange) |
-| ACC-0011 | SAR-QUT | SAR | Al Qutaibi | 81 | Qutaibi SAR (exchange) |
-| ACC-0006 | YER-QUT | YER | Al Qutaibi | 73 | Qutaibi YER (exchange) |
-| ACC-0004 | USD-INV | USD | "INV (unconfirmed)" | 36 | **? question D** |
-| ACC-0012 | SAR-INV | SAR | "INV (unconfirmed)" | 11 | **?** |
-| ACC-0024 | YER-INV | YER | "INV (unconfirmed)" | 1 | **?** |
-| ACC-0001 / 0002 / 0005 | USD/SAR/YER-Rok | | "ROK (unconfirmed)" | 2 / 4 / 3 | Rokn USD / SAR / YER (exchange) |
-| ACC-0020 / 0025 | USD/SAR-Akram-TAD | | Tadhamon | 8 / 1 | **? question F** |
-| ACC-0022 | USD-AKRAM-QUT | USD | Al Qutaibi | 2 | **? question F** |
-| ACC-UL-0006 | USD-Tamkeen | USD | Other | 7 | Tamkeen USD (exchange) |
-| ACC-0015 / 0016 / 0019 | H VISA C QUT, H VISA C KUR, A VISA C QUT | USD | – | 3 / 9 / 9 | three Visa cards (card) |
-| ACC-0018 / 0021 / 0023 | SAR/YER/USD-YAS-PEDDY | | – | 1 / 2 / 3 | petty cash held by Yasser (cash), one per currency |
-| ACC-0010 / 0017 | USD-GEN / SAR-GEN | | General | 1 / 1 | **merge into a "General / unknown" suspense?** |
-| ACC-0013 / 0014 | YER / SAR | | – | 6 / 1 | |
+| Old | → New |
+|---|---|
+| Kuraimi USD / SAR / YER (ACC-0003, 0007, 0008) | bank accounts |
+| Qutaibi USD / SAR / YER (ACC-0009, 0011, 0006), Rokn, Tamkeen | exchange-company accounts (the company's own Qutaibi accounts) |
+| **USD/SAR-Akram-TAD** (ACC-0020, 0025) | **company bank accounts** at Tadhamon (decision F) |
+| **USD-AKRAM-QUT** (ACC-0022) | **not a company account**: your personal account. Payments from it = paid by you for the company (Cr 2200). Its 2 records are migrated that way. |
+| **USD/SAR/YER-INV** (ACC-0004, 0012, 0024) | **not migrated as accounts** (decision D, below) |
+| Visa cards (ACC-0015, 0016, 0019) | card accounts |
+| Yasser petty cash (ACC-0018, 0021, 0023) | cash accounts |
+| USD-GEN / SAR-GEN, YER, SAR (ACC-0010, 0017, 0013, 0014) | bank accounts with their old names. Rename or merge them in the new app if you know what they are. |
 
-18 live transactions have **no account** (expenses, payments, salaries, invoices). Invoices don't need one. The others go to the exceptions list. The default proposal for those: post them as **owner paid for the company** (Cr 2200 owner current account), the same way you handled Alibaba fees paid by card. Tell me if that's wrong.
+**D. How the "INV" accounts are handled now.** In the Excel days, an invoice was entered into the INV account as "invoiced, not received yet". In the new app that is exactly **accounts receivable (1100)**:
+- every posted invoice raises what the customer owes;
+- every customer receipt reduces it and settles the invoice;
+- the **Aging** report and the **customer statement** show what is still open.
 
-## 5. Questions I need answered (the migration does not run until you approve)
+So there is no INV account. The invoices are migrated as sales invoices, and the receipts settle them.
 
-**A. Old "Draft" records (297 of 752).** Choose one:
-1. **Recommended:** post every complete draft dated **before 1 Oct 2026**; keep October–November drafts and incomplete ones (no amount / no account) as drafts for you to review in the new app.
-2. Keep all old drafts as drafts.
-3. Post all.
+Usage of the old INV accounts:
+- ACC-0004: 46 USD invoices, 95,593.71.
+- ACC-0012: 8 SAR invoices (86,174), plus 1 refund and 2 sales returns (all drafts).
+- ACC-0024: 1 YER invoice, 100,000.
 
-**B. Employee on expenses and payments.** 149 EXPENSE records carry an employee, often together with a supplier. Is the employee:
-1. **Recommended:** the person who handled or paid it from company money (recorded as information only), or
-2. the person who paid personally, so it is really a claim to reimburse?
+## 5. Decisions (answered 13 Nov 2026)
 
-**C. Opening balances.** The old app has 0 everywhere. For the bank book to match the real banks, I need the **real balance of each account on 25 Jan 2025** (or the earliest date you know). Without them, balances start at zero and every account's balance will differ from the bank by its true opening amount.
-
-**D. "INV" accounts (USD/SAR/YER-INV).** Which bank or company is "INV"?
-
-**E. LOAN IN (1,000,000 YER, Draft, linked to TRX-0283).** Who lent it, and is it a loan to repay (liability 2500) or capital you put in (3000)?
-
-**F. The "Akram" accounts (Tadhamon USD/SAR, Qutaibi USD).** Company accounts held in your name (bank accounts in the new app), or your personal accounts? If personal, payments from them become **owner paid for company** (Cr 2200) instead of bank movements.
-
-**G. Invoice revenue account.** Default 4100 Inspection and certification. Should generator maintenance projects (UNHCR, FAO) go to 4200 Maintenance? I can set it per project.
+- **A.** Old drafts stay drafts as they are.
+- **B.** Employees mostly paid personally and the company paid them back. Expenses with a company account are company expenses. The 5 without an account are open employee claims.
+- **C.** Opening balances are 0.
+- **D.** INV = receivable placeholder → accounts receivable.
+- **E.** LOAN IN = the employee repaying the advance.
+- **F.** Tadhamon = company bank. Al Qutaibi USD-AKRAM = personal. The company's own Qutaibi accounts stay.
+- **G.** New account **4250 Generator maintenance services** for UNHCR-GEN-001, UNHCR-GEN-002 and FAO-GEN-001.
 
 ## 6. How the migration will run (after your approval)
 1. **Staging:**
@@ -146,4 +156,22 @@ All old opening balances are **0 or empty** (question C).
    - orphan files (in the bucket, not on any record) are listed.
 4. You review in the new app. Then the cut-over delta (records changed after the staging copy), and one month in parallel.
 
-Estimated work after your answers: one focused session for the migration job and its tests, plus the reconciliation report.
+## 7. The job (built, tested on look-alike data)
+- `pf/db/migration/legacy_migration.sql`:
+  - the job: `select migration.run(company, owner_user)`;
+  - its settings tables: category → account, account rules, project → revenue account;
+  - the views `migration.recon_counts`, `recon_money`, `recon_money_open_items`, `recon_projects` and `recon_attachments`.
+- `pf/db/migration/staging.mjs`:
+  - `load` copies the old records into `legacy.es_records` on staging (the old project is only read; the `legacy` schema must be exposed to the API for the copy, or load the dashboard CSV export instead);
+  - `files` copies the attached files, fills in their SHA-256, and lists missing and orphan files.
+- `pf/db/tests/13_legacy_migration.sql`: 29 checks on synthetic records with the same shape and quirks as yours. Examples:
+  - the value read from debit/credit;
+  - the tombstones;
+  - the INV and personal accounts;
+  - transfer pairing;
+  - the advance repayment;
+  - bills from payments;
+  - the bank books matching the old app;
+  - the old table unchanged.
+
+Next: a staging project to run it on your real records (see the hosting question), then your review in the app.

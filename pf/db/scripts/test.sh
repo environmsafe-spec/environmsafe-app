@@ -15,5 +15,6 @@ for f in "$HERE"/supabase/migrations/*.sql; do run "$f"; done
 run "$HERE/supabase/seed.sql"
 psql -X -q -d "$DB" -c 'create extension if not exists pgtap' >/dev/null
 run "$HERE/db/tests/_helpers.sql"
+run "$HERE/db/migration/legacy_migration.sql"
 
 pg_prove -d "$DB" --ext .sql "$HERE"/db/tests/[0-9]*.sql

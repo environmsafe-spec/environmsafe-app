@@ -39,7 +39,7 @@ select is(
 
 select is(
   (select count(*)::int from public.gl_accounts where company_id = tests.es()),
-  54, 'Default chart of accounts seeded (54 accounts)');
+  55, 'Default chart of accounts seeded (55 accounts)');
 
 select * from finish();
 rollback;

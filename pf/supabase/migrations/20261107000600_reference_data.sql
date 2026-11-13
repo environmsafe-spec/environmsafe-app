@@ -122,6 +122,7 @@ begin
       ('4000', null,   'income', 'Revenue',                              'الإيرادات',                     'revenue',                   false, true,  null, null),
       ('4100', '4000', 'income', 'Inspection and certification',         'التفتيش وإصدار الشهادات',       'revenue',                   true,  true,  null, null),
       ('4200', '4000', 'income', 'Maintenance services',                 'خدمات الصيانة',                 'revenue',                   true,  true,  null, null),
+      ('4250', '4000', 'income', 'Generator maintenance services',       'خدمات صيانة المولدات',          'revenue',                   true,  true,  null, null),
       ('4300', '4000', 'income', 'HSE and training',                     'السلامة والتدريب',              'revenue',                   true,  true,  null, null),
       ('4400', '4000', 'income', 'Engineering services',                 'الخدمات الهندسية',              'revenue',                   true,  true,  null, null),
       ('4500', '4000', 'income', 'Trading (sale of goods)',              'المبيعات التجارية',             'revenue',                   true,  true,  null, null),

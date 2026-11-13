@@ -7,7 +7,7 @@
 - **Row Level Security on every table**, filtered by company and permission. Not-signed-in users get nothing.
 - **Audit log**, append-only: who, when, table, record, before/after, changed fields, IP, browser. Update/delete/truncate is
   blocked by triggers for everyone, including the database owner.
-- **Chart of accounts** (54 accounts, IFRS for SMEs lines) — see [chart-of-accounts.md](chart-of-accounts.md). System accounts
+- **Chart of accounts** (55 accounts, IFRS for SMEs lines) — see [chart-of-accounts.md](chart-of-accounts.md). System accounts
   cannot be deleted or have their type changed. Only the Owner edits the chart.
 - **Master data**: parties (one table; a party can be customer *and* supplier), projects, items, bank/cash accounts. Every
   bank/cash account automatically gets its own GL account `1000-NNN`. Old IDs are kept in `legacy_id` and are searchable.

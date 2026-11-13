@@ -24,7 +24,7 @@ Headers (bold in the app) cannot be posted to. "Project" = every line on this ac
 | 3100 | Retained earnings | Equity | |
 | 3200 | Owner drawings — old CAT-0016 | Equity | |
 | 3900 | Opening balance equity | Equity | |
-| **4000** | **Revenue**: 4100 Inspection and certification, 4200 Maintenance, 4300 HSE and training, 4400 Engineering services, 4500 Trading | Revenue | yes |
+| **4000** | **Revenue**: 4100 Inspection and certification, 4200 Maintenance, 4250 Generator maintenance, 4300 HSE and training, 4400 Engineering services, 4500 Trading | Revenue | yes |
 | 4900 | Other income | Other income | yes |
 | **5000** | **Cost of services**: 5100 Subcontractors, 5200 Materials and spare parts, 5300 Direct labour, 5400 Equipment hire, 5500 Site transport, 5600 Cost of goods sold, 5900 Other direct | Cost of sales | yes |
 | **6000** | **Operating expenses**: 6100 Salaries (CAT-0002), 6200 Transport and fuel, 6300 Rent, 6350 Utilities and communications, 6400 Government fees, 6500 Professional fees, 6600 Travel, 6700 Marketing, 6800 Office, 6850 IT and subscriptions, 6990 Other (CAT-0010) | Admin / distribution | yes |
