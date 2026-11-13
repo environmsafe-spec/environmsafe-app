@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-13",
+    "slug": "a-bearing-announces-itself-months-early",
+    "icon": "fa-gauge-high",
+    "color": "green",
+    "en": {
+      "title": "A Bearing Announces Itself Months Before It Fails",
+      "home_summary": "Rotating equipment rarely fails without warning. A bearing fault shows in vibration months before it is audible or hot, and that gap is the difference between a scheduled hour and an unplanned outage."
+    },
+    "ar": {
+      "title": "المحمل يعلن عن نفسه قبل أشهر من فشله",
+      "home_summary": "نادراً ما تفشل المعدات الدوارة بلا إنذار. يظهر عطل المحمل في الاهتزاز قبل أشهر من سماعه أو سخونته، وتلك الفجوة هي الفرق بين ساعة مجدولة وانقطاع غير مخطط."
+    }
+  },
+  {
     "iso": "2026-11-09",
     "slug": "combustible-dust-the-second-explosion",
     "icon": "fa-industry",
@@ -403,48 +417,6 @@
     "ar": {
       "title": "إنارة الطوارئ تُختبر في الحدث الوحيد الذي لا يتدرب عليه أحد",
       "home_summary": "ضوء الشحن الأخضر ومفتاح الاختبار السريع يثبتان أن مصباح الطوارئ يضيء، لا أن بطاريته تدوم طوال مدتها المقننة عند انقطاع حقيقي. الحرارة تُشيخ البطاريات بسرعة، والاختبار كامل المدة وحده يكشف الوحدات التي ستنطفئ بعد عشر دقائق."
-    }
-  },
-  {
-    "iso": "2026-09-22",
-    "slug": "lpg-sinks-and-that-changes-everything",
-    "icon": "fa-fire-flame-simple",
-    "color": "orange",
-    "en": {
-      "title": "LPG Sinks, and That Changes Where It Is Dangerous",
-      "home_summary": "Natural gas rises and thins out. LPG does the opposite: it is heavier than air, so a leak flows downhill and settles in drains, pits and basements."
-    },
-    "ar": {
-      "title": "غاز البترول المسال يهبط، وهذا يغيّر مكان الخطر",
-      "home_summary": "الغاز الطبيعي يرتفع ويتبدد، أما الغاز المسال فأثقل من الهواء، فيسيل التسرب إلى الأسفل ويستقر في المصارف والحفر والأقبية. معظم حوادث الغاز المسال التي نحقق فيها تعود إلى تهوية أو كواشف أو تخزين صُمم وكأن الغاز يتصرف كالهواء."
-    }
-  },
-  {
-    "iso": "2026-09-21",
-    "slug": "environmsafe-platform-eos-asset-tracking",
-    "icon": "fa-table-cells-large",
-    "color": "amber",
-    "en": {
-      "title": "Our Platform Is Now Open: EOS, Asset Maintenance Tracking and Inspection",
-      "home_summary": "Most of what a service company does for you happens where you cannot see it. We have been replacing that with systems you can log into &mdash; EnvironmSafe Operations Management (EOS), Client Assets & Equipment Maintenance Tracking, and the Inspection Platform — inspection register, client portal and public certificate check."
-    },
-    "ar": {
-      "title": "منصّتنا أصبحت متاحة: EOS، وتتبّع صيانة الأصول، والفحص وإصدار الشهادات",
-      "home_summary": "معظم ما تقوم به شركة خدمات من أجلكم يحدث حيث لا ترونه. ظللنا نستبدل ذلك بأنظمة تستطيعون الدخول إليها &mdash; إدارة عمليات EnvironmSafe (EOS)، وتتبّع صيانة أصول ومعدات العملاء، ومنصّة الفحص — سجلّ الفحص، وبوابة العملاء، والتحقق العام من الشهادات."
-    }
-  },
-  {
-    "iso": "2026-09-14",
-    "slug": "a-fire-pump-that-starts-is-not-a-fire-pump-that-works",
-    "icon": "fa-fire-extinguisher",
-    "color": "red",
-    "en": {
-      "title": "A Fire Pump That Starts Is Not a Fire Pump That Works",
-      "home_summary": "The weekly test proves the pump starts. It says nothing about flow or pressure when it matters."
-    },
-    "ar": {
-      "title": "مضخة الحريق التي تعمل ليست مضخة تؤدي المطلوب",
-      "home_summary": "الاختبار الأسبوعي يثبت أن المضخة تبدأ، ولا يقول شيئاً عن التدفق والضغط حين يهمان."
     }
   }
 ]
