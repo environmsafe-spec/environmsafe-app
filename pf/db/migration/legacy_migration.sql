@@ -95,13 +95,26 @@ on conflict (legacy_id) do nothing;
 create table if not exists migration.map (
   id           bigserial primary key,
   collection   text not null,
-  legacy_id    text not null,
+  legacy_id    text not null,      -- es_records.record_id (the row)
+  old_id       text,               -- the ID people used in the old app (TRX-0001, EMP-0021), filled in automatically
   target_table text,
   target_id    uuid,
   outcome      text not null check (outcome in ('master', 'posted', 'draft', 'void', 'skipped', 'exception')),
   note         text
 );
 create index if not exists map_legacy on migration.map (collection, legacy_id);
+create index if not exists map_old_id on migration.map (collection, old_id);
+
+create or replace function migration.map_old_id() returns trigger language plpgsql as $$
+begin
+  if new.old_id is null then
+    select coalesce(nullif(data ->> 'id', ''), record_id) into new.old_id
+      from legacy.es_records where collection = new.collection and record_id = new.legacy_id;
+  end if;
+  return new;
+end $$;
+drop trigger if exists map_old_id on migration.map;
+create trigger map_old_id before insert on migration.map for each row execute function migration.map_old_id();
 
 create table if not exists migration.exceptions (
   id         bigserial primary key,
@@ -116,6 +129,11 @@ create table if not exists migration.exceptions (
 -- ---------------------------------------------------------------------------
 create or replace function migration.t(d jsonb, k text) returns text
 language sql immutable as $$ select nullif(trim(d ->> k), '') $$;
+
+-- The ID people used in the old app. es_records.record_id is an internal key; an ID can appear twice when a
+-- record was deleted and the ID reused, so lookups prefer the live record.
+create or replace function migration.bid(r legacy.es_records) returns text
+language sql immutable as $$ select coalesce(nullif(r.data ->> 'id', ''), r.record_id) $$;
 
 create or replace function migration.num(p text) returns numeric
 language plpgsql immutable as $$
@@ -148,7 +166,8 @@ language sql stable as $$
     (select case when coalesce(r.data ->> 'bank', '') ilike '%INV%' or coalesce(r.data ->> 'nameEn', '') ~* '-INV$'
                  then 'receivable' else 'money' end
        from legacy.es_records r
-      where r.company_id = p_company and r.collection = 'accounts' and r.record_id = p_legacy and r.data <> '{}'))
+      where r.company_id = p_company and r.collection = 'accounts' and r.data ->> 'id' = p_legacy and r.data <> '{}'
+      order by r.deleted limit 1))
 $$;
 
 create or replace function migration.gl(p_company uuid, p_code text) returns uuid
@@ -165,19 +184,22 @@ language sql stable as $$
 $$;
 
 create or replace function migration.party(p_company uuid, p_legacy text) returns uuid
-language sql stable as $$ select id from public.parties where company_id = p_company and legacy_id = p_legacy $$;
+language sql stable as $$
+  select id from public.parties where company_id = p_company and legacy_id = p_legacy order by is_active desc, created_at desc limit 1 $$;
 
 create or replace function migration.project(p_company uuid, p_legacy text) returns uuid
-language sql stable as $$ select id from public.projects where company_id = p_company and legacy_id = p_legacy $$;
+language sql stable as $$
+  select id from public.projects where company_id = p_company and legacy_id = p_legacy order by status = 'closed', created_at desc limit 1 $$;
 
 create or replace function migration.money_account(p_company uuid, p_legacy text) returns uuid
-language sql stable as $$ select id from public.money_accounts where company_id = p_company and legacy_id = p_legacy $$;
+language sql stable as $$
+  select id from public.money_accounts where company_id = p_company and legacy_id = p_legacy order by is_active desc, created_at desc limit 1 $$;
 
 create or replace function migration.doc_of(p_legacy text) returns uuid
 language sql stable as $$
-  select target_id from migration.map
-   where collection = 'transactions' and legacy_id = p_legacy and target_table = 'documents'
-   order by id desc limit 1
+  select m.target_id from migration.map m join public.documents d on d.id = m.target_id
+   where m.collection = 'transactions' and m.old_id = p_legacy and m.target_table = 'documents'
+   order by d.status = 'void', m.id desc limit 1
 $$;
 
 -- A new migrated document (draft) with the common fields of an old row.
@@ -267,14 +289,16 @@ begin
       continue;
     end if;
     perform app.begin_internal();
+    -- The same file can belong to two old records (e.g. a slip and its fee): each document gets its own copy.
     insert into public.attachments (company_id, document_id, storage_path, file_name, mime_type, size_bytes)
-    values (p_company, p_doc, p_company || '/legacy/' || (a ->> 'path'),
-            coalesce(migration.t(a, 'name'), regexp_replace(a ->> 'path', '^.*/', '')),
-            migration.t(a, 'type'), migration.num(a ->> 'size')::bigint)
-    on conflict (company_id, storage_path) do nothing;
-    if found then n := n + 1;
-    else perform migration.note(p_company, 'transactions', d ->> 'id', 'Attachment already used by another record', a ->> 'path');
-    end if;
+    select p_company, p_doc, path,
+           coalesce(migration.t(a, 'name'), regexp_replace(a ->> 'path', '^.*/', '')),
+           migration.t(a, 'type'), migration.num(a ->> 'size')::bigint
+      from (select case when exists (select 1 from public.attachments x where x.company_id = p_company
+                                      and x.storage_path = p_company || '/legacy/' || (a ->> 'path'))
+                        then p_company || '/legacy-copy/' || p_doc || '/' || (a ->> 'path')
+                        else p_company || '/legacy/' || (a ->> 'path') end as path) p;
+    n := n + 1;
   end loop;
   return n;
 end $$;
@@ -307,7 +331,7 @@ end $$;
 create or replace function migration.migrate_masters(p_company uuid) returns void
 language plpgsql as $$
 declare
-  r record;
+  r legacy.es_records;
   v_id uuid;
   v_treat text;
   v_kind public.money_account_kind;
@@ -316,12 +340,12 @@ begin
   -- Parties: customers, suppliers, employees (deleted ones come in inactive, so old records still find them).
   for r in select * from legacy.es_records
             where company_id = p_company and collection in ('customers', 'suppliers', 'employees') and data <> '{}'
-            order by collection, record_id loop
+            order by collection, deleted desc, record_id loop
     insert into public.parties (company_id, legacy_id, primary_kind, name_en, name_ar, contact_person, phone, email,
                                 address, job_title, notes, is_active)
-    values (p_company, r.record_id,
+    values (p_company, migration.bid(r),
             case r.collection when 'customers' then 'customer' when 'suppliers' then 'supplier' else 'employee' end::public.party_kind,
-            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'name'), migration.t(r.data, 'nameAr'), r.record_id),
+            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'name'), migration.t(r.data, 'nameAr'), migration.bid(r)),
             migration.t(r.data, 'nameAr'), migration.t(r.data, 'contact'), migration.t(r.data, 'phone'),
             migration.t(r.data, 'email'), migration.t(r.data, 'address'), migration.t(r.data, 'position'),
             concat_ws(E'\n', migration.t(r.data, 'notes'),
@@ -331,7 +355,7 @@ begin
     insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note)
     values (r.collection, r.record_id, 'parties', v_id, 'master', case when r.deleted then 'inactive (deleted in old app)' end);
     if coalesce(migration.num(r.data ->> 'opening'), 0) <> 0 then
-      perform migration.note(p_company, r.collection, r.record_id, 'Opening balance not migrated (decision C: 0)', r.data ->> 'opening');
+      perform migration.note(p_company, r.collection, migration.bid(r), 'Opening balance not migrated (decision C: 0)', r.data ->> 'opening');
     end if;
   end loop;
 
@@ -343,10 +367,10 @@ begin
 
   -- Projects
   for r in select * from legacy.es_records
-            where company_id = p_company and collection = 'projects' and data <> '{}' order by record_id loop
+            where company_id = p_company and collection = 'projects' and data <> '{}' order by deleted desc, record_id loop
     insert into public.projects (company_id, legacy_id, name_en, name_ar, customer_id, status, budget_amount, budget_currency, description)
-    values (p_company, r.record_id,
-            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'name'), r.record_id),
+    values (p_company, migration.bid(r),
+            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'name'), migration.bid(r)),
             migration.t(r.data, 'nameAr'),
             migration.party(p_company, migration.t(r.data, 'customerId')),
             case when r.deleted or lower(coalesce(r.data ->> 'status', '')) in ('closed', 'completed', 'done') then 'closed' else 'active' end::public.project_status,
@@ -359,12 +383,12 @@ begin
 
   -- Items
   for r in select * from legacy.es_records
-            where company_id = p_company and collection = 'items' and data <> '{}' order by record_id loop
+            where company_id = p_company and collection = 'items' and data <> '{}' order by deleted desc, record_id loop
     insert into public.items (company_id, legacy_id, name_en, name_ar, kind, unit, is_asset, life_years,
                               default_expense_account_id, default_revenue_account_id,
                               last_cost, last_cost_currency, last_sale_price, last_sale_currency, is_active)
-    values (p_company, r.record_id,
-            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'nameAr'), r.record_id), migration.t(r.data, 'nameAr'),
+    values (p_company, migration.bid(r),
+            coalesce(migration.t(r.data, 'nameEn'), migration.t(r.data, 'nameAr'), migration.bid(r)), migration.t(r.data, 'nameAr'),
             case when lower(coalesce(r.data ->> 'kind', '')) = 'goods' then 'goods' else 'service' end::public.item_kind,
             coalesce(migration.t(r.data, 'unit'), 'ea'),
             lower(coalesce(r.data ->> 'isAsset', '')) in ('yes', 'true') and coalesce(migration.num(r.data ->> 'lifeYears'), 0) > 0,
@@ -379,7 +403,7 @@ begin
     returning id into v_id;
     insert into migration.map (collection, legacy_id, target_table, target_id, outcome) values ('items', r.record_id, 'items', v_id, 'master');
     if lower(coalesce(r.data ->> 'isAsset', '')) in ('yes', 'true') and coalesce(migration.num(r.data ->> 'lifeYears'), 0) <= 0 then
-      perform migration.note(p_company, 'items', r.record_id, 'Marked as an asset without a useful life: imported as a normal item');
+      perform migration.note(p_company, 'items', migration.bid(r), 'Marked as an asset without a useful life: imported as a normal item');
     end if;
   end loop;
 
@@ -390,8 +414,8 @@ begin
 
   -- Money accounts (not the receivable placeholders, not the owner's personal account).
   for r in select * from legacy.es_records
-            where company_id = p_company and collection = 'accounts' and data <> '{}' order by record_id loop
-    v_treat := migration.account_treatment(p_company, r.record_id);
+            where company_id = p_company and collection = 'accounts' and data <> '{}' order by deleted desc, record_id loop
+    v_treat := migration.account_treatment(p_company, migration.bid(r));
     if v_treat <> 'money' then
       insert into migration.map (collection, legacy_id, target_table, outcome, note)
       values ('accounts', r.record_id, null, 'skipped',
@@ -399,21 +423,21 @@ begin
                            else 'Owner''s personal account (decision F): payments from it = paid by the owner' end);
       continue;
     end if;
-    v_kind := coalesce((select kind from migration.account_rules where legacy_id = r.record_id),
+    v_kind := coalesce((select kind from migration.account_rules where legacy_id = migration.bid(r)),
       case lower(coalesce(r.data ->> 'kind', ''))
         when 'cash' then 'cash' when 'card' then 'card'
         else case when coalesce(r.data ->> 'bank', '') ~* '(qut|qoat|rok|tamk)' then 'exchange' else 'bank' end
       end::public.money_account_kind);
     v_used := exists (select 1 from legacy.es_records t where t.company_id = p_company and t.collection = 'transactions'
-                        and not t.deleted and t.data ->> 'accountId' = r.record_id);
+                        and not t.deleted and t.data ->> 'accountId' = migration.bid(r));
     insert into public.money_accounts (company_id, legacy_id, name_en, name_ar, kind, currency, bank_name, account_no, notes, is_active)
-    values (p_company, r.record_id, coalesce(migration.t(r.data, 'nameEn'), r.record_id), migration.t(r.data, 'nameAr'), v_kind,
+    values (p_company, migration.bid(r), coalesce(migration.t(r.data, 'nameEn'), migration.bid(r)), migration.t(r.data, 'nameAr'), v_kind,
             coalesce(migration.t(r.data, 'currency'), 'USD'), migration.t(r.data, 'bank'), migration.t(r.data, 'number'),
             migration.t(r.data, 'notes'), not r.deleted or v_used)
     returning id into v_id;
     insert into migration.map (collection, legacy_id, target_table, target_id, outcome) values ('accounts', r.record_id, 'money_accounts', v_id, 'master');
     if coalesce(migration.num(r.data ->> 'opening'), 0) <> 0 then
-      perform migration.note(p_company, 'accounts', r.record_id, 'Opening balance not migrated (decision C: 0)', r.data ->> 'opening');
+      perform migration.note(p_company, 'accounts', migration.bid(r), 'Opening balance not migrated (decision C: 0)', r.data ->> 'opening');
     end if;
   end loop;
 
@@ -430,7 +454,7 @@ begin
    where company_id = p_company and data <> '{}'
      and collection not in ('customers', 'suppliers', 'employees', 'projects', 'items', 'accounts', 'transactions');
   insert into migration.exceptions (collection, legacy_id, problem, detail)
-  select 'assets', record_id, 'Fixed asset in old app: check it is registered in the new asset register',
+  select 'assets', coalesce(data ->> 'id', record_id), 'Fixed asset in old app: check it is registered in the new asset register',
          concat_ws(' / ', data ->> 'nameEn', data ->> 'cost', data ->> 'acquiredOn', data ->> 'sourceTx')
     from legacy.es_records where company_id = p_company and collection = 'assets' and data <> '{}' and not deleted;
 end $$;
@@ -451,7 +475,8 @@ declare
   v_cus   uuid := migration.party(p_company, migration.t(r.data, 'customerId'));
   v_emp   uuid := migration.party(p_company, migration.t(r.data, 'employeeId'));
   v_owner uuid := (select id from public.parties where company_id = p_company and is_owner order by created_at limit 1);
-  v_item  uuid := (select id from public.items where company_id = p_company and legacy_id = migration.t(r.data, 'itemId'));
+  v_item  uuid := (select id from public.items where company_id = p_company and legacy_id = migration.t(r.data, 'itemId')
+                   order by is_active desc limit 1);
   v_against text := migration.t(r.data, 'againstRef');
   v_ag_doc  uuid := migration.doc_of(migration.t(r.data, 'againstRef'));
   v_ag_kind public.doc_kind;
@@ -464,11 +489,11 @@ begin
   select kind into v_ag_kind from public.documents where id = v_ag_doc;
 
   if v is null and migration.is_done(d) then
-    perform migration.note(p_company, 'transactions', r.record_id, 'No amount in the old record: left as a draft');
+    perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'No amount in the old record: left as a draft');
   end if;
   if v_treat = 'receivable' and t <> 'INVOICE OUT' then
     v_note := 'Old account was the INV receivable placeholder: check this record';
-    perform migration.note(p_company, 'transactions', r.record_id, v_note, d ->> 'accountId');
+    perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), v_note, d ->> 'accountId');
   end if;
 
   if t in ('EXPENSE', 'EXPENSE CLAIM')
@@ -518,7 +543,7 @@ begin
       -- Decision B: employees paid personally and the company paid them back.
       v_doc := migration.new_doc(p_company, 'claim_reimbursement', d, v, v_money, v_emp);
       v_note := 'Paid back to the employee (no claim linked in the old app)';
-      perform migration.note(p_company, 'transactions', r.record_id, 'Employee payment without a linked claim: check the employee balance');
+      perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'Employee payment without a linked claim: check the employee balance');
     else
       v_doc := migration.new_doc(p_company, 'expense', d, v, v_money, v_cus);
       perform migration.add_line(v_doc, d, v, migration.expense_account(p_company, d, '6990'), v_item);
@@ -528,7 +553,7 @@ begin
   elsif t = 'SALARY' then
     if v_emp is null then
       v_doc := migration.new_doc(p_company, 'expense', d, v, v_money, null);
-      perform migration.note(p_company, 'transactions', r.record_id, 'Salary without an employee: recorded as an expense on 6100');
+      perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'Salary without an employee: recorded as an expense on 6100');
     else
       v_doc := migration.new_doc(p_company, 'salary', d, v, v_money, v_emp);
     end if;
@@ -611,12 +636,12 @@ begin
   else
     insert into migration.map (collection, legacy_id, outcome, note)
     values ('transactions', r.record_id, 'exception', 'No rule for type ' || coalesce(t, '(none)'));
-    perform migration.note(p_company, 'transactions', r.record_id, 'No rule for this type', t);
+    perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'No rule for this type', t);
     return;
   end if;
 
   if v_money is null and v_treat = 'money' then
-    perform migration.note(p_company, 'transactions', r.record_id, 'Old account not found', d ->> 'accountId');
+    perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'Old account not found', d ->> 'accountId');
   end if;
   perform migration.add_attachments(p_company, v_doc, d);
   v_out := migration.finish(v_doc, d, r.deleted);
@@ -642,7 +667,7 @@ begin
             order by data ->> 'date', record_id loop
     select * into i from legacy.es_records x
      where x.company_id = p_company and x.collection = 'transactions' and upper(x.data ->> 'type') = 'TRANSFER IN'
-       and (x.data ->> 'againstRef' = o.record_id or o.data ->> 'againstRef' = x.record_id)
+       and (x.data ->> 'againstRef' = o.data ->> 'id' or o.data ->> 'againstRef' = x.data ->> 'id')
        and x.deleted = o.deleted
        and not exists (select 1 from migration.map m where m.collection = 'transactions' and m.legacy_id = x.record_id)
      order by x.record_id limit 1;
@@ -651,6 +676,34 @@ begin
     end if;
     v_from := migration.money_account(p_company, migration.t(o.data, 'accountId'));
     v_to   := migration.money_account(p_company, migration.t(i.data, 'accountId'));
+    -- Out of and back into the same account: no movement.
+    if o.data ->> 'accountId' = i.data ->> 'accountId' then
+      insert into migration.map (collection, legacy_id, outcome, note) values
+        ('transactions', o.record_id, 'skipped', 'Transfer out of and into the same account: no movement'),
+        ('transactions', i.record_id, 'skipped', 'Transfer out of and into the same account: no movement');
+      i := null;
+      continue;
+    end if;
+    -- Company money sent to the owner's personal account (decision F): the company pays back what the owner
+    -- paid for it, owner current account 2200.
+    if migration.account_treatment(p_company, migration.t(i.data, 'accountId')) = 'owner_personal' then
+      begin
+        v_doc := migration.new_doc(p_company, 'claim_reimbursement', o.data, migration.val(o.data), v_from,
+                   (select id from public.parties where company_id = p_company and is_owner order by created_at limit 1));
+        perform migration.add_attachments(p_company, v_doc, o.data);
+        perform migration.add_attachments(p_company, v_doc, i.data);
+        v_out := migration.finish(v_doc, case when migration.is_done(i.data) then o.data else o.data || '{"status":"Draft"}' end, o.deleted);
+        insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note) values
+          ('transactions', o.record_id, 'documents', v_doc, v_out, 'Paid to the owner''s personal account (2200)'),
+          ('transactions', i.record_id, 'documents', v_doc, v_out, 'Received in the owner''s personal account');
+      exception when others then
+        insert into migration.map (collection, legacy_id, outcome, note) values
+          ('transactions', o.record_id, 'exception', sqlerrm), ('transactions', i.record_id, 'exception', sqlerrm);
+        perform migration.note(p_company, 'transactions', migration.bid(o), 'Transfer could not be created', sqlerrm);
+      end;
+      i := null;
+      continue;
+    end if;
     begin
       v_doc := migration.new_doc(p_company, 'transfer', o.data, migration.val(o.data), v_from, null);
       perform app.begin_internal();
@@ -658,19 +711,19 @@ begin
          set counter_money_account_id = v_to,
              counter_amount = migration.val(i.data),
              counter_rate = app.rate_on(p_company, (select currency from public.money_accounts where id = v_to), (o.data ->> 'date')::date),
-             notes = notes || E'\nReceiving leg: ' || i.record_id || coalesce(' (' || migration.t(i.data, 'notes') || ')', '')
+             notes = notes || E'\nReceiving leg: ' || migration.bid(i) || coalesce(' (' || migration.t(i.data, 'notes') || ')', '')
        where id = v_doc;
       perform migration.add_attachments(p_company, v_doc, o.data);
       perform migration.add_attachments(p_company, v_doc, i.data);
       -- Post only when both legs were completed in the old app.
       v_out := migration.finish(v_doc, case when migration.is_done(i.data) then o.data else o.data || '{"status":"Draft"}' end, o.deleted);
       insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note) values
-        ('transactions', o.record_id, 'documents', v_doc, v_out, 'Transfer (sending leg), with ' || i.record_id),
-        ('transactions', i.record_id, 'documents', v_doc, v_out, 'Transfer (receiving leg), with ' || o.record_id);
+        ('transactions', o.record_id, 'documents', v_doc, v_out, 'Transfer (sending leg), with ' || migration.bid(i)),
+        ('transactions', i.record_id, 'documents', v_doc, v_out, 'Transfer (receiving leg), with ' || migration.bid(o));
     exception when others then
       insert into migration.map (collection, legacy_id, outcome, note) values
         ('transactions', o.record_id, 'exception', sqlerrm), ('transactions', i.record_id, 'exception', sqlerrm);
-      perform migration.note(p_company, 'transactions', o.record_id, 'Transfer could not be created', sqlerrm);
+      perform migration.note(p_company, 'transactions', migration.bid(o), 'Transfer could not be created', sqlerrm);
     end;
     i := null;
   end loop;
@@ -683,7 +736,7 @@ begin
      and upper(data ->> 'type') in ('TRANSFER OUT', 'TRANSFER IN')
      and not exists (select 1 from migration.map m where m.collection = 'transactions' and m.legacy_id = x.record_id);
   insert into migration.exceptions (collection, legacy_id, problem, detail)
-  select 'transactions', legacy_id, 'Unpaired transfer leg', null
+  select 'transactions', old_id, 'Unpaired transfer leg', null
     from migration.map where collection = 'transactions' and outcome = 'exception' and note like 'Unpaired%';
 end $$;
 
@@ -731,7 +784,7 @@ begin
       perform migration.migrate_transaction(p_company, r);
     exception when others then
       insert into migration.map (collection, legacy_id, outcome, note) values ('transactions', r.record_id, 'exception', sqlerrm);
-      perform migration.note(p_company, 'transactions', r.record_id, 'Could not be migrated', sqlerrm);
+      perform migration.note(p_company, 'transactions', migration.bid(r), 'Could not be migrated', sqlerrm);
     end;
   end loop;
 
@@ -789,7 +842,7 @@ where ma.legacy_id is not null;
 
 -- Why an account differs: the old records behind it that are not posted in the new ledger.
 create or replace view migration.recon_money_open_items as
-select r.data ->> 'accountId' as account, r.record_id, upper(r.data ->> 'type') as old_type, r.data ->> 'date' as date,
+select r.data ->> 'accountId' as account, m.old_id as record_id, upper(r.data ->> 'type') as old_type, r.data ->> 'date' as date,
        migration.val(r.data) as amount, m.outcome, m.note
 from legacy.es_records r
 join migration.map m on m.collection = 'transactions' and m.legacy_id = r.record_id
@@ -800,8 +853,8 @@ where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and mig
 create or replace view migration.recon_projects as
 with old as (
   select r.data ->> 'projectId' as legacy_id, r.data ->> 'currency' as currency,
-         sum(migration.val(r.data)) filter (where upper(r.data ->> 'type') = 'INVOICE OUT') as old_revenue,
-         sum(migration.val(r.data)) filter (where upper(r.data ->> 'type') in ('EXPENSE', 'EXPENSE CLAIM', 'SALARY')
+         sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') = 'INVOICE OUT') as old_revenue,
+         sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') in ('EXPENSE', 'EXPENSE CLAIM', 'SALARY')
                                               or (upper(r.data ->> 'type') = 'PAYMENT OUT' and r.data ->> 'supplierId' <> '')) as old_cost
     from legacy.es_records r
    where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.is_done(r.data)
@@ -827,5 +880,5 @@ create or replace view migration.recon_attachments as
 select (select count(*) from legacy.es_records r, jsonb_array_elements(case when jsonb_typeof(r.data -> 'attachments') = 'array'
                                                                        then r.data -> 'attachments' else '[]' end) a
          where r.collection = 'transactions' and r.data <> '{}') as old_files,
-       (select count(*) from public.attachments where storage_path like '%/legacy/%') as new_files,
-       (select count(*) from public.attachments where storage_path like '%/legacy/%' and sha256 is null) as waiting_for_copy;
+       (select count(*) from public.attachments where storage_path ~ '/legacy(-copy)?/') as new_files,
+       (select count(*) from public.attachments where storage_path ~ '/legacy(-copy)?/' and sha256 is null) as waiting_for_copy;

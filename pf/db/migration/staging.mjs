@@ -52,13 +52,13 @@ async function listOld(prefix = '') {
 }
 
 async function files() {
-  const marker = `${company}/legacy/`
-  const { data: rows, error } = await newDb.from('attachments').select('id, storage_path').like('storage_path', `${marker}%`)
+  // <company>/legacy/<old path>, or <company>/legacy-copy/<document>/<old path> for a file shared by two records.
+  const { data: rows, error } = await newDb.from('attachments').select('id, storage_path').like('storage_path', `${company}/legacy%`)
   if (error) throw error
   const wanted = new Set()
   let copied = 0, missing = 0
   for (const a of rows) {
-    const oldPath = a.storage_path.slice(marker.length)
+    const oldPath = a.storage_path.replace(/^[^/]+\/legacy\//, '').replace(/^[^/]+\/legacy-copy\/[^/]+\//, '')
     wanted.add(oldPath)
     const dl = await oldDb.storage.from(OLD_BUCKET).download(oldPath)
     if (dl.error) { missing++; console.log(`MISSING in old bucket: ${oldPath}`); continue }

@@ -175,3 +175,21 @@ Usage of the old INV accounts:
   - the old table unchanged.
 
 Next: a staging project to run it on your real records (see the hosting question), then your review in the app.
+
+## 8. Staging run on the real records (14 Nov 2026, Neon `staging`)
+- Source: the dashboard CSV export of `es_records` (1,939 rows). The 5 old user logins were left out.
+- Every one of the 1,271 old transactions has an outcome; none is missing.
+- **Every completed (Approved / Paid / Closed) record posted**, except the transfer legs explained below.
+- Result: 452 posted, 347 drafts, 44 void, 487 listed only (445 empty tombstones, 2 transfer pairs in and out of the same account), 2 exceptions.
+- Ledger: 440 journal entries, debits = credits.
+- **Bank books: 20 of 22 accounts equal the old app to the cent.** The other two differ only by an unpaired transfer leg:
+  - TRX-0045: USD 4,000 into Kuraimi USD, the cancelled guarantee coming back;
+  - TRX-0272: SAR 40 into the Yasser SAR petty cash.
+- Projects: revenue and cost of all 120 projects equal the old app (compared at 2 decimals).
+- Attachments: 253 old file references → 253 rows, waiting for the file copy.
+
+Two rules were added after seeing the real data:
+- A transfer out of and back into the same account has no movement, so it is listed only.
+- Company money sent to the owner's personal account is the company paying the owner back (claim reimbursement, 2200).
+
+The job now also matches on the old app's own IDs: `es_records.record_id` is an internal key, and an ID reused after a delete resolves to the live record.

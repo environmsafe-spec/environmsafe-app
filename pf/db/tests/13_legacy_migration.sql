@@ -2,10 +2,11 @@
 -- (same collections, keys, ID formats and quirks: amount empty with the value in debit/credit, tombstones,
 -- receivable "INV" account, the owner's personal account, transfer legs paired by againstRef).
 begin;
-select plan(29);
+select plan(32);
 
 insert into legacy.es_records (company_id, collection, record_id, data, deleted)
-select tests.es(), c, coalesce(x ->> 'id', 'TRX-0016'), x - '_deleted', coalesce((x ->> '_deleted')::boolean, x = '{}') from (values
+-- Like the real table: record_id is an internal key (uuid or imp-xxxx); the ID people used is inside data.
+select tests.es(), c, gen_random_uuid()::text, x - '_deleted', coalesce((x ->> '_deleted')::boolean, x = '{}') from (values
   ('accounts',  '{"id":"ACC-0003","nameEn":"USD-Kur","bank":"Al Kuraimi","kind":"Bank","currency":"USD","opening":"0"}'::jsonb),
   ('accounts',  '{"id":"ACC-0006","nameEn":"YER-QUT","bank":"Al Qutaibi","kind":"Bank","currency":"YER","opening":""}'),
   ('accounts',  '{"id":"ACC-0008","nameEn":"YER-KUR","bank":"Al Kuraimi","kind":"Bank","currency":"YER","opening":"0"}'),
@@ -16,6 +17,7 @@ select tests.es(), c, coalesce(x ->> 'id', 'TRX-0016'), x - '_deleted', coalesce
   ('suppliers', '{"id":"SUP-0001","nameEn":"Gulf Supplies","notes":""}'),
   ('employees', '{"id":"EMP-0021","nameEn":"Yasmeen","nameAr":"ياسمين","position":"Engineer","phone":""}'),
   ('employees', '{"id":"EMP-0002","nameEn":"Ali","nameAr":"علي","position":"Technician","phone":""}'),
+  ('employees', '{"id":"EMP-0002","nameEn":"Old employee","position":"Driver","phone":"","_deleted":true}'),
   ('projects',  '{"id":"PRJ-UL-0001","nameEn":"FAO-GEN-001","customerId":"CUS-0043","status":"active","budget":""}'),
   ('projects',  '{"id":"PRJ-0001","nameEn":"Inspection Aden","status":"Open","budget":"12000"}'),
   ('items',     '{"id":"ITM-0001","code":"F1","nameEn":"Oil filter","kind":"Goods","unit":"pc","isAsset":"No","lifeYears":"","costPrice":"150","salePrice":"","category":""}'),
@@ -32,6 +34,10 @@ select tests.es(), c, coalesce(x ->> 'id', 'TRX-0016'), x - '_deleted', coalesce
   ('transactions', '{"id":"TRX-0010","type":"TRANSFER OUT","status":"Approved","date":"2025-05-01","currency":"USD","amount":"1000","accountId":"ACC-0003"}'),
   ('transactions', '{"id":"TRX-0011","type":"TRANSFER IN","status":"Approved","date":"2025-05-01","currency":"USD","amount":"1000","accountId":"ACC-0020","againstRef":"TRX-0010"}'),
   ('transactions', '{"id":"TRX-0012","type":"TRANSFER OUT","status":"Approved","date":"2025-05-02","currency":"USD","amount":"250","accountId":"ACC-0003"}'),
+  ('transactions', '{"id":"TRX-0030","type":"TRANSFER OUT","status":"Approved","date":"2025-05-04","currency":"USD","amount":"75","accountId":"ACC-0020","againstRef":"TRX-0031"}'),
+  ('transactions', '{"id":"TRX-0031","type":"TRANSFER IN","status":"Approved","date":"2025-05-04","currency":"USD","amount":"75","accountId":"ACC-0020","againstRef":"TRX-0030"}'),
+  ('transactions', '{"id":"TRX-0032","type":"TRANSFER OUT","status":"Approved","date":"2025-05-05","currency":"USD","amount":"350","accountId":"ACC-0003","againstRef":"TRX-0033"}'),
+  ('transactions', '{"id":"TRX-0033","type":"TRANSFER IN","status":"Approved","date":"2025-05-05","currency":"USD","amount":"350","accountId":"ACC-0022","againstRef":"TRX-0032","notes":"To pay a supplier"}'),
   ('transactions', '{"id":"TRX-0013","type":"PAYMENT OUT","status":"Approved","date":"2025-05-03","currency":"USD","amount":"","credit":"300","qty":"2","unitPrice":"150","discount":"","supplierId":"SUP-0001","itemId":"ITM-0001","projectId":"PRJ-0001","accountId":"ACC-0003"}'),
   ('transactions', '{"id":"TRX-0014","type":"EXPENSE","status":"Draft","date":"2026-11-05","currency":"USD","amount":"20","accountId":"ACC-0003","description":"New since last time"}'),
   ('transactions', '{"id":"TRX-0015","type":"EXPENSE","status":"Approved","date":"2025-06-01","currency":"USD","amount":"70","accountId":"ACC-0003","_deleted":true}'),
@@ -47,7 +53,7 @@ create temp table before as select md5(string_agg(record_id || data::text || del
 select lives_ok($$ select * from migration.run(tests.es(), tests.uid('owner@es.test')) $$, 'migration job runs');
 
 create temp view doc as
-  select m.legacy_id as old_id, d.* from migration.map m join public.documents d on d.id = m.target_id where m.collection = 'transactions';
+  select m.old_id, d.* from migration.map m join public.documents d on d.id = m.target_id where m.collection = 'transactions';
 
 select is((select sum(missing)::int from migration.recon_counts), 0, 'every old transaction has an outcome');
 select is((select count(*)::int from migration.recon_counts where old_records <> posted + draft + void + skipped + exception
@@ -79,6 +85,9 @@ select is((select sum(jl.credit) from doc d join public.journal_lines jl on jl.e
              join public.gl_accounts g on g.id = jl.account_id where d.old_id = 'TRX-0005' and g.code = '2200'),
           50.00, 'F: paid from the owner''s personal account = owner current account 2200');
 
+select is((select p.name_en from doc d join public.parties p on p.id = d.party_id where d.old_id = 'TRX-0018'), 'Ali',
+          'an ID reused after a delete resolves to the live record');
+
 -- E: the repayment of the advance
 select is((select kind::text || ' ' || status from doc where old_id = 'TRX-UL-0149'), 'advance_repayment draft',
           'E: LOAN IN becomes the advance repayment, kept as a draft (A)');
@@ -86,10 +95,15 @@ select is((select count(*)::int from public.document_links l join doc a on a.id 
             where a.old_id = 'TRX-0283' and r.old_id = 'TRX-UL-0149'), 1, 'repayment is linked to the advance');
 
 -- Transfers
-select is((select count(distinct target_id)::int from migration.map where legacy_id in ('TRX-0010', 'TRX-0011')), 1,
+select is((select count(distinct target_id)::int from migration.map where old_id in ('TRX-0010', 'TRX-0011')), 1,
           'transfer out + in = one transfer');
 select is((select kind::text || ' ' || status from doc where old_id = 'TRX-0011'), 'transfer posted', 'transfer posted');
-select is((select outcome from migration.map where legacy_id = 'TRX-0012'), 'exception', 'unpaired transfer leg goes to the exceptions list');
+select is((select outcome from migration.map where old_id = 'TRX-0012'), 'exception', 'unpaired transfer leg goes to the exceptions list');
+
+select is((select string_agg(outcome, ',') from migration.map where old_id in ('TRX-0030', 'TRX-0031')), 'skipped,skipped',
+          'transfer out of and into the same account: no movement');
+select is((select kind::text || ' ' || status from doc where old_id = 'TRX-0032'), 'claim_reimbursement posted',
+          'F: money sent to the owner''s personal account = paid back to the owner (2200)');
 
 -- Payment with an item: bill + payment
 select is((select string_agg(kind::text || ' ' || status, ', ' order by kind) from doc where old_id = 'TRX-0013'),
@@ -100,8 +114,9 @@ select is((select open_amount from public.v_document_balances b join doc d on d.
 -- Statuses
 select is((select string_agg(old_id || '=' || status, ' ' order by old_id) from doc where old_id in ('TRX-0014', 'TRX-0015')),
           'TRX-0014=draft TRX-0015=void', 'A: draft stays draft; deleted with data = void');
-select is((select string_agg(legacy_id || '=' || outcome, ' ' order by legacy_id) from migration.map where legacy_id in ('TRX-0016', 'TRX-0017')),
-          'TRX-0016=skipped TRX-0017=skipped', 'tombstone and drawing from the personal account are listed, not posted');
+select is((select outcome from migration.map where old_id = 'TRX-0017') || ' / '
+          || (select count(*) from migration.map where collection = 'transactions' and outcome = 'skipped' and note like 'Empty%'),
+          'skipped / 1', 'tombstone and drawing from the personal account are listed, not posted');
 select is((select open_amount from public.v_document_balances b join doc d on d.id = b.id where d.old_id = 'TRX-0019'),
           0.00, 'payment against a claim reimburses it');
 
