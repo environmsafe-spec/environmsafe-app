@@ -221,6 +221,22 @@
   <!-- Individual posts, newest first -->
   <!-- SITEMAP-POSTS: add each new post URL pair directly below this line, newest first -->
   <url>
+    <loc>https://www.environmsafe.com/news/2026-11-14-first-aid-is-a-capability-not-a-box.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-14-first-aid-is-a-capability-not-a-box.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-14-first-aid-is-a-capability-not-a-box.html"/>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.environmsafe.com/ar/news/2026-11-14-first-aid-is-a-capability-not-a-box.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-14-first-aid-is-a-capability-not-a-box.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-14-first-aid-is-a-capability-not-a-box.html"/>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.environmsafe.com/news/2026-11-13-a-bearing-announces-itself-months-early.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.environmsafe.com/news/2026-11-13-a-bearing-announces-itself-months-early.html"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.environmsafe.com/ar/news/2026-11-13-a-bearing-announces-itself-months-early.html"/>

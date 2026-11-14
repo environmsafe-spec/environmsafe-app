@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-14",
+    "slug": "first-aid-is-a-capability-not-a-box",
+    "icon": "fa-kit-medical",
+    "color": "teal",
+    "en": {
+      "title": "First Aid Is a Capability, Not a Box on the Wall",
+      "home_summary": "A first aid box satisfies an inspector. Who responds on the night shift, how they are found, and how a casualty actually gets out of a plant room is a different question, and it is rarely rehearsed."
+    },
+    "ar": {
+      "title": "الإسعاف الأولي قدرة لا صندوق على الجدار",
+      "home_summary": "صندوق الإسعاف يرضي المفتش. أما من يستجيب في المناوبة الليلية، وكيف يُعثر عليه، وكيف يخرج المصاب فعلاً من غرفة معدات، فسؤال آخر نادراً ما يُتمرن عليه."
+    }
+  },
+  {
     "iso": "2026-11-13",
     "slug": "a-bearing-announces-itself-months-early",
     "icon": "fa-gauge-high",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الإجهاد الحراري مسألة تخطيط لا اختبار صلابة",
       "home_summary": "أمراض الحرارة تتطور تدريجياً، والمصاب غالباً آخر من يلاحظ. العمال الجدد والعائدون من الإجازات هم الأكثر عرضة لأن التأقلم يتلاشى خلال أيام."
-    }
-  },
-  {
-    "iso": "2026-09-23",
-    "slug": "emergency-lighting-works-until-the-power-fails",
-    "icon": "fa-lightbulb",
-    "color": "navy",
-    "en": {
-      "title": "Emergency Lighting Is Tested by the One Event Nobody Rehearses",
-      "home_summary": "A green charging light and a quick test key prove an emergency light switches on. They say nothing about whether its battery can last the full rated duration in a real power cut."
-    },
-    "ar": {
-      "title": "إنارة الطوارئ تُختبر في الحدث الوحيد الذي لا يتدرب عليه أحد",
-      "home_summary": "ضوء الشحن الأخضر ومفتاح الاختبار السريع يثبتان أن مصباح الطوارئ يضيء، لا أن بطاريته تدوم طوال مدتها المقننة عند انقطاع حقيقي. الحرارة تُشيخ البطاريات بسرعة، والاختبار كامل المدة وحده يكشف الوحدات التي ستنطفئ بعد عشر دقائق."
     }
   }
 ]
