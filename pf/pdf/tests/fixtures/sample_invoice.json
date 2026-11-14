@@ -1,0 +1,22 @@
+{
+  "kind": "sales_invoice",
+  "number": "INV-2026110701",
+  "date": "2026-11-07",
+  "currency": "USD",
+  "to": {"name": "YGCI", "lines": ["Attn: Mr. Abdulaleem", "Taiz, Republic of Yemen", "Customer ID: 123"]},
+  "meta": [["INVOICE #", "INV-2026110701"], ["DATE", "07-Nov-2026"], ["REFERENCE", "Quotation 2026091301 V1"], ["TERMS", "100% advance"]],
+  "lines": [
+    {"description": "Calibration of Temperature Calibrator", "detail": "Fluke 724 - laboratory calibration with certificate, insurance included", "unit": "PC", "qty": 1, "unit_price": 926.32, "amount": 926.32},
+    {"description": "Calibration of Digital Pressure Calibrator", "detail": "Druck DPI 612 - laboratory calibration with certificate, insurance included", "unit": "PC", "qty": 1, "unit_price": 926.31, "amount": 926.31}
+  ],
+  "totals": [{"label": "Subtotal", "value": 1852.63}, {"label": "Discount", "value": 0}, {"label": "Tax / VAT", "value": "Not applicable"}],
+  "total": {"label": "TOTAL", "value": "USD 1,852.63"},
+  "terms": [
+    {"label": "Reference", "text": "Proforma Invoice / Quotation No. 2026091301 V1 dated 16-09-2026, option B, insurance included (Customer ID 123)"},
+    {"label": "Payment", "text": "100% advance, as per the quotation"},
+    {"label": "Scope", "text": "Laboratory calibration; calibration certificate and test report issued for each instrument"},
+    {"label": "Amount in words", "text": "One Thousand Eight Hundred Fifty-Two US Dollars and Sixty-Three Cents only"},
+    {"label": "Bank", "text": "Al Kuraimi Bank, account no. 3108401426 (EnvironmSafe for Engineering, Trading, and Services Ltd)"}
+  ],
+  "signature": {"style": "single", "date": "2026-11-07"}
+}

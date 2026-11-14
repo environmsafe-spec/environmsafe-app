@@ -1,0 +1,21 @@
+{
+  "kind": "purchase_order",
+  "number": "2026110101",
+  "date": "2026-11-01",
+  "currency": "USD",
+  "to": {"name": "Soham Engineering", "lines": ["Abyan Coast, in front of Crown Hotel", "Khor Maksar, Aden, Yemen", "commercial@soham-engineering.com", "Attn: Mr. Abubakr Mohammed, Sales"]},
+  "meta": [["PO #", "2026110101"], ["DATE", "01-Nov-2026"], ["REFERENCE", "SO/SEC/2026/01212"], ["QUOTE VALID TO", "01-Dec-2026"]],
+  "lines": [{"description": "[006153] TRAC102.11R (Nalco)", "detail": "Water treatment chemical | 25 Kg / Can", "unit": "Kg", "qty": 25, "unit_price": 12.19, "amount": 304.75}],
+  "totals": [{"label": "Products subtotal", "value": 304.75}, {"label": "Nalco temp. surcharge 12%", "value": 36.57},
+             {"label": "Untaxed amount", "value": 341.32}, {"label": "Tax rate", "value": "5% on 304.75"}, {"label": "Tax", "value": 15.24}],
+  "total": {"label": "TOTAL", "value": "USD 356.56"},
+  "terms": [
+    {"label": "Reference", "text": "Soham Engineering Quotation SO/SEC/2026/01212 dated 01-Nov-2026 (Salesperson: Abubakr Mohammed), valid until 01-Dec-2026"},
+    {"label": "Prices", "text": "In USD as quoted, including the Nalco temporary surcharge of 12% and 5% tax on the products subtotal"},
+    {"label": "Payment", "text": "As agreed with Soham Engineering upon delivery and receipt of the original tax invoice"},
+    {"label": "Delivery", "text": "EnvironmSafe, Aden. Material in original sealed 25 Kg Nalco cans, with batch number and expiry date marked"},
+    {"label": "Documents", "text": "Delivery note, tax invoice, Certificate of Analysis and Safety Data Sheet (SDS) to accompany the delivery"},
+    {"label": "Invoice To", "text": "EnvironmSafe For Engineering, Trading, and Services Ltd, Aden-Alburaqah, Yemen | Attn: General Manager | support@environmsafe.com | Tel/Mobile: (967) 773033186 - 783402932"}
+  ],
+  "signature": {"style": "acceptance", "date": "2026-11-01", "acceptance": {"party": "Soham Engineering", "name": "Abubakr Mohammed, Sales"}}
+}
