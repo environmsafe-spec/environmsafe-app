@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-15",
+    "slug": "nobody-surveyed-what-the-building-is-made-of",
+    "icon": "fa-helmet-safety",
+    "color": "amber",
+    "en": {
+      "title": "Nobody Surveyed What the Older Building Is Made Of",
+      "home_summary": "Older buildings contain whatever was normal when they were built, and nobody holds the record. The risk arrives with the drill and the grinder, which makes the control point before the work starts, not during it."
+    },
+    "ar": {
+      "title": "لم يمسح أحد مما صُنع المبنى القديم",
+      "home_summary": "المباني القديمة تحتوي ما كان معتاداً يوم بُنيت، ولا أحد يحتفظ بالسجل. والخطر يأتي مع المثقاب والجلاخة، ما يجعل نقطة الضبط قبل بدء العمل لا أثناءه."
+    }
+  },
+  {
     "iso": "2026-11-14",
     "slug": "first-aid-is-a-capability-not-a-box",
     "icon": "fa-kit-medical",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الخطأ البشري هو بداية التحقيق لا نهايته",
       "home_summary": "حين ينتهي تقرير الحادث بالخطأ البشري يُغلق الملف، وغالباً ما يتكرر الأمر ذاته مع شخص آخر. السؤال المفيد هو لماذا فعل شخص مدرب ما فعله، والإجابة دائماً تقريباً في الظروف المحيطة: المعدات والإجراء وضغط الوقت والالتفافات المألوفة."
-    }
-  },
-  {
-    "iso": "2026-09-24",
-    "slug": "heat-stress-is-a-planning-failure",
-    "icon": "fa-sun",
-    "color": "amber",
-    "en": {
-      "title": "Heat Stress Is a Planning Problem, Not a Toughness Test",
-      "home_summary": "Heat illness builds gradually, and the person affected is often the last to notice. New starters and workers back from leave are most at risk because acclimatisation fades within days."
-    },
-    "ar": {
-      "title": "الإجهاد الحراري مسألة تخطيط لا اختبار صلابة",
-      "home_summary": "أمراض الحرارة تتطور تدريجياً، والمصاب غالباً آخر من يلاحظ. العمال الجدد والعائدون من الإجازات هم الأكثر عرضة لأن التأقلم يتلاشى خلال أيام."
     }
   }
 ]
