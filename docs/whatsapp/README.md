@@ -123,28 +123,24 @@ and tick the service plus its sub-items (item codes start with the service code)
 In Commerce Manager the same grouping is available as **Sets** filtered on
 *Custom label 0* (Arabic service name) or *Product type* (English service name).
 
-| Collection | Code prefix | Items |
-|---|---|---|
-| المولدات وقطع غيارها | `ES-GEN` | 19 |
-| المعدات الصناعية وقطع غيارها | `ES-MCH` | 12 |
-| الصيانة وقطع الغيار | `ES-MNT` | 6 |
-| اختبار ومعايرة صمامات الأمان PSV | `ES-PSV` | 7 |
-| خدمات المعايرة | `ES-CAL` | 13 |
-| أنظمة الغاز LPG | `ES-LPG` | 6 |
-| أنظمة التكييف والتهوية HVAC | `ES-HVAC` | 7 |
-| الهندسة والإنشاء | `ES-ENG` | 6 |
-| الفحص والمراقبة | `ES-INSP` | 6 |
-| تقييم سلامة الأنظمة | `ES-EVAL` | 6 |
-| دورات NEBOSH وIOSH | `ES-TRN` | 12 |
-| السلامة والحماية من الحرائق | `ES-HSE` | 48 |
+| # | Collection | Product type filter (is any of) | Code prefix | Items |
+|---|---|---|---|---|
+| 1 | المولدات وقطع غيارها | Generators & Generator Parts | `ES-GEN` | 19 |
+| 2 | المعدات الصناعية وقطع الغيار | Industrial Machinery & Spare Parts | `ES-MCH` | 12 |
+| 3 | السلامة والحماية من الحرائق | HSE & Fire Protection | `ES-HSE` | 48 |
+| 4 | خدمات المعايرة | Calibration Services | `ES-CAL` | 13 |
+| 5 | برامج الصيانة باستخدام الحاسوب | Maintenance & Parts | `ES-MNT` | 6 |
+| 6 | الهندسة والإنشاء | Engineering & Construction | `ES-ENG` | 6 |
+| 7 | اختبار معايرة صمامات الأمان PSV | PSV Testing & Calibration | `ES-PSV` | 7 |
+| 8 | أنظمة الغاز LPG | LPG Systems | `ES-LPG` | 6 |
+| 9 | أنظمة التكييف والتهوية HVAC | Industrial HVAC | `ES-HVAC` | 7 |
+| 10 | الفحص والتقييم | Inspection & Monitoring + Safety Evaluation | `ES-INSP`, `ES-EVAL` | 12 |
+| 11 | التدريب والتأهيل | NEBOSH & IOSH Training | `ES-TRN` | 12 |
 
-Sections are in display order: parts supply and machinery first, safety last.
-Create the collections in this order. The HSE & fire protection collection
-also carries the safety supply lines (fire equipment, PPE, safety solutions,
-fall protection, gas detection). 148 items in total.
-
-Environmental services are planned but not offered, so they have no catalog
-items; add them when the service launches.
+This is the order and naming used in WhatsApp, and the order of rows in the feed.
+"الفحص والتقييم" combines two product types, so its set filter selects both.
+Product types are never renamed: the sets in Commerce Manager filter on them.
+148 items in total.
 
 ---
 

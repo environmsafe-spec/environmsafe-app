@@ -42,7 +42,9 @@ def row(item, service):
         'brand': 'EnvironmSafe',
         # product_type and custom_label_0 let Commerce Manager build one set per service.
         'product_type': service['name_en'],
-        'custom_label_0': service['name_ar'],
+        # label_ar holds a section's original name after a rename, so custom_label_0
+        # stays put and Meta does not send every item in it back through review.
+        'custom_label_0': service.get('label_ar', service['name_ar']),
     }
 
 
