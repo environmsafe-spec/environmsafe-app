@@ -478,11 +478,12 @@ export function DocumentPage() {
               {k.kind === 'transfer' && counter && counter.currency !== 'USD' && counter.currency !== currency && (
                 <NumberInput label={`${t('doc.counterRate')} — ${counter.currency}`} value={s.counter_rate} onChange={(v) => set('counter_rate', typeof v === 'number' ? v : '')} decimalScale={6} disabled={readOnly} />
               )}
-              {k.kind === 'supplier_payment' && (
+              {(k.kind === 'supplier_payment' || k.kind === 'refund_from_supplier') && (
                 <Stack gap={4}>
                   <Text size="sm" fw={500}>{t('doc.purpose')}</Text>
                   <SegmentedControl value={s.purpose} disabled={readOnly} onChange={(v) => set('purpose', v as 'payable' | 'deposit')}
-                    data={[{ value: 'payable', label: t('doc.payable') }, { value: 'deposit', label: t('doc.deposit') }]} />
+                    data={[{ value: 'payable', label: t(k.kind === 'refund_from_supplier' ? 'doc.refundPayable' : 'doc.payable') },
+                           { value: 'deposit', label: t(k.kind === 'refund_from_supplier' ? 'doc.depositBack' : 'doc.deposit') }]} />
                 </Stack>
               )}
               <TextInput label={t('doc.reference')} value={s.reference_no} onChange={(e) => set('reference_no', e.currentTarget.value)} disabled={readOnly} />

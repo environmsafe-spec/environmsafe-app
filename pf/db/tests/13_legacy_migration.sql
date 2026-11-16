@@ -2,7 +2,7 @@
 -- (same collections, keys, ID formats and quirks: amount empty with the value in debit/credit, tombstones,
 -- receivable "INV" account, the owner's personal account, transfer legs paired by againstRef).
 begin;
-select plan(32);
+select plan(34);
 
 insert into legacy.es_records (company_id, collection, record_id, data, deleted)
 -- Like the real table: record_id is an internal key (uuid or imp-xxxx); the ID people used is inside data.
@@ -38,6 +38,8 @@ select tests.es(), c, gen_random_uuid()::text, x - '_deleted', coalesce((x ->> '
   ('transactions', '{"id":"TRX-0031","type":"TRANSFER IN","status":"Approved","date":"2025-05-04","currency":"USD","amount":"75","accountId":"ACC-0020","againstRef":"TRX-0030"}'),
   ('transactions', '{"id":"TRX-0032","type":"TRANSFER OUT","status":"Approved","date":"2025-05-05","currency":"USD","amount":"350","accountId":"ACC-0003","againstRef":"TRX-0033"}'),
   ('transactions', '{"id":"TRX-0033","type":"TRANSFER IN","status":"Approved","date":"2025-05-05","currency":"USD","amount":"350","accountId":"ACC-0022","againstRef":"TRX-0032","notes":"To pay a supplier"}'),
+  ('transactions', '{"id":"TRX-0038","type":"DEPOSIT PAID","status":"Closed","date":"2025-05-06","currency":"USD","amount":"4000","accountId":"ACC-0003","supplierId":"SUP-0001"}'),
+  ('transactions', '{"id":"TRX-0045","type":"TRANSFER IN","status":"Closed","date":"2025-05-20","currency":"USD","amount":"4000","accountId":"ACC-0003","notes":"Guarantee released"}'),
   ('transactions', '{"id":"TRX-0013","type":"PAYMENT OUT","status":"Approved","date":"2025-05-03","currency":"USD","amount":"","credit":"300","qty":"2","unitPrice":"150","discount":"","supplierId":"SUP-0001","itemId":"ITM-0001","projectId":"PRJ-0001","accountId":"ACC-0003"}'),
   ('transactions', '{"id":"TRX-0014","type":"EXPENSE","status":"Draft","date":"2026-11-05","currency":"USD","amount":"20","accountId":"ACC-0003","description":"New since last time"}'),
   ('transactions', '{"id":"TRX-0015","type":"EXPENSE","status":"Approved","date":"2025-06-01","currency":"USD","amount":"70","accountId":"ACC-0003","_deleted":true}'),
@@ -104,6 +106,11 @@ select is((select string_agg(outcome, ',') from migration.map where old_id in ('
           'transfer out of and into the same account: no movement');
 select is((select kind::text || ' ' || status from doc where old_id = 'TRX-0032'), 'claim_reimbursement posted',
           'F: money sent to the owner''s personal account = paid back to the owner (2200)');
+
+select is((select kind::text || ' ' || status || ' ' || purpose from doc where old_id = 'TRX-0045'), 'refund_from_supplier posted deposit',
+          'explained single leg: the released guarantee comes back from the supplier');
+select is((select sum(jl.debit - jl.credit) from public.journal_lines jl join public.gl_accounts g on g.id = jl.account_id
+            where g.company_id = tests.es() and g.code = '1260'), 0.00, 'guarantee paid and released: deposits account back to 0');
 
 -- Payment with an item: bill + payment
 select is((select string_agg(kind::text || ' ' || status, ', ' order by kind) from doc where old_id = 'TRX-0013'),

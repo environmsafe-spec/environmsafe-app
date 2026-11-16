@@ -52,7 +52,7 @@ const en = {
     amountReceived: 'Amount received', project: 'Project', glAccount: 'For (account)', description: 'Description',
     more: 'More', fee: 'Bank / remittance fee', rate: 'Rate (per 1 USD)', counterRate: 'Destination rate (per 1 USD)',
     reference: 'Reference / slip no.', notes: 'Notes', noDocReason: 'No document? Say why', purpose: 'Purpose',
-    payable: 'Pay the supplier', deposit: 'Deposit / guarantee', lines: 'Lines', addLine: 'Split / add line',
+    payable: 'Pay the supplier', deposit: 'Deposit / guarantee', refundPayable: 'Overpayment back', depositBack: 'Deposit / guarantee released', lines: 'Lines', addLine: 'Split / add line',
     debit: 'Debit', credit: 'Credit', difference: 'Difference', settles: 'Settles', open: 'Open', settleAll: 'Settle',
     attachments: 'Files', upload: 'Attach photo / PDF', saveDraft: 'Save draft', post: 'Post', saveAndPost: 'Save & post',
     approve: 'Approve & post', reject: 'Reject', voidDoc: 'Void', voidReason: 'Why void it?', copy: 'Make corrected copy',

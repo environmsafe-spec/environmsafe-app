@@ -89,6 +89,20 @@ insert into migration.project_revenue values
   ('PRJ-0025',    '4200', 'ADRA-Maint-001')
 on conflict (legacy_id) do nothing;
 
+-- Transfer legs without their other side, explained by the owner.
+--   deposit_back:  a guarantee / deposit coming back; ref = the old DEPOSIT PAID record (its supplier)
+--   transfer_from: money moved from another old account; ref = that account
+create table if not exists migration.single_leg_rules (
+  old_id text primary key,
+  action text not null check (action in ('deposit_back', 'transfer_from')),
+  ref    text not null,
+  note   text
+);
+insert into migration.single_leg_rules values
+  ('TRX-0045', 'deposit_back',  'TRX-0038', 'USD 4,000 bid guarantee held by the bank, released back to Kuraimi USD'),
+  ('TRX-0272', 'transfer_from', 'ACC-0011', 'SAR 40 left from the 5,000 SAR Yasmeen held during the owner''s Umrah leave; still with her')
+on conflict (old_id) do nothing;
+
 -- ---------------------------------------------------------------------------
 -- Results
 -- ---------------------------------------------------------------------------
@@ -726,6 +740,42 @@ begin
       perform migration.note(p_company, 'transactions', migration.bid(o), 'Transfer could not be created', sqlerrm);
     end;
     i := null;
+  end loop;
+
+  -- Single legs the owner explained (migration.single_leg_rules).
+  for o in select x.* from legacy.es_records x join migration.single_leg_rules s on s.old_id = x.data ->> 'id'
+            where x.company_id = p_company and x.collection = 'transactions' and not x.deleted
+              and upper(x.data ->> 'type') in ('TRANSFER OUT', 'TRANSFER IN')
+              and not exists (select 1 from migration.map m where m.collection = 'transactions' and m.legacy_id = x.record_id) loop
+    declare
+      s migration.single_leg_rules;
+    begin
+      select * into s from migration.single_leg_rules where old_id = o.data ->> 'id';
+      v_from := migration.money_account(p_company, migration.t(o.data, 'accountId'));
+      if s.action = 'deposit_back' then
+        v_doc := migration.new_doc(p_company, 'refund_from_supplier', o.data, migration.val(o.data), v_from,
+                   migration.party(p_company, (select r.data ->> 'supplierId' from legacy.es_records r where r.company_id = p_company
+                                                and r.collection = 'transactions' and r.data ->> 'id' = s.ref order by r.deleted limit 1)));
+        perform app.begin_internal();
+        update public.documents set purpose = 'deposit' where id = v_doc;
+      else
+        -- The money came from another account: a transfer from it into this one.
+        v_doc := migration.new_doc(p_company, 'transfer', o.data, migration.val(o.data), migration.money_account(p_company, s.ref), null);
+        perform app.begin_internal();
+        update public.documents
+           set counter_money_account_id = v_from, counter_amount = migration.val(o.data),
+               counter_rate = app.rate_on(p_company, (select currency from public.money_accounts where id = v_from), (o.data ->> 'date')::date)
+         where id = v_doc;
+      end if;
+      perform app.begin_internal();
+      update public.documents set notes = notes || E'\n' || s.note where id = v_doc;
+      perform migration.add_attachments(p_company, v_doc, o.data);
+      v_out := migration.finish(v_doc, o.data, o.deleted);
+      insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note)
+      values ('transactions', o.record_id, 'documents', v_doc, v_out, s.note);
+    exception when others then
+      perform migration.note(p_company, 'transactions', migration.bid(o), 'Explained transfer leg could not be created', sqlerrm);
+    end;
   end loop;
 
   -- Unpaired legs.

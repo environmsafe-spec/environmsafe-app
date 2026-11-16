@@ -197,7 +197,7 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
     counter_rate: k.kind === 'transfer' ? n(s.counter_rate) : null,
     fee_amount: k.allows_fee ? num(s.fee_amount) : 0,
     ...(typeof s.rate === 'number' ? { rate: s.rate } : {}),
-    purpose: k.kind === 'supplier_payment' ? s.purpose : null,
+    purpose: k.kind === 'supplier_payment' || k.kind === 'refund_from_supplier' ? s.purpose : null,
     due_date: ['supplier_bill', 'sales_invoice'].includes(k.kind) && s.due_date ? s.due_date : null,
     valid_until: ['purchase_order', 'quotation'].includes(k.kind) ? nul(s.valid_until) : null,
     attention: nul(s.attention),

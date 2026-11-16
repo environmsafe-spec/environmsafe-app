@@ -100,7 +100,9 @@ begin
     end if;
   end if;
 
-  if new.kind <> 'supplier_payment' then
+  -- Purpose: a supplier payment pays bills or places a deposit / guarantee (1260); a refund from a supplier
+  -- returns either an overpayment (2000) or a released deposit / guarantee (1260).
+  if new.kind not in ('supplier_payment', 'refund_from_supplier') then
     new.purpose := null;
   elsif new.purpose is null then
     new.purpose := 'payable';
@@ -580,7 +582,7 @@ begin
     perform app.jl_balance_fx(p_entry, d);
 
   elsif d.kind in ('customer_receipt', 'refund_from_supplier') then
-    v_ctrl := app.acct(c, case d.kind when 'customer_receipt' then '1100' else '2000' end);
+    v_ctrl := app.acct(c, case when d.kind = 'customer_receipt' then '1100' when d.purpose = 'deposit' then '1260' else '2000' end);
     perform app.jl(p_entry, c, v_bank, 'D', app.fn(d.amount, r) - app.fn(d.fee_amount, r), d.currency, d.amount - d.fee_amount, r,
                    null, d.party_id, null, null, d.description);
     if d.fee_amount > 0 then

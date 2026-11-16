@@ -54,7 +54,7 @@ const ar: Messages = {
     amountReceived: 'المبلغ المستلم', project: 'المشروع', glAccount: 'البند (الحساب)', description: 'البيان',
     more: 'المزيد', fee: 'رسوم البنك / الحوالة', rate: 'السعر (لكل 1 دولار)', counterRate: 'سعر حساب الوجهة (لكل 1 دولار)',
     reference: 'المرجع / رقم الإشعار', notes: 'ملاحظات', noDocReason: 'لا يوجد مستند؟ اذكر السبب', purpose: 'الغرض',
-    payable: 'سداد للمورد', deposit: 'تأمين / ضمان', lines: 'البنود', addLine: 'تقسيم / إضافة بند',
+    payable: 'سداد للمورد', deposit: 'تأمين / ضمان', refundPayable: 'استرداد مبلغ زائد', depositBack: 'استرداد تأمين / ضمان', lines: 'البنود', addLine: 'تقسيم / إضافة بند',
     debit: 'مدين', credit: 'دائن', difference: 'الفرق', settles: 'يسدد', open: 'المتبقي', settleAll: 'سداد',
     attachments: 'المرفقات', upload: 'إرفاق صورة / PDF', saveDraft: 'حفظ كمسودة', post: 'ترحيل', saveAndPost: 'حفظ وترحيل',
     approve: 'موافقة وترحيل', reject: 'رفض', voidDoc: 'إلغاء', voidReason: 'سبب الإلغاء؟', copy: 'نسخة مصححة',
