@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-16",
+    "slug": "a-calibration-sticker-is-not-a-calibration",
+    "icon": "fa-file-circle-check",
+    "color": "blue",
+    "en": {
+      "title": "A Calibration Sticker Is Not a Calibration",
+      "home_summary": "A calibration sticker records a date. The certificate records what was found, the uncertainty and the traceability, and that is what an auditor reads."
+    },
+    "ar": {
+      "title": "ملصق المعايرة ليس معايرة",
+      "home_summary": "ملصق المعايرة يسجل تاريخاً، أما الشهادة فتسجل ما وُجد وعدم اليقين وقابلية التتبع، وهي ما يقرؤه المدقق."
+    }
+  },
+  {
     "iso": "2026-11-15",
     "slug": "nobody-surveyed-what-the-building-is-made-of",
     "icon": "fa-helmet-safety",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الطفاية الخاطئة قد تجعل الحريق أسوأ",
       "home_summary": "الماء على زيت مشتعل أو على معدات كهربائية حية يحوّل حريقاً صغيراً إلى خطير. معظم المواقع لديها طفايات ببطاقات صيانة سارية، لكن قلة تحققت من أن كل واحدة تناسب ما قد يحترق بجوارها."
-    }
-  },
-  {
-    "iso": "2026-09-25",
-    "slug": "human-error-is-where-investigation-starts",
-    "icon": "fa-magnifying-glass",
-    "color": "green",
-    "en": {
-      "title": "Human Error Is Where an Investigation Starts, Not Where It Ends",
-      "home_summary": "When an incident report concludes with human error, the file closes and the same thing tends to happen again to someone else. The useful question is why a trained person made that move, and the answer is almost always in the conditions around them: the equipment, the procedure, the time pressure and the workarounds."
-    },
-    "ar": {
-      "title": "الخطأ البشري هو بداية التحقيق لا نهايته",
-      "home_summary": "حين ينتهي تقرير الحادث بالخطأ البشري يُغلق الملف، وغالباً ما يتكرر الأمر ذاته مع شخص آخر. السؤال المفيد هو لماذا فعل شخص مدرب ما فعله، والإجابة دائماً تقريباً في الظروف المحيطة: المعدات والإجراء وضغط الوقت والالتفافات المألوفة."
     }
   }
 ]
