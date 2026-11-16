@@ -102,7 +102,8 @@ replies `posted <slug>` once both networks have accepted the post. Any other
 reply turns the run red, with the website post already live. Check the
 scenario's history in Make, and whether Make switched it off after an error.
 The Facebook and LinkedIn connections live in Make and expire there; a
-failure is usually a connection that needs re-authorising.
+failure is usually a connection that needs re-authorising (Facebook's
+expiry date is under *Open items*).
 
 Until 16 November 2026 this was a manual scenario run once, on 22 October;
 nothing between then and 16 November was shared. To publish a backfill without
@@ -317,6 +318,13 @@ that card's wording until they are live.
 ## Open items
 
 - **Refill `_queue/` before 27 November** — the current queue ends with the 26 November post.
+- **Re-authorise the Facebook connection in Make before 15 January 2027.**
+  Facebook makes Make renew it about every 60 days; once it lapses, every
+  daily run turns red at the sharing step. Make → team "My Team" →
+  Connections → "…Facebook credentials - MCP" → ⋮ → Reauthorize, then sign in
+  with the Facebook account that manages the EnvironmSafe page (it signs in by
+  mobile number, not the Make email in the connection's name). After renewing,
+  update this date. LinkedIn's connection runs to September 2027.
 - **`UCSPI` and `United Sponge Company`** on the partners section are probably
   one company, and the real name may be *National* Company for Sponge & Plastic
   Industry rather than *United*. Needs the client's confirmation.
