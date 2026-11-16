@@ -193,3 +193,19 @@ Two rules were added after seeing the real data:
 - Company money sent to the owner's personal account is the company paying the owner back (claim reimbursement, 2200).
 
 The job now also matches on the old app's own IDs: `es_records.record_id` is an internal key, and an ID reused after a delete resolves to the live record.
+
+## 9. Owner's decisions, 16 Nov 2026 (applied; staging re-run)
+- **Old drafts are posted too** (`migration.settings.post_old_drafts`). Amounts people paid personally stay as what the company owes them: the owner (2200), and employees such as Abdulhaleem (2100).
+- **Payments to employees for work** = labour cost 5300 on their project. TRX-UL-0085 (Nabeel, USD 2,663) = a supplier paid for RIIC-003-ACs: 5900 on that project (`migration.record_rules`).
+- **TRX-UL-0050** (SAR 1,000): one payment only; it stays one record.
+- **TRX-0045** = the USD 4,000 bid guarantee released. **TRX-0272** = SAR 40 still held by Yasmeen.
+- **Missing invoices** (receipts exceed recorded invoices by about USD 89,000): to be entered after go-live.
+
+Result on the real records:
+- 801 posted, 44 void, 487 listed only, 0 drafts, 0 exceptions.
+- All bank and cash accounts equal the old app, except SAR-QUT −40 (the SAR 40 now shown as held by Yasmeen).
+- All 145 project totals equal the old app (net of discounts and returns).
+- Ledger balanced: 788 journal entries.
+- Left to check:
+  - TRX-UL-0163 points to project PRJ-UL-0018, which is not in the old projects, so it went on General;
+  - the 2 old fixed assets go in the asset register.

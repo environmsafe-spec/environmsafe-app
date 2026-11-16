@@ -2,7 +2,7 @@
 -- (same collections, keys, ID formats and quirks: amount empty with the value in debit/credit, tombstones,
 -- receivable "INV" account, the owner's personal account, transfer legs paired by againstRef).
 begin;
-select plan(34);
+select plan(35);
 
 insert into legacy.es_records (company_id, collection, record_id, data, deleted)
 -- Like the real table: record_id is an internal key (uuid or imp-xxxx); the ID people used is inside data.
@@ -40,6 +40,7 @@ select tests.es(), c, gen_random_uuid()::text, x - '_deleted', coalesce((x ->> '
   ('transactions', '{"id":"TRX-0033","type":"TRANSFER IN","status":"Approved","date":"2025-05-05","currency":"USD","amount":"350","accountId":"ACC-0022","againstRef":"TRX-0032","notes":"To pay a supplier"}'),
   ('transactions', '{"id":"TRX-0038","type":"DEPOSIT PAID","status":"Closed","date":"2025-05-06","currency":"USD","amount":"4000","accountId":"ACC-0003","supplierId":"SUP-0001"}'),
   ('transactions', '{"id":"TRX-0045","type":"TRANSFER IN","status":"Closed","date":"2025-05-20","currency":"USD","amount":"4000","accountId":"ACC-0003","notes":"Guarantee released"}'),
+  ('transactions', '{"id":"TRX-0040","type":"PAYMENT OUT","status":"Draft","date":"2025-08-01","currency":"USD","amount":"100","accountId":"ACC-0003","employeeId":"EMP-0021","projectId":"PRJ-0001","description":"Support"}'),
   ('transactions', '{"id":"TRX-0013","type":"PAYMENT OUT","status":"Approved","date":"2025-05-03","currency":"USD","amount":"","credit":"300","qty":"2","unitPrice":"150","discount":"","supplierId":"SUP-0001","itemId":"ITM-0001","projectId":"PRJ-0001","accountId":"ACC-0003"}'),
   ('transactions', '{"id":"TRX-0014","type":"EXPENSE","status":"Draft","date":"2026-11-05","currency":"USD","amount":"20","accountId":"ACC-0003","description":"New since last time"}'),
   ('transactions', '{"id":"TRX-0015","type":"EXPENSE","status":"Approved","date":"2025-06-01","currency":"USD","amount":"70","accountId":"ACC-0003","_deleted":true}'),
@@ -91,8 +92,8 @@ select is((select p.name_en from doc d join public.parties p on p.id = d.party_i
           'an ID reused after a delete resolves to the live record');
 
 -- E: the repayment of the advance
-select is((select kind::text || ' ' || status from doc where old_id = 'TRX-UL-0149'), 'advance_repayment draft',
-          'E: LOAN IN becomes the advance repayment, kept as a draft (A)');
+select is((select kind::text || ' ' || status from doc where old_id = 'TRX-UL-0149'), 'advance_repayment posted',
+          'E: LOAN IN becomes the advance repayment (old drafts are posted, owner''s decision)');
 select is((select count(*)::int from public.document_links l join doc a on a.id = l.to_document_id join doc r on r.id = l.from_document_id
             where a.old_id = 'TRX-0283' and r.old_id = 'TRX-UL-0149'), 1, 'repayment is linked to the advance');
 
@@ -112,6 +113,10 @@ select is((select kind::text || ' ' || status || ' ' || purpose from doc where o
 select is((select sum(jl.debit - jl.credit) from public.journal_lines jl join public.gl_accounts g on g.id = jl.account_id
             where g.company_id = tests.es() and g.code = '1260'), 0.00, 'guarantee paid and released: deposits account back to 0');
 
+select is((select g.code || ' ' || j.legacy_id from doc d join public.document_lines l on l.document_id = d.id
+             join public.gl_accounts g on g.id = l.gl_account_id join public.projects j on j.id = l.project_id where d.old_id = 'TRX-0040'),
+          '5300 PRJ-0001', 'payment to an employee for work = labour cost on the project');
+
 -- Payment with an item: bill + payment
 select is((select string_agg(kind::text || ' ' || status, ', ' order by kind) from doc where old_id = 'TRX-0013'),
           'supplier_payment posted, supplier_bill posted', 'payment with an item = supplier bill + payment');
@@ -120,7 +125,7 @@ select is((select open_amount from public.v_document_balances b join doc d on d.
 
 -- Statuses
 select is((select string_agg(old_id || '=' || status, ' ' order by old_id) from doc where old_id in ('TRX-0014', 'TRX-0015')),
-          'TRX-0014=draft TRX-0015=void', 'A: draft stays draft; deleted with data = void');
+          'TRX-0014=posted TRX-0015=void', 'old draft posted (post_old_drafts); deleted with data = void');
 select is((select outcome from migration.map where old_id = 'TRX-0017') || ' / '
           || (select count(*) from migration.map where collection = 'transactions' and outcome = 'skipped' and note like 'Empty%'),
           'skipped / 1', 'tombstone and drawing from the personal account are listed, not posted');

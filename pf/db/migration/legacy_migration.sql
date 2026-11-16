@@ -103,6 +103,22 @@ insert into migration.single_leg_rules values
   ('TRX-0272', 'transfer_from', 'ACC-0011', 'SAR 40 left from the 5,000 SAR Yasmeen held during the owner''s Umrah leave; still with her')
 on conflict (old_id) do nothing;
 
+-- Run options.
+--   post_old_drafts: the owner decided (16 Nov 2026) to post the old drafts too, not only Approved / Paid / Closed.
+create table if not exists migration.settings (key text primary key, value text not null);
+insert into migration.settings values ('post_old_drafts', 'true') on conflict (key) do nothing;
+
+-- One-off decisions about single old records: the account (and project) a payment's cost goes to.
+create table if not exists migration.record_rules (
+  old_id   text primary key,
+  gl_code  text not null,
+  project  text,               -- old project ID, when the cost belongs to another project
+  note     text
+);
+insert into migration.record_rules values
+  ('TRX-UL-0085', '5900', 'PRJ-UL-0008', 'Paid through Nabeel to a supplier for RIIC-003-ACs: project cost')
+on conflict (old_id) do nothing;
+
 -- ---------------------------------------------------------------------------
 -- Results
 -- ---------------------------------------------------------------------------
@@ -166,6 +182,14 @@ $$;
 
 create or replace function migration.is_done(d jsonb) returns boolean
 language sql immutable as $$ select lower(coalesce(d ->> 'status', '')) in ('approved', 'paid', 'closed') $$;
+
+-- Will this old record be posted? Completed ones always; drafts when post_old_drafts is on.
+create or replace function migration.will_post(d jsonb) returns boolean
+language sql stable as $$
+  select migration.is_done(d)
+      or (lower(coalesce(d ->> 'status', '')) = 'draft'
+          and coalesce((select value from migration.settings where key = 'post_old_drafts'), 'false') = 'true')
+$$;
 
 create or replace function migration.note(p_company uuid, p_collection text, p_legacy text, p_problem text, p_detail text default null)
 returns void language sql as $$
@@ -263,6 +287,9 @@ begin
     v_qty := 1; v_up := p_amount;
   end if;
   select count(*) + 1 into v_n from public.document_lines where document_id = p_doc;
+  if migration.t(d, 'projectId') is not null and migration.project(v_company, migration.t(d, 'projectId')) is null then
+    perform migration.note(v_company, 'transactions', d ->> 'id', 'Project not found in the old projects: put on General', d ->> 'projectId');
+  end if;
   perform app.begin_internal();
   insert into public.document_lines (document_id, line_no, line_kind, item_id, description, qty, unit_price, amount,
                                      gl_account_id, project_id)
@@ -327,7 +354,7 @@ begin
     perform public.void_document(p_doc, case when p_deleted then 'Deleted in the old app' else 'Cancelled in the old app' end);
     return 'void';
   end if;
-  if not (p_post and migration.is_done(d)) then
+  if not (p_post and migration.will_post(d)) then
     return 'draft';
   end if;
   begin
@@ -502,7 +529,7 @@ declare
 begin
   select kind into v_ag_kind from public.documents where id = v_ag_doc;
 
-  if v is null and migration.is_done(d) then
+  if v is null and migration.will_post(d) then
     perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'No amount in the old record: left as a draft');
   end if;
   if v_treat = 'receivable' and t <> 'INVOICE OUT' then
@@ -554,10 +581,13 @@ begin
         migration.expense_account(p_company, d, case when migration.t(d, 'projectId') is not null then '5900' else '6990' end), v_item);
       v_note := 'Payment to a supplier without a bill: recorded as an expense';
     elsif v_emp is not null then
-      -- Decision B: employees paid personally and the company paid them back.
-      v_doc := migration.new_doc(p_company, 'claim_reimbursement', d, v, v_money, v_emp);
-      v_note := 'Paid back to the employee (no claim linked in the old app)';
-      perform migration.note(p_company, 'transactions', coalesce(d ->> 'id', r.record_id), 'Employee payment without a linked claim: check the employee balance');
+      -- Owner's decision (16 Nov 2026): pay to employees / technicians for work = labour cost (5300) on the
+      -- project, unless migration.record_rules says otherwise.
+      v_doc := migration.new_doc(p_company, 'expense', d, v, v_money, v_emp);
+      perform migration.add_line(v_doc,
+        d || coalesce((select jsonb_build_object('projectId', project) from migration.record_rules where old_id = d ->> 'id' and project is not null), '{}'),
+        v, migration.gl(p_company, coalesce((select gl_code from migration.record_rules where old_id = d ->> 'id'), '5300')), v_item);
+      v_note := coalesce((select note from migration.record_rules where old_id = d ->> 'id'), 'Payment to an employee for work: labour cost (5300)');
     else
       v_doc := migration.new_doc(p_company, 'expense', d, v, v_money, v_cus);
       perform migration.add_line(v_doc, d, v, migration.expense_account(p_company, d, '6990'), v_item);
@@ -586,7 +616,7 @@ begin
     v_doc := migration.new_doc(p_company, 'customer_receipt', d, v, v_money, v_cus);
     if v_ag_kind = 'sales_invoice' then
       perform migration.add_link(v_doc, v_ag_doc, v);
-    elsif migration.is_done(d) and v_cus is not null then
+    elsif migration.will_post(d) and v_cus is not null then
       -- Same customer, currency and amount: the oldest open invoice.
       perform migration.add_link(v_doc, (
         select b.id from public.v_document_balances b join public.documents i on i.id = b.id
@@ -876,7 +906,7 @@ with old as (
                   then migration.val(r.data) else -migration.val(r.data) end) as old_net,
          count(*) as old_records
     from legacy.es_records r
-   where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.is_done(r.data)
+   where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
      and upper(r.data ->> 'type') not in ('INVOICE OUT', 'EXPENSE CLAIM', 'SALES RETURN')
    group by 1, 2
 )
@@ -896,24 +926,31 @@ select r.data ->> 'accountId' as account, m.old_id as record_id, upper(r.data ->
        migration.val(r.data) as amount, m.outcome, m.note
 from legacy.es_records r
 join migration.map m on m.collection = 'transactions' and m.legacy_id = r.record_id
-where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.is_done(r.data)
+where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
   and m.outcome <> 'posted' and upper(r.data ->> 'type') not in ('INVOICE OUT', 'EXPENSE CLAIM', 'SALES RETURN');
 
--- Projects: old completed revenue and cost per project and currency vs the new ledger.
+-- Projects: old revenue and cost per project and currency vs the new ledger (net of discounts and returns).
+-- Old cost = expenses, claims, salaries and payments, except payments that only reimburse a claim.
 create or replace view migration.recon_projects as
 with old as (
   select r.data ->> 'projectId' as legacy_id, r.data ->> 'currency' as currency,
-         sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') = 'INVOICE OUT') as old_revenue,
+         coalesce(sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') = 'INVOICE OUT'), 0)
+       - coalesce(sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') = 'SALES RETURN'
+                  or (upper(r.data ->> 'type') = 'REFUND TO CUSTOMER'
+                      and migration.account_treatment(r.company_id, r.data ->> 'accountId') = 'receivable')), 0) as old_revenue,
          sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') in ('EXPENSE', 'EXPENSE CLAIM', 'SALARY')
-                                              or (upper(r.data ->> 'type') = 'PAYMENT OUT' and r.data ->> 'supplierId' <> '')) as old_cost
+                                              or (upper(r.data ->> 'type') = 'PAYMENT OUT' and not exists (
+                                                    select 1 from legacy.es_records c where c.collection = 'transactions'
+                                                       and c.data ->> 'id' = r.data ->> 'againstRef' and upper(c.data ->> 'type') = 'EXPENSE CLAIM'))) as old_cost
     from legacy.es_records r
-   where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.is_done(r.data)
+   where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
      and coalesce(r.data ->> 'projectId', '') <> ''
+     and exists (select 1 from public.projects p where p.legacy_id = r.data ->> 'projectId')
    group by 1, 2
 ), new as (
   select p.legacy_id, jl.txn_currency as currency,
-         sum(jl.txn_amount) filter (where g.account_type = 'income' and jl.credit > 0) as new_revenue,
-         sum(jl.txn_amount) filter (where g.account_type = 'expense' and jl.debit > 0) as new_cost
+         sum(case when jl.credit > 0 then jl.txn_amount else -jl.txn_amount end) filter (where g.account_type = 'income') as new_revenue,
+         sum(case when jl.debit > 0 then jl.txn_amount else -jl.txn_amount end) filter (where g.account_type = 'expense') as new_cost
     from public.journal_lines jl
     join public.projects p on p.id = jl.project_id
     join public.gl_accounts g on g.id = jl.account_id
