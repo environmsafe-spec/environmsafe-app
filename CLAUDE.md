@@ -88,6 +88,26 @@ today's date, and moves it to `_queue/published/`. Number files `0001-…`,
 The workflow also accepts a `publish_date` input for backfilling a specific
 date, from the Actions tab.
 
+### Facebook and LinkedIn
+
+After the post is pushed, the workflow runs `scripts/social_post.py`, which
+shares it on the Facebook page and the LinkedIn company page: English title and
+summary with its link, then the Arabic. The text comes from the post's
+`_published.json` entry.
+
+The posting is done by the Make scenario **EnvironmSafe - social post** (team
+"My Team", eu1), called through its webhook. The webhook URL is the repository
+secret `MAKE_SOCIAL_WEBHOOK_URL`; without it the step only warns. The scenario
+replies `posted <slug>` once both networks have accepted the post. Any other
+reply turns the run red, with the website post already live. Check the
+scenario's history in Make, and whether Make switched it off after an error.
+The Facebook and LinkedIn connections live in Make and expire there; a
+failure is usually a connection that needs re-authorising.
+
+Until 16 November 2026 this was a manual scenario run once, on 22 October;
+nothing between then and 16 November was shared. To publish a backfill without
+sharing it, untick *share_on_social* when running the workflow by hand.
+
 ### Verify a queue change before pushing
 
 Copy the site to a scratch directory and actually run the publisher, once per

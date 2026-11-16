@@ -19,6 +19,11 @@ on:
         description: 'Backfill a specific date (YYYY-MM-DD). Blank = today.'
         required: false
         type: string
+      share_on_social:
+        description: 'Also share the post on Facebook and LinkedIn.'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -64,6 +69,17 @@ jobs:
           git commit -m "Publish daily post: ${SLUG}"
           git push origin HEAD:main
 
+      # Runs only once the post is live on main. A failure here turns the run red
+      # but cannot undo the website post; the error says what to check in Make.
+      # Scheduled runs have no inputs, so share_on_social is null there, not false.
+      - name: Share on Facebook and LinkedIn
+        id: social
+        if: inputs.share_on_social != false
+        env:
+          SLUG: ${{ steps.publish.outputs.slug }}
+          MAKE_SOCIAL_WEBHOOK_URL: ${{ secrets.MAKE_SOCIAL_WEBHOOK_URL }}
+        run: python scripts/social_post.py "$SLUG"
+
       - name: Report
         if: always()
         env:
@@ -76,6 +92,8 @@ jobs:
               echo ""
               echo "- https://www.environmsafe.com/news/${SLUG}.html"
               echo "- https://www.environmsafe.com/ar/news/${SLUG}.html"
+              echo ""
+              echo "Facebook and LinkedIn: ${{ steps.social.outcome || 'not attempted' }}"
               echo ""
               echo "**${REMAINING} posts left in the queue.**"
               if [ "${REMAINING:-0}" -le 5 ]; then
