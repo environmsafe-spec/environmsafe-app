@@ -17,11 +17,9 @@ the site says so. It has happened twice.
 ls -1 _queue/*.json | wc -l          # 0 means the pipeline is dead
 ```
 
-As of 9 November 2026 the queue holds 12 posts, enough for 10–21 November.
-**It runs dry on 22 November** unless more are added. Posts were also added by
-hand on 8 and 9 November; each one needs a `_published.json` entry or the next
-publish drops it from the homepage (see *Traps* below). Refilling the queue is
-described under *Daily posts* below.
+As of 16 November 2026 the queue holds 11 posts (`0031`–`0042`, no `0033`),
+enough for 16–26 November. **It runs dry on 27 November** unless more are
+added. Refilling the queue is described under *Daily posts* below.
 
 ---
 
@@ -126,6 +124,14 @@ block, which the publisher **rebuilds from scratch** on every run. A post added
 to the site by hand without a ledger entry will have its homepage card silently
 deleted at the next publish. If you add a post outside the pipeline, add its
 ledger entry too — or better, use the queue with a `publish_date`.
+
+**Hand-added posts.** Posts for 8–12 November 2026 were added by hand, a
+file at a time. Each made that day's scheduled run fail ("a post for this date
+is already on the news index"), which is the publisher working correctly, not
+an outage. The 12 November post went live with no Arabic news-index card and no
+sitemap entries until 16 November. A hand-added post needs all of: both pages,
+a card on **both** news indexes, **both** sitemap URLs, and a ledger entry.
+The queue with a `publish_date` does all of that in one step.
 
 **Duplicate posts.** The fire-protection article was published three times, two
 of them sharing a slug, competing with itself for the same search terms.
@@ -290,7 +296,7 @@ that card's wording until they are live.
 
 ## Open items
 
-- **Refill `_queue/` before 22 November** — the current queue ends with the 21 November post.
+- **Refill `_queue/` before 27 November** — the current queue ends with the 26 November post.
 - **`UCSPI` and `United Sponge Company`** on the partners section are probably
   one company, and the real name may be *National* Company for Sponge & Plastic
   Industry rather than *United*. Needs the client's confirmation.
