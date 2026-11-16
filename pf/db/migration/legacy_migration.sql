@@ -119,6 +119,30 @@ insert into migration.record_rules values
   ('TRX-UL-0085', '5900', 'PRJ-UL-0008', 'Paid through Nabeel to a supplier for RIIC-003-ACs: project cost')
 on conflict (old_id) do nothing;
 
+-- Projects the old records point to but the old app never had (created by the migration).
+create table if not exists migration.extra_projects (
+  legacy_id text primary key,
+  name_en   text not null,
+  note      text
+);
+insert into migration.extra_projects values
+  ('PRJ-UL-0018', 'Aden Mall', 'Referred to by TRX-UL-0163 (safety boots); not in the old projects. Owner: "Aden Mall project".')
+on conflict (legacy_id) do nothing;
+
+-- Fixed assets: the old records that paid for each one are capitalised on the PPE account, and the
+-- asset is registered at their total (bank fees stay expenses).
+create table if not exists migration.asset_map (
+  asset_old_id text primary key,
+  tx_ids       text[] not null,
+  gl_code      text not null default '1520',
+  name_en      text not null,
+  life_years   numeric not null default 5
+);
+insert into migration.asset_map values
+  ('AST-UL-0001', '{TRX-UL-0044,TRX-UL-0101}', '1520', 'Safety valve test bench TVT-50-DN200 (Tareq)', 5),
+  ('AST-UL-0002', '{TRX-UL-0142,TRX-UL-0166}', '1520', 'Fluke 725 Multifunction Process Calibrator', 5)
+on conflict (asset_old_id) do nothing;
+
 -- ---------------------------------------------------------------------------
 -- Results
 -- ---------------------------------------------------------------------------
@@ -282,6 +306,10 @@ declare
   v_company uuid := (select company_id from public.documents where id = p_doc);
 begin
   if coalesce(p_amount, 0) <= 0 then return; end if;
+  -- An asset purchase goes on the asset account, whatever the old category said.
+  if p_kind = 'item' and exists (select 1 from migration.asset_map where d ->> 'id' = any(tx_ids)) then
+    p_gl := migration.gl(v_company, (select gl_code from migration.asset_map where d ->> 'id' = any(tx_ids) limit 1));
+  end if;
   -- Keep quantity x unit price only when it reproduces the amount.
   if not coalesce(v_qty > 0 and v_up > 0 and round(v_qty * v_up, 2) = round(p_amount, 2), false) then
     v_qty := 1; v_up := p_amount;
@@ -422,6 +450,10 @@ begin
     values ('projects', r.record_id, 'projects', v_id, 'master', case when r.deleted then 'closed (deleted in old app)' end);
   end loop;
 
+  insert into public.projects (company_id, legacy_id, name_en, status, description)
+  select p_company, e.legacy_id, e.name_en, 'active', e.note from migration.extra_projects e
+   where not exists (select 1 from public.projects p where p.company_id = p_company and p.legacy_id = e.legacy_id);
+
   -- Items
   for r in select * from legacy.es_records
             where company_id = p_company and collection = 'items' and data <> '{}' order by deleted desc, record_id loop
@@ -495,9 +527,10 @@ begin
    where company_id = p_company and data <> '{}'
      and collection not in ('customers', 'suppliers', 'employees', 'projects', 'items', 'accounts', 'transactions');
   insert into migration.exceptions (collection, legacy_id, problem, detail)
-  select 'assets', coalesce(data ->> 'id', record_id), 'Fixed asset in old app: check it is registered in the new asset register',
+  select 'assets', coalesce(data ->> 'id', record_id), 'Fixed asset in old app with no rule in migration.asset_map: register it by hand',
          concat_ws(' / ', data ->> 'nameEn', data ->> 'cost', data ->> 'acquiredOn', data ->> 'sourceTx')
-    from legacy.es_records where company_id = p_company and collection = 'assets' and data <> '{}' and not deleted;
+    from legacy.es_records x where company_id = p_company and collection = 'assets' and data <> '{}' and not deleted
+     and not exists (select 1 from migration.asset_map m where m.asset_old_id = x.data ->> 'id');
 end $$;
 
 -- ---------------------------------------------------------------------------
@@ -870,6 +903,24 @@ begin
 
   perform migration.migrate_transfers(p_company);
 
+  -- Fixed assets at the total of the posted lines that paid for them (migration.asset_map).
+  insert into public.assets (company_id, code, legacy_id, name_en, gl_account_id, acquisition_date, cost_usd, cost_currency,
+                             cost_original, life_months, location, notes)
+  select p_company, '', m.asset_old_id, m.name_en, g.id, max(d.doc_date),
+         sum(l.amount / d.rate)::numeric(18, 2),
+         case when count(distinct d.currency) = 1 then min(d.currency) end,
+         case when count(distinct d.currency) = 1 then sum(l.amount) end,
+         (m.life_years * 12)::smallint, a.data ->> 'location',
+         'Migrated: ' || array_to_string(m.tx_ids, ', ') || coalesce(E'\n' || nullif(a.data ->> 'notes', ''), '')
+    from migration.asset_map m
+    join public.gl_accounts g on g.company_id = p_company and g.code = m.gl_code
+    join migration.map mm on mm.collection = 'transactions' and mm.old_id = any(m.tx_ids) and mm.target_table = 'documents'
+    join public.documents d on d.id = mm.target_id and d.status = 'posted'
+    join public.document_lines l on l.document_id = d.id and l.gl_account_id = g.id
+    left join legacy.es_records a on a.company_id = p_company and a.collection = 'assets' and a.data ->> 'id' = m.asset_old_id and not a.deleted
+   group by m.asset_old_id, m.name_en, g.id, m.life_years, a.data
+  having sum(l.amount) > 0;
+
   update public.companies set settings = case when v_threshold is null then settings
                                               else jsonb_set(settings, '{approval_threshold_usd}', v_threshold) end
    where id = p_company;
@@ -938,10 +989,11 @@ with old as (
        - coalesce(sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') = 'SALES RETURN'
                   or (upper(r.data ->> 'type') = 'REFUND TO CUSTOMER'
                       and migration.account_treatment(r.company_id, r.data ->> 'accountId') = 'receivable')), 0) as old_revenue,
-         sum(round(migration.val(r.data), 2)) filter (where upper(r.data ->> 'type') in ('EXPENSE', 'EXPENSE CLAIM', 'SALARY')
+         sum(round(migration.val(r.data), 2)) filter (where (upper(r.data ->> 'type') in ('EXPENSE', 'EXPENSE CLAIM', 'SALARY')
                                               or (upper(r.data ->> 'type') = 'PAYMENT OUT' and not exists (
                                                     select 1 from legacy.es_records c where c.collection = 'transactions'
-                                                       and c.data ->> 'id' = r.data ->> 'againstRef' and upper(c.data ->> 'type') = 'EXPENSE CLAIM'))) as old_cost
+                                                       and c.data ->> 'id' = r.data ->> 'againstRef' and upper(c.data ->> 'type') = 'EXPENSE CLAIM')))
+                                         and not exists (select 1 from migration.asset_map m where r.data ->> 'id' = any(m.tx_ids))) as old_cost  -- capitalised assets excluded
     from legacy.es_records r
    where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
      and coalesce(r.data ->> 'projectId', '') <> ''

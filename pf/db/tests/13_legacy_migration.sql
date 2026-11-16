@@ -2,7 +2,7 @@
 -- (same collections, keys, ID formats and quirks: amount empty with the value in debit/credit, tombstones,
 -- receivable "INV" account, the owner's personal account, transfer legs paired by againstRef).
 begin;
-select plan(35);
+select plan(37);
 
 insert into legacy.es_records (company_id, collection, record_id, data, deleted)
 -- Like the real table: record_id is an internal key (uuid or imp-xxxx); the ID people used is inside data.
@@ -116,6 +116,9 @@ select is((select sum(jl.debit - jl.credit) from public.journal_lines jl join pu
 select is((select g.code || ' ' || j.legacy_id from doc d join public.document_lines l on l.document_id = d.id
              join public.gl_accounts g on g.id = l.gl_account_id join public.projects j on j.id = l.project_id where d.old_id = 'TRX-0040'),
           '5300 PRJ-0001', 'payment to an employee for work = labour cost on the project');
+
+select is((select count(*)::int from public.assets where legacy_id is not null), 0, 'no asset rule for these test assets: none registered');
+select is((select count(*)::int from migration.exceptions where collection = 'assets'), 0, 'test fixtures have no old assets');
 
 -- Payment with an item: bill + payment
 select is((select string_agg(kind::text || ' ' || status, ', ' order by kind) from doc where old_id = 'TRX-0013'),
