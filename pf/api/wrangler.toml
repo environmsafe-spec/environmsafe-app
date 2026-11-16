@@ -1,0 +1,21 @@
+# ES-PF: web app + API in one Worker. Deploy: npx wrangler deploy (after `npm run build` in ../web).
+name = "espf"
+main = "src/index.ts"
+compatibility_date = "2026-10-15"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../web/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
+# Neon through Hyperdrive. `id` comes from: npx wrangler hyperdrive create espf --connection-string=...
+# For `wrangler dev`, set CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE to a local Postgres.
+[[hyperdrive]]
+binding = "HYPERDRIVE"
+id = "00000000000000000000000000000000"
+
+[vars]
+APP_URL = "http://localhost:8788"
+# Secrets (never in this file): AUTH_SECRET  ->  npx wrangler secret put AUTH_SECRET

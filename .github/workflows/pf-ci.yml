@@ -47,6 +47,22 @@ jobs:
       - run: npm test
       - run: npm run build
 
+  api:
+    name: API Worker (typecheck)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: pf/api
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pf/api/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+
   pdf:
     name: Printed documents (visual match with the samples)
     runs-on: ubuntu-24.04

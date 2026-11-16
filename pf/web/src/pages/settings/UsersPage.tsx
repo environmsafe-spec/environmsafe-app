@@ -1,4 +1,4 @@
-import { Alert, Badge, Button, CloseButton, Group, Select, Stack, Table, Text, TextInput, Title } from '@mantine/core'
+import { Alert, Badge, Button, CloseButton, Code, Group, Menu, Select, Stack, Table, Text, TextInput, Title } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -8,6 +8,22 @@ import { localName } from '../../lib/format'
 import { supabase } from '../../lib/supabase'
 
 interface UserRole { user_id: string; role_code: string }
+
+/** A readable one-time password: the user changes it after the first sign-in. */
+function tempPassword() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'
+  const bytes = crypto.getRandomValues(new Uint8Array(14))
+  return Array.from(bytes, (b) => chars[b % chars.length]).join('').replace(/(.{4})(?=.)/g, '$1-')
+}
+
+async function adminUsers(body: Record<string, unknown>) {
+  const res = await fetch('/api/admin/users', {
+    method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error((data as { message?: string }).message ?? res.statusText)
+  return data as { user_id?: string }
+}
 interface Profile { user_id: string; email: string | null; full_name: string | null; is_active: boolean }
 interface Role { code: string; name_en: string; name_ar: string | null; requires_mfa: boolean }
 
@@ -18,6 +34,8 @@ export function UsersPage() {
   const cid = company?.company_id
   const [email, setEmail] = useState('')
   const [role, setRole] = useState<string | null>('data_entry')
+  const [name, setName] = useState('')
+  const [shown, setShown] = useState<{ email: string; password: string } | null>(null)
   const manage = can('users.manage')
 
   const data = useQuery({
@@ -38,12 +56,33 @@ export function UsersPage() {
   const refresh = () => void qc.invalidateQueries({ queryKey: ['users'] })
   const onError = (e: Error) => notifications.show({ color: 'red', message: e.message })
 
+  // Gives the role; creates the sign-in account first when the email is new, with a one-time password.
   const grant = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.rpc('grant_role_by_email', { p_company: cid, p_email: email, p_role: role })
-      if (error) throw error
+      let created: { email: string; password: string } | null = null
+      const known = await supabase.rpc('grant_role_by_email', { p_company: cid, p_email: email, p_role: role })
+      if (known.error) {
+        const password = tempPassword()
+        await adminUsers({ action: 'create', company_id: cid, email, name: name || email, password })
+        created = { email, password }
+        const { error } = await supabase.rpc('grant_role_by_email', { p_company: cid, p_email: email, p_role: role })
+        if (error) throw error
+      }
+      return created
     },
-    onSuccess: () => { setEmail(''); refresh() }, onError,
+    onSuccess: (created) => { setShown(created); setEmail(''); setName(''); refresh() }, onError,
+  })
+  const newPassword = useMutation({
+    mutationFn: async (p: Profile) => {
+      const password = tempPassword()
+      await adminUsers({ action: 'set_password', company_id: cid, user_id: p.user_id, password })
+      return { email: p.email ?? '', password }
+    },
+    onSuccess: setShown, onError,
+  })
+  const resetTwoStep = useMutation({
+    mutationFn: (p: Profile) => adminUsers({ action: 'reset_two_factor', company_id: cid, user_id: p.user_id }),
+    onSuccess: () => notifications.show({ message: t('settings.twoStepReset') }), onError,
   })
   const revoke = useMutation({
     mutationFn: async (r: UserRole) => {
@@ -70,10 +109,17 @@ export function UsersPage() {
       {manage && (
         <Group align="flex-end" wrap="wrap">
           <TextInput label={t('auth.email')} type="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} miw={240} />
+          <TextInput label={t('settings.fullName')} value={name} onChange={(e) => setName(e.currentTarget.value)} miw={200} />
           <Select label={t('settings.role')} value={role} onChange={setRole} allowDeselect={false}
             data={roles.map((r) => ({ value: r.code, label: localName(r, i18n.language) }))} />
           <Button onClick={() => grant.mutate()} loading={grant.isPending} disabled={!email || !role}>{t('settings.grant')}</Button>
         </Group>
+      )}
+      {shown && (
+        <Alert color="yellow" withCloseButton onClose={() => setShown(null)} title={t('settings.passwordTitle')}>
+          <Text size="sm">{t('settings.passwordHelp', { email: shown.email })}</Text>
+          <Code fz="lg" dir="ltr">{shown.password}</Code>
+        </Alert>
       )}
       <Table striped verticalSpacing="sm">
         <Table.Tbody>
@@ -95,10 +141,19 @@ export function UsersPage() {
               </Table.Td>
               <Table.Td ta="end">
                 {manage && p.user_id !== session?.user.id && (
-                  <Button size="xs" variant="subtle" color={p.is_active ? 'red' : 'green'}
-                    onClick={() => setActive.mutate({ user: p.user_id, active: !p.is_active })}>
-                    {p.is_active ? t('settings.deactivate') : t('settings.activate')}
-                  </Button>)}
+                  <Group gap={4} justify="flex-end">
+                    <Menu position="bottom-end">
+                      <Menu.Target><Button size="xs" variant="subtle">{t('settings.signInHelp')}</Button></Menu.Target>
+                      <Menu.Dropdown>
+                        <Menu.Item onClick={() => newPassword.mutate(p)}>{t('settings.newPassword')}</Menu.Item>
+                        <Menu.Item onClick={() => resetTwoStep.mutate(p)}>{t('settings.resetTwoStep')}</Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
+                    <Button size="xs" variant="subtle" color={p.is_active ? 'red' : 'green'}
+                      onClick={() => setActive.mutate({ user: p.user_id, active: !p.is_active })}>
+                      {p.is_active ? t('settings.deactivate') : t('settings.activate')}
+                    </Button>
+                  </Group>)}
               </Table.Td>
             </Table.Tr>
           ))}

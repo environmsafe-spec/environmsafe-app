@@ -1,6 +1,6 @@
-import type { Session } from '@supabase/supabase-js'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { backendConfigured, supabase } from '../lib/supabase'
+import { supabase } from '../lib/supabase'
+import { authClient, type Session } from './client'
 
 export interface CompanyAccess {
   company_id: string
@@ -53,28 +53,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStatus('ready')
   }, [companyId])
 
-  useEffect(() => {
-    if (!backendConfigured) { setStatus('signedOut'); return }
-    void supabase.auth.getSession().then(({ data }) => load(data.session))
-    const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
-      if (event === 'SIGNED_OUT' || event === 'SIGNED_IN' || event === 'MFA_CHALLENGE_VERIFIED') void load(s)
-      else setSession(s)
-    })
-    return () => sub.subscription.unsubscribe()
+  const refresh = useCallback(async () => { await load(await authClient.getSession()) }, [load])
+  const signOut = useCallback(async () => {
+    await authClient.signOut().catch(() => {})
+    await load(null)
   }, [load])
+
+  useEffect(() => { void refresh() }, [refresh])
 
   // Sign out after IDLE_MINUTES without any interaction (spec section 8.9).
   useEffect(() => {
     if (!session) return
-    let timer = window.setTimeout(() => void supabase.auth.signOut(), IDLE_MINUTES * 60_000)
+    let timer = window.setTimeout(() => void signOut(), IDLE_MINUTES * 60_000)
     const reset = () => {
       window.clearTimeout(timer)
-      timer = window.setTimeout(() => void supabase.auth.signOut(), IDLE_MINUTES * 60_000)
+      timer = window.setTimeout(() => void signOut(), IDLE_MINUTES * 60_000)
     }
     const events = ['pointerdown', 'keydown', 'scroll', 'touchstart']
     events.forEach((e) => window.addEventListener(e, reset, { passive: true }))
     return () => { window.clearTimeout(timer); events.forEach((e) => window.removeEventListener(e, reset)) }
-  }, [session])
+  }, [session, signOut])
 
   const value = useMemo<AuthState>(() => ({
     status,
@@ -87,9 +85,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try { localStorage.setItem(COMPANY_KEY, id) } catch { /* ignore */ }
       setCompanyId(id)
     },
-    refresh: async () => { const { data } = await supabase.auth.getSession(); await load(data.session) },
-    signOut: async () => { await supabase.auth.signOut() },
-  }), [status, session, companies, companyId, permissions, load])
+    refresh,
+    signOut,
+  }), [status, session, companies, companyId, permissions, refresh, signOut])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

@@ -23,7 +23,7 @@ export default defineConfig({
       },
       workbox: {
         // Never cache API calls: financial data must always be fresh.
-        navigateFallbackDenylist: [/^\/rest\//, /^\/auth\//],
+        navigateFallbackDenylist: [/^\/api\//],
       },
     }),
   ],

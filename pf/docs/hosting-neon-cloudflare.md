@@ -54,3 +54,12 @@ This plan replaces each one with a free Neon or Cloudflare part. **The database 
   - Database **`espf`** holds the schema, the company, the chart (55 accounts) and the migration job, ready for the old records.
 - This build sandbox can only reach Neon over port 443. `db/scripts/neon-bridge.mjs` tunnels psql / pg_prove over Neon's WebSocket endpoint.
 - The tests no longer assume a superuser named `postgres`.
+- **16 Nov 2026, step 2 (built and tested locally):**
+  - **Worker `espf`** (`pf/api`) serves the web app and `/api` from one origin, so the session cookie is first-party.
+  - **Sign-in:** Better Auth (password + TOTP two-step, backup codes; no public sign-up).
+  - **Data:** `/api/rest/v1`, the PostgREST protocol the screens already speak (via postgrest-js). Each request runs as `authenticated` with the session's claims, so RLS and permissions are unchanged. `aal2` = the user has two-step sign-in on.
+  - **Users:** the owner adds users (one-time password), sets a new password, or resets two-step sign-in. Everyone can change their own password.
+  - **Tested:**
+    - curl: anonymous access refused; password alone gets no data; sign-in tables unreadable through the API; cross-site POST refused.
+    - Browser (`web/e2e/worker-signin.mjs`, against `wrangler dev` + local Postgres): owner signs in with code; owner adds an accountant; the accountant sets up two-step sign-in and changes the one-time password.
+  - **Not yet:** files (`/api/files`, R2) and the AI upload / PDF functions are step 3, so the Cloudflare Pages previews cannot sign in any more (they have no API).

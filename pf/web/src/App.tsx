@@ -18,6 +18,7 @@ import { AgingPage } from './reports/AgingPage'
 import { StatementPage } from './reports/StatementPage'
 import { AssetsPage, AuditPackPage, BankBookPage, PartyBalancesPage, ProjectPlPage } from './reports/OperationalPages'
 import { BalanceSheetPage, CashFlowPage, EquityPage, GeneralLedgerPage, ProfitLossPage, TrialBalancePage } from './reports/StatementPages'
+import { AccountPage } from './pages/settings/AccountPage'
 import { AuditLogPage } from './pages/settings/AuditLogPage'
 import { PeriodsPage } from './pages/settings/PeriodsPage'
 import { UsersPage } from './pages/settings/UsersPage'
@@ -101,7 +102,8 @@ export default function App() {
           { path: 'periods', label: 'settings.periods' },
           { path: 'recurring', label: 'rec.title', show: can('docs.view') },
           { path: 'users', label: 'settings.users', show: can('users.manage') || can('audit.view') },
-          { path: 'audit', label: 'settings.audit', show: can('audit.view') }]} />}>
+          { path: 'audit', label: 'settings.audit', show: can('audit.view') },
+          { path: 'account', label: 'account.title' }]} />}>
           <Route index element={<Navigate to="accounts" replace />} />
           <Route path="accounts" element={md(moneyAccountsConfig)} />
           <Route path="coa" element={md(coaConfig)} />
@@ -111,6 +113,7 @@ export default function App() {
           <Route path="recurring" element={<RecurringPage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="audit" element={<AuditLogPage />} />
+          <Route path="account" element={<AccountPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
