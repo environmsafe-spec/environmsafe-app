@@ -2,7 +2,7 @@
 -- (same collections, keys, ID formats and quirks: amount empty with the value in debit/credit, tombstones,
 -- receivable "INV" account, the owner's personal account, transfer legs paired by againstRef).
 begin;
-select plan(37);
+select plan(39);
 
 insert into legacy.es_records (company_id, collection, record_id, data, deleted)
 -- Like the real table: record_id is an internal key (uuid or imp-xxxx); the ID people used is inside data.
@@ -48,6 +48,7 @@ select tests.es(), c, gen_random_uuid()::text, x - '_deleted', coalesce((x ->> '
   ('transactions', '{"id":"TRX-0017","type":"OWNER DRAWINGS","status":"Approved","date":"2025-06-02","currency":"USD","amount":"500","accountId":"ACC-0022"}'),
   ('transactions', '{"id":"TRX-0018","type":"SALARY","status":"Approved","date":"2025-06-30","currency":"USD","amount":"400","accountId":"ACC-0003","employeeId":"EMP-0002","categoryId":"CAT-0002"}'),
   ('transactions', '{"id":"TRX-0019","type":"EXPENSE CLAIM","status":"Approved","date":"2025-07-01","currency":"USD","amount":"60","employeeId":"EMP-0002","description":"Taxi to site"}'),
+  ('transactions', '{"id":"TRX-0021","type":"EXPENSE CLAIM","status":"Draft","date":"2026-05-05","currency":"YER","amount":"125000","accountId":"ACC-0006","employeeId":"EMP-0021","description":"Transport, paid back by transfer"}'),
   ('transactions', '{"id":"TRX-0020","type":"PAYMENT OUT","status":"Approved","date":"2025-07-05","currency":"USD","amount":"60","accountId":"ACC-0003","employeeId":"EMP-0002","againstRef":"TRX-0019"}')
 ) v(c, x);
 
@@ -119,6 +120,11 @@ select is((select g.code || ' ' || j.legacy_id from doc d join public.document_l
 
 select is((select count(*)::int from public.assets where legacy_id is not null), 0, 'no asset rule for these test assets: none registered');
 select is((select count(*)::int from migration.exceptions where collection = 'assets'), 0, 'test fixtures have no old assets');
+
+select is((select string_agg(kind::text || ' ' || status, ', ' order by kind::text) from doc where old_id = 'TRX-0021'),
+          'claim_reimbursement posted, expense_claim posted', 'old claim with a bank account = claim + paid back from that account');
+select is((select open_amount from public.v_document_balances b join doc d on d.id = b.id where d.old_id = 'TRX-0021' and d.kind = 'expense_claim'),
+          0.00, 'so nothing is still owed to the employee');
 
 -- Payment with an item: bill + payment
 select is((select string_agg(kind::text || ' ' || status, ', ' order by kind) from doc where old_id = 'TRX-0013'),

@@ -724,6 +724,35 @@ begin
   v_out := migration.finish(v_doc, d, r.deleted);
   insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note)
   values ('transactions', r.record_id, 'documents', v_doc, v_out, v_note);
+
+  -- Paid by an employee out of an advance they hold (againstRef = the advance): the claim is set off
+  -- against the advance, so only what is left of the advance stays with them.
+  if v_out = 'posted' and v_ag_kind = 'employee_advance'
+     and (select kind from public.documents where id = v_doc) = 'expense_claim' then
+    v_bill := v_doc;
+    v_doc := migration.new_doc(p_company, 'employee_offset', d, 0, null, (select party_id from public.documents where id = v_bill));
+    perform migration.add_link(v_doc, v_bill, v);
+    perform migration.add_link(v_doc, v_ag_doc, v);
+    perform app.begin_internal();
+    update public.documents set no_document_reason = 'Set-off of claim and advance (same old record)' where id = v_doc;
+    v_out := migration.finish(v_doc, d, r.deleted);
+    insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note)
+    values ('transactions', r.record_id, 'documents', v_doc, v_out, 'Set off against advance ' || v_against);
+  end if;
+
+  -- Owner (16 Nov 2026): an old expense claim with a bank account = the employee paid for the company and the
+  -- company paid them back from that account. So: the claim, then its reimbursement from that account.
+  if t = 'EXPENSE CLAIM' and v_money is not null then
+    v_bill := v_doc;
+    v_doc := migration.new_doc(p_company, 'claim_reimbursement', d, v, v_money,
+               (select party_id from public.documents where id = v_bill));
+    if v_out = 'posted' then perform migration.add_link(v_doc, v_bill, v); end if;
+    perform app.begin_internal();
+    update public.documents set no_document_reason = 'Files are on the claim it pays (same old record)' where id = v_doc;
+    v_out := migration.finish(v_doc, d, r.deleted);
+    insert into migration.map (collection, legacy_id, target_table, target_id, outcome, note)
+    values ('transactions', r.record_id, 'documents', v_doc, v_out, 'Paid back to the employee from ' || (d ->> 'accountId'));
+  end if;
 end $$;
 
 -- ---------------------------------------------------------------------------
@@ -958,7 +987,7 @@ with old as (
          count(*) as old_records
     from legacy.es_records r
    where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
-     and upper(r.data ->> 'type') not in ('INVOICE OUT', 'EXPENSE CLAIM', 'SALES RETURN')
+     and upper(r.data ->> 'type') not in ('INVOICE OUT', 'SALES RETURN')
    group by 1, 2
 )
 select ma.legacy_id, ma.name_en, ma.currency,
@@ -978,7 +1007,7 @@ select r.data ->> 'accountId' as account, m.old_id as record_id, upper(r.data ->
 from legacy.es_records r
 join migration.map m on m.collection = 'transactions' and m.legacy_id = r.record_id
 where r.collection = 'transactions' and r.data <> '{}' and not r.deleted and migration.will_post(r.data)
-  and m.outcome <> 'posted' and upper(r.data ->> 'type') not in ('INVOICE OUT', 'EXPENSE CLAIM', 'SALES RETURN');
+  and m.outcome <> 'posted' and upper(r.data ->> 'type') not in ('INVOICE OUT', 'SALES RETURN');
 
 -- Projects: old revenue and cost per project and currency vs the new ledger (net of discounts and returns).
 -- Old cost = expenses, claims, salaries and payments, except payments that only reimburse a claim.

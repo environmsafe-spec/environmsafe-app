@@ -209,3 +209,14 @@ Result on the real records:
 - Left to check:
   - TRX-UL-0163 points to project PRJ-UL-0018, which is not in the old projects, so it went on General;
   - the 2 old fixed assets go in the asset register.
+- **Owner, 16 Nov 2026 (later):**
+  - Old expense claims with a bank account = claim + paid back to the employee from that account.
+  - Claims paid out of an advance the employee holds (`againstRef` = the advance) are set off against it.
+  - The Aden Mall project was created.
+  - The two old assets are capitalised on 1520: the test bench (USD 5,526.00) and the Fluke 725 (USD 2,710.82).
+- **Result:**
+  - 846 posted, 0 drafts, 0 failures.
+  - Banks equal the old app except SAR-QUT −40.
+  - All 146 projects equal the old app.
+  - Still owed to people: Akram USD 2,791.88 (the Fluke 725 paid by card; the old app's own note says the same), Abdulhaleem SAR 2,122.59, Hayel YER 204.
+  - Still held by people (advances): Abdulhaleem USD 5,000 (Charisma), Sinu SAR 1,000, Mukaram SAR 800, Majed USD 100, Mazin USD 92, Mohammed Al-Hatemi USD 37.
