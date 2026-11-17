@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-17",
+    "slug": "the-rcd-test-button-nobody-presses",
+    "icon": "fa-bolt",
+    "color": "amber",
+    "en": {
+      "title": "The RCD Test Button Nobody Presses",
+      "home_summary": "An RCD that has not tripped in years may not trip when it matters. A quarterly button test and a timed trip test find out first."
+    },
+    "ar": {
+      "title": "زر اختبار قاطع التسرب الذي لا يضغطه أحد",
+      "home_summary": "قاطع التسرب الذي لم يفصل منذ سنوات قد لا يفصل حين يهم. ضغطة اختبار كل ثلاثة أشهر واختبار زمن الفصل يكشفان ذلك أولاً."
+    }
+  },
+  {
     "iso": "2026-11-16",
     "slug": "a-calibration-sticker-is-not-a-calibration",
     "icon": "fa-file-circle-check",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "القفل على المفتاح لا يثبت أن المعدة مفصولة",
       "home_summary": "القفل يبيّن أن أحدهم نوى عزل الآلة، لا أنه اختار العازل الصحيح، ولا أن لا شيء آخر يغذيها، ولا أن الضغط والشحنة والنوابض المخزنة قد أُطلقت. الإقفال والوسم لا ينجح إلا حين يُثبت انعدام الطاقة عند نقطة العمل قبل أن يلمس أحد شيئاً."
-    }
-  },
-  {
-    "iso": "2026-09-26",
-    "slug": "the-wrong-extinguisher-makes-a-fire-worse",
-    "icon": "fa-fire",
-    "color": "teal",
-    "en": {
-      "title": "The Wrong Extinguisher Can Make a Fire Worse",
-      "home_summary": "Water on burning oil, or on live electrics, turns a small fire into a serious one. Most sites have extinguishers with current service tags, but far fewer have checked that each one matches what could actually burn beside it."
-    },
-    "ar": {
-      "title": "الطفاية الخاطئة قد تجعل الحريق أسوأ",
-      "home_summary": "الماء على زيت مشتعل أو على معدات كهربائية حية يحوّل حريقاً صغيراً إلى خطير. معظم المواقع لديها طفايات ببطاقات صيانة سارية، لكن قلة تحققت من أن كل واحدة تناسب ما قد يحترق بجوارها."
     }
   }
 ]
