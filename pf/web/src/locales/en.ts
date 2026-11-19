@@ -101,10 +101,12 @@ const en = {
     compare: 'Offers compared', compareHelp: 'Cheapest first (in USD). Choose one offer per line, then make the quotation; lines from different suppliers can be combined.',
     requested: 'Requested', choose: 'Use', noOffer: 'No offer yet', makeQuotation: 'Make quotation from the chosen offers',
     progress: 'Progress of each ordered line', progressHelp: 'Green = done, orange = partly, red = not yet.', order: 'Order',
+    revenue: 'Revenue (posted, USD)', costs: 'Costs incl. freight, customs (USD)', profit: 'Profit (USD)', profitPct: 'Profit %',
     customerOrder: 'customer order', purchased: 'Bought', received: 'Received', delivered: 'Delivered', invoiced: 'Invoiced', billed: 'Billed',
-    closeTitle: 'Close the deal', close: 'Close the deal', reopen: 'Reopen', readyToClose: 'Everything is invoiced, received and paid: ready to close.',
+    closeTitle: 'Close the deal', close: 'Close the deal', reopen: 'Reopen', readyToClose: 'Everything is invoiced, received and paid: ready to close.', noOrderYet: 'No customer order yet. If the customer does not go ahead, close the deal as Lost or Cancelled.',
     forceClose: 'Close anyway (the note says why)', closeNote: 'Note', lostPh: 'e.g. price too high, customer chose another supplier',
     closedOn: 'Closed on {{date}}: {{outcome}}',
+    apply: { title: '{{amount}} {{ccy}} not yet applied to a bill / invoice', none: 'No open bill or invoice of this party in this currency yet. Come back here when it is posted.', button: 'Apply' },
     stages: {
       new: 'New', request: 'Request', sourcing: 'RFQs sent', offers: 'Offers in', quoted: 'Quoted', ordered: 'Ordered', purchasing: 'Purchasing',
       received: 'Received', delivered: 'Delivered', invoiced: 'Invoiced', paid: 'Paid', won: 'Won', lost: 'Lost', cancelled: 'Cancelled', closed: 'Closed',

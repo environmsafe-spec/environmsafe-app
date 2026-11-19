@@ -2,7 +2,7 @@
 -- -> quotation with margin -> customer order -> order split across 3 suppliers (one line split in two)
 -- -> partial goods receipt -> bill with three-way-match warnings -> delivery -> invoice -> close.
 begin;
-select plan(63);
+select plan(65);
 select tests.phase2_fixtures();
 insert into public.parties (company_id, code, primary_kind, name_en) values
   (tests.es(), '', 'supplier', 'T Supplier 2'), (tests.es(), '', 'supplier', 'T Supplier 3');
@@ -115,6 +115,11 @@ select alike(tests.post_as('procurement@es.test', pg_temp.id('qt')), 'ERROR: Lin
 update public.document_lines set item_id = (select id from t_item where name_en = 'Seal kit')
  where document_id = pg_temp.id('qt') and line_no = 2;
 select is(tests.post_as('procurement@es.test', pg_temp.id('qt')), 'posted', 'quotation issued');
+select is(pg_temp.make('procurement@es.test', 'qt2', 'quotation',
+            array[pg_temp.line(pg_temp.id('ofr2'), 1), pg_temp.line(pg_temp.id('ofr3'), 3)], null, 10), 'made', 'a quotation from a SAR and a USD offer');
+select is((select currency || ' ' || string_agg(cost_price::numeric(18,2) || '->' || unit_price::numeric(18,2), ', ' order by line_no)
+             from public.document_lines l join public.documents d on d.id = l.document_id where d.id = pg_temp.id('qt2') group by currency),
+  'USD 949.87->1044.85, 140.00->154.00', 'it is in the customer''s currency (USD), SAR costs converted');
 select is((select amount from public.documents where id = pg_temp.id('qt')), 3420.00, 'quotation total 2x1200 + 10x18 + 5x168');
 
 -- ---------- Customer order (their PO) -------------------------------------------------------------
@@ -130,10 +135,10 @@ select is(pg_temp.summary(pg_temp.id('poA')), 'Centrifugal pump 50 m3/h x2.00 @1
 select is(pg_temp.make('procurement@es.test', 'poB', 'purchase_order',
             array[pg_temp.line(pg_temp.id('so'), 2), pg_temp.line(pg_temp.id('so'), 3)], tests.party('T Supplier 3')), 'made', 'PO B: seals and valves');
 update public.document_lines set qty = 3 where document_id = pg_temp.id('poB') and line_no = 2;
-select is(pg_temp.make('procurement@es.test', 'poC', 'purchase_order', array[pg_temp.line(pg_temp.id('so'), 3)], tests.party('T Supplier 2'), null, 'SAR'),
+select is(pg_temp.make('procurement@es.test', 'poC', 'purchase_order', array[pg_temp.line(pg_temp.id('so'), 3)], tests.party('T Supplier 2')),
   'made', 'PO C: the remaining valves');
 select is((select currency || ' ' || pg_temp.summary(id) from public.documents where id = pg_temp.id('poC')),
-  'SAR Gate valve 4" class 150 x2.00 @600.00', 'PO C: only the 2 valves still open, at supplier 2''s SAR price');
+  'SAR Gate valve 4" class 150 x2.00 @600.00', 'PO C: only the 2 valves still open, in supplier 2''s offer currency and price');
 select is(pg_temp.make('procurement@es.test', 'x', 'purchase_order', array[pg_temp.line(pg_temp.id('so'), 3)], tests.party('T Supplier')),
   'ERROR: Nothing left to take: these lines are already fully in other documents of this kind', 'a line cannot be ordered twice');
 select is(tests.post_as('procurement@es.test', pg_temp.id('poA')), 'posted', 'PO A issued');

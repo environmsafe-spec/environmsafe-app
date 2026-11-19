@@ -152,3 +152,45 @@ export function MatchWarnings({ billId, status }: { billId: string; status: stri
     </Alert>
   )
 }
+
+/** A posted payment / receipt / credit note with money not yet applied: apply it to an open bill or invoice. */
+export function ApplyPayment({ doc }: { doc: { id: string; kind: DocKind; party_id: string | null; currency: string; company_id?: string } }) {
+  const { t } = useTranslation()
+  const target = ({ supplier_payment: 'supplier_bill', customer_receipt: 'sales_invoice', credit_note: 'sales_invoice' } as Partial<Record<DocKind, DocKind>>)[doc.kind]
+  const q = useQuery({
+    queryKey: ['apply', doc.id],
+    enabled: Boolean(target && doc.party_id),
+    queryFn: async () => {
+      const un = await supabase.from('v_unapplied').select('unapplied').eq('id', doc.id)
+      const left = Number((un.data ?? [])[0]?.unapplied ?? 0)
+      if (!left) return { left, open: [] as { id: string; open_amount: number; number?: string; doc_date?: string }[] }
+      const bal = await supabase.from('v_document_balances').select('id, open_amount, currency, kind').eq('party_id', doc.party_id!).eq('kind', target!)
+      const rows = ((bal.data ?? []) as { id: string; open_amount: number; currency: string }[]).filter((b) => Number(b.open_amount) > 0 && b.currency === doc.currency)
+      const docs = rows.length ? (await supabase.from('documents').select('id, number, doc_date').in('id', rows.map((r) => r.id))).data ?? [] : []
+      return { left, open: rows.map((r) => ({ ...r, ...(docs as { id: string; number: string; doc_date: string }[]).find((d) => d.id === r.id) })) }
+    },
+  })
+  const [busy, setBusy] = useState<string | null>(null)
+  if (!q.data?.left) return null
+  const apply = async (to: string) => {
+    setBusy(to)
+    const { error } = await supabase.rpc('apply_payment', { p_payment: doc.id, p_document: to, p_amount: null })
+    setBusy(null)
+    if (error) notifications.show({ color: 'red', title: t('common.error'), message: error.message })
+    else { notifications.show({ color: 'green', message: t('common.saved') }); void q.refetch() }
+  }
+  return (
+    <Alert color="blue" title={t('deal.apply.title', { amount: q.data.left.toLocaleString('en-US', { minimumFractionDigits: 2 }), ccy: doc.currency })}>
+      {q.data.open.length === 0 ? <Text size="sm">{t('deal.apply.none')}</Text> : (
+        <Stack gap={4}>
+          {q.data.open.map((o) => (
+            <Group key={o.id} justify="space-between">
+              <Text size="sm">{o.number} · {o.doc_date} · {t('doc.open')} <bdi>{Number(o.open_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} {doc.currency}</bdi></Text>
+              <Button size="xs" loading={busy === o.id} onClick={() => void apply(o.id)}>{t('deal.apply.button')}</Button>
+            </Group>
+          ))}
+        </Stack>
+      )}
+    </Alert>
+  )
+}

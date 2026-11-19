@@ -15,11 +15,11 @@ import {
   lastAccount, partyMatchesRole, sha256Hex, useCompanySettings, useDocKinds, useGlAccounts, useMoneyAccounts, useParties, useProjects,
 } from './data'
 import {
-  CONVERSIONS, documentTotal, emptyDoc, isTrade, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
+  CONVERSIONS, documentTotal, emptyDoc, isTrade, QTY_ONLY_KINDS, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
   type DocKind, type DocState, type KindInfo, type LineKind,
 } from './logic'
 import { TradeLines } from './TradeLines'
-import { MatchWarnings, NextStep } from '../deals/NextStep'
+import { ApplyPayment, MatchWarnings, NextStep } from '../deals/NextStep'
 
 interface DocRow {
   id: string; kind: DocKind; status: 'draft' | 'submitted' | 'posted' | 'void'; number: string | null; temp_number: string
@@ -384,6 +384,9 @@ export function DocumentPage() {
         </Group>
       )}
       {doc && k.kind === 'supplier_bill' && doc.status !== 'void' && <MatchWarnings billId={doc.id} status={doc.status} />}
+      {doc?.status === 'posted' && ['supplier_payment', 'customer_receipt', 'credit_note'].includes(k.kind) && can(k.post_permission) && (
+        <ApplyPayment doc={doc} />
+      )}
       {doc?.project_id && (
         <Anchor size="sm" onClick={() => navigate(`/deals/${doc.project_id}`)}>← {t('deal.openDeal')}</Anchor>
       )}
@@ -489,7 +492,7 @@ export function DocumentPage() {
 
           <Group justify="space-between">
             <Button variant="subtle" size="sm" onClick={() => setMoreOpen((o) => !o)} rightSection={<IconChevronDown size={16} />}>{t('doc.more')}</Button>
-            <Text fw={700}>{t('doc.total')}: <bdi>{formatMoney(total + (Number(s.fee_amount) || 0), currency)}</bdi></Text>
+            {!QTY_ONLY_KINDS.includes(k.kind) && <Text fw={700}>{t('doc.total')}: <bdi>{formatMoney(total + (Number(s.fee_amount) || 0), currency)}</bdi></Text>}
           </Group>
           <Collapse expanded={moreOpen || readOnly}>
             <SimpleGrid cols={{ base: 1, sm: 2 }}>

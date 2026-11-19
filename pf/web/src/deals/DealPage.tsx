@@ -17,7 +17,7 @@ import { supabase } from '../lib/supabase'
 import { STAGE_COLOR, STAGES, type DealRow } from './DealsPage'
 import { makeDocument } from './NextStep'
 
-interface DealDoc { id: string; kind: string; number: string | null; temp_number: string; status: string; doc_date: string; party_id: string | null; amount: number; currency: string; revision: number }
+interface DealDoc { id: string; created_at: string; kind: string; number: string | null; temp_number: string; status: string; doc_date: string; party_id: string | null; amount: number; currency: string; revision: number }
 interface Offer {
   request_line_id: string; request_number: string; line_no: number; description: string | null; qty: number; unit: string | null
   offer_line_id: string | null; offer_number: string | null; supplier: string | null; offer_qty: number | null; currency: string | null
@@ -37,7 +37,7 @@ export function DealPage() {
   const lang = i18n.language
   const navigate = useNavigate()
   const qc = useQueryClient()
-  const { can } = useAuth()
+  const { can, company } = useAuth()
   const kinds = useDocKinds()
   const parties = useParties()
   const partyName = (pid: string | null) => { const p = parties.data?.find((x) => x.id === pid); return p ? localName(p, lang) : '' }
@@ -52,13 +52,30 @@ export function DealPage() {
       return d
     },
   })
+  // Everything of the deal: its own documents, costs charged to it on lines (freight, customs, subcontractors),
+  // and the payments / receipts that settle its bills and invoices.
   const docs = useQuery({
     queryKey: ['deal-docs', id],
     queryFn: async () => {
-      const { data, error } = await supabase.from('documents')
-        .select('id, kind, number, temp_number, status, doc_date, party_id, amount, currency, revision').eq('project_id', id!).order('doc_date')
-      if (error) throw error
-      return (data ?? []) as DealDoc[]
+      const cols = 'id, created_at, kind, number, temp_number, status, doc_date, party_id, amount, currency, revision'
+      const own = await supabase.from('documents').select(cols).eq('project_id', id!)
+      if (own.error) throw own.error
+      const onLines = await supabase.from('document_lines').select('document_id').eq('project_id', id!)
+      const ids = new Set([...(own.data ?? []).map((d) => d.id as string), ...(onLines.data ?? []).map((l) => l.document_id as string)])
+      const settling = ids.size ? await supabase.from('document_links').select('from_document_id').in('to_document_id', [...ids]) : { data: [] }
+      for (const l of settling.data ?? []) ids.add(l.from_document_id as string)
+      const known = new Set((own.data ?? []).map((d) => d.id as string))
+      const more = [...ids].filter((x) => !known.has(x))
+      const extra = more.length ? await supabase.from('documents').select(cols).in('id', more) : { data: [] }
+      return [...(own.data ?? []), ...(extra.data ?? [])] as DealDoc[]
+    },
+  })
+  const pl = useQuery({
+    queryKey: ['deal-pl', id],
+    queryFn: async () => {
+      const { data } = await supabase.rpc('project_pl', { p_company: company!.company_id, p_from: '2000-01-01', p_to: '2100-12-31' })
+      return ((data ?? []) as { project_id: string; revenue: number; cost_of_sales: number; operating_expenses: number; margin: number; margin_pct: number | null }[])
+        .find((r) => r.project_id === id) ?? null
     },
   })
   const offers = useQuery({
@@ -79,7 +96,7 @@ export function DealPage() {
   const [margin, setMargin] = useState<number | ''>(20)
   useEffect(() => {
     const best: Record<string, string> = {}
-    for (const o of offers.data ?? []) if (o.offer_line_id && o.rank_usd === 1 && !best[o.request_line_id]) best[o.request_line_id] = o.offer_line_id
+    for (const o of offers.data ?? []) if (o.offer_line_id && Number(o.rank_usd) === 1 && !best[o.request_line_id]) best[o.request_line_id] = o.offer_line_id
     setChoice(best)
   }, [offers.data])
 
@@ -90,10 +107,11 @@ export function DealPage() {
   const [busy, setBusy] = useState(false)
 
   const kindInfo = (k: string) => kinds.data?.find((x) => x.kind === k)
+  // In the order things happened (the story of the deal).
   const sortedDocs = useMemo(() => [...(docs.data ?? [])].sort((a, b) =>
-    (kindInfo(a.kind)?.sort ?? 0) - (kindInfo(b.kind)?.sort ?? 0) || a.doc_date.localeCompare(b.doc_date)), [docs.data, kinds.data]) // eslint-disable-line react-hooks/exhaustive-deps
+    a.doc_date.localeCompare(b.doc_date) || a.created_at.localeCompare(b.created_at)), [docs.data])
 
-  const refresh = () => { for (const k of ['deal', 'deal-docs', 'deal-offers', 'deal-lines', 'deal-open', 'deals']) void qc.invalidateQueries({ queryKey: [k] }) }
+  const refresh = () => { for (const k of ['deal', 'deal-docs', 'deal-pl', 'deal-offers', 'deal-lines', 'deal-open', 'deals']) void qc.invalidateQueries({ queryKey: [k] }) }
   const fail = (e: unknown) => notifications.show({ color: 'red', title: t('common.error'), message: (e as Error).message })
 
   if (deal.isLoading) return <Text c="dimmed">{t('common.loading')}</Text>
@@ -155,6 +173,15 @@ export function DealPage() {
           <Card key={k} withBorder p="sm"><Text size="xs" c="dimmed">{t(`deal.${k}`)}</Text><Text fw={700}><bdi>{usd(v)}</bdi></Text></Card>
         ))}
       </SimpleGrid>
+      {pl.data && (Number(pl.data.revenue) > 0 || Number(pl.data.cost_of_sales) > 0) && (
+        <SimpleGrid cols={{ base: 2, sm: 4 }}>
+          <Card withBorder p="sm"><Text size="xs" c="dimmed">{t('deal.revenue')}</Text><Text fw={700}><bdi>{usd(pl.data.revenue)}</bdi></Text></Card>
+          <Card withBorder p="sm"><Text size="xs" c="dimmed">{t('deal.costs')}</Text><Text fw={700}><bdi>{usd(Number(pl.data.cost_of_sales) + Number(pl.data.operating_expenses))}</bdi></Text></Card>
+          <Card withBorder p="sm"><Text size="xs" c="dimmed">{t('deal.profit')}</Text>
+            <Text fw={700} c={Number(pl.data.margin) < 0 ? 'red' : 'green'}><bdi>{usd(pl.data.margin)}</bdi></Text></Card>
+          <Card withBorder p="sm"><Text size="xs" c="dimmed">{t('deal.profitPct')}</Text><Text fw={700}>{pl.data.margin_pct ?? '—'}%</Text></Card>
+        </SimpleGrid>
+      )}
 
       {!closed && can('docs.create') && (
         <Group gap="xs">
@@ -218,8 +245,8 @@ export function DealPage() {
               </Table.Tr></Table.Thead>
               <Table.Tbody>
                 {offerGroups.map((g) => g.map((o, i) => (
-                  <Table.Tr key={`${o.request_line_id}-${o.offer_line_id ?? 'none'}`} bg={o.rank_usd === 1 ? 'var(--mantine-color-green-0)' : undefined}>
-                    {i === 0 && <Table.Td rowSpan={g.length} style={{ verticalAlign: 'top' }}>{o.line_no}. {o.description} <Text span c="dimmed">({q(o.qty)} {o.unit ?? ''})</Text></Table.Td>}
+                  <Table.Tr key={`${o.request_line_id}-${o.offer_line_id ?? 'none'}`} bg={Number(o.rank_usd) === 1 ? 'var(--mantine-color-green-0)' : undefined}>
+                    {i === 0 && <Table.Td rowSpan={g.length} style={{ verticalAlign: 'top' }}>{o.line_no}. {o.description} <Text span c="dimmed">({[q(o.qty), o.unit].filter(Boolean).join(' ')})</Text></Table.Td>}
                     {o.offer_line_id ? <>
                       <Table.Td>{o.supplier} <Text span size="xs" c="dimmed">{o.offer_number}{Number(o.offer_qty) !== Number(o.qty) ? ` · ${q(o.offer_qty ?? 0)} ${o.unit ?? ''}` : ''}</Text></Table.Td>
                       <Table.Td ta="end"><bdi>{formatMoney(Number(o.unit_price), o.currency ?? 'USD')}</bdi></Table.Td>
@@ -286,7 +313,9 @@ export function DealPage() {
         </Group>
         {!closed && ((openItems.data ?? []).length
           ? <Stack gap={2} mt="xs">{(openItems.data ?? []).map((o) => <Text key={o.problem} size="sm" c="orange">• {o.problem}</Text>)}</Stack>
-          : <Text size="sm" c="green" mt="xs">{t('deal.readyToClose')}</Text>)}
+          : ['invoiced', 'paid'].includes(d.stage)
+            ? <Text size="sm" c="green" mt="xs">{t('deal.readyToClose')}</Text>
+            : <Text size="sm" c="dimmed" mt="xs">{t('deal.noOrderYet')}</Text>)}
       </Card>
 
       <Modal opened={closeOpen} onClose={() => setCloseOpen(false)} title={t('deal.close')}>

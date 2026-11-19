@@ -159,11 +159,37 @@ language sql immutable set search_path = '' as $$
   select k::text in ('supplier_rfq', 'supplier_offer', 'purchase_order', 'goods_receipt', 'supplier_bill')
 $$;
 
--- Quantity of a line already taken into documents of a kind (void documents do not count).
+-- Quantity of a line already taken, at any depth, into documents of a kind (void documents do not count):
+-- an order line invoiced through delivery notes counts as invoiced.
 create or replace function app.used_qty(p_line uuid, p_kind public.doc_kind) returns numeric
 language sql stable security definer set search_path = '' as $$
-  select coalesce(sum(c.qty), 0) from public.document_lines c join public.documents d on d.id = c.document_id
-   where c.source_line_id = p_line and d.kind = p_kind and d.status <> 'void' and c.line_kind = 'item'
+  with recursive down as (
+    select c.id, d.kind, c.qty, c.line_kind, 1 as depth
+      from public.document_lines c join public.documents d on d.id = c.document_id
+     where c.source_line_id = p_line and d.status <> 'void'
+    union all
+    select c.id, d.kind, c.qty, c.line_kind, down.depth + 1
+      from down join public.document_lines c on c.source_line_id = down.id join public.documents d on d.id = c.document_id
+     where d.status <> 'void' and down.depth < 8 and down.kind <> p_kind
+  )
+  select coalesce(sum(qty), 0) from down where kind = p_kind and line_kind = 'item'
+$$;
+
+-- What is still open for a new document of a kind made from this line: the least of what is left on the line
+-- itself and on every order / receipt / delivery above it (so nothing is invoiced, billed or received twice,
+-- whichever way it goes).
+create or replace function app.open_qty(p_line uuid, p_kind public.doc_kind) returns numeric
+language sql stable security definer set search_path = '' as $$
+  with recursive up as (
+    select l.id, l.source_line_id, l.qty, d.kind, 0 as depth
+      from public.document_lines l join public.documents d on d.id = l.document_id where l.id = p_line
+    union all
+    select l.id, l.source_line_id, l.qty, d.kind, up.depth + 1
+      from up join public.document_lines l on l.id = up.source_line_id join public.documents d on d.id = l.document_id
+     where up.depth < 8
+  )
+  select min(qty - app.used_qty(id, p_kind)) from up
+   where depth = 0 or kind::text in ('sales_order', 'purchase_order', 'delivery_note', 'goods_receipt')
 $$;
 
 -- The price of a line in USD, looking back through receipts / deliveries to the priced line.
@@ -270,7 +296,18 @@ begin
                    and case when app.supplier_side(p_kind) then is_supplier else is_customer end) then
     raise exception 'Choose a % for the new document', case when app.supplier_side(p_kind) then 'supplier' else 'customer' end;
   end if;
-  v_ccy := coalesce(p_currency, src.currency);
+  -- Currency: as asked; else the source's on the same side; else the deal's currency with the customer,
+  -- or that supplier's offer currency; else USD.
+  v_ccy := coalesce(p_currency,
+    case when app.supplier_side(v_from) = app.supplier_side(p_kind) and v_parties = 1 then src.currency end,
+    case when app.supplier_side(p_kind) then
+      (select d.currency from public.documents d where d.project_id = v_project and d.party_id = v_party
+          and d.kind = 'supplier_offer' and d.status = 'posted' order by d.doc_date desc, d.created_at desc limit 1)
+    else
+      (select d.currency from public.documents d where d.project_id = v_project and d.status <> 'void'
+          and d.kind::text in ('customer_request', 'quotation', 'sales_order') order by d.created_at desc limit 1)
+    end,
+    'USD');
 
   -- One source document of the same party is linked as the source (bill from PO); across sides
   -- (customer order -> purchase order) the lines carry the lineage.
@@ -287,7 +324,7 @@ begin
 
   for ln in select dl.*, d.rate as src_rate from public.document_lines dl join public.documents d on d.id = dl.document_id
             where dl.id = any(p_line_ids) and dl.line_kind = 'item' order by d.doc_date, d.created_at, dl.line_no loop
-    v_qty := case when app.consumes_qty(p_kind) then ln.qty - app.used_qty(ln.id, p_kind) else ln.qty end;
+    v_qty := case when app.consumes_qty(p_kind) then app.open_qty(ln.id, p_kind) else ln.qty end;
     if v_qty <= 0 then continue; end if;
     v_usd := null; v_cost := null;
     if p_kind::text in ('supplier_rfq', 'supplier_offer', 'goods_receipt', 'delivery_note') then
@@ -306,7 +343,8 @@ begin
     else
       v_usd := app.line_price_usd(ln.id);
     end if;
-    v_price := round(v_usd * v_rate, 4);
+    -- customer prices in cents; purchase prices keep 4 decimals (unit costs such as 12.1900 / kg)
+    v_price := round(v_usd * v_rate, case when app.supplier_side(p_kind) then 4 else 2 end);
     v_no := v_no + 1;
     insert into public.document_lines (company_id, document_id, line_no, line_kind, item_id, description, detail, qty, unit,
                                        unit_price, amount, project_id, source_line_id, cost_price)
@@ -585,3 +623,67 @@ language sql stable security definer set search_path = '' as $$
    order by r.number, r.line_no, o.usd nulls last
 $$;
 grant execute on function public.deal_offers(uuid) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Apply an advance afterwards: a payment / receipt / credit note posted before the bill or invoice existed
+-- ("on account") is matched to it later (supplier advance, customer advance, credit note).
+-- Both sit on the same control account already, so at the same rate no accounting entry is needed;
+-- the link only makes the bill / invoice show as paid.
+-- ---------------------------------------------------------------------------
+create or replace function app.unapplied_amount(p_doc uuid) returns numeric
+language sql stable security definer set search_path = '' as $$
+  select d.amount - coalesce((select sum(l.amount) from public.document_links l where l.from_document_id = d.id), 0)
+  from public.documents d where d.id = p_doc
+$$;
+
+create or replace function public.apply_payment(p_payment uuid, p_document uuid, p_amount numeric default null) returns void
+language plpgsql security definer set search_path = '' as $$
+declare
+  p public.documents;
+  t public.documents;
+  v numeric;
+begin
+  select * into p from public.documents where id = p_payment;
+  select * into t from public.documents where id = p_document;
+  if p.id is null or t.id is null or not app.has_perm(p.company_id, 'docs.view') or t.company_id <> p.company_id then
+    raise exception 'Document not found';
+  end if;
+  perform app.require_perm(p.company_id, (select post_permission from public.doc_kinds where kind = p.kind));
+  if p.status <> 'posted' or t.status <> 'posted' then raise exception 'Both documents must be posted'; end if;
+  if (p.kind::text, t.kind::text) not in (('supplier_payment', 'supplier_bill'), ('customer_receipt', 'sales_invoice'), ('credit_note', 'sales_invoice')) then
+    raise exception 'A % cannot be applied to a %', p.kind, t.kind;
+  end if;
+  if p.kind::text = 'supplier_payment' and p.purpose = 'deposit' then
+    raise exception 'A deposit / guarantee is not an advance on a bill';
+  end if;
+  if p.party_id is distinct from t.party_id then raise exception 'The documents belong to different parties'; end if;
+  if p.currency <> t.currency then raise exception 'The documents are in different currencies'; end if;
+  if p.rate <> t.rate then
+    raise exception 'The payment (rate %) and the % (rate %) are at different rates: ask the accountant to record the FX difference',
+      p.rate, t.kind, t.rate;
+  end if;
+  v := least(app.unapplied_amount(p.id), app.open_amount(t.id));
+  if p_amount is not null then
+    if p_amount <= 0 or p_amount > v then raise exception 'At most % % can be applied', v, p.currency; end if;
+    v := p_amount;
+  end if;
+  if v <= 0 then raise exception 'Nothing left to apply'; end if;
+  perform app.begin_internal();
+  insert into public.document_links (company_id, from_document_id, to_document_id, amount)
+  values (p.company_id, p.id, t.id, v)
+  on conflict (from_document_id, to_document_id) do update set amount = public.document_links.amount + excluded.amount;
+  perform app.end_internal();
+  perform app.log_event(p.company_id, 'documents', p.id::text, format('Applied %s %s to %s', v, p.currency, t.number));
+end $$;
+grant execute on function public.apply_payment(uuid, uuid, numeric) to authenticated;
+
+-- Payments, receipts and credit notes of a party with money not yet applied to any bill / invoice.
+create or replace view public.v_unapplied with (security_invoker = true) as
+select d.id, d.company_id, d.kind, d.number, d.doc_date, d.party_id, d.currency, d.rate, d.amount,
+       (d.amount - coalesce(sum(l.amount), 0))::numeric(18, 2) as unapplied
+  from public.documents d left join public.document_links l on l.from_document_id = d.id
+ where d.status = 'posted' and d.kind::text in ('supplier_payment', 'customer_receipt', 'credit_note')
+   and not (d.kind::text = 'supplier_payment' and d.purpose = 'deposit')
+ group by d.id
+having d.amount - coalesce(sum(l.amount), 0) > 0;
+grant select on public.v_unapplied to authenticated;

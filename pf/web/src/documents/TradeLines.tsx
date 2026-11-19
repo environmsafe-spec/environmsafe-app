@@ -92,6 +92,7 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
                 {priced ? (
                   <NumberInput size="sm" placeholder={`${t('trade.unitPrice')} ${currency}`} aria-label={t('trade.unitPrice')} value={l.unit_price} min={0}
                     decimalScale={4} thousandSeparator="," disabled={readOnly} onChange={(v) => upd(l.key, { unit_price: typeof v === 'number' ? v : '' })}
+                    inputWrapperOrder={['input', 'description']}
                     description={typeof l.cost_price === 'number' && typeof l.unit_price === 'number' && l.cost_price > 0
                       ? `${t('deal.cost')} ${formatMoney(l.cost_price, currency)} · ${t('deal.margin')} ${Math.round((l.unit_price / l.cost_price - 1) * 1000) / 10}%` : undefined} />
                 ) : <div />}
