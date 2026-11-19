@@ -8,7 +8,7 @@ import { useAuth } from '../auth/AuthProvider'
 import { formatMoney, localName } from '../lib/format'
 import { supabase } from '../lib/supabase'
 import { useItems } from './data'
-import { computeTradeLines, newLine, SALES_KINDS, tradeTotals, type DocState, type KindInfo, type LineKind, type LineState } from './logic'
+import { computeTradeLines, isTracking, newLine, QTY_ONLY_KINDS, SALES_KINDS, tradeTotals, type DocState, type KindInfo, type LineKind, type LineState } from './logic'
 
 const NEW_ITEM = '__new__'
 
@@ -22,6 +22,8 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
   const items = useItems()
   const [creating, setCreating] = useState<{ key: string; name: string; kind: 'goods' | 'service'; unit: string } | null>(null)
   const sales = SALES_KINDS.includes(k.kind)
+  const priced = !QTY_ONLY_KINDS.includes(k.kind)
+  const tracking = isTracking(k.kind)
   const computed = computeTradeLines(s.lines)
   const totals = tradeTotals(s.lines)
   const canCreateItem = can('items.manage') || can('masterdata.create')
@@ -37,7 +39,7 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
       description: line.description || it?.name_en || '',
       unit: line.unit || it?.unit || '',
       // Smart default: last price for this item on the same side (sales / purchases).
-      unit_price: line.unit_price !== '' ? line.unit_price : ((sales ? it?.last_sale_price : it?.last_cost) ?? ''),
+      unit_price: !priced ? '' : line.unit_price !== '' ? line.unit_price : ((sales ? it?.last_sale_price : it?.last_cost) ?? ''),
     })
   }
 
@@ -87,8 +89,12 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
                   onChange={(v) => upd(l.key, { qty: typeof v === 'number' ? v : '' })} />
                 <TextInput size="sm" placeholder={t('md.unit')} aria-label={t('md.unit')} value={l.unit} disabled={readOnly}
                   onChange={(e) => upd(l.key, { unit: e.currentTarget.value })} />
-                <NumberInput size="sm" placeholder={`${t('trade.unitPrice')} ${currency}`} aria-label={t('trade.unitPrice')} value={l.unit_price} min={0}
-                  decimalScale={4} thousandSeparator="," disabled={readOnly} onChange={(v) => upd(l.key, { unit_price: typeof v === 'number' ? v : '' })} />
+                {priced ? (
+                  <NumberInput size="sm" placeholder={`${t('trade.unitPrice')} ${currency}`} aria-label={t('trade.unitPrice')} value={l.unit_price} min={0}
+                    decimalScale={4} thousandSeparator="," disabled={readOnly} onChange={(v) => upd(l.key, { unit_price: typeof v === 'number' ? v : '' })}
+                    description={typeof l.cost_price === 'number' && typeof l.unit_price === 'number' && l.cost_price > 0
+                      ? `${t('deal.cost')} ${formatMoney(l.cost_price, currency)} · ${t('deal.margin')} ${Math.round((l.unit_price / l.cost_price - 1) * 1000) / 10}%` : undefined} />
+                ) : <div />}
                 {k.creates_journal ? (
                   <Select size="sm" placeholder={t('doc.project')} aria-label={t('doc.project')} data={projectOptions} value={l.project_id} searchable clearable
                     disabled={readOnly} onChange={(v) => upd(l.key, { project_id: v })} />
@@ -98,7 +104,7 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
                     disabled={readOnly} onChange={(v) => upd(l.key, { gl_account_id: v })} />
                 ) : <div />}
                 <Group gap={4} justify="flex-end" wrap="nowrap">
-                  <Text fw={700} size="sm"><bdi>{formatMoney(Number(amount) || 0, currency)}</bdi></Text>
+                  {priced && <Text fw={700} size="sm"><bdi>{formatMoney(Number(amount) || 0, currency)}</bdi></Text>}
                   {!readOnly && s.lines.length > 1 && (
                     <ActionIcon variant="subtle" color="red" aria-label="remove" onClick={() => setS((p) => ({ ...p, lines: p.lines.filter((x) => x.key !== l.key) }))}><IconTrash size={16} /></ActionIcon>
                   )}
@@ -132,19 +138,21 @@ export function TradeLines({ k, s, setS, readOnly, projectOptions, accountOption
       {!readOnly && (
         <Group gap="xs">
           <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('item')}>{t('trade.addItem')}</Button>
-          <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('charge')}>{t('trade.charge')}</Button>
-          <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('discount')}>{t('trade.discount')}</Button>
-          <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('tax')}>{t('trade.tax')}</Button>
+          {!tracking && <>
+            <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('charge')}>{t('trade.charge')}</Button>
+            <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('discount')}>{t('trade.discount')}</Button>
+            <Button size="xs" variant="subtle" leftSection={<IconPlus size={14} />} onClick={() => add('tax')}>{t('trade.tax')}</Button>
+          </>}
         </Group>
       )}
-      <Table w={{ base: '100%', sm: 320 }} ms="auto" fz="sm" verticalSpacing={2}>
+      {priced && <Table w={{ base: '100%', sm: 320 }} ms="auto" fz="sm" verticalSpacing={2}>
         <Table.Tbody>
           <Table.Tr><Table.Td>{t('trade.subtotal')}</Table.Td><Table.Td ta="end"><bdi>{formatMoney(totals.items, currency)}</bdi></Table.Td></Table.Tr>
           {(totals.charges > 0 || totals.discounts > 0) && <Table.Tr><Table.Td>{t('trade.untaxed')}</Table.Td><Table.Td ta="end"><bdi>{formatMoney(totals.untaxed, currency)}</bdi></Table.Td></Table.Tr>}
           {totals.tax > 0 && <Table.Tr><Table.Td>{t('trade.tax')}</Table.Td><Table.Td ta="end"><bdi>{formatMoney(totals.tax, currency)}</bdi></Table.Td></Table.Tr>}
           <Table.Tr><Table.Td fw={700}>{t('doc.total')}</Table.Td><Table.Td ta="end" fw={700}><bdi>{formatMoney(totals.total, currency)}</bdi></Table.Td></Table.Tr>
         </Table.Tbody>
-      </Table>
+      </Table>}
 
       <Modal opened={Boolean(creating)} onClose={() => setCreating(null)} title={t('trade.newItem')}>
         {creating && (

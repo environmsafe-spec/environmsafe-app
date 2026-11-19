@@ -1,7 +1,7 @@
 import { ActionIcon, AppShell, Burger, Group, Image, NavLink, Select, Stack, Text, Tooltip } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import {
-  IconBuildingStore, IconChartBar, IconFolders, IconHome, IconListDetails, IconLogout, IconReceipt, IconSettings,
+  IconBriefcase, IconBuildingStore, IconChartBar, IconFolders, IconHome, IconListDetails, IconLogout, IconReceipt, IconSettings,
 } from '@tabler/icons-react'
 import { NavLink as RouterLink, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +20,7 @@ export function AppLayout() {
   const nav = [
     { to: '/', label: 'nav.home', icon: IconHome, show: true },
     { to: '/entries', label: 'nav.entries', icon: IconListDetails, show: can('docs.view') },
+    { to: '/deals', label: 'nav.deals', icon: IconBriefcase, show: can('docs.view') },
     { to: '/procurement', label: 'nav.procurement', icon: IconBuildingStore, show: can('masterdata.view') },
     { to: '/sales', label: 'nav.sales', icon: IconReceipt, show: can('masterdata.view') },
     { to: '/projects', label: 'nav.projects', icon: IconFolders, show: can('masterdata.view') },

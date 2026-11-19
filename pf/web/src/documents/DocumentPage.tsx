@@ -19,6 +19,7 @@ import {
   type DocKind, type DocState, type KindInfo, type LineKind,
 } from './logic'
 import { TradeLines } from './TradeLines'
+import { MatchWarnings, NextStep } from '../deals/NextStep'
 
 interface DocRow {
   id: string; kind: DocKind; status: 'draft' | 'submitted' | 'posted' | 'void'; number: string | null; temp_number: string
@@ -28,7 +29,7 @@ interface DocRow {
   no_document_reason: string | null; journal_entry_id: string | null; reversal_entry_id: string | null
   void_reason: string | null; created_by: string | null; posted_at: string | null
   due_date: string | null; valid_until: string | null; attention: string | null; party_reference: string | null; terms: string | null
-  revision: number; revision_of_id: string | null; source_document_id: string | null
+  revision: number; revision_of_id: string | null; source_document_id: string | null; project_id: string | null
 }
 interface Attachment { id: string; file_name: string; storage_path: string; size_bytes: number | null; sha256: string | null; uploaded_at: string }
 
@@ -61,7 +62,7 @@ function useDocument(id: string | undefined) {
 function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_document_id: string; amount: number }[]): DocState {
   return {
     doc_date: d.doc_date, money_account_id: d.money_account_id, counter_money_account_id: d.counter_money_account_id,
-    party_id: d.party_id, amount: Number(d.amount) || '', counter_amount: d.counter_amount ? Number(d.counter_amount) : '',
+    party_id: d.party_id, project_id: d.project_id, amount: Number(d.amount) || '', counter_amount: d.counter_amount ? Number(d.counter_amount) : '',
     fee_amount: Number(d.fee_amount) || '', rate: Number(d.rate), counter_rate: d.counter_rate ? Number(d.counter_rate) : '',
     purpose: d.purpose ?? 'payable', currency: d.currency, reference_no: d.reference_no ?? '', description: d.description ?? '', notes: d.notes ?? '',
     no_document_reason: d.no_document_reason ?? '',
@@ -73,6 +74,7 @@ function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_docu
           detail: (l.detail as string) ?? '', qty: l.qty != null ? Number(l.qty) : 1, unit: (l.unit as string) ?? '',
           unit_price: l.unit_price != null ? Number(l.unit_price) : '', percent: l.percent != null ? Number(l.percent) : '',
           percent_base: ((l.percent_base as 'items' | 'untaxed') ?? 'items'), amount: Number(l.amount), side: (l.side as 'D' | 'C') ?? 'D',
+          source_line_id: (l.source_line_id as string) ?? null, cost_price: l.cost_price != null ? Number(l.cost_price) : null,
         }))
       : [newLine()],
     links: links.map((l) => ({ to_document_id: l.to_document_id, amount: Number(l.amount) })),
@@ -113,6 +115,16 @@ export function DocumentPage() {
   const [recName, setRecName] = useState('')
   const [recDay, setRecDay] = useState(28)
   const [params] = useSearchParams()
+  // New deal documents opened from a deal page: ?project=…&party=…
+  useEffect(() => {
+    if (id) return
+    const project = params.get('project'), party = params.get('party')
+    if (project || party) setS((p) => ({
+      ...p, project_id: project ?? p.project_id, party_id: party ?? p.party_id,
+      // costs entered from a deal (shipping, customs, clearing) go to the deal's project
+      lines: p.lines.map((l) => ({ ...l, project_id: l.project_id ?? project })),
+    }))
+  }, [id, params])
   const batch = (params.get('batch') ?? '').split(',').filter(Boolean)
   const batchPos = id ? batch.indexOf(id) : -1
 
@@ -371,6 +383,10 @@ export function DocumentPage() {
           {doc.revision_of_id && <Anchor size="sm" onClick={() => navigate(`/entries/${doc.revision_of_id}`)}>← Rev.{doc.revision - 1}</Anchor>}
         </Group>
       )}
+      {doc && k.kind === 'supplier_bill' && doc.status !== 'void' && <MatchWarnings billId={doc.id} status={doc.status} />}
+      {doc?.project_id && (
+        <Anchor size="sm" onClick={() => navigate(`/deals/${doc.project_id}`)}>← {t('deal.openDeal')}</Anchor>
+      )}
       {(duplicates.data ?? []).length > 0 && doc?.status !== 'posted' && (
         <Alert color="orange" title={t('doc.duplicates')}>
           {(duplicates.data ?? []).map((d) => (
@@ -414,7 +430,13 @@ export function DocumentPage() {
             {['supplier_bill', 'sales_invoice'].includes(k.kind) && (
               <TextInput type="date" label={t('trade.dueDate')} value={s.due_date} onChange={(e) => set('due_date', e.currentTarget.value)} disabled={readOnly} />
             )}
-            {['purchase_order', 'quotation'].includes(k.kind) && (
+            {isTrade(k.kind) && (
+              <Select label={t('deal.deal')} data={(projects.data ?? []).filter((p) => p.status !== 'closed' || p.id === s.project_id)
+                .map((p) => ({ value: p.id, label: `${p.code} · ${localName(p, lang)}` }))} value={s.project_id}
+                onChange={(v) => setS((p) => ({ ...p, project_id: v, lines: p.lines.map((l) => ({ ...l, project_id: l.project_id ?? v })) }))}
+                searchable clearable disabled={readOnly} />
+            )}
+            {['purchase_order', 'quotation', 'supplier_offer', 'supplier_rfq'].includes(k.kind) && (
               <TextInput type="date" label={t('trade.validUntil')} value={s.valid_until} onChange={(e) => set('valid_until', e.currentTarget.value)} disabled={readOnly} />
             )}
             {isTrade(k.kind) && (
@@ -550,6 +572,13 @@ export function DocumentPage() {
         )}
         {doc && (doc.status === 'void' || doc.status === 'posted') && can('docs.create') && (
           <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'duplicate_document', args: { p_id: doc.id } }, { onSuccess: (newId) => navigate(`/entries/${newId as string}`) })}>{t('doc.copy')}</Button>
+        )}
+        {doc?.status === 'posted' && can('docs.create') && (
+          <NextStep fromKind={k.kind} partyId={doc.party_id} currency={doc.currency}
+            lines={(existing.data?.lines ?? []).map((l) => ({
+              id: String(l.id), line_no: Number(l.line_no), line_kind: String(l.line_kind), description: (l.description as string) ?? null,
+              qty: Number(l.qty), unit: (l.unit as string) ?? null, unit_price: l.unit_price != null ? Number(l.unit_price) : null,
+            }))} />
         )}
         {doc?.status === 'posted' && CONVERSIONS[k.kind] && can('docs.create') && (
           <Button variant="light" rightSection={<IconArrowRight size={16} />}

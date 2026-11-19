@@ -5,10 +5,18 @@ export type DocKind =
   | 'transfer' | 'expense_claim' | 'claim_reimbursement' | 'salary' | 'employee_advance'
   | 'advance_repayment' | 'employee_offset' | 'owner_drawings' | 'manual_journal'
   | 'purchase_order' | 'supplier_bill' | 'quotation' | 'sales_invoice' | 'credit_note'
+  | 'customer_request' | 'supplier_rfq' | 'supplier_offer' | 'sales_order' | 'goods_receipt' | 'delivery_note'
 
-export const TRADE_KINDS: DocKind[] = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note']
+/** Deal documents that only track the work (numbered when issued, no accounting). */
+export const TRACKING_KINDS: DocKind[] = ['customer_request', 'supplier_rfq', 'supplier_offer', 'sales_order', 'goods_receipt', 'delivery_note']
+export const isTracking = (k: DocKind) => TRACKING_KINDS.includes(k)
+/** Documents with product / service lines (the trade form). */
+export const TRADE_KINDS: DocKind[] = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note', ...TRACKING_KINDS]
 export const isTrade = (k: DocKind) => TRADE_KINDS.includes(k)
-export const SALES_KINDS: DocKind[] = ['quotation', 'sales_invoice', 'credit_note']
+/** Tracking documents whose lines are quantities only (no price column). */
+export const QTY_ONLY_KINDS: DocKind[] = ['customer_request', 'supplier_rfq', 'goods_receipt', 'delivery_note']
+export const SALES_KINDS: DocKind[] = ['quotation', 'sales_invoice', 'credit_note', 'customer_request', 'sales_order', 'delivery_note']
+export const SUPPLIER_KINDS: DocKind[] = ['supplier_rfq', 'supplier_offer', 'purchase_order', 'goods_receipt', 'supplier_bill']
 
 export interface KindInfo {
   kind: DocKind
@@ -38,8 +46,9 @@ export const ACTION_GROUPS: Record<'pay' | 'receive' | 'transfer' | 'claim', Doc
 export const TRADE_GROUP: DocKind[] = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note']
 
 /** Next document in the chain, offered as a button on an issued / posted document. */
+// (Deal steps such as PO -> bill or quotation -> invoice come from public.deal_flows: see deals/NextStep.tsx.)
 export const CONVERSIONS: Partial<Record<DocKind, DocKind>> = {
-  purchase_order: 'supplier_bill', quotation: 'sales_invoice', sales_invoice: 'credit_note',
+  sales_invoice: 'credit_note',
 }
 
 export type LineKind = 'item' | 'charge' | 'discount' | 'tax'
@@ -59,6 +68,9 @@ export interface LineState {
   percent_base: 'items' | 'untaxed'
   amount: number | ''
   side: 'D' | 'C'
+  /** The line this one was made from (deal lineage); kept when a draft is saved again. */
+  source_line_id?: string | null
+  cost_price?: number | null
 }
 
 export interface LinkState { to_document_id: string; amount: number | '' }
@@ -68,6 +80,7 @@ export interface DocState {
   money_account_id: string | null
   counter_money_account_id: string | null
   party_id: string | null
+  project_id: string | null
   amount: number | ''
   counter_amount: number | ''
   fee_amount: number | ''
@@ -95,6 +108,7 @@ export function newLine(side: 'D' | 'C' = 'D', line_kind: LineKind = 'item'): Li
   return {
     key: Math.random().toString(36).slice(2), line_kind, gl_account_id: null, project_id: null, item_id: null,
     description: '', detail: '', qty: 1, unit: '', unit_price: '', percent: '', percent_base: 'items', amount: '', side,
+    source_line_id: null, cost_price: null,
   }
 }
 
@@ -123,7 +137,7 @@ export function tradeTotals(lines: LineState[]) {
 
 export function emptyDoc(today: string): DocState {
   return {
-    doc_date: today, money_account_id: null, counter_money_account_id: null, party_id: null,
+    doc_date: today, money_account_id: null, counter_money_account_id: null, party_id: null, project_id: null,
     amount: '', counter_amount: '', fee_amount: '', rate: '', counter_rate: '', purpose: 'payable', currency: 'USD',
     due_date: '', valid_until: '', attention: '', party_reference: '', terms: '',
     reference_no: '', description: '', notes: '', no_document_reason: '', lines: [newLine()], links: [],
@@ -155,7 +169,17 @@ export function missingForPosting(k: KindInfo, s: DocState, opts: { hasAttachmen
     if (!s.counter_money_account_id) m.push('to_account')
     if (s.counter_money_account_id && s.counter_money_account_id === s.money_account_id) m.push('same_account')
   }
-  if (isTrade(k.kind)) {
+  if (isTracking(k.kind)) {
+    const items = s.lines.filter((l) => l.line_kind === 'item')
+    if (!items.length) m.push('lines')
+    s.lines.forEach((l, i) => {
+      if (l.line_kind !== 'item') return
+      if (!l.item_id && !l.description.trim()) m.push(`line${i + 1}.item`)
+      if (!(num(l.qty) > 0)) m.push(`line${i + 1}.qty`)
+      if (k.kind === 'sales_order' && typeof l.unit_price !== 'number') m.push(`line${i + 1}.price`)
+    })
+    if (k.kind === 'supplier_offer' && !items.some((l) => typeof l.unit_price === 'number')) m.push('price')
+  } else if (isTrade(k.kind)) {
     const lines = computeTradeLines(s.lines)
     if (!lines.some((l) => l.line_kind === 'item')) m.push('lines')
     lines.forEach((l, i) => {
@@ -192,6 +216,7 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
     money_account_id: k.money_account === 'none' ? null : s.money_account_id,
     counter_money_account_id: k.kind === 'transfer' ? s.counter_money_account_id : null,
     party_id: k.party_role ? s.party_id : null,
+    ...(isTrade(k.kind) ? { project_id: s.project_id } : {}),
     amount: k.has_lines || k.kind === 'employee_offset' ? 0 : num(s.amount),
     counter_amount: k.kind === 'transfer' ? n(s.counter_amount) : null,
     counter_rate: k.kind === 'transfer' ? n(s.counter_rate) : null,
@@ -199,7 +224,7 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
     ...(typeof s.rate === 'number' ? { rate: s.rate } : {}),
     purpose: k.kind === 'supplier_payment' || k.kind === 'refund_from_supplier' ? s.purpose : null,
     due_date: ['supplier_bill', 'sales_invoice'].includes(k.kind) && s.due_date ? s.due_date : null,
-    valid_until: ['purchase_order', 'quotation'].includes(k.kind) ? nul(s.valid_until) : null,
+    valid_until: ['purchase_order', 'quotation', 'supplier_offer', 'supplier_rfq'].includes(k.kind) ? nul(s.valid_until) : null,
     attention: nul(s.attention),
     party_reference: nul(s.party_reference),
     terms: nul(s.terms),
@@ -217,7 +242,8 @@ export function toLineRows(k: KindInfo, s: DocState, documentId: string, company
   const trade = isTrade(k.kind)
   const lines = trade ? computeTradeLines(s.lines) : s.lines
   return lines
-    .filter((l) => num(l.amount) > 0)
+    // Item lines of trade documents are kept even without a price (RFQs, receipts, drafts being priced).
+    .filter((l) => (trade && l.line_kind === 'item' ? Boolean(l.item_id || l.description.trim()) && num(l.qty) > 0 : num(l.amount) > 0))
     .map((l, i) => ({
       company_id: companyId, document_id: documentId, line_no: i + 1,
       line_kind: trade ? l.line_kind : 'item',
@@ -229,6 +255,8 @@ export function toLineRows(k: KindInfo, s: DocState, documentId: string, company
         unit_price: l.line_kind === 'item' && typeof l.unit_price === 'number' ? l.unit_price : null,
         percent: l.line_kind !== 'item' && typeof l.percent === 'number' ? l.percent : null,
         percent_base: l.line_kind === 'tax' && typeof l.percent === 'number' ? l.percent_base : null,
+        source_line_id: l.source_line_id ?? null,
+        cost_price: l.cost_price ?? null,
       } : {}),
     }))
 }

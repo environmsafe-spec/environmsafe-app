@@ -72,6 +72,7 @@ end $$;
 create trigger b_document_lines_amount before insert or update on public.document_lines
   for each row execute function app.line_amount_guard();
 
+alter table public.projects add column if not exists is_deal boolean not null default false;
 alter table public.projects add column if not exists deal_outcome text check (deal_outcome in ('won', 'lost', 'cancelled'));
 alter table public.projects add column if not exists closed_on date;
 alter table public.projects add column if not exists close_note text;
@@ -409,16 +410,18 @@ select p.id, p.company_id, p.code, p.name_en, p.name_ar, p.customer_id, c.name_e
          when k.has_quote then 'quoted'
          when k.has_offer then 'offers'
          when k.has_rfq then 'sourcing'
-         else 'request'
+         when k.has_request then 'request'
+         else 'new'
        end as stage,
-       k.drafts, k.last_date,
+       coalesce(k.drafts, 0) as drafts, coalesce(k.last_date, p.created_at::date) as last_date,
        round(coalesce(m.ordered_usd, 0), 2) as ordered_usd, round(coalesce(m.invoiced_usd, 0), 2) as invoiced_usd,
        round(coalesce(m.receivable_usd, 0), 2) as receivable_usd, round(coalesce(m.billed_usd, 0), 2) as billed_usd,
        round(coalesce(m.payable_usd, 0), 2) as payable_usd
   from public.projects p
-  join k on k.project_id = p.id
+  left join k on k.project_id = p.id
   left join money m on m.project_id = p.id
-  left join public.parties c on c.id = p.customer_id;
+  left join public.parties c on c.id = p.customer_id
+ where p.is_deal or k.project_id is not null;
 grant select on public.v_deals to authenticated;
 grant execute on function public.deal_lines(uuid) to authenticated;
 grant execute on function public.make_document(public.doc_kind, uuid[], uuid, numeric, char) to authenticated;
@@ -435,8 +438,8 @@ begin
     raise exception 'Choose a customer';
   end if;
   if coalesce(trim(p_name), '') = '' then raise exception 'Give the deal a name'; end if;
-  insert into public.projects (company_id, code, name_en, customer_id, kind, status)
-  values (p_company, '', trim(p_name), p_customer, 'contract', 'active') returning id into v;
+  insert into public.projects (company_id, code, name_en, customer_id, kind, status, is_deal)
+  values (p_company, '', trim(p_name), p_customer, 'contract', 'active', true) returning id into v;
   return v;
 end $$;
 

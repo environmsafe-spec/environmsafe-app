@@ -10,6 +10,8 @@ import {
 import { MasterDataPage } from './masterdata/MasterDataPage'
 import { RecurringPage } from './ai/RecurringPage'
 import { UploadPage } from './ai/UploadPage'
+import { DealPage } from './deals/DealPage'
+import { DealsPage } from './deals/DealsPage'
 import { DocumentPage } from './documents/DocumentPage'
 import { EntriesPage } from './documents/EntriesPage'
 import { HomePage } from './pages/HomePage'
@@ -48,22 +50,30 @@ export default function App() {
         <Route path="entries/new/:kind" element={<DocumentPage key="new" />} />
         <Route path="entries/:id" element={<DocumentPage />} />
 
+        <Route path="deals" element={<DealsPage />} />
+        <Route path="deals/:id" element={<DealPage />} />
         <Route path="procurement" element={<SectionTabs base="/procurement" tabs={[
-          { path: 'orders', label: 'proc.orders' }, { path: 'bills', label: 'proc.bills' },
+          { path: 'rfqs', label: 'proc.rfqs' }, { path: 'orders', label: 'proc.orders' }, { path: 'receipts', label: 'proc.receipts' }, { path: 'bills', label: 'proc.bills' },
           { path: 'suppliers', label: 'md.suppliers' }, { path: 'items', label: 'md.items' }]} />}>
           <Route index element={<Navigate to="orders" replace />} />
           <Route path="orders" element={<EntriesPage key="po" kinds={['purchase_order']} title="proc.orders" />} />
+          <Route path="rfqs" element={<EntriesPage key="rfq" kinds={['supplier_rfq', 'supplier_offer']} title="proc.rfqs" />} />
+          <Route path="receipts" element={<EntriesPage key="grn" kinds={['goods_receipt']} title="proc.receipts" />} />
           <Route path="bills" element={<EntriesPage key="bill" kinds={['supplier_bill']} title="proc.bills" />} />
           <Route path="suppliers" element={md(suppliersConfig)} />
           <Route path="items" element={md(itemsConfig)} />
         </Route>
 
         <Route path="sales" element={<SectionTabs base="/sales" tabs={[
-          { path: 'invoices', label: 'proc.invoices' }, { path: 'quotations', label: 'proc.quotations' },
+          { path: 'invoices', label: 'proc.invoices' }, { path: 'requests', label: 'proc.requests' }, { path: 'quotations', label: 'proc.quotations' },
+          { path: 'orders', label: 'proc.salesOrders' }, { path: 'deliveries', label: 'proc.deliveries' },
           { path: 'credit-notes', label: 'proc.creditNotes' }, { path: 'customers', label: 'md.customers' }]} />}>
           <Route index element={<Navigate to="invoices" replace />} />
           <Route path="invoices" element={<EntriesPage key="inv" kinds={['sales_invoice']} title="proc.invoices" />} />
+          <Route path="requests" element={<EntriesPage key="req" kinds={['customer_request']} title="proc.requests" />} />
           <Route path="quotations" element={<EntriesPage key="qt" kinds={['quotation']} title="proc.quotations" />} />
+          <Route path="orders" element={<EntriesPage key="so" kinds={['sales_order']} title="proc.salesOrders" />} />
+          <Route path="deliveries" element={<EntriesPage key="dn" kinds={['delivery_note']} title="proc.deliveries" />} />
           <Route path="credit-notes" element={<EntriesPage key="cn" kinds={['credit_note']} title="proc.creditNotes" />} />
           <Route path="customers" element={md(customersConfig)} />
         </Route>

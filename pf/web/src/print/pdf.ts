@@ -80,14 +80,15 @@ const PROFILE_INVOICE: Profile = { cols: [36, 62, 282, 322, 356, 426, 496, RIGHT
 
 const TITLES: Record<string, string[]> = {
   purchase_order: ['PURCHASE', 'ORDER'], sales_invoice: ['INVOICE'], quotation: ['QUOTATION'], credit_note: ['CREDIT', 'NOTE'],
-  supplier_bill: ['SUPPLIER', 'BILL'], payment: ['PAYMENT', 'VOUCHER'], receipt: ['RECEIPT', 'VOUCHER'], statement: ['STATEMENT'],
+  supplier_bill: ['SUPPLIER', 'BILL'], customer_request: ['CUSTOMER', 'REQUEST'], supplier_rfq: ['REQUEST FOR', 'QUOTATION'],
+  supplier_offer: ['SUPPLIER', 'OFFER'], sales_order: ['ORDER', 'CONFIRMATION'], goods_receipt: ['GOODS', 'RECEIPT'], delivery_note: ['DELIVERY', 'NOTE'], payment: ['PAYMENT', 'VOUCHER'], receipt: ['RECEIPT', 'VOUCHER'], statement: ['STATEMENT'],
 }
 
 /** The print description (built by buildPrintDocument, same shape the Python renderer took). */
 export interface PrintDocument {
   kind?: string; number?: string | null; date?: string | null; currency?: string; status?: string; revision?: number
   title?: string[]; to_label?: string; to?: { name?: string; lines?: string[] }; meta?: [string, string][]
-  lines?: { sn?: number | string; description?: string | null; detail?: string | null; unit?: string | null; qty?: number | string; unit_price?: number | string | null; amount?: number | string; currency?: string }[]
+  lines?: { sn?: number | string; description?: string | null; detail?: string | null; unit?: string | null; qty?: number | string; unit_price?: number | string | null; amount?: number | string | null; currency?: string }[]
   totals?: { label: string; value: number | string }[]; total?: { label?: string; value?: string } | null
   terms?: { label?: string; text: string }[]; terms_title?: string; amount_words?: boolean; total_amount?: number | null
   signature?: { style?: 'acceptance' | 'single'; date?: string | null; signed?: boolean; acceptance?: { party?: string; name?: string } }
@@ -294,7 +295,7 @@ class Renderer {
       this.text((x[2] + x[3]) / 2, base, line.unit ?? '', 'Helvetica', p.bodySize, GREY, 'center')
       this.text((x[3] + x[4]) / 2, base, qty(line.qty ?? 1), 'Helvetica', p.bodySize, GREY, 'center')
       this.text(x[5] - p.valuePad, base, line.unit_price !== null && line.unit_price !== undefined ? money(line.unit_price, ccy) : '', 'Helvetica', p.bodySize, GREY, 'right')
-      this.text(x[6] - p.valuePad, base, money(line.amount, ccy), 'Helvetica-Bold', p.bodySize, NAVY, 'right')
+      this.text(x[6] - p.valuePad, base, line.amount !== null && line.amount !== undefined ? money(line.amount, ccy) : '', 'Helvetica-Bold', p.bodySize, NAVY, 'right')
       this.text((x[6] + x[7]) / 2, base, ccy, 'Helvetica', p.bodySize, GREY, 'center')
       this.hline(x[0], x[x.length - 1], top)
       for (const xx of x) this.vline(xx, top, top + h)

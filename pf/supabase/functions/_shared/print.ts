@@ -33,15 +33,19 @@ export function parseTerms(src: string | null | undefined) {
 
 const PRINT_KIND: Record<string, string> = { payment: 'payment', receipt: 'receipt', transfer: 'payment', expense_claim: 'payment', journal: 'payment' }
 
+const TRACKING = ['customer_request', 'supplier_rfq', 'supplier_offer', 'sales_order', 'goods_receipt', 'delivery_note']
+
 export function buildPrintDocument(input: {
   doc: PrintDoc; lines: PrintLine[]; party: PrintParty | null; company: PrintCompany; appUrl: string
 }) {
   const { doc, lines, party, company } = input
   const ccy = doc.currency
-  const trade = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note'].includes(doc.kind)
+  const trade = ['purchase_order', 'supplier_bill', 'quotation', 'sales_invoice', 'credit_note', ...TRACKING].includes(doc.kind)
+  // Request, RFQ, receipt and delivery note print quantities only (no prices, no totals).
+  const qtyOnly = ['customer_request', 'supplier_rfq', 'goods_receipt', 'delivery_note'].includes(doc.kind)
   const kind = trade ? doc.kind : (PRINT_KIND[doc.number_type] ?? 'payment')
   const number = doc.number ?? doc.temp_number
-  const sales = ['quotation', 'sales_invoice', 'credit_note'].includes(doc.kind)
+  const sales = ['quotation', 'sales_invoice', 'credit_note', 'sales_order'].includes(doc.kind)
   const settings = company.settings ?? {}
 
   const toLines = [
@@ -57,7 +61,9 @@ export function buildPrintDocument(input: {
   const untaxed = round2(itemsTotal + charges.reduce((a, l) => a + (l.line_kind === 'discount' ? -1 : 1) * Number(l.amount), 0))
 
   const totals: { label: string; value: string | number }[] = []
-  if (trade) {
+  if (qtyOnly) {
+    // no totals
+  } else if (trade) {
     totals.push({ label: doc.kind === 'purchase_order' ? 'Products subtotal' : 'Subtotal', value: itemsTotal })
     for (const c of charges) totals.push({ label: c.description ?? c.line_kind, value: c.line_kind === 'discount' ? `-${money(c.amount, ccy)}` : Number(c.amount) })
     if (sales && !charges.some((c) => c.line_kind === 'discount')) totals.push({ label: 'Discount', value: 0 })
@@ -75,19 +81,27 @@ export function buildPrintDocument(input: {
   const printLines = trade
     ? items.map((l, i) => ({
         sn: i + 1, description: (l.item_code && l.description && !l.description.includes(l.item_code) ? `[${l.item_code}] ` : '') + (l.description ?? l.item_name ?? ''),
-        detail: l.detail, unit: l.unit, qty: Number(l.qty), unit_price: l.unit_price != null ? Number(l.unit_price) : Number(l.amount) / Number(l.qty), amount: Number(l.amount),
+        detail: l.detail, unit: l.unit, qty: Number(l.qty),
+        unit_price: qtyOnly ? null : l.unit_price != null ? Number(l.unit_price) : Number(l.amount) / Number(l.qty),
+        amount: qtyOnly ? null : Number(l.amount),
       }))
     : (lines.length ? lines : [{ line_no: 1, description: doc.description, amount: doc.amount } as PrintLine]).map((l, i) => ({
         sn: i + 1, description: l.description ?? doc.description ?? '', detail: l.detail ?? null, unit: '', qty: 1, unit_price: null, amount: Number(l.amount),
       }))
 
-  const label = { purchase_order: 'PO #', supplier_bill: 'BILL #', quotation: 'QUOTATION #', sales_invoice: 'INVOICE #', credit_note: 'CREDIT NOTE #' }[doc.kind] ?? 'VOUCHER #'
+  const label = {
+    purchase_order: 'PO #', supplier_bill: 'BILL #', quotation: 'QUOTATION #', sales_invoice: 'INVOICE #', credit_note: 'CREDIT NOTE #',
+    customer_request: 'REQUEST #', supplier_rfq: 'RFQ #', supplier_offer: 'OFFER #', sales_order: 'ORDER #', goods_receipt: 'GRN #', delivery_note: 'DELIVERY #',
+  }[doc.kind] ?? 'VOUCHER #'
   const meta: [string, string][] = [[label, number], ['DATE', dateLong(doc.doc_date)]]
   if (doc.kind === 'purchase_order') meta.push(['REFERENCE', doc.party_reference ?? doc.reference_no ?? ''], ['QUOTE VALID TO', dateLong(doc.valid_until)])
   else if (doc.kind === 'quotation') meta.push(['REFERENCE', doc.party_reference ?? doc.reference_no ?? ''], ['VALID UNTIL', dateLong(doc.valid_until)])
   else if (doc.kind === 'sales_invoice') meta.push(['REFERENCE', doc.party_reference ?? doc.reference_no ?? ''], ['TERMS', !doc.due_date || doc.due_date === doc.doc_date ? 'Due on receipt' : `Due ${dateLong(doc.due_date)}`])
   else if (doc.kind === 'supplier_bill') meta.push(['SUPPLIER REF.', doc.party_reference ?? ''], ['DUE', dateLong(doc.due_date)])
   else if (doc.kind === 'credit_note') meta.push(['INVOICE', doc.party_reference ?? ''], ['REASON', doc.description ?? ''])
+  else if (doc.kind === 'supplier_rfq') meta.push(['REFERENCE', doc.reference_no ?? ''], ['REPLY BY', dateLong(doc.valid_until)])
+  else if (doc.kind === 'sales_order') meta.push(['YOUR PO', doc.party_reference ?? ''], ['REFERENCE', doc.reference_no ?? ''])
+  else if (TRACKING.includes(doc.kind)) meta.push(['REFERENCE', doc.party_reference ?? doc.reference_no ?? ''], ['', ''])
   else meta.push(['ACCOUNT', doc.money_account_name ?? ''], ['REFERENCE', doc.reference_no ?? ''])
 
   const termsKey = { purchase_order: 'po_terms', sales_invoice: 'invoice_terms', quotation: 'quotation_terms' }[doc.kind]
@@ -106,11 +120,11 @@ export function buildPrintDocument(input: {
     meta,
     lines: printLines,
     totals,
-    total: { label: 'TOTAL', value: `${ccy} ${money(grand, ccy)}` },
+    total: qtyOnly ? null : { label: 'TOTAL', value: `${ccy} ${money(grand, ccy)}` },
     total_amount: grand,
     amount_words: doc.kind === 'sales_invoice' || kind === 'receipt' || kind === 'payment',
     terms,
-    signature: doc.kind === 'purchase_order'
+    signature: doc.kind === 'purchase_order' || doc.kind === 'delivery_note' || doc.kind === 'sales_order'
       ? { style: 'acceptance', date: doc.doc_date, acceptance: { party: party?.name_en ?? '', name: doc.attention ?? party?.contact_person ?? '' }, signed: doc.status === 'posted' }
       : { style: 'single', date: doc.doc_date, signed: doc.status === 'posted' },
     verify_url: doc.status === 'posted' || doc.status === 'void' ? `${input.appUrl.replace(/\/$/, '')}/verify/${doc.verify_token}` : null,

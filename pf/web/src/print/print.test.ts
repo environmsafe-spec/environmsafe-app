@@ -47,7 +47,7 @@ describe('buildPrintDocument — invoice (sample invoice)', () => {
   })
   it('shows discount and "Not applicable" tax like the sample', () => {
     expect(p.totals).toEqual([{ label: 'Subtotal', value: 1852.63 }, { label: 'Discount', value: 0 }, { label: 'Tax / VAT', value: 'Not applicable' }])
-    expect(p.total.value).toBe('USD 1,852.63')
+    expect(p.total?.value).toBe('USD 1,852.63')
   })
   it('uses the company invoice terms and asks for the amount in words', () => {
     expect(p.terms.map((t) => t.label)).toEqual(['Payment', 'Bank'])
@@ -66,4 +66,23 @@ describe('buildPrintDocument — invoice (sample invoice)', () => {
 describe('helpers', () => {
   it('formats dates like the samples', () => expect(dateLong('2026-11-07')).toBe('07-Nov-2026'))
   it('parses terms lines', () => expect(parseTerms('Payment: 100% advance\nThank you')).toEqual([{ label: 'Payment', text: '100% advance' }, { label: '', text: 'Thank you' }]))
+})
+
+describe('buildPrintDocument — deal documents', () => {
+  const rfqLines: PrintLine[] = [
+    { line_no: 1, line_kind: 'item', description: 'Gate valve 4" class 150', detail: null, qty: 5, unit: 'PC', unit_price: null, amount: 0, percent: null, percent_base: null },
+  ]
+  it('an RFQ prints quantities only, without prices or a total', () => {
+    const p = buildPrintDocument({ doc: { ...base, kind: 'supplier_rfq', number_type: 'supplier_rfq', number: 'RFQ-2026-0001' }, lines: rfqLines, party: supplier, company, appUrl: 'https://x/' })
+    expect(p.kind).toBe('supplier_rfq')
+    expect(p.lines[0]).toMatchObject({ qty: 5, unit_price: null, amount: null })
+    expect(p.totals).toEqual([])
+    expect(p.total).toBeNull()
+    expect(p.meta[0]).toEqual(['RFQ #', 'RFQ-2026-0001'])
+  })
+  it('a delivery note asks the customer to sign for the goods', () => {
+    const p = buildPrintDocument({ doc: { ...base, kind: 'delivery_note', number_type: 'delivery_note' }, lines: rfqLines, party: supplier, company, appUrl: 'https://x/' })
+    expect(p.signature.style).toBe('acceptance')
+    expect(p.total).toBeNull()
+  })
 })

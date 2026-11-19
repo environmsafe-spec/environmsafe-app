@@ -96,3 +96,29 @@ describe('trade documents', () => {
     expect(rows[0]).toMatchObject({ qty: 25, unit_price: 12.19 })
   })
 })
+
+describe('deal documents', () => {
+  const tracking = (kind: KindInfo['kind']): KindInfo => ({ ...base, kind, has_lines: true, money_account: 'none', party_role: 'supplier', party_required: true, creates_journal: false, post_permission: 'docs.post' })
+  const opts = { hasAttachment: false, accountNeedsProject: noProject }
+  it('an RFQ line needs an item or a description and a quantity, but no price', () => {
+    const s = { ...emptyDoc('x'), party_id: 'p' }
+    s.lines = [{ ...newLine(), description: 'Seal kit as per drawing', qty: 10 }]
+    expect(missingForPosting(tracking('supplier_rfq'), s, opts)).toEqual([])
+    s.lines = [{ ...newLine(), qty: 0 }]
+    expect(missingForPosting(tracking('supplier_rfq'), s, opts)).toEqual(['line1.item', 'line1.qty'])
+  })
+  it('an offer needs at least one price; a customer order needs every price', () => {
+    const s = { ...emptyDoc('x'), party_id: 'p' }
+    s.lines = [{ ...newLine(), description: 'A', qty: 1 }, { ...newLine(), description: 'B', qty: 1, unit_price: 5 }]
+    expect(missingForPosting(tracking('supplier_offer'), s, opts)).toEqual([])
+    expect(missingForPosting(tracking('sales_order'), s, opts)).toEqual(['line1.price'])
+  })
+  it('saving keeps unpriced lines and where each line came from', () => {
+    const s = { ...emptyDoc('x'), party_id: 'p', project_id: 'deal' }
+    s.lines = [{ ...newLine(), description: 'Pump', qty: 2, source_line_id: 'L1', cost_price: 1000 }]
+    const rows = toLineRows(tracking('goods_receipt'), s, 'd', 'c')
+    expect(rows).toHaveLength(1)
+    expect(rows[0]).toMatchObject({ qty: 2, amount: 0, unit_price: null, source_line_id: 'L1', cost_price: 1000 })
+    expect(toDocumentRow(tracking('goods_receipt'), s)).toMatchObject({ project_id: 'deal' })
+  })
+})
