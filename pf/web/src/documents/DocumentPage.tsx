@@ -296,10 +296,13 @@ export function DocumentPage() {
     if (!doc) return
     setPrinting(true)
     try {
-      const { data, error } = await supabase.functions.invoke('generate-pdf', { body: { document_id: doc.id } })
-      if (error || !data?.url) throw new Error(t('trade.printFailed'))
-      window.open(data.url as string, '_blank', 'noopener')
-      if (data.stored) refresh(doc.id)
+      // Rendered in the browser (pdf-lib): no server and no cost. Opened first, then stored with the document.
+      const win = window.open('', '_blank')
+      const { printDocument } = await import('../print/printDocument')
+      const out = await printDocument(doc.id).catch(() => { throw new Error(t('trade.printFailed')) })
+      if (win) win.location.href = out.url
+      else window.open(out.url, '_blank')
+      if (out.stored) refresh(doc.id)
     } catch (e) { fail(e as Error) } finally { setPrinting(false) }
   }
 

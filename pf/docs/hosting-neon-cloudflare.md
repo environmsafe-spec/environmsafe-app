@@ -63,3 +63,7 @@ This plan replaces each one with a free Neon or Cloudflare part. **The database 
     - curl: anonymous access refused; password alone gets no data; sign-in tables unreadable through the API; cross-site POST refused.
     - Browser (`web/e2e/worker-signin.mjs`, against `wrangler dev` + local Postgres): owner signs in with code; owner adds an accountant; the accountant sets up two-step sign-in and changes the one-time password.
   - **Not yet:** files (`/api/files`, R2) and the AI upload / PDF functions are step 3, so the Cloudflare Pages previews cannot sign in any more (they have no API).
+- **19 Nov 2026, step 3 (built and tested locally):**
+  - **Files:** R2 bucket `espf-documents` was created in the Environmsafe Cloudflare account. `/api/files` checks the user's rights on every read and upload.
+  - **AI voucher upload:** `/api/functions/extract-voucher` in the Worker (Claude key = Worker secret `ANTHROPIC_API_KEY`). Tested end to end with a stand-in for the Claude API.
+  - **Printed PDFs:** rendered in the browser with pdf-lib (`web/src/print/pdf.ts`), a line-for-line port of the ReportLab renderer. It is free, and the Python PDF service is no longer needed. The visual test against the samples gives the same result as before (PO 0.03 %, invoice 0.22 %) and runs in CI. Arabic is shaped by fontkit (Noto Naskh, loaded only when needed). The posted copy is stored with the document (generated_pdf, SHA-256).

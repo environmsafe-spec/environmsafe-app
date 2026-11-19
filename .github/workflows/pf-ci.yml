@@ -77,6 +77,20 @@ jobs:
       - run: sudo apt-get update -q && sudo apt-get install -y -q fonts-noto-core
       - run: pip install -r requirements-dev.txt
       - run: python -m tests.visual
+      # The browser renderer used by the app (pf/web/src/print/pdf.ts) must match the samples too.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pf/web/package-lock.json
+      - run: npm ci
+        working-directory: pf/web
+      - run: node --experimental-strip-types e2e/render-fixtures.mjs ../pdf/tests/out/js
+        working-directory: pf/web
+      - run: python -m tests.visual
+        env:
+          RENDERED_DIR: tests/out/js
+          VISUAL_OUT: tests/out/js
       - uses: actions/upload-artifact@v4
         if: always()
         with:

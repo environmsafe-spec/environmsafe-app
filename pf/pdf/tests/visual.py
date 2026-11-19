@@ -2,6 +2,8 @@
 
 Rasterises both at 100 dpi and reports the share of pixels that differ noticeably.
 Run: python3 -m tests.visual   (from pf/pdf)  — exits 1 if a document drifts past the threshold.
+With RENDERED_DIR=<dir>, compares the PDFs already rendered there (<fixture>.pdf) instead: that is how the
+browser renderer (pf/web/src/print/pdf.ts, via pf/web/e2e/render-fixtures.mjs) is checked.
 """
 import json
 import os
@@ -27,7 +29,12 @@ def raster(pdf_bytes: bytes) -> Image.Image:
 def compare(fixture: str, reference: str) -> tuple[float, Image.Image]:
     with open(os.path.join(HERE, 'fixtures', fixture)) as f:
         doc = json.load(f)
-    ours = raster(render_document(doc))
+    rendered = os.environ.get('RENDERED_DIR')
+    if rendered:
+        with open(os.path.join(rendered, fixture.replace('.json', '.pdf')), 'rb') as f:
+            ours = raster(f.read())
+    else:
+        ours = raster(render_document(doc))
     with open(os.path.join(REF, reference), 'rb') as f:
         ref = raster(f.read())
     diff = ImageChops.difference(ours, ref).point(lambda v: 255 if v > 64 else 0)
