@@ -15,7 +15,7 @@ customer names) stay out of the repository: they are in the review files given t
 | 7 | Four old records used the "INV" receivable placeholder account: check them (exceptions list). | migration | Open |
 | 8 | **Old invoices never entered** (about USD 89k of receipts over invoices, 17 Nov). Enter them, then apply the receipts (item 1). | 17 Nov 2026 | Open: after go-live |
 | 9 | **Old QR tokens** (`es_invoice_verify`, `es_document_token`): export, migrate, switch the website `verify.js` at cut-over (A9). | 19 Nov 2026 | Open: owner said "later" |
-| 10 | **Attachments**: copy the old files (≈0.13 GB) from the old bucket to R2. Needs a read link to the old bucket. | 14 Nov 2026 | Open |
+| 10 | **Attachments**: 273 migrated documents list their old files. The files (≈0.13 GB) still have to be copied from the old bucket to R2; until then those files do not open. Needs a read link to the old bucket. | 14 Nov 2026 | Open: next |
 | 11 | ACC-0011: 40 SAR still held by Yasmeen, to follow up for payback. | 16 Nov 2026 | Open |
 | 12 | The chart of accounts is not yet formally approved. | Phase 1 | Open |
 | 13 | Brief v2 steps 4 (A6, A10, A8, A9) and 5 (A11–A14); A15 (Drive) later. | 19 Nov 2026 | Open: planned |

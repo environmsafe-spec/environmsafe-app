@@ -77,3 +77,13 @@ Results:
 Also in this step:
 - Deals list: plain projects no longer show as deals (`20261121000300_deals_list.sql`).
 - `db/scripts/neon-bridge.mjs`: the missing `import net` is fixed.
+
+## Go-live of the old records (19 Nov 2026, owner's OK: "go live as they are")
+- A backup branch of production was taken first: `backup-before-migration-2026-11-19` (Neon).
+- The migration ran on production `espf` as the owner. The result is identical to staging:
+  - 864 posted, 50 void;
+  - banks equal except ACC-0011 −40 SAR;
+  - 147 / 147 projects equal;
+  - trial balance 0.00;
+  - 55 exceptions, 41 receipts to apply.
+- 273 attachment records point to the old files. The files themselves still have to be copied (open item 10).
