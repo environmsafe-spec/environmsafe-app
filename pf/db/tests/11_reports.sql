@@ -69,8 +69,8 @@ select pg_temp.post(:'adv');
 
 -- Equipment bought for 3,600 (asset, 3 years): split into a bill + payments to stay under approval
 insert into public.documents (company_id, kind, doc_date, party_id) values (tests.es(), 'supplier_bill', '2026-03-15', tests.party('T Supplier')) returning id as eqb \gset
-insert into public.document_lines (company_id, document_id, line_kind, item_id, qty, unit_price, amount)
-values (tests.es(), :'eqb', 'item', (select id from public.items where name_en = 'Calibration bench'), 1, 3600, 3600);
+insert into public.document_lines (company_id, document_id, line_kind, item_id, qty, unit_price, amount, project_id)
+values (tests.es(), :'eqb', 'item', (select id from public.items where name_en = 'Calibration bench'), 1, 3600, 3600, tests.project('T Project A'));
 select pg_temp.post(:'eqb');
 select is((select cost_usd::text || ' ' || life_months || ' ' || code from public.assets), '3600.00 36 FA-0001', 'a bill line for an asset item registers the asset (cost, life from the item)');
 insert into public.documents (company_id, kind, doc_date, money_account_id, party_id, amount, no_document_reason)

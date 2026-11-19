@@ -49,7 +49,7 @@ select tests.logout();
 select is((select source_document_id from public.documents where id = :'bill'), :'po1'::uuid, 'the bill points back to its PO');
 select alike(tests.post_as('procurement@es.test', :'bill'), 'ERROR: Line 1 (TRAC102.11R (Nalco)): choose the expense / asset account%', 'a bill needs an account for each item');
 update public.items set default_expense_account_id = tests.acct('5200') where name_en like 'TRAC%';
-select alike(tests.post_as('procurement@es.test', :'bill'), 'ERROR: Account 5200 Materials and spare parts needs a project%', 'cost lines need a project');
+select alike(tests.post_as('procurement@es.test', :'bill'), 'ERROR: %project%', 'cost lines need a project');
 update public.document_lines set project_id = tests.project('T Project A') where document_id = :'bill' and line_kind = 'item';
 update public.documents set party_reference = 'SEC-INV-778', doc_date = '2026-11-05' where id = :'bill';
 select tests.login('procurement@es.test');

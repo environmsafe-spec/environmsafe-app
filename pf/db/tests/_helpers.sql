@@ -111,6 +111,9 @@ begin
     (tests.es(), '', 'employee', 'T Drawer',   true);
   insert into public.projects (company_id, code, name_en) values
     (tests.es(), '', 'T Project A'), (tests.es(), '', 'T Project B');
+  -- Usual project of the test parties (receipts and payments need a project, rule v2 A3).
+  update public.parties set default_project_id = (select id from public.projects where name_en = 'T Project A')
+   where company_id = tests.es() and name_en in ('T Supplier', 'T Customer');
 end $$;
 
 create or replace function tests.ma(p_legacy text) returns uuid

@@ -165,44 +165,100 @@ export function MatchWarnings({ billId, status }: { billId: string; status: stri
   )
 }
 
-/** A posted payment / receipt / credit note with money not yet applied: apply it to an open bill or invoice. */
-export function ApplyPayment({ doc }: { doc: { id: string; kind: DocKind; party_id: string | null; currency: string; company_id?: string } }) {
+/** A posted payment / receipt / credit note: apply what is not yet applied to an open bill or invoice (any currency,
+ *  v2 A3/A4), and undo an application made afterwards. */
+export function ApplyPayment({ doc }: { doc: { id: string; kind: DocKind; party_id: string | null; currency: string; rate: number } }) {
   const { t } = useTranslation()
   const target = ({ supplier_payment: 'supplier_bill', customer_receipt: 'sales_invoice', credit_note: 'sales_invoice' } as Partial<Record<DocKind, DocKind>>)[doc.kind]
+  const money = (v: number, c: string) => `${Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${c}`
   const q = useQuery({
     queryKey: ['apply', doc.id],
     enabled: Boolean(target && doc.party_id),
     queryFn: async () => {
       const un = await supabase.from('v_unapplied').select('unapplied').eq('id', doc.id)
       const left = Number((un.data ?? [])[0]?.unapplied ?? 0)
-      if (!left) return { left, open: [] as { id: string; open_amount: number; number?: string; doc_date?: string }[] }
-      const bal = await supabase.from('v_document_balances').select('id, open_amount, currency, kind').eq('party_id', doc.party_id!).eq('kind', target!)
-      const rows = ((bal.data ?? []) as { id: string; open_amount: number; currency: string }[]).filter((b) => Number(b.open_amount) > 0 && b.currency === doc.currency)
-      const docs = rows.length ? (await supabase.from('documents').select('id, number, doc_date').in('id', rows.map((r) => r.id))).data ?? [] : []
-      return { left, open: rows.map((r) => ({ ...r, ...(docs as { id: string; number: string; doc_date: string }[]).find((d) => d.id === r.id) })) }
+      const applied = ((await supabase.from('document_links').select('to_document_id, amount, from_amount, applied_later').eq('from_document_id', doc.id)).data ?? [])
+        .filter((l) => l.applied_later) as { to_document_id: string; amount: number; from_amount: number | null }[]
+      const bal = left ? ((await supabase.from('v_document_balances').select('id, open_amount, currency, kind').eq('party_id', doc.party_id!).eq('kind', target!)).data ?? []) : []
+      const rows = (bal as { id: string; open_amount: number; currency: string }[])
+        .filter((b) => Number(b.open_amount) > 0 && (doc.kind !== 'credit_note' || b.currency === doc.currency))
+      const ids = [...rows.map((r) => r.id), ...applied.map((a) => a.to_document_id)]
+      const docs = ids.length ? ((await supabase.from('documents').select('id, number, doc_date, rate, currency').in('id', ids)).data ?? []) as
+        { id: string; number: string; doc_date: string; rate: number; currency: string }[] : []
+      return {
+        left,
+        open: rows.map((r) => ({ ...r, ...docs.find((d) => d.id === r.id)! })),
+        applied: applied.map((a) => ({ ...a, ...docs.find((d) => d.id === a.to_document_id)! })),
+      }
     },
   })
   const [busy, setBusy] = useState<string | null>(null)
-  if (!q.data?.left) return null
-  const apply = async (to: string) => {
-    setBusy(to)
-    const { error } = await supabase.rpc('apply_payment', { p_payment: doc.id, p_document: to, p_amount: null })
+  const [amounts, setAmounts] = useState<Record<string, { amount: number | ''; from: number | '' }>>({})
+  if (!q.data || (!q.data.left && !q.data.applied.length)) return null
+  const run = async (key: string, fn: string, args: Record<string, unknown>) => {
+    setBusy(key)
+    const { error } = await supabase.rpc(fn, args)
     setBusy(null)
     if (error) notifications.show({ color: 'red', title: t('common.error'), message: error.message })
     else { notifications.show({ color: 'green', message: t('common.saved') }); void q.refetch() }
   }
   return (
-    <Alert color="blue" title={t('deal.apply.title', { amount: q.data.left.toLocaleString('en-US', { minimumFractionDigits: 2 }), ccy: doc.currency })}>
-      {q.data.open.length === 0 ? <Text size="sm">{t('deal.apply.none')}</Text> : (
-        <Stack gap={4}>
-          {q.data.open.map((o) => (
-            <Group key={o.id} justify="space-between">
-              <Text size="sm">{o.number} · {o.doc_date} · {t('doc.open')} <bdi>{Number(o.open_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} {doc.currency}</bdi></Text>
-              <Button size="xs" loading={busy === o.id} onClick={() => void apply(o.id)}>{t('deal.apply.button')}</Button>
+    <Alert color="blue" title={q.data.left ? t('deal.apply.title', { amount: money(q.data.left, ''), ccy: doc.currency }) : t('deal.apply.appliedTitle')}>
+      <Stack gap={6}>
+        {q.data.left > 0 && q.data.open.length === 0 && <Text size="sm">{t('deal.apply.none')}</Text>}
+        {q.data.left > 0 && q.data.open.map((o) => {
+          const other = o.currency !== doc.currency
+          const a = amounts[o.id] ?? { amount: '', from: '' }
+          return (
+            <Group key={o.id} justify="space-between" wrap="wrap">
+              <Text size="sm">{o.number} · {o.doc_date} · {t('doc.open')} <bdi>{money(o.open_amount, o.currency)}</bdi></Text>
+              <Group gap={6}>
+                {other && <>
+                  <NumberInput size="xs" w={130} placeholder={o.currency} aria-label={`${o.number} ${o.currency}`} decimalScale={2} min={0}
+                    value={a.amount} onChange={(v) => setAmounts((p) => ({ ...p, [o.id]: { ...a, amount: typeof v === 'number' ? v : '' } }))} />
+                  <NumberInput size="xs" w={140} placeholder={doc.currency} aria-label={`${o.number} ${doc.currency}`} decimalScale={2} min={0}
+                    value={a.from} onChange={(v) => setAmounts((p) => ({ ...p, [o.id]: { ...a, from: typeof v === 'number' ? v : '' } }))} />
+                </>}
+                <Button size="xs" loading={busy === o.id} disabled={other && (typeof a.amount !== 'number' || typeof a.from !== 'number')}
+                  onClick={() => void run(o.id, 'apply_payment', { p_payment: doc.id, p_document: o.id,
+                    p_amount: other ? a.amount : null, p_from_amount: other ? a.from : null })}>{t('deal.apply.button')}</Button>
+              </Group>
             </Group>
-          ))}
-        </Stack>
-      )}
+          )
+        })}
+        {q.data.applied.map((a) => (
+          <Group key={a.to_document_id} justify="space-between">
+            <Text size="sm" c="dimmed">{t('deal.apply.appliedTo', { number: a.number })} <bdi>{money(a.from_amount ?? a.amount, doc.currency)}</bdi>
+              {a.from_amount != null ? <> = <bdi>{money(a.amount, a.currency)}</bdi></> : null}</Text>
+            <Button size="xs" variant="subtle" color="red" loading={busy === 'u' + a.to_document_id}
+              onClick={() => void run('u' + a.to_document_id, 'unapply_payment', { p_payment: doc.id, p_document: a.to_document_id })}>{t('deal.apply.undo')}</Button>
+          </Group>
+        ))}
+      </Stack>
     </Alert>
+  )
+}
+
+/** Write off a small difference left open on a posted invoice / bill (accountant; up to the company limit, v2 A3). */
+export function WriteOff({ doc }: { doc: { id: string; rate: number; currency: string } }) {
+  const { t } = useTranslation()
+  const q = useQuery({
+    queryKey: ['writeoff', doc.id],
+    queryFn: async () => {
+      const b = (await supabase.from('v_document_balances').select('open_amount').eq('id', doc.id)).data ?? []
+      return Number(b[0]?.open_amount ?? 0)
+    },
+  })
+  const [busy, setBusy] = useState(false)
+  const open = q.data ?? 0
+  if (open <= 0 || open / Number(doc.rate) > 5) return null
+  return (
+    <Button variant="subtle" loading={busy} onClick={async () => {
+      setBusy(true)
+      const { error } = await supabase.rpc('write_off', { p_document: doc.id, p_reason: 'Small settlement difference' })
+      setBusy(false)
+      if (error) notifications.show({ color: 'red', title: t('common.error'), message: error.message })
+      else { notifications.show({ color: 'green', message: t('doc.writeOffDone') }); void q.refetch() }
+    }}>{t('doc.writeOff', { amount: `${open.toFixed(2)} ${doc.currency}` })}</Button>
   )
 }

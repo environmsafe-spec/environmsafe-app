@@ -15,11 +15,11 @@ import {
   lastAccount, partyMatchesRole, sha256Hex, useCompanySettings, useDocKinds, useGlAccounts, useMoneyAccounts, useParties, useProjects,
 } from './data'
 import {
-  CONVERSIONS, documentTotal, emptyDoc, isTrade, QTY_ONLY_KINDS, shownStatus, STATUS_COLOR, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
-  type DocKind, type DocState, type KindInfo, type LineKind,
+  CONVERSIONS, documentTotal, emptyDoc, isTrade, PROJECT_MONEY_KINDS, QTY_ONLY_KINDS, shownStatus, STATUS_COLOR, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
+  type DocKind, type DocState, type KindInfo, type LineKind, type LinkState,
 } from './logic'
 import { TradeLines } from './TradeLines'
-import { ApplyPayment, MatchWarnings, NextStep } from '../deals/NextStep'
+import { ApplyPayment, MatchWarnings, NextStep, WriteOff } from '../deals/NextStep'
 
 interface DocRow {
   id: string; kind: DocKind; status: 'draft' | 'submitted' | 'posted' | 'void'; number: string | null; temp_number: string
@@ -53,14 +53,14 @@ function useDocument(id: string | undefined) {
       return {
         doc: d,
         lines: (lines.data ?? []) as Record<string, unknown>[],
-        links: (links.data ?? []) as { to_document_id: string; amount: number }[],
+        links: (links.data ?? []) as { to_document_id: string; amount: number; from_amount: number | null; applied_later?: boolean }[],
         files: (files.data ?? []) as Attachment[],
       }
     },
   })
 }
 
-function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_document_id: string; amount: number }[]): DocState {
+function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_document_id: string; amount: number; from_amount: number | null }[]): DocState {
   return {
     doc_date: d.doc_date, money_account_id: d.money_account_id, counter_money_account_id: d.counter_money_account_id,
     party_id: d.party_id, project_id: d.project_id, amount: Number(d.amount) || '', counter_amount: d.counter_amount ? Number(d.counter_amount) : '',
@@ -78,7 +78,7 @@ function stateFrom(d: DocRow, lines: Record<string, unknown>[], links: { to_docu
           source_line_id: (l.source_line_id as string) ?? null, cost_price: l.cost_price != null ? Number(l.cost_price) : null,
         }))
       : [newLine()],
-    links: links.map((l) => ({ to_document_id: l.to_document_id, amount: Number(l.amount) })),
+    links: links.map((l) => ({ to_document_id: l.to_document_id, amount: Number(l.amount), from_amount: l.from_amount != null ? Number(l.from_amount) : '' })),
   }
 }
 
@@ -181,6 +181,23 @@ export function DocumentPage() {
   const files = existing.data?.files ?? []
 
   // Settle-able open documents of the chosen party.
+  // Latest rate per currency (units per USD), for amounts proposed before the document is saved.
+  const fx = useQuery({
+    queryKey: ['fx-latest', cid],
+    staleTime: 300_000,
+    queryFn: async () => {
+      const { data } = await supabase.from('fx_rates').select('currency, rate_per_usd, rate_date').eq('company_id', cid).order('rate_date', { ascending: false })
+      const out: Record<string, number> = { USD: 1 }
+      for (const r of (data ?? []) as { currency: string; rate_per_usd: number }[]) if (!(r.currency in out)) out[r.currency] = Number(r.rate_per_usd)
+      return out
+    },
+  })
+  // links in this document's currency (a link to a document in another currency counts its from_amount)
+  const linkedHere = (links: DocState['links'], docs: { id: string; currency: string }[] | undefined) => links.reduce((a, l) => {
+    const o = docs?.find((x) => x.id === l.to_document_id)
+    const v = o && o.currency !== currency ? l.from_amount : l.amount
+    return a + (typeof v === 'number' ? v : 0)
+  }, 0)
   const openDocs = useQuery({
     queryKey: ['open-docs', cid, s.party_id, k?.settles],
     enabled: Boolean(k && k.settles.length && s.party_id),
@@ -189,9 +206,10 @@ export function DocumentPage() {
       if (error) throw error
       const rows = (bal ?? []).filter((b) => k!.settles.includes(b.kind) && (Number(b.open_amount) > 0 || s.links.some((l) => l.to_document_id === b.id)))
       if (!rows.length) return []
-      const { data: docs } = await supabase.from('documents').select('id, number, doc_date, kind, currency, description').in('id', rows.map((r) => r.id))
+      const { data: docs } = await supabase.from('documents').select('id, number, doc_date, kind, currency, rate, description, project_id').in('id', rows.map((r) => r.id))
       return rows.map((r) => ({ ...r, ...(docs ?? []).find((d) => d.id === r.id) })) as {
-        id: string; number: string; doc_date: string; kind: DocKind; currency: string; description: string | null; amount: number; open_amount: number
+        id: string; number: string; doc_date: string; kind: DocKind; currency: string; rate: number; description: string | null
+        project_id: string | null; amount: number; open_amount: number
       }[]
     },
   })
@@ -237,7 +255,8 @@ export function DocumentPage() {
         if (error) throw error
       }
       const links = s.links.filter((l) => typeof l.amount === 'number' && l.amount > 0)
-        .map((l) => ({ company_id: cid, from_document_id: docId, to_document_id: l.to_document_id, amount: l.amount }))
+        .map((l) => ({ company_id: cid, from_document_id: docId, to_document_id: l.to_document_id, amount: l.amount,
+          ...(typeof l.from_amount === 'number' && l.from_amount > 0 ? { from_amount: l.from_amount } : {}) }))
       if (links.length) {
         const { error } = await supabase.from('document_links').insert(links)
         if (error) throw error
@@ -469,27 +488,49 @@ export function DocumentPage() {
               {(openDocs.data ?? []).length === 0 && <Text size="sm" c="dimmed">—</Text>}
               {(openDocs.data ?? []).map((o) => {
                 const link = s.links.find((l) => l.to_document_id === o.id)
+                const other = o.currency !== currency       // another currency (v2 A4): amount in each currency
+                const payRate = typeof s.rate === 'number' && s.rate > 0 ? s.rate : fx.data?.[currency]
+                const proj = projects.data?.find((x) => x.id === o.project_id)
                 return (
-                  <Group key={o.id} wrap="nowrap">
-                    <Checkbox checked={Boolean(link)} disabled={readOnly} onChange={(e) => {
+                  <Group key={o.id} wrap="nowrap" bg={s.project_id && o.project_id === s.project_id ? 'var(--mantine-color-green-0)' : undefined}>
+                    <Checkbox checked={Boolean(link)} disabled={readOnly} aria-label={o.number} onChange={(e) => {
                       const on = e.currentTarget.checked
                       setS((p) => {
-                        const links = on ? [...p.links, { to_document_id: o.id, amount: Number(o.open_amount) }] : p.links.filter((l) => l.to_document_id !== o.id)
-                        const sum = links.reduce((a, l) => a + (typeof l.amount === 'number' ? l.amount : 0), 0)
-                        // Reimbursement / repayment amount follows the documents ticked.
-                        return { ...p, links, amount: k.kind === 'employee_offset' ? p.amount : sum || p.amount }
+                        const open = Number(o.open_amount)
+                        const from: number | '' = other && payRate ? Math.round((open / Number(o.rate)) * payRate * 100) / 100 : ''
+                        const links: LinkState[] = on ? [...p.links, { to_document_id: o.id, amount: open, ...(other ? { from_amount: from } : {}) }] : p.links.filter((l) => l.to_document_id !== o.id)
+                        const sum = linkedHere(links, openDocs.data)
+                        // Reimbursement / repayment amount follows the documents ticked; the project follows the first one.
+                        return { ...p, links, amount: k.kind === 'employee_offset' ? p.amount : sum || p.amount,
+                                 project_id: p.project_id ?? (on ? o.project_id : null) }
                       })
                     }} />
-                    <Text size="sm" flex={1}>{o.number} · {o.doc_date} · {o.description ?? ''} <Text span c="dimmed">({t(`doc.open`)} <bdi>{formatMoney(o.open_amount, o.currency)}</bdi>)</Text></Text>
+                    <Text size="sm" flex={1}>{o.number} · {o.doc_date} · {o.description ?? ''}{proj ? ` · ${proj.code}` : ''} <Text span c="dimmed">({t(`doc.open`)} <bdi>{formatMoney(o.open_amount, o.currency)}</bdi>)</Text></Text>
                     {link && (
                       <NumberInput w={140} size="sm" value={link.amount} disabled={readOnly} max={Number(o.open_amount)} decimalScale={2}
-                        aria-label={`${t('doc.settles')} ${o.number}`}
+                        aria-label={`${t('doc.settles')} ${o.number}`} rightSection={other ? <Text size="xs">{o.currency}</Text> : undefined}
                         onChange={(v) => setS((p) => ({ ...p, links: p.links.map((l) => (l.to_document_id === o.id ? { ...l, amount: typeof v === 'number' ? v : '' } : l)) }))} />
+                    )}
+                    {link && other && (
+                      <NumberInput w={160} size="sm" value={link.from_amount ?? ''} disabled={readOnly} decimalScale={2} thousandSeparator=","
+                        aria-label={`${t('doc.paidInCurrency', { ccy: currency })} ${o.number}`} rightSection={<Text size="xs">{currency}</Text>}
+                        onChange={(v) => setS((p) => {
+                          const links = p.links.map((l) => (l.to_document_id === o.id ? { ...l, from_amount: typeof v === 'number' ? v : '' as const } : l))
+                          return { ...p, links, amount: linkedHere(links, openDocs.data) || p.amount }
+                        })} />
                     )}
                   </Group>
                 )
               })}
+              {PROJECT_MONEY_KINDS.includes(k.kind) && typeof s.amount === 'number' && s.amount - linkedHere(s.links, openDocs.data) > 0.004 && (
+                <Text size="sm" c="blue">{t(k.kind === 'customer_receipt' ? 'doc.heldAsAdvance' : 'doc.heldAsPrepayment',
+                  { amount: formatMoney(Math.round((s.amount - linkedHere(s.links, openDocs.data)) * 100) / 100, currency) })}</Text>
+              )}
             </Stack>
+          )}
+          {PROJECT_MONEY_KINDS.includes(k.kind) && !(k.kind === 'supplier_payment' && s.purpose === 'deposit') && (
+            <Select label={t('doc.project')} data={projectOptions} value={s.project_id} searchable clearable disabled={readOnly}
+              description={t('doc.projectFromInvoice')} onChange={(v) => set('project_id', v)} />
           )}
 
           <Group justify="space-between">
@@ -575,6 +616,7 @@ export function DocumentPage() {
         {doc && doc.status !== 'void' && (doc.status !== 'posted' ? (can('docs.reverse') || doc.created_by === session?.user.id) : can('docs.reverse')) && (
           <Button color="red" variant="light" onClick={() => setVoidOpen(true)}>{t('doc.voidDoc')}</Button>
         )}
+        {doc?.status === 'posted' && ['sales_invoice', 'supplier_bill'].includes(k.kind) && can('docs.reverse') && <WriteOff doc={doc} />}
         {doc?.status === 'posted' && doc.money_account_id && can('docs.post_money') && (
           <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'set_reconciled', args: { p_ids: [doc.id], p_reconciled: !doc.reconciled_at } }, { onSuccess: () => refresh(doc.id) })}>
             {doc.reconciled_at ? t('doc.unmarkReconciled') : t('doc.markReconciled')}

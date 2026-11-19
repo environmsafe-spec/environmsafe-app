@@ -122,3 +122,10 @@ describe('deal documents', () => {
     expect(toDocumentRow(tracking('goods_receipt'), s)).toMatchObject({ project_id: 'deal' })
   })
 })
+
+describe('receipts and payments carry a project (v2 A3)', () => {
+  it('the project goes with a customer receipt', () => {
+    const receipt: KindInfo = { ...base, kind: 'customer_receipt', direction: 'in', party_role: 'customer', party_required: true }
+    expect(toDocumentRow(receipt, { ...emptyDoc('x'), amount: 10, project_id: 'p1' })).toMatchObject({ project_id: 'p1' })
+  })
+})

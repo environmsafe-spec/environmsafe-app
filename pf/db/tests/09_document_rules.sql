@@ -68,10 +68,10 @@ select is(tests.try_as('dataentry@es.test', format($$select public.void_document
 select tests.login('accountant@es.test');
 select is((public.void_document(:'p1', 'Paid the wrong supplier')).status::text, 'void', 'accountant voids the posted payment');
 select tests.logout();
-select is(tests.je(:'p1', 'reversal'), '2000 C 250.00 | 1000-001 D 250.00', 'the reversal is the exact opposite entry');
+select is(tests.je(:'p1', 'reversal'), '1250 C 250.00 | 1000-001 D 250.00', 'the reversal is the exact opposite entry');
 select is((select number from public.documents where id = :'p1'), 'PV-2026-0001', 'a voided document keeps its number (no gap)');
 select is((select sum(jl.debit - jl.credit) from public.journal_lines jl join public.journal_entries je on je.id = jl.entry_id
-           where je.document_id = :'p1' and jl.account_id = tests.acct('2000')), 0.00, 'net effect of a voided document is zero');
+           where je.document_id = :'p1' and jl.account_id = tests.acct('1250')), 0.00, 'net effect of a voided document is zero');
 
 -- Corrected copy
 select tests.login('accountant@es.test');

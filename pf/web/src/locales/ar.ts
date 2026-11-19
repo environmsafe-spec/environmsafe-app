@@ -55,7 +55,10 @@ const ar: Messages = {
     asset: 'أصول', liability: 'خصوم', equity: 'حقوق ملكية', income: 'إيرادات', expense: 'مصروفات',
   },
   doc: {
-    new: 'جديد', draft: 'مسودة', submitted: 'بانتظار الموافقة', posted: 'مرحّل', void: 'ملغى (معكوس)', cancelled: 'ملغاة', reconciled: 'مطابق', markReconciled: 'تعليم كمطابق (يطابق البنك)', unmarkReconciled: 'إزالة علامة المطابقة',
+    new: 'جديد', draft: 'مسودة', submitted: 'بانتظار الموافقة', posted: 'مرحّل', void: 'ملغى (معكوس)', cancelled: 'ملغاة', reconciled: 'مطابق', paidInCurrency: 'مدفوع بـ {{ccy}}',
+    heldAsAdvance: '{{amount}} غير مربوط بفاتورة: يُحفظ كدفعة مقدمة من العميل (ليس إيراداً) حتى يُخصّص.',
+    heldAsPrepayment: '{{amount}} غير مربوط بفاتورة مورد: يُحفظ كدفعة مقدمة للمورد (ليس تكلفة) حتى يُخصّص.',
+    projectFromInvoice: 'يؤخذ من الفاتورة المسددة إذا ترك فارغاً', writeOff: 'شطب {{amount}} (فرق بسيط)', writeOffDone: 'تم شطب الفرق', markReconciled: 'تعليم كمطابق (يطابق البنك)', unmarkReconciled: 'إزالة علامة المطابقة',
     date: 'التاريخ', account: 'من / إلى حساب', toAccount: 'إلى حساب', party: 'الطرف', supplier: 'المورد',
     customer: 'العميل', employee: 'الموظف', owner: 'المالك', employeeOrOwner: 'الموظف / المالك', amount: 'المبلغ',
     amountReceived: 'المبلغ المستلم', project: 'المشروع', glAccount: 'البند (الحساب)', description: 'البيان',
@@ -108,7 +111,7 @@ const ar: Messages = {
     closeTitle: 'إغلاق الصفقة', close: 'إغلاق الصفقة', reopen: 'إعادة فتح', readyToClose: 'كل شيء مفوتر ومستلم ومدفوع: جاهزة للإغلاق.', noOrderYet: 'لا يوجد أمر من العميل بعد. إذا لم يستمر العميل، أغلق الصفقة كخاسرة أو ملغاة.',
     forceClose: 'إغلاق رغم ذلك (الملاحظة توضح السبب)', closeNote: 'ملاحظة', lostPh: 'مثال: السعر مرتفع، اختار العميل مورداً آخر',
     closedOn: 'أغلقت في {{date}}: {{outcome}}',
-    apply: { title: '{{amount}} {{ccy}} لم تُخصّص بعد لفاتورة', none: 'لا توجد فاتورة مفتوحة لهذا الطرف بهذه العملة بعد. ارجع هنا بعد ترحيلها.', button: 'تخصيص' },
+    apply: { title: '{{amount}} {{ccy}} لم تُخصّص بعد لفاتورة', none: 'لا توجد فاتورة مفتوحة لهذا الطرف بعد. ارجع هنا بعد ترحيلها.', button: 'تخصيص', appliedTitle: 'خُصّص لاحقاً', appliedTo: 'خُصّص إلى {{number}}:', undo: 'تراجع' },
     stages: {
       new: 'جديدة', request: 'طلب', sourcing: 'أُرسلت الطلبات', offers: 'وصلت العروض', quoted: 'تم التسعير', ordered: 'تم الطلب', purchasing: 'قيد الشراء',
       received: 'تم الاستلام', delivered: 'تم التسليم', invoiced: 'تمت الفوترة', paid: 'تم التحصيل', won: 'ناجحة', lost: 'خاسرة', cancelled: 'ملغاة', closed: 'مغلقة',

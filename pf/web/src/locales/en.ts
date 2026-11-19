@@ -53,7 +53,10 @@ const en = {
     asset: 'Asset', liability: 'Liability', equity: 'Equity', income: 'Income', expense: 'Expense',
   },
   doc: {
-    new: 'New', draft: 'Draft', submitted: 'Waiting for approval', posted: 'Posted', void: 'Void', cancelled: 'Cancelled', reconciled: 'Reconciled', markReconciled: 'Mark as reconciled (matches the bank)', unmarkReconciled: 'Remove reconciled mark',
+    new: 'New', draft: 'Draft', submitted: 'Waiting for approval', posted: 'Posted', void: 'Void', cancelled: 'Cancelled', reconciled: 'Reconciled', paidInCurrency: 'paid in {{ccy}}',
+    heldAsAdvance: '{{amount}} not linked to an invoice: held as a customer advance (not revenue) until it is applied.',
+    heldAsPrepayment: '{{amount}} not linked to a bill: held as a prepayment (not a cost) until it is applied.',
+    projectFromInvoice: 'Taken from the invoice / bill settled when empty', writeOff: 'Write off {{amount}} (small difference)', writeOffDone: 'Difference written off', markReconciled: 'Mark as reconciled (matches the bank)', unmarkReconciled: 'Remove reconciled mark',
     date: 'Date', account: 'Paid from / into', toAccount: 'To account', party: 'Party', supplier: 'Supplier',
     customer: 'Customer', employee: 'Employee', owner: 'Owner', employeeOrOwner: 'Employee / owner', amount: 'Amount',
     amountReceived: 'Amount received', project: 'Project', glAccount: 'For (account)', description: 'Description',
@@ -106,7 +109,7 @@ const en = {
     closeTitle: 'Close the deal', close: 'Close the deal', reopen: 'Reopen', readyToClose: 'Everything is invoiced, received and paid: ready to close.', noOrderYet: 'No customer order yet. If the customer does not go ahead, close the deal as Lost or Cancelled.',
     forceClose: 'Close anyway (the note says why)', closeNote: 'Note', lostPh: 'e.g. price too high, customer chose another supplier',
     closedOn: 'Closed on {{date}}: {{outcome}}',
-    apply: { title: '{{amount}} {{ccy}} not yet applied to a bill / invoice', none: 'No open bill or invoice of this party in this currency yet. Come back here when it is posted.', button: 'Apply' },
+    apply: { title: '{{amount}} {{ccy}} not yet applied to a bill / invoice', none: 'No open bill or invoice of this party yet. Come back here when it is posted.', button: 'Apply', appliedTitle: 'Applied afterwards', appliedTo: 'Applied to {{number}}:', undo: 'Undo' },
     stages: {
       new: 'New', request: 'Request', sourcing: 'RFQs sent', offers: 'Offers in', quoted: 'Quoted', ordered: 'Ordered', purchasing: 'Purchasing',
       received: 'Received', delivered: 'Delivered', invoiced: 'Invoiced', paid: 'Paid', won: 'Won', lost: 'Lost', cancelled: 'Cancelled', closed: 'Closed',

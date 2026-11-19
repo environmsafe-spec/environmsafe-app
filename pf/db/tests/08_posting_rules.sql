@@ -34,10 +34,10 @@ insert into public.documents (company_id, kind, doc_date, money_account_id, part
 values (tests.es(), 'supplier_payment', '2026-03-12', tests.ma('T-USD'), tests.party('T Supplier'), 500, 5, 'test')
 returning id as pay1 \gset
 select is(tests.post_as('accountant@es.test', :'pay1'), 'posted', 'supplier payment posts');
-select is(tests.je(:'pay1'), '2000 D 500.00 | 6900 D 5.00 | 1000-001 C 505.00', 'supplier payment: Dr AP, fee, Cr bank');
+select is(tests.je(:'pay1'), '1250 D 500.00 | 6900 D 5.00 | 1000-001 C 505.00', 'supplier payment with no bill yet: Dr prepayment (not a negative payable, v2 A5), fee, Cr bank');
 select is((select jl.party_id from public.journal_lines jl join public.documents d on d.journal_entry_id = jl.entry_id
-           join public.gl_accounts g on g.id = jl.account_id where d.id = :'pay1' and g.code = '2000'),
-          tests.party('T Supplier'), 'AP line carries the supplier');
+           join public.gl_accounts g on g.id = jl.account_id where d.id = :'pay1' and g.code = '1250'),
+          tests.party('T Supplier'), 'prepayment line carries the supplier');
 
 insert into public.documents (company_id, kind, doc_date, money_account_id, party_id, amount, purpose, no_document_reason)
 values (tests.es(), 'supplier_payment', '2026-03-12', tests.ma('T-USD'), tests.party('T Supplier'), 200, 'deposit', 'test')
@@ -50,7 +50,7 @@ insert into public.documents (company_id, kind, doc_date, money_account_id, part
 values (tests.es(), 'customer_receipt', '2026-03-15', tests.ma('T-USD'), tests.party('T Customer'), 1000, 10, 'test')
 returning id as rcp1 \gset
 select is(tests.post_as('accountant@es.test', :'rcp1'), 'posted', 'customer receipt posts');
-select is(tests.je(:'rcp1'), '1000-001 D 990.00 | 6900 D 10.00 | 1100 C 1000.00', 'receipt: bank gets net, fee expensed, AR credited in full');
+select is(tests.je(:'rcp1'), '1000-001 D 990.00 | 6900 D 10.00 | 2150 C 1000.00', 'receipt with no invoice yet: bank gets net, fee expensed, customer advance in full (not revenue, v2 A3)');
 select is((select number from public.documents where id = :'rcp1'), 'RV-2026-0001', 'receipt voucher numbering');
 
 -- 5. Transfers: same rate, then a worse exchange rate (FX loss) ------------------------------

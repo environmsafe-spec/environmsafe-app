@@ -83,7 +83,10 @@ export interface LineState {
   cost_price?: number | null
 }
 
-export interface LinkState { to_document_id: string; amount: number | '' }
+/** amount: in the settled document's currency; from_amount: in this document's currency when the two differ (v2 A4). */
+export interface LinkState { to_document_id: string; amount: number | ''; from_amount?: number | '' }
+/** Receipts and supplier payments carry a project (v2 A3). */
+export const PROJECT_MONEY_KINDS: DocKind[] = ['customer_receipt', 'supplier_payment']
 
 export interface DocState {
   doc_date: string
@@ -226,7 +229,7 @@ export function toDocumentRow(k: KindInfo, s: DocState) {
     money_account_id: k.money_account === 'none' ? null : s.money_account_id,
     counter_money_account_id: k.kind === 'transfer' ? s.counter_money_account_id : null,
     party_id: k.party_role ? s.party_id : null,
-    ...(isTrade(k.kind) ? { project_id: s.project_id } : {}),
+    ...(isTrade(k.kind) || PROJECT_MONEY_KINDS.includes(k.kind) ? { project_id: s.project_id } : {}),
     amount: k.has_lines || k.kind === 'employee_offset' ? 0 : num(s.amount),
     counter_amount: k.kind === 'transfer' ? n(s.counter_amount) : null,
     counter_rate: k.kind === 'transfer' ? n(s.counter_rate) : null,

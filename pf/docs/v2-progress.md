@@ -34,3 +34,22 @@ Order agreed with the owner, 19 Nov 2026:
   - `noindex` meta tag.
   - `X-Robots-Tag`, `X-Frame-Options: DENY` and `frame-ancestors 'none'` on every page (`web/public/_headers`) and on the API (Worker).
   - Still to do: lock the old open tables with `lock_old_tables.sql`; this needs the owner's OK because it is the old database.
+
+## Step 2 (done, on the branch)
+- **A3**:
+  - A receipt or supplier payment settles invoices / bills.
+  - What is not linked waits on **Customer advances (2150)** or **Advances to suppliers (1250)**. It is not revenue or cost.
+  - It is applied later from the payment (*Apply*, *Undo*). The move is posted as an `allocation` entry.
+  - Project is required on receipts, payments, invoice and bill lines. When none is chosen, it comes from the settled document or the party's usual project.
+  - *Write off* clears a small difference (up to 5 USD, setting `writeoff_limit_usd`) to **6950 Settlement differences**.
+- **A4**: a link can be in two currencies (`document_links.from_amount`).
+  - The invoice is relieved at its own rate; the difference goes to FX gain / loss (7000).
+  - Example: a YER receipt fully settles a USD invoice.
+  - Applying an advance afterwards works across currencies too.
+- **A5**:
+  - A payment with no bill is a prepayment, not a negative payable.
+  - An expense paid now never shows as owed on the supplier statement.
+  - Soham: bill 356.56, payment 356.56, balance 0.
+- **Tests**:
+  - Database: `db/tests/18_allocations.sql` (28 checks).
+  - Browser: `web/e2e/receipt-flow.mjs`.
