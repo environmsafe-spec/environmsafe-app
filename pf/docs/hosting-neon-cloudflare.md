@@ -71,3 +71,8 @@ This plan replaces each one with a free Neon or Cloudflare part. **The database 
   - Secrets: `CLOUDFLARE_API_TOKEN`, `ANTHROPIC_API_KEY`, `NEON_DATABASE_URL` are set in the repository.
   - The deploy workflow runs for commits marked with the deploy tag.
   - Live database: Neon `production` branch, database `espf`.
+- **19 Nov 2026, phase 7 (Deals) published:**
+  - Migrations `20261120000100_deal_kinds` and `20261120000200_deals` were applied to the live database (new tables and functions only; no records change).
+  - The app has the Deals menu.
+  - Sign-in rate limits are now per visitor (CF-Connecting-IP).
+  - Simulated beforehand on a local copy (scenarios A–G); see `docs/deals.md`.
