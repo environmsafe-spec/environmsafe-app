@@ -1,0 +1,102 @@
+# Publishes ES-PF (web app + API Worker) to Cloudflare and brings the Neon database up to date.
+# Secrets (repository settings, never printed): CLOUDFLARE_API_TOKEN, ANTHROPIC_API_KEY, NEON_DATABASE_URL.
+# AUTH_SECRET (sign-in cookie key) is generated once on the Worker and then kept.
+name: ES-PF deploy
+
+on:
+  push:
+    branches: [ccr-f8fd8da7-58w7td]
+    paths: ['pf/**', '.github/workflows/pf-deploy.yml']
+
+concurrency:
+  group: pf-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Database + Worker
+    runs-on: ubuntu-24.04
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 52e4e5ca8c5d60d092cd547b12b1ff92
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Check the secrets are there
+        env:
+          NEON: ${{ secrets.NEON_DATABASE_URL }}
+          CLAUDE: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          missing=0
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || { echo "::error::CLOUDFLARE_API_TOKEN is missing"; missing=1; }
+          [ -n "$NEON" ] || { echo "::error::NEON_DATABASE_URL is missing"; missing=1; }
+          [ -n "$CLAUDE" ] || echo "::warning::ANTHROPIC_API_KEY is missing: the AI voucher reader stays off"
+          case "$NEON" in *-pooler.*) echo "::warning::NEON_DATABASE_URL uses the pooler; a direct address is preferred";; esac
+          exit $missing
+
+      - name: Database migrations (Neon)
+        env:
+          DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: pf/db/scripts/migrate.sh
+
+      - name: Build the web app
+        working-directory: pf/web
+        run: npm ci && npm run build
+
+      - name: Install the Worker
+        working-directory: pf/api
+        run: npm ci
+
+      - name: Find (or create) the workers.dev address
+        id: url
+        run: |
+          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain"
+          sub=$(curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api" | jq -r '.result.subdomain // empty' || true)
+          if [ -z "$sub" ]; then
+            sub=$(curl -fsS -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H 'Content-Type: application/json' \
+                  -d '{"subdomain":"environmsafe"}' "$api" | jq -r '.result.subdomain')
+          fi
+          [ -n "$sub" ] || { echo "::error::Could not read or create the workers.dev subdomain"; exit 1; }
+          echo "app_url=https://espf.$sub.workers.dev" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy the Worker
+        working-directory: pf/api
+        run: npx wrangler deploy --var "APP_URL:${{ steps.url.outputs.app_url }}"
+
+      - name: Worker secrets
+        working-directory: pf/api
+        env:
+          DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          have=$(npx wrangler secret list --format json 2>/dev/null | jq -r '.[].name' || true)
+          node -e '
+            const fs = require("fs"), crypto = require("crypto")
+            const have = process.argv[1].split("\n")
+            const out = { DATABASE_URL: process.env.DATABASE_URL }
+            if (process.env.ANTHROPIC_API_KEY) out.ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY
+            if (!have.includes("AUTH_SECRET")) out.AUTH_SECRET = crypto.randomBytes(32).toString("hex")
+            fs.writeFileSync(process.env.RUNNER_TEMP + "/secrets.json", JSON.stringify(out))
+          ' "$have"
+          npx wrangler secret bulk "$RUNNER_TEMP/secrets.json"
+          rm -f "$RUNNER_TEMP/secrets.json"
+
+      - name: Smoke test
+        run: |
+          url="${{ steps.url.outputs.app_url }}"
+          sleep 10
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$url/")
+          echo "home page: $code"
+          [ "$code" = 200 ] || exit 1
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$url/api/auth/get-session")
+          echo "sign-in API: $code"
+          [ "$code" = 200 ] || exit 1
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H "Origin: $url" -H 'content-type: application/json' -d '{}' "$url/api/rest/v1/rpc/my_companies")
+          echo "data API without sign-in: $code (expected 401/403)"
+          echo "### ES-PF is live at $url" >> "$GITHUB_STEP_SUMMARY"

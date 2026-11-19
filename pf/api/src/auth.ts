@@ -5,7 +5,8 @@ import { authOptions } from './auth-options.ts'
 import type { Claims } from './rest.ts'
 
 export type Env = {
-  HYPERDRIVE: Hyperdrive
+  HYPERDRIVE?: Hyperdrive
+  DATABASE_URL?: string
   ASSETS: Fetcher
   FILES: R2Bucket
   ANTHROPIC_API_KEY?: string

@@ -4,8 +4,9 @@
 //   /api/files/*       files in the private R2 bucket (company folder; permissions checked each time)
 //   /api/functions/extract-voucher   AI voucher reader (Claude) -> draft
 //   /api/admin/users   owner: create a user, set a new password, reset two-step sign-in
-// The database is Neon, reached through Hyperdrive.
-import pg from 'pg'
+// The database is Neon (src/db.ts).
+import type pg from 'pg'
+import { connect } from './db.ts'
 import { claimsFor, createAuth, createUser, resetTwoFactor, setPassword, type Env } from './auth.ts'
 import { extractVoucher } from './extract-voucher.ts'
 import { handleFiles } from './files.ts'
@@ -55,9 +56,8 @@ export default {
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(req)
     if (!sameOrigin(req, env)) return json(403, { message: 'Cross-site request refused' })
 
-    const pool = new pg.Pool({ connectionString: env.HYPERDRIVE.connectionString, max: 2 })
+    const { pool, client } = connect(env)
     const auth = createAuth(env, pool)
-    const client = new pg.Client({ connectionString: env.HYPERDRIVE.connectionString })
     let connected = false
     try {
       if (url.pathname.startsWith('/api/auth/')) return await auth.handler(req)

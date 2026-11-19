@@ -1,8 +1,13 @@
-# ES-PF: web app + API in one Worker. Deploy: npx wrangler deploy (after `npm run build` in ../web).
+# ES-PF: web app + API in one Worker.
+# Production: the deploy workflow (.github/workflows/pf-deploy.yml) sets the secrets DATABASE_URL (Neon),
+# AUTH_SECRET and ANTHROPIC_API_KEY, and APP_URL, then runs `wrangler deploy`.
+# Local testing against a local Postgres: `wrangler dev --env local` (Hyperdrive emulation, see [env.local]).
 name = "espf"
 main = "src/index.ts"
+account_id = "52e4e5ca8c5d60d092cd547b12b1ff92"
 compatibility_date = "2026-10-15"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 [assets]
 directory = "../web/dist"
@@ -10,16 +15,22 @@ binding = "ASSETS"
 not_found_handling = "single-page-application"
 run_worker_first = ["/api/*"]
 
-# Neon through Hyperdrive. `id` comes from: npx wrangler hyperdrive create espf --connection-string=...
-# For `wrangler dev`, set CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE to a local Postgres.
-[[hyperdrive]]
-binding = "HYPERDRIVE"
-id = "00000000000000000000000000000000"
-
 [[r2_buckets]]
 binding = "FILES"
 bucket_name = "espf-documents"
 
-[vars]
+[env.local]
+name = "espf-local"
+[env.local.assets]
+directory = "../web/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+[[env.local.r2_buckets]]
+binding = "FILES"
+bucket_name = "espf-documents"
+[[env.local.hyperdrive]]
+binding = "HYPERDRIVE"
+id = "00000000000000000000000000000000"
+[env.local.vars]
 APP_URL = "http://localhost:8788"
-# Secrets (never in this file): AUTH_SECRET  ->  npx wrangler secret put AUTH_SECRET
