@@ -67,3 +67,7 @@ This plan replaces each one with a free Neon or Cloudflare part. **The database 
   - **Files:** R2 bucket `espf-documents` was created in the Environmsafe Cloudflare account. `/api/files` checks the user's rights on every read and upload.
   - **AI voucher upload:** `/api/functions/extract-voucher` in the Worker (Claude key = Worker secret `ANTHROPIC_API_KEY`). Tested end to end with a stand-in for the Claude API.
   - **Printed PDFs:** rendered in the browser with pdf-lib (`web/src/print/pdf.ts`), a line-for-line port of the ReportLab renderer. It is free, and the Python PDF service is no longer needed. The visual test against the samples gives the same result as before (PO 0.03 %, invoice 0.22 %) and runs in CI. Arabic is shaped by fontkit (Noto Naskh, loaded only when needed). The posted copy is stored with the document (generated_pdf, SHA-256).
+- **19 Nov 2026, go-live run:**
+  - Secrets: `CLOUDFLARE_API_TOKEN`, `ANTHROPIC_API_KEY`, `NEON_DATABASE_URL` are set in the repository.
+  - The deploy workflow runs for commits marked with the deploy tag.
+  - Live database: Neon `production` branch, database `espf`.
