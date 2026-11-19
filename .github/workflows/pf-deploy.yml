@@ -18,6 +18,8 @@ permissions:
 jobs:
   deploy:
     name: Database + Worker
+    # Only on purpose: the commit message must contain [deploy].
+    if: contains(github.event.head_commit.message, '[deploy]')
     runs-on: ubuntu-24.04
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
