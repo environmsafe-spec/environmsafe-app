@@ -1,0 +1,8 @@
+/* Printing a report: only the report, full width, black on white. */
+@media print {
+  .mantine-AppShell-header, .mantine-AppShell-navbar, .no-print, .mantine-Tabs-list, .mantine-Notifications-root { display: none !important; }
+  .mantine-AppShell-main { padding: 0 !important; margin: 0 !important; }
+  body { background: #fff !important; }
+  table { font-size: 10px; }
+  @page { size: A4; margin: 12mm; }
+}
