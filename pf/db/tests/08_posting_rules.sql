@@ -15,7 +15,7 @@ select is(tests.post_as('accountant@es.test', :'exp1'), 'posted', 'expense posts
 select is(tests.je(:'exp1'), '6200 D 60.00 | 6800 D 40.00 | 6900 D 2.00 | 1000-001 C 102.00',
   'expense: each line to its account and project, fee to bank charges, bank credited with amount + fee');
 select is((select number from public.documents where id = :'exp1'), 'PV-2026-0001', 'payment voucher number assigned at posting');
-select is((select count(distinct project_id)::int from public.journal_lines jl join public.documents d on d.journal_entry_id = jl.entry_id
+select is((select count(distinct jl.project_id)::int from public.journal_lines jl join public.documents d on d.journal_entry_id = jl.entry_id
            where d.id = :'exp1' and jl.project_id is not null), 2, 'one voucher, two project lines');
 
 -- 2. Expense in YER converts at the rate ------------------------------------------------------
