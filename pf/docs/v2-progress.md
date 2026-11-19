@@ -53,3 +53,4 @@ Order agreed with the owner, 19 Nov 2026:
 - **Tests**:
   - Database: `db/tests/18_allocations.sql` (28 checks).
   - Browser: `web/e2e/receipt-flow.mjs`.
+- **Published 19 Nov 2026 (owner's OK):** steps 1 and 2 are live.
