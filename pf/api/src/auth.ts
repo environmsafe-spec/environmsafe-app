@@ -7,6 +7,7 @@ import type { Claims } from './rest.ts'
 export type Env = {
   HYPERDRIVE: Hyperdrive
   ASSETS: Fetcher
+  FILES: R2Bucket
   AUTH_SECRET: string
   APP_URL: string
 }

@@ -16,6 +16,10 @@ run_worker_first = ["/api/*"]
 binding = "HYPERDRIVE"
 id = "00000000000000000000000000000000"
 
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "espf-documents"
+
 [vars]
 APP_URL = "http://localhost:8788"
 # Secrets (never in this file): AUTH_SECRET  ->  npx wrangler secret put AUTH_SECRET
