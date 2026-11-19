@@ -8,6 +8,8 @@ export type Env = {
   HYPERDRIVE: Hyperdrive
   ASSETS: Fetcher
   FILES: R2Bucket
+  ANTHROPIC_API_KEY?: string
+  ANTHROPIC_BASE_URL?: string
   AUTH_SECRET: string
   APP_URL: string
 }

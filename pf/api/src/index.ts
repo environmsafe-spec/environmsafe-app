@@ -2,10 +2,12 @@
 //   /api/auth/*        sign-in, two-step (TOTP) sign-in, sign-out, change password (Better Auth)
 //   /api/rest/v1/*     data API (tables and functions; the database's permissions and RLS decide)
 //   /api/files/*       files in the private R2 bucket (company folder; permissions checked each time)
+//   /api/functions/extract-voucher   AI voucher reader (Claude) -> draft
 //   /api/admin/users   owner: create a user, set a new password, reset two-step sign-in
 // The database is Neon, reached through Hyperdrive.
 import pg from 'pg'
 import { claimsFor, createAuth, createUser, resetTwoFactor, setPassword, type Env } from './auth.ts'
+import { extractVoucher } from './extract-voucher.ts'
 import { handleFiles } from './files.ts'
 import { asUser, errorResponse, handleRest, HttpError, type Claims } from './rest.ts'
 
@@ -66,6 +68,7 @@ export default {
         return await handleRest(req, url.pathname.slice('/api/rest/v1/'.length), client, claims)
       }
       if (url.pathname.startsWith('/api/files/')) return await handleFiles(req, env.FILES, client, claims)
+      if (url.pathname === '/api/functions/extract-voucher' && req.method === 'POST') return await extractVoucher(req, env, client, claims)
       if (url.pathname === '/api/admin/users' && req.method === 'POST') return await admin(req, auth, pool, client, claims)
       return json(404, { message: 'Not found' })
     } catch (e) {
