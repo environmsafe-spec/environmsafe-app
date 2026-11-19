@@ -15,7 +15,7 @@ import {
   lastAccount, partyMatchesRole, sha256Hex, useCompanySettings, useDocKinds, useGlAccounts, useMoneyAccounts, useParties, useProjects,
 } from './data'
 import {
-  CONVERSIONS, documentTotal, emptyDoc, isTrade, QTY_ONLY_KINDS, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
+  CONVERSIONS, documentTotal, emptyDoc, isTrade, QTY_ONLY_KINDS, shownStatus, STATUS_COLOR, journalDifference, missingForPosting, newLine, SALES_KINDS, toDocumentRow, toLineRows, usdEquivalent,
   type DocKind, type DocState, type KindInfo, type LineKind,
 } from './logic'
 import { TradeLines } from './TradeLines'
@@ -30,6 +30,7 @@ interface DocRow {
   void_reason: string | null; created_by: string | null; posted_at: string | null
   due_date: string | null; valid_until: string | null; attention: string | null; party_reference: string | null; terms: string | null
   revision: number; revision_of_id: string | null; source_document_id: string | null; project_id: string | null
+  reconciled_at: string | null
 }
 interface Attachment { id: string; file_name: string; storage_path: string; size_bytes: number | null; sha256: string | null; uploaded_at: string }
 
@@ -343,7 +344,8 @@ export function DocumentPage() {
   const partyLabel = { supplier: t('doc.supplier'), customer: t('doc.customer'), employee: t('doc.employee'), owner: t('doc.owner'), employee_or_owner: t('doc.employeeOrOwner'), any: t('doc.party') }[k.party_role ?? 'any']
   const total = documentTotal(k, s)
   const rateNum = typeof s.rate === 'number' ? s.rate : undefined
-  const statusColor = { draft: 'gray', submitted: 'yellow', posted: 'green', void: 'red' }[doc?.status ?? 'draft']
+  const shown = doc ? shownStatus(doc) : 'draft'
+  const statusColor = STATUS_COLOR[shown]
 
   const onPartyChange = (v: string | null) => {
     const p = parties.data?.find((x) => x.id === v)
@@ -371,7 +373,7 @@ export function DocumentPage() {
           <Text c="dimmed" size="sm">{doc ? (doc.number ?? doc.temp_number) : t('doc.new')}</Text>
         </Stack>
         {doc && <Badge size="lg" color={statusColor} variant="light">
-          {doc.status === 'posted' && !k.creates_journal ? t('trade.issued') : t(`doc.${doc.status}`)}
+          {shown === 'posted' && !k.creates_journal ? t('trade.issued') : t(`doc.${shown}`)}
           {doc.revision > 0 ? ` · Rev.${doc.revision}` : ''}
         </Badge>}
       </Group>
@@ -572,6 +574,11 @@ export function DocumentPage() {
         )}
         {doc && doc.status !== 'void' && (doc.status !== 'posted' ? (can('docs.reverse') || doc.created_by === session?.user.id) : can('docs.reverse')) && (
           <Button color="red" variant="light" onClick={() => setVoidOpen(true)}>{t('doc.voidDoc')}</Button>
+        )}
+        {doc?.status === 'posted' && doc.money_account_id && can('docs.post_money') && (
+          <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'set_reconciled', args: { p_ids: [doc.id], p_reconciled: !doc.reconciled_at } }, { onSuccess: () => refresh(doc.id) })}>
+            {doc.reconciled_at ? t('doc.unmarkReconciled') : t('doc.markReconciled')}
+          </Button>
         )}
         {doc && (doc.status === 'void' || doc.status === 'posted') && can('docs.create') && (
           <Button variant="subtle" onClick={() => rpc.mutate({ fn: 'duplicate_document', args: { p_id: doc.id } }, { onSuccess: (newId) => navigate(`/entries/${newId as string}`) })}>{t('doc.copy')}</Button>

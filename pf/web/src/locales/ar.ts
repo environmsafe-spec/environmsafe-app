@@ -55,7 +55,7 @@ const ar: Messages = {
     asset: 'أصول', liability: 'خصوم', equity: 'حقوق ملكية', income: 'إيرادات', expense: 'مصروفات',
   },
   doc: {
-    new: 'جديد', draft: 'مسودة', submitted: 'بانتظار الموافقة', posted: 'مرحّل', void: 'ملغى',
+    new: 'جديد', draft: 'مسودة', submitted: 'بانتظار الموافقة', posted: 'مرحّل', void: 'ملغى (معكوس)', cancelled: 'ملغاة', reconciled: 'مطابق', markReconciled: 'تعليم كمطابق (يطابق البنك)', unmarkReconciled: 'إزالة علامة المطابقة',
     date: 'التاريخ', account: 'من / إلى حساب', toAccount: 'إلى حساب', party: 'الطرف', supplier: 'المورد',
     customer: 'العميل', employee: 'الموظف', owner: 'المالك', employeeOrOwner: 'الموظف / المالك', amount: 'المبلغ',
     amountReceived: 'المبلغ المستلم', project: 'المشروع', glAccount: 'البند (الحساب)', description: 'البيان',
@@ -98,7 +98,7 @@ const ar: Messages = {
     sameSupplier: 'فارغ = نفس المورد', dealCustomer: 'فارغ = عميل الصفقة', marginPct: 'هامش الربح',
     marginHelp: 'السعر = تكلفة العرض + الهامش', marginLastCost: 'السعر = آخر تكلفة + الهامش (فارغ: آخر سعر بيع)',
     convertHelp: 'تُحوّل الأسعار بسعر صرف اليوم', openQtyHelp: 'يؤخذ ما تبقى مفتوحاً فقط. عدّل الكميات في المسودة لخطوة جزئية.',
-    makeDraft: 'إنشاء المسودة', matchTitle: 'مطابقة مع أمر الشراء والاستلام', line: 'البند',
+    makeDraft: 'إنشاء المسودة', priceAuto: 'السعر: تلقائي', matchTitle: 'مطابقة مع أمر الشراء والاستلام', line: 'البند',
     openDeal: 'فتح الصفقة', cost: 'التكلفة', margin: 'الهامش',
     compare: 'مقارنة العروض', compareHelp: 'الأرخص أولاً (بالدولار). اختر عرضاً لكل بند ثم أنشئ عرض السعر؛ يمكن الجمع بين موردين.',
     requested: 'المطلوب', choose: 'اختيار', noOffer: 'لا يوجد عرض بعد', makeQuotation: 'إنشاء عرض سعر من العروض المختارة',

@@ -59,7 +59,7 @@ insert into public.document_lines (company_id, document_id, line_no, item_id, de
   (tests.es(), :'req', 2, null, 'Mechanical seal kit (as per drawing)', 10, 'SET', 0),
   (tests.es(), :'req', 3, (select id from t_item where name_en = 'Gate valve 4"'), 'Gate valve 4" class 150', 5, 'PC', 0);
 select is(tests.post_as('procurement@es.test', :'req'), 'posted', 'the request is issued (a line may be just a description)');
-select is((select number from public.documents where id = :'req'), 'REQ-2026-0001', 'request numbered REQ-YYYY-NNNN');
+select is((select number from public.documents where id = :'req'), 'REQ-2026111901', 'request numbered REQ-YYYYMMDDNN');
 select ok((select journal_entry_id is null from public.documents where id = :'req'), 'tracking documents never touch the ledger');
 
 -- ---------- RFQs to three suppliers (each gets the full quantity) -----------------------------------
@@ -79,7 +79,7 @@ select is((select project_id from public.documents where id = pg_temp.id('rfq3')
 select is(tests.post_as('procurement@es.test', pg_temp.id('rfq1')), 'posted', 'RFQ 1 issued');
 select is(tests.post_as('procurement@es.test', pg_temp.id('rfq2')), 'posted', 'RFQ 2 issued');
 select is(tests.post_as('procurement@es.test', pg_temp.id('rfq3')), 'posted', 'RFQ 3 issued');
-select is((select number from public.documents where id = pg_temp.id('rfq3')), 'RFQ-2026-0003', 'RFQ numbers');
+select is((select number from public.documents where id = pg_temp.id('rfq3')), 'RFQ-2026112003', 'RFQ numbers (daily, RFQ-YYYYMMDDNN)');
 
 -- ---------- Offers: supplier 1 and 3 in USD, supplier 2 in SAR ---------------------------------------
 select is(pg_temp.make('procurement@es.test', 'x', 'purchase_order', pg_temp.lines(pg_temp.id('rfq1'))),
@@ -126,7 +126,7 @@ select is((select amount from public.documents where id = pg_temp.id('qt')), 342
 select is(pg_temp.make('procurement@es.test', 'so', 'sales_order', pg_temp.lines(pg_temp.id('qt'))), 'made', 'customer order from the quotation');
 update public.documents set party_reference = 'CUST-PO-77' where id = pg_temp.id('so');
 select is(tests.post_as('procurement@es.test', pg_temp.id('so')), 'posted', 'customer order confirmed');
-select is((select number || ' ' || amount from public.documents where id = pg_temp.id('so')), 'SO-2026-0001 3420.00', 'SO number and value');
+select is((select number || ' ' || amount from public.documents where id = pg_temp.id('so')), 'SO-2026112001 3420.00', 'SO number and value');
 
 -- ---------- Split purchasing: pump from supplier 1, seals and 3 valves from supplier 3, 2 valves from supplier 2 in SAR
 select is(pg_temp.make('procurement@es.test', 'poA', 'purchase_order', array[pg_temp.line(pg_temp.id('so'), 1)], tests.party('T Supplier')),

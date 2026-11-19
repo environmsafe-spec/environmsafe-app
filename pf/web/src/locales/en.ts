@@ -53,7 +53,7 @@ const en = {
     asset: 'Asset', liability: 'Liability', equity: 'Equity', income: 'Income', expense: 'Expense',
   },
   doc: {
-    new: 'New', draft: 'Draft', submitted: 'Waiting for approval', posted: 'Posted', void: 'Void',
+    new: 'New', draft: 'Draft', submitted: 'Waiting for approval', posted: 'Posted', void: 'Void', cancelled: 'Cancelled', reconciled: 'Reconciled', markReconciled: 'Mark as reconciled (matches the bank)', unmarkReconciled: 'Remove reconciled mark',
     date: 'Date', account: 'Paid from / into', toAccount: 'To account', party: 'Party', supplier: 'Supplier',
     customer: 'Customer', employee: 'Employee', owner: 'Owner', employeeOrOwner: 'Employee / owner', amount: 'Amount',
     amountReceived: 'Amount received', project: 'Project', glAccount: 'For (account)', description: 'Description',
@@ -96,7 +96,7 @@ const en = {
     sameSupplier: 'Empty = the same supplier', dealCustomer: 'Empty = the deal\'s customer', marginPct: 'Margin',
     marginHelp: 'Price = offer cost + margin', marginLastCost: 'Price = last cost + margin (empty: last sale price)',
     convertHelp: 'Prices are converted at today\'s rate', openQtyHelp: 'Only what is still open is taken. Change quantities on the draft for a partial step.',
-    makeDraft: 'Make the draft', matchTitle: 'Check against the purchase order and receipt', line: 'Line',
+    makeDraft: 'Make the draft', priceAuto: 'price: auto', matchTitle: 'Check against the purchase order and receipt', line: 'Line',
     openDeal: 'Open the deal', cost: 'Cost', margin: 'margin',
     compare: 'Offers compared', compareHelp: 'Cheapest first (in USD). Choose one offer per line, then make the quotation; lines from different suppliers can be combined.',
     requested: 'Requested', choose: 'Use', noOffer: 'No offer yet', makeQuotation: 'Make quotation from the chosen offers',

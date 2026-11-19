@@ -73,12 +73,12 @@ describe('buildPrintDocument — deal documents', () => {
     { line_no: 1, line_kind: 'item', description: 'Gate valve 4" class 150', detail: null, qty: 5, unit: 'PC', unit_price: null, amount: 0, percent: null, percent_base: null },
   ]
   it('an RFQ prints quantities only, without prices or a total', () => {
-    const p = buildPrintDocument({ doc: { ...base, kind: 'supplier_rfq', number_type: 'supplier_rfq', number: 'RFQ-2026-0001' }, lines: rfqLines, party: supplier, company, appUrl: 'https://x/' })
+    const p = buildPrintDocument({ doc: { ...base, kind: 'supplier_rfq', number_type: 'supplier_rfq', number: 'RFQ-2026112001' }, lines: rfqLines, party: supplier, company, appUrl: 'https://x/' })
     expect(p.kind).toBe('supplier_rfq')
     expect(p.lines[0]).toMatchObject({ qty: 5, unit_price: null, amount: null })
     expect(p.totals).toEqual([])
     expect(p.total).toBeNull()
-    expect(p.meta[0]).toEqual(['RFQ #', 'RFQ-2026-0001'])
+    expect(p.meta[0]).toEqual(['RFQ #', 'RFQ-2026112001'])
   })
   it('a delivery note asks the customer to sign for the goods', () => {
     const p = buildPrintDocument({ doc: { ...base, kind: 'delivery_note', number_type: 'delivery_note' }, lines: rfqLines, party: supplier, company, appUrl: 'https://x/' })

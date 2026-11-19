@@ -1,3 +1,4 @@
+import { shownStatus, STATUS_COLOR } from './logic'
 import { Badge, Button, Group, Menu, ScrollArea, Select, Stack, Table, Text, TextInput, Title } from '@mantine/core'
 import { IconPlus, IconSearch } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
@@ -10,7 +11,6 @@ import { supabase } from '../lib/supabase'
 import { useDocKinds, useMoneyAccounts, useParties } from './data'
 import type { DocKind } from './logic'
 
-const STATUS_COLOR: Record<string, string> = { draft: 'gray', submitted: 'yellow', posted: 'green', void: 'red' }
 
 export function EntriesPage({ kinds: only, title }: { kinds?: DocKind[]; title?: string } = {}) {
   const { t, i18n } = useTranslation()
@@ -28,7 +28,7 @@ export function EntriesPage({ kinds: only, title }: { kinds?: DocKind[]; title?:
     queryKey: ['entries', cid, kind, status, only],
     enabled: Boolean(cid),
     queryFn: async () => {
-      let q = supabase.from('documents').select('id, kind, status, number, temp_number, revision, doc_date, party_id, money_account_id, amount, fee_amount, currency, description, reference_no, legacy_id')
+      let q = supabase.from('documents').select('id, kind, status, reconciled_at, number, temp_number, revision, doc_date, party_id, money_account_id, amount, fee_amount, currency, description, reference_no, legacy_id')
         .eq('company_id', cid!).order('doc_date', { ascending: false }).limit(300)
       if (kind) q = q.eq('kind', kind)
       else if (only?.length) q = q.in('kind', only)
@@ -85,7 +85,7 @@ export function EntriesPage({ kinds: only, title }: { kinds?: DocKind[]; title?:
                 <Table.Td>{name(parties.data, d.party_id)}</Table.Td>
                 <Table.Td>{name(accounts.data, d.money_account_id)}</Table.Td>
                 <Table.Td ta="end" style={{ whiteSpace: 'nowrap' }}><bdi>{formatMoney(Number(d.amount) + Number(d.fee_amount), d.currency, i18n.language)}</bdi></Table.Td>
-                <Table.Td><Badge color={STATUS_COLOR[d.status]} variant="light">{t(`doc.${d.status}`)}</Badge></Table.Td>
+                <Table.Td><Badge color={STATUS_COLOR[shownStatus(d)]} variant="light">{t(`doc.${shownStatus(d)}`)}</Badge></Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>

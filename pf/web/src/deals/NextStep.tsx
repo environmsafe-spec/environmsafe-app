@@ -29,9 +29,10 @@ export function useDealFlows() {
 const isSupplier = (k: DocKind) => SUPPLIER_KINDS.includes(k)
 
 /** Call make_document and open the new draft. */
-export async function makeDocument(args: { kind: DocKind; lineIds: string[]; party?: string | null; margin?: number | null; currency?: string | null }) {
+export async function makeDocument(args: { kind: DocKind; lineIds: string[]; party?: string | null; margin?: number | null; currency?: string | null; prices?: Record<string, number> | null }) {
   const { data, error } = await supabase.rpc('make_document', {
     p_kind: args.kind, p_line_ids: args.lineIds, p_party: args.party ?? null, p_margin: args.margin ?? null, p_currency: args.currency ?? null,
+    p_prices: args.prices && Object.keys(args.prices).length ? args.prices : null,
   })
   if (error) throw error
   return data as string
@@ -50,6 +51,7 @@ export function NextStep({ fromKind, partyId, currency, lines }: {
   const [margin, setMargin] = useState<number | ''>('')
   const [ccy, setCcy] = useState(currency)
   const [busy, setBusy] = useState(false)
+  const [prices, setPrices] = useState<Record<string, number | ''>>({})
 
   const targets = (flows.data ?? []).filter((f) => f.from_kind === fromKind).map((f) => f.to_kind)
   if (!targets.length) return null
@@ -62,7 +64,10 @@ export function NextStep({ fromKind, partyId, currency, lines }: {
     setParty(isSupplier(k) === isSupplier(fromKind) ? partyId : null)
     setMargin(fromKind === 'supplier_offer' && k === 'quotation' ? 20 : '')
     setCcy(currency)
+    setPrices({})
   }
+  // Documents with money: a price can be typed per line; empty = the offer / last price (none known: the database asks).
+  const priced = to !== null && ['quotation', 'sales_order', 'purchase_order', 'sales_invoice', 'supplier_bill'].includes(to)
   const needsParty = to !== null && isSupplier(to) && !isSupplier(fromKind)
   const partyOptions = (parties.data ?? [])
     .filter((p) => p.is_active && (to && isSupplier(to) ? p.is_supplier : p.is_customer))
@@ -72,7 +77,8 @@ export function NextStep({ fromKind, partyId, currency, lines }: {
     if (!to) return
     setBusy(true)
     try {
-      const id = await makeDocument({ kind: to, lineIds: chosen, party, margin: typeof margin === 'number' ? margin : null, currency: ccy !== currency ? ccy : null })
+      const typed = Object.fromEntries(Object.entries(prices).filter(([k, v]) => typeof v === 'number' && chosen.includes(k))) as Record<string, number>
+      const id = await makeDocument({ kind: to, lineIds: chosen, party, margin: typeof margin === 'number' ? margin : null, currency: ccy !== currency ? ccy : null, prices: typed })
       setTo(null)
       navigate(`/entries/${id}`)
     } catch (e) {
@@ -108,6 +114,12 @@ export function NextStep({ fromKind, partyId, currency, lines }: {
                     </Table.Td>
                     <Table.Td>{l.line_no}. {l.description}</Table.Td>
                     <Table.Td ta="end"><bdi>{l.qty} {l.unit ?? ''}</bdi></Table.Td>
+                    {priced && (
+                      <Table.Td w={130}>
+                        <NumberInput size="xs" placeholder={t('deal.priceAuto')} aria-label={`${t('trade.unitPrice')} ${l.description ?? ''}`} min={0} decimalScale={4}
+                          value={prices[l.id] ?? ''} onChange={(v) => setPrices((p) => ({ ...p, [l.id]: typeof v === 'number' ? v : '' }))} />
+                      </Table.Td>
+                    )}
                   </Table.Tr>
                 ))}
               </Table.Tbody>

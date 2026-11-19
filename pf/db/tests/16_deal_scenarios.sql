@@ -5,7 +5,7 @@
 --   F  lost deal
 --   G  return: credit note to the customer; supplier bill that does not match (price, quantity)
 begin;
-select plan(60);
+select plan(61);
 select tests.phase2_fixtures();
 insert into public.parties (company_id, code, primary_kind, name_en) values (tests.es(), '', 'supplier', 'T Freight');
 insert into public.items (company_id, code, name_en, kind, unit, default_expense_account_id, default_revenue_account_id) values
@@ -18,13 +18,14 @@ create function pg_temp.id(p text) returns uuid language sql as $$ select id fro
 create function pg_temp.item(p text) returns uuid language sql as $$ select id from public.items where name_en = p $$;
 create function pg_temp.lines(p_doc uuid) returns uuid[] language sql as $$
   select array_agg(id order by line_no) from public.document_lines where document_id = p_doc and line_kind = 'item' $$;
-create function pg_temp.make(p_key text, p_kind text, p_lines uuid[], p_party uuid default null) returns text
+create function pg_temp.make(p_key text, p_kind text, p_lines uuid[], p_party uuid default null, p_price numeric default null) returns text
 language plpgsql as $$
 declare v uuid;
 begin
   perform tests.login('owner@es.test');
   begin
-    v := public.make_document(p_kind::public.doc_kind, p_lines, p_party);
+    v := public.make_document(p_kind::public.doc_kind, p_lines, p_party, null, null,
+           case when p_price is null then null else (select jsonb_object_agg(x::text, p_price) from unnest(p_lines) x) end);
   exception when others then
     perform tests.logout(); return 'ERROR: ' || sqlerrm;
   end;
@@ -82,8 +83,9 @@ insert into t select 'dealC', public.create_deal(tests.es(), tests.party('T Cust
 select tests.logout();
 select pg_temp.order_('soC', 'sales_order', pg_temp.id('dealC'), 'Feed pump', 1, 14000);
 select is(tests.post_as('owner@es.test', pg_temp.id('soC')), 'posted', 'C: customer order typed in directly (no request, no quotation)');
-select is(pg_temp.make('poC', 'purchase_order', pg_temp.lines(pg_temp.id('soC')), tests.party('T Supplier')), 'made', 'C: PO to the supplier');
-update public.document_lines set unit_price = 10000 where document_id = pg_temp.id('poC');
+select is(pg_temp.make('x', 'purchase_order', pg_temp.lines(pg_temp.id('soC')), tests.party('T Supplier')),
+  'ERROR: No price known for: Feed pump. Enter the price for these lines.', 'C: a PO is never made with an empty price (no offer, no last cost)');
+select is(pg_temp.make('poC', 'purchase_order', pg_temp.lines(pg_temp.id('soC')), tests.party('T Supplier'), 10000), 'made', 'C: PO to the supplier at the agreed price');
 select is(tests.post_as('owner@es.test', pg_temp.id('poC')), 'posted', 'C: PO USD 10,000 issued');
 select is(pg_temp.money('advC', 'supplier_payment', 'T Supplier', 3000), 'posted', 'C: 30% advance paid before any bill (on account)');
 -- landed costs: freight and customs straight onto the deal
@@ -176,8 +178,7 @@ insert into t select 'dealG', public.create_deal(tests.es(), tests.party('T Cust
 select tests.logout();
 select pg_temp.order_('soG', 'sales_order', pg_temp.id('dealG'), 'Safety valve 2in', 5, 200);
 select is(tests.post_as('owner@es.test', pg_temp.id('soG')), 'posted', 'G: order 5 x 200');
-select is(pg_temp.make('poG', 'purchase_order', pg_temp.lines(pg_temp.id('soG')), tests.party('T Supplier')), 'made', 'G: PO');
-update public.document_lines set unit_price = 120 where document_id = pg_temp.id('poG');
+select is(pg_temp.make('poG', 'purchase_order', pg_temp.lines(pg_temp.id('soG')), tests.party('T Supplier'), 120), 'made', 'G: PO');
 select is(tests.post_as('owner@es.test', pg_temp.id('poG')), 'posted', 'G: PO 5 x 120');
 select is(pg_temp.make('grnG', 'goods_receipt', pg_temp.lines(pg_temp.id('poG'))), 'made', 'G: receipt');
 select is(tests.post_as('owner@es.test', pg_temp.id('grnG')), 'posted', 'G: 5 received');

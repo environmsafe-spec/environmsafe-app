@@ -51,6 +51,16 @@ export const CONVERSIONS: Partial<Record<DocKind, DocKind>> = {
   sales_invoice: 'credit_note',
 }
 
+/** The six statuses people see (brief v2, A2): a void document that never had a number was a cancelled draft;
+ *  a posted money document matched to the bank is reconciled. */
+export type ShownStatus = 'draft' | 'submitted' | 'posted' | 'reconciled' | 'void' | 'cancelled'
+export function shownStatus(d: { status: string; number?: string | null; reconciled_at?: string | null }): ShownStatus {
+  if (d.status === 'void' && !d.number) return 'cancelled'
+  if (d.status === 'posted' && d.reconciled_at) return 'reconciled'
+  return d.status as ShownStatus
+}
+export const STATUS_COLOR: Record<ShownStatus, string> = { draft: 'gray', submitted: 'yellow', posted: 'green', reconciled: 'teal', void: 'red', cancelled: 'gray' }
+
 export type LineKind = 'item' | 'charge' | 'discount' | 'tax'
 
 export interface LineState {

@@ -90,14 +90,14 @@ insert into public.document_lines (company_id, document_id, line_no, line_kind, 
   (tests.es(), :'qt', 1, 'item', (select id from t_item where name_en like '%temperature%'), 'Calibration of Temperature Calibrator', 'Fluke 724', 1, 'PC', 926.32, 926.32, tests.project('T Project B')),
   (tests.es(), :'qt', 2, 'item', (select id from t_item where name_en like '%pressure%'),    'Calibration of Digital Pressure Calibrator', 'Druck DPI 612', 1, 'PC', 926.31, 926.31, tests.project('T Project B'));
 select is(tests.post_as('accountant@es.test', :'qt'), 'posted', 'quotation issued');
-select is((select number from public.documents where id = :'qt'), 'QT-2026-0001', 'quotation number QT-YYYY-NNNN');
+select is((select number from public.documents where id = :'qt'), 'Q-2026091301', 'quotation number Q-YYYYMMDDNN');
 select tests.login('accountant@es.test');
 select public.convert_document(:'qt', 'sales_invoice') as inv \gset
 select tests.logout();
 update public.documents set doc_date = '2026-11-07' where id = :'inv';
 select is(tests.post_as('accountant@es.test', :'inv'), 'posted', 'invoice posts');
 select is((select number || ' due ' || due_date || ' ref ' || party_reference from public.documents where id = :'inv'),
-  'INV-2026110701 due 2026-12-07 ref QT-2026-0001', 'INV-YYYYMMDDNN; due = date + 30 days customer terms; references the quotation');
+  'INV-2026110701 due 2026-12-07 ref Q-2026091301', 'INV-YYYYMMDDNN; due = date + 30 days customer terms; references the quotation');
 select is(tests.je(:'inv'), '4100 C 926.32 | 4100 C 926.31 | 1100 D 1852.63', 'invoice: revenue by line and project, Dr receivable');
 select is((select last_sale_price::text || ' ' || last_customer_id::text from public.items where name_en like '%temperature%'),
   '926.3200 ' || tests.party('T Customer')::text, 'the catalogue learns the last sale price and customer');
@@ -123,7 +123,7 @@ select is((select count(*)::int from public.aging(tests.es(), 'ar', '2027-01-20'
 select is((select balance from public.party_statement(tests.es(), tests.party('T Customer'), '2026-01-01', '2026-12-31') order by entry_date desc, balance limit 1), 0.00,
   'customer statement ends at zero');
 
-select is(tests.try_as('owner@es.test', $$select public.void_document((select id from public.documents where kind = 'quotation' and number = 'QT-2026-0001'), 'Customer withdrew')$$), 'ok:1',
+select is(tests.try_as('owner@es.test', $$select public.void_document((select id from public.documents where kind = 'quotation' and number = 'Q-2026091301'), 'Customer withdrew')$$), 'ok:1',
   'an issued quotation can be cancelled (no entry to reverse)');
 select verify_token as tok from public.documents where id = :'inv' \gset
 select is(tests.anon_verify(:'tok'), 'valid 1852.63', 'the QR page confirms a genuine invoice without signing in');

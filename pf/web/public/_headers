@@ -1,0 +1,7 @@
+# Staff app: never indexed, never shown inside another site's frame (brief v2, A16). The Worker sets the same on /api.
+/*
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin

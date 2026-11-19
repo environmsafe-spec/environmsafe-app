@@ -16,8 +16,9 @@ import { formatMoney, localName } from '../lib/format'
 import { supabase } from '../lib/supabase'
 import { STAGE_COLOR, STAGES, type DealRow } from './DealsPage'
 import { makeDocument } from './NextStep'
+import { shownStatus, STATUS_COLOR } from '../documents/logic'
 
-interface DealDoc { id: string; created_at: string; kind: string; number: string | null; temp_number: string; status: string; doc_date: string; party_id: string | null; amount: number; currency: string; revision: number }
+interface DealDoc { id: string; created_at: string; reconciled_at: string | null; kind: string; number: string | null; temp_number: string; status: string; doc_date: string; party_id: string | null; amount: number; currency: string; revision: number }
 interface Offer {
   request_line_id: string; request_number: string; line_no: number; description: string | null; qty: number; unit: string | null
   offer_line_id: string | null; offer_number: string | null; supplier: string | null; offer_qty: number | null; currency: string | null
@@ -57,7 +58,7 @@ export function DealPage() {
   const docs = useQuery({
     queryKey: ['deal-docs', id],
     queryFn: async () => {
-      const cols = 'id, created_at, kind, number, temp_number, status, doc_date, party_id, amount, currency, revision'
+      const cols = 'id, created_at, reconciled_at, kind, number, temp_number, status, doc_date, party_id, amount, currency, revision'
       const own = await supabase.from('documents').select(cols).eq('project_id', id!)
       if (own.error) throw own.error
       const onLines = await supabase.from('document_lines').select('document_id').eq('project_id', id!)
@@ -221,8 +222,8 @@ export function DealPage() {
                     <Table.Td>{partyName(x.party_id)}</Table.Td>
                     <Table.Td>{x.doc_date}</Table.Td>
                     <Table.Td ta="end">{Number(x.amount) > 0 ? <bdi>{formatMoney(Number(x.amount), x.currency)}</bdi> : ''}</Table.Td>
-                    <Table.Td><Badge size="sm" variant="light" color={{ draft: 'gray', submitted: 'yellow', posted: 'green', void: 'red' }[x.status]}>
-                      {x.status === 'posted' && ki && !ki.creates_journal ? t('trade.issued') : t(`doc.${x.status}`)}</Badge></Table.Td>
+                    <Table.Td><Badge size="sm" variant="light" color={STATUS_COLOR[shownStatus(x)]}>
+                      {shownStatus(x) === 'posted' && ki && !ki.creates_journal ? t('trade.issued') : t(`doc.${shownStatus(x)}`)}</Badge></Table.Td>
                   </Table.Tr>
                 )
               })}

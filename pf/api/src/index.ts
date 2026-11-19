@@ -50,8 +50,24 @@ async function admin(req: Request, auth: ReturnType<typeof createAuth>, pool: pg
   }
 }
 
+/** Staff app: never indexed by search engines, never shown inside another site's frame (brief v2, A16). */
+function secured(res: Response): Response {
+  const out = new Response(res.body, res)
+  out.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  out.headers.set('X-Frame-Options', 'DENY')
+  out.headers.set('Content-Security-Policy', "frame-ancestors 'none'")
+  out.headers.set('X-Content-Type-Options', 'nosniff')
+  out.headers.set('Referrer-Policy', 'same-origin')
+  return out
+}
+
 export default {
   async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    return secured(await handle(req, env, ctx))
+  },
+} satisfies ExportedHandler<Env>
+
+async function handle(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(req.url)
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(req)
     if (!sameOrigin(req, env)) return json(403, { message: 'Cross-site request refused' })
@@ -76,5 +92,4 @@ export default {
     } finally {
       ctx.waitUntil((async () => { if (connected) await client.end().catch(() => {}); await pool.end().catch(() => {}) })())
     }
-  },
-} satisfies ExportedHandler<Env>
+}
