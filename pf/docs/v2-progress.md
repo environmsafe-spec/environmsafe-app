@@ -54,3 +54,26 @@ Order agreed with the owner, 19 Nov 2026:
   - Database: `db/tests/18_allocations.sql` (28 checks).
   - Browser: `web/e2e/receipt-flow.mjs`.
 - **Published 19 Nov 2026 (owner's OK):** steps 1 and 2 are live.
+
+## Step 3 (done on staging, 19 Nov 2026; awaiting the owner's review)
+The migration was re-run with the owner's new export under the v2 rules:
+- On the local test database and on the Neon staging copy, with the same result.
+- **Production was not touched.**
+
+Changes to the migration job:
+- The old `data.applied` settlements become links.
+- Receipts and payments carry their project.
+- `INVOICE IN` becomes a supplier bill; its payment settles it.
+- The exceptions list now includes the owner's items from the brief.
+- PRJ-0058 is archived.
+
+Results:
+- Bank and cash accounts are equal except the agreed ACC-0011 difference.
+- All projects are equal.
+- Trial balance: 0.00.
+- Receipts not linked to an invoice are held as customer advances until applied.
+- The review lists (receipts to match, exceptions) contain business data. They are given to the owner directly and kept out of the repository.
+
+Also in this step:
+- Deals list: plain projects no longer show as deals (`20261121000300_deals_list.sql`).
+- `db/scripts/neon-bridge.mjs`: the missing `import net` is fixed.

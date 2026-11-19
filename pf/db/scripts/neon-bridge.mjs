@@ -1,6 +1,7 @@
 // Local TCP port -> Neon over WebSocket (port 443), for networks that block port 5432.
 // Usage: PGHOST=<endpoint host> node neon-bridge.mjs 5433   (needs: npm i ws), then
 //        PGHOST=127.0.0.1 PGPORT=5433 PGSSLMODE=disable psql ...  (the WebSocket itself is TLS)
+import net from 'node:net'
 import WebSocket, { createWebSocketStream } from 'ws'
 const host = process.env.PGHOST, port = Number(process.argv[2] ?? 5433)
 net.createServer((sock) => {

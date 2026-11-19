@@ -264,6 +264,33 @@ language sql stable as $$
    order by d.status = 'void', m.id desc limit 1
 $$;
 
+-- The document made from an old record, by its internal uid (what data.applied points to).
+create or replace function migration.doc_of_uid(p_uid text, p_kind text) returns uuid
+language sql stable as $$
+  select m.target_id from migration.map m join public.documents d on d.id = m.target_id
+   where m.collection = 'transactions' and m.legacy_id = p_uid and m.target_table = 'documents' and d.kind::text = p_kind
+   order by d.status = 'void', m.id desc limit 1
+$$;
+
+-- v2 A3: the settlements recorded in the old app (data.applied = [{uid, amount}]) become links.
+create or replace function migration.add_applied(p_company uuid, p_doc uuid, d jsonb, p_kind text) returns int
+language plpgsql as $$
+declare a jsonb; n int := 0; v_to uuid;
+begin
+  if jsonb_typeof(d -> 'applied') <> 'array' then return 0; end if;
+  for a in select * from jsonb_array_elements(d -> 'applied') loop
+    v_to := migration.doc_of_uid(a ->> 'uid', p_kind);
+    if v_to is null then
+      perform migration.note(p_company, 'transactions', d ->> 'id', 'Settlement in the old app points to a record that was not migrated as a ' || p_kind, a::text);
+    elsif (select currency from public.documents where id = v_to) <> (select currency from public.documents where id = p_doc) then
+      perform migration.note(p_company, 'transactions', d ->> 'id', 'Settlement across currencies: link it in the new app (amount in each currency)', a::text);
+    elsif migration.add_link(p_doc, v_to, round(migration.num(a ->> 'amount'), 2)) then
+      n := n + 1;
+    end if;
+  end loop;
+  return n;
+end $$;
+
 -- A new migrated document (draft) with the common fields of an old row.
 create or replace function migration.new_doc(p_company uuid, p_kind public.doc_kind, d jsonb, p_amount numeric,
   p_money uuid, p_party uuid, p_currency text default null) returns uuid
@@ -293,6 +320,13 @@ begin
                then 'No file was attached in the old app' end,
           'migration', true, d ->> 'id',
           coalesce(nullif(d ->> 'createdAt', '')::timestamptz, now()));
+  -- v2 A3: receipts and payments carry their project (old projectId; General when the old record had none).
+  if p_kind::text in ('customer_receipt', 'supplier_payment') then
+    update public.documents
+       set project_id = coalesce(migration.project(p_company, migration.t(d, 'projectId')),
+                                 (select id from public.projects where company_id = p_company and kind = 'internal' and name_en = 'General'))
+     where id = v_id;
+  end if;
   return v_id;
 end $$;
 
@@ -587,6 +621,21 @@ begin
       migration.expense_account(p_company, d, case when t = 'SALARY' then '6100' when t = 'PAYMENT OUT' and migration.t(d, 'projectId') is not null then '5900' else '6990' end),
       v_item);
 
+  elsif t = 'PAYMENT OUT' and (v_ag_kind = 'supplier_bill' or jsonb_typeof(d -> 'applied') = 'array') and v_sup is not null then
+    -- v2 A5: payment of a supplier bill recorded in the old app (INVOICE IN).
+    v_doc := migration.new_doc(p_company, 'supplier_payment', d, v, v_money, v_sup);
+    if migration.add_applied(p_company, v_doc, d, 'supplier_bill') = 0 and v_ag_kind = 'supplier_bill' then
+      perform migration.add_link(v_doc, v_ag_doc, v);
+    end if;
+    v_note := 'Supplier payment of a bill';
+
+  elsif t = 'INVOICE IN' then
+    -- v2 A5: a supplier's invoice = supplier bill (cost booked, owed until paid).
+    v_doc := migration.new_doc(p_company, 'supplier_bill', d, v, null, v_sup);
+    perform migration.add_line(v_doc, d, v + v_disc, null, v_item);
+    if v_disc > 0 then perform migration.add_line(v_doc, d - 'qty' - 'unitPrice', v_disc, null, null, 'discount'); end if;
+    v_note := 'Supplier bill (unpaid until its payment)';
+
   elsif t = 'PAYMENT OUT' then
     if v_ag_kind = 'expense_claim' then
       v_doc := migration.new_doc(p_company, 'claim_reimbursement', d, v, v_money,
@@ -647,7 +696,9 @@ begin
 
   elsif t = 'RECEIPT' then
     v_doc := migration.new_doc(p_company, 'customer_receipt', d, v, v_money, v_cus);
-    if v_ag_kind = 'sales_invoice' then
+    if migration.add_applied(p_company, v_doc, d, 'sales_invoice') > 0 then
+      null;                                          -- settled as recorded in the old app
+    elsif v_ag_kind = 'sales_invoice' then
       perform migration.add_link(v_doc, v_ag_doc, v);
     elsif migration.will_post(d) and v_cus is not null then
       -- Same customer, currency and amount: the oldest open invoice.
@@ -885,6 +936,44 @@ end $$;
 -- ---------------------------------------------------------------------------
 -- The job
 -- ---------------------------------------------------------------------------
+-- v2 (brief section 11): the exceptions list for the owner, beyond the problems noted while migrating.
+create or replace function migration.v2_exceptions(p_company uuid) returns void
+language plpgsql as $$
+declare r record;
+begin
+  -- Receipts / payments not linked to an invoice / bill: held as customer advances / prepayments, with the open
+  -- documents of the same customer / supplier proposed for matching (any currency: GO GREEN).
+  for r in select u.*, d.legacy_id, p.name_en as party from public.v_unapplied u join public.documents d on d.id = u.id
+                left join public.parties p on p.id = u.party_id
+            where u.company_id = p_company and d.migrated and u.kind::text in ('customer_receipt', 'supplier_payment') loop
+    perform migration.note(p_company, 'transactions', r.legacy_id,
+      case when r.kind::text = 'customer_receipt' then 'Receipt not linked to an invoice: held as a customer advance (not revenue). Match it in the new app'
+           else 'Supplier payment not linked to a bill: held as a prepayment. Match it in the new app' end,
+      format('%s %s %s unapplied. Open %s of %s: %s', r.party, r.unapplied, r.currency,
+             case when r.kind::text = 'customer_receipt' then 'invoices' else 'bills' end, r.party,
+             coalesce((select string_agg(coalesce(i.legacy_id, i.number) || ' ' || b.open_amount || ' ' || i.currency, ', ' order by i.doc_date)
+                         from public.v_document_balances b join public.documents i on i.id = b.id
+                        where b.party_id = r.party_id and b.open_amount > 0
+                          and b.kind::text = case when r.kind::text = 'customer_receipt' then 'sales_invoice' else 'supplier_bill' end), 'none')));
+  end loop;
+  -- Items the owner listed (brief v2, section 11).
+  insert into migration.exceptions (collection, legacy_id, problem, detail)
+  select 'owner list', x.id, x.problem, x.detail from (values
+    ('TRX-0319', 'GO GREEN: marked "DUBLICATED" in the old app', 'Owner decides: keep, or void in the new app'),
+    ('TRX-0155', 'GO GREEN YER receipt left unlinked on purpose', 'Approve the link to its USD / SAR invoice in the new app (Apply, amount in each currency)'),
+    ('TRX-0286', 'GO GREEN YER receipt left unlinked on purpose', 'Approve the link to its USD / SAR invoice in the new app (Apply, amount in each currency)'),
+    ('TRX-0315', 'GO GREEN YER receipt left unlinked on purpose', 'Approve the link to its USD / SAR invoice in the new app (Apply, amount in each currency)'),
+    ('TRX-0121', 'GO GREEN YER receipt left unlinked on purpose', 'Approve the link to its USD / SAR invoice in the new app (Apply, amount in each currency)'),
+    ('TRX-0016', 'No clear match in the old app', 'Owner decides'),
+    ('TRX-0369', 'No clear match in the old app', 'Owner decides'),
+    ('TRX-0337', 'Paid through Abdulhaleem, no employee set in the old app', 'Owner decides whether it is Abdulhaleem''s claim / advance'),
+    ('CUS-0035 / CUS-0053', 'Duplicate customer (Unity Cement); CUS-0053 unused', 'Not merged automatically: merge in the new app when you decide'),
+    ('PRJ-0058', 'Empty duplicate of the UNHCR project (all UNHCR generator work is PRJ-0010)', 'Kept, archived')
+  ) x(id, problem, detail);
+  update public.projects set status = 'closed' where company_id = p_company and legacy_id = 'PRJ-0058'
+     and not exists (select 1 from public.document_lines l where l.project_id = projects.id);
+end $$;
+
 create or replace function migration.run(p_company uuid, p_actor uuid) returns table (outcome text, n bigint)
 language plpgsql as $$
 declare
@@ -920,7 +1009,7 @@ begin
   for r in select * from legacy.es_records x
             where company_id = p_company and collection = 'transactions' and data <> '{}'
               and upper(data ->> 'type') not in ('TRANSFER OUT', 'TRANSFER IN')
-            order by case when upper(data ->> 'type') in ('INVOICE OUT', 'EXPENSE CLAIM', 'ADVANCE TO EMPLOYEE') then 0 else 1 end,
+            order by case when upper(data ->> 'type') in ('INVOICE OUT', 'INVOICE IN', 'EXPENSE CLAIM', 'ADVANCE TO EMPLOYEE') then 0 else 1 end,
                      data ->> 'date', record_id loop
     begin
       perform migration.migrate_transaction(p_company, r);
@@ -949,6 +1038,8 @@ begin
     left join legacy.es_records a on a.company_id = p_company and a.collection = 'assets' and a.data ->> 'id' = m.asset_old_id and not a.deleted
    group by m.asset_old_id, m.name_en, g.id, m.life_years, a.data
   having sum(l.amount) > 0;
+
+  perform migration.v2_exceptions(p_company);
 
   update public.companies set settings = case when v_threshold is null then settings
                                               else jsonb_set(settings, '{approval_threshold_usd}', v_threshold) end
