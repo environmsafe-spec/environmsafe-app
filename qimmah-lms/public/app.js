@@ -3,7 +3,7 @@
    lesson text, which goes through fmt(): it escapes first, then adds markup. */
 'use strict';
 
-const APP_VERSION = '1.0.1';
+const APP_VERSION = '1.0.2';
 const IN_APP = /QimmahApp/.test(navigator.userAgent);
 const $main = () => document.getElementById('main');
 let ME = null;
@@ -68,7 +68,38 @@ function fmt(text) {
   if (list) html += '</ul>';
   return html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
-const ar = (n) => (n === null || n === undefined ? '—' : String(n));
+// ---- Arabic-Indic digits everywhere on screen (٠١٢٣…), as in the school books.
+// Tokens containing Latin letters (URLs, "teacher", staff passwords like "Ab3k9")
+// and HTML entities are left as they are; inputs keep what the user types.
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+function nums(s) {
+  return String(s).replace(/[A-Za-z0-9._\-/:@%&#;]+/g, (t) =>
+    /[A-Za-z&]/.test(t)
+      ? t
+      : t.replace(/[0-9]/g, (d) => AR_DIGITS[d]).replace(/%/g, '٪').replace(/([٠-٩])\.(?=[٠-٩])/g, '$1٫'));
+}
+const SKIP = new Set(['INPUT', 'TEXTAREA', 'SCRIPT', 'STYLE']);
+function arabizeNode(n) {
+  if (n.nodeType === 3) {
+    const p = n.parentNode;
+    if (p && !SKIP.has(p.nodeName) && /[0-9%]/.test(n.nodeValue)) {
+      const v = nums(n.nodeValue);
+      if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  } else if (n.nodeType === 1 && !SKIP.has(n.nodeName)) {
+    const w = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
+    const list = [];
+    while (w.nextNode()) list.push(w.currentNode);
+    list.forEach(arabizeNode);
+  }
+}
+new MutationObserver((muts) => {
+  for (const m of muts) {
+    if (m.type === 'characterData') arabizeNode(m.target);
+    else m.addedNodes.forEach(arabizeNode);
+  }
+}).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+const toWestern = (s) => String(s).replace(/[٠-٩]/g, (d) => AR_DIGITS.indexOf(d)).replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
 function when(ts) {
   if (!ts) return '—';
   const d = new Date(ts);
@@ -77,7 +108,7 @@ function when(ts) {
   if (diff < 3600000) return `قبل ${Math.floor(diff / 60000)} دقيقة`;
   if (diff < 86400000) return `قبل ${Math.floor(diff / 3600000)} ساعة`;
   if (diff < 7 * 86400000) return `قبل ${Math.floor(diff / 86400000)} يوم`;
-  return d.toLocaleDateString('ar-YE-u-nu-latn', { year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('ar-YE-u-nu-arab', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 const ROLE = { principal: 'مدير المدرسة', teacher: 'المدرس', student: 'تلميذ' };
 const isStaff = () => ME && (ME.role === 'teacher' || ME.role === 'principal');
@@ -294,7 +325,7 @@ window.addEventListener('hashchange', router);
 // ------------------------------------------------------------------ login
 on('/login', async () => {
   const err = h('div', { class: 'err hidden', role: 'alert' });
-  const u = h('input', { type: 'text', autocomplete: 'username', autocapitalize: 'none', spellcheck: 'false', dir: 'ltr', placeholder: 'مثال: 601', required: true });
+  const u = h('input', { type: 'text', autocomplete: 'username', autocapitalize: 'none', spellcheck: 'false', dir: 'ltr', placeholder: 'مثال: ٦٠١', required: true });
   u.value = localStorage.getItem('qimmah.lastUser') || '';
   const p = h('input', { type: 'password', autocomplete: 'current-password', dir: 'ltr', required: true });
   const eye = h('button', { type: 'button', 'aria-label': 'إظهار كلمة المرور', onclick: () => { p.type = p.type === 'password' ? 'text' : 'password'; eye.textContent = p.type === 'password' ? '👁️' : '🙈'; } }, '👁️');
@@ -312,8 +343,8 @@ on('/login', async () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.classList.add('hidden');
-    const username = u.value.trim().replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
-    const password = p.value.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+    const username = toWestern(u.value.trim());
+    const password = toWestern(p.value);
     if (!username || !password) {
       err.textContent = 'اكتب اسم المستخدم وكلمة المرور.';
       err.classList.remove('hidden');
@@ -1209,7 +1240,7 @@ on('/users', async () => {
       h('div', { class: 'row' },
         h('button', { class: 'btn sm amber', onclick: () => formModal('حساب جديد', [
           { name: 'full_name', label: 'الاسم الكامل' },
-          { name: 'username', label: 'اسم المستخدم (أرقام أو حروف إنجليزية)', dir: 'ltr', placeholder: 'مثال: 631' },
+          { name: 'username', label: 'اسم المستخدم (أرقام أو حروف إنجليزية)', dir: 'ltr', placeholder: 'مثال: ٦٣١' },
           { name: 'role', label: 'الدور', type: 'select', value: 'student', options: [['student', 'تلميذ'], ['teacher', 'مدرس'], ['principal', 'مدير']] },
         ], async (v) => { const r = await POST('/admin/users', v); router(); showPassword({ ...v, ...r }); }, { submit: 'إنشاء' }) }, '+ حساب جديد'),
         h('a', { class: 'btn sm', href: '#/cards' }, '🖨️ بطاقات الدخول'),
