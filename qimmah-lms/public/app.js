@@ -3,7 +3,7 @@
    lesson text, which goes through fmt(): it escapes first, then adds markup. */
 'use strict';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const IN_APP = /QimmahApp/.test(navigator.userAgent);
 const $main = () => document.getElementById('main');
 let ME = null;
@@ -733,7 +733,7 @@ on('/students', async () => {
     d.students.filter((s) => !f || s.full_name.includes(f) || s.username.includes(f)).forEach((s) => {
       const pct = d.lessons_total ? Math.round((s.done * 100) / d.lessons_total) : 0;
       tbody.appendChild(h('tr', { class: 'click', onclick: () => (location.hash = '#/students/' + s.id) },
-        h('td', null, h('b', null, s.full_name), h('div', { class: 'small muted ltr' }, s.username), s.active ? null : h('span', { class: 'pill no' }, 'موقوف')),
+        h('td', null, h('b', null, s.full_name), h('div', { class: 'small muted' }, h('span', { class: 'ltr' }, s.username)), s.active ? null : h('span', { class: 'pill no' }, 'موقوف')),
         h('td', null, `${s.done}/${d.lessons_total}`, h('span', { class: 'minibar' }, h('i', { style: { width: pct + '%' } }))),
         h('td', null, s.attempts),
         h('td', null, s.avg === null ? '—' : h('span', { class: 'pill ' + (s.avg >= 50 ? 'ok' : 'no') }, s.avg + '%')),
@@ -939,10 +939,10 @@ on('/manage/lesson/:id', async (lid) => {
           const [ico, label] = KIND[it.kind];
           return h('div', { class: 'card tight' },
             h('div', { class: 'row' }, h('div', { style: { fontSize: '1.6rem' } }, ico),
-              h('div', { class: 'grow' }, h('b', null, it.title || label), h('div', { class: 'small muted' }, label + (it.media_id ? ' — ملف مرفوع' : it.url ? ' — رابط' : ''))),
-              h('div', { class: 'acts row' }, upDown('items', d.items, i),
+              h('div', { class: 'grow' }, h('b', null, it.title || label), h('div', { class: 'small muted' }, label + (it.media_id ? ' — ملف مرفوع' : it.url ? ' — رابط' : '')))),
+            h('div', { class: 'row', style: { marginTop: '8px' } }, upDown('items', d.items, i),
                 h('button', { class: 'btn xs light', onclick: () => itemForm(lid, it.kind, it) }, 'تعديل'),
-                h('button', { class: 'btn xs red', onclick: () => del('/manage/items/' + it.id, `"${it.title || label}"`) }, 'حذف'))));
+                h('button', { class: 'btn xs red', onclick: () => del('/manage/items/' + it.id, `"${it.title || label}"`) }, 'حذف')));
         })
       : h('div', { class: 'card empty' }, h('div', { class: 'e' }, '📭'), 'الدرس فارغ. اضغط "إضافة محتوى" لإضافة شرح أو فيديو أو صوت أو ملف.'),
     h('div', { class: 'row between' }, h('h2', null, '📝 تمارين الدرس'), h('button', { class: 'btn light', onclick: () => quizForm({ lesson_id: lid }) }, '+ تمرين جديد')),
@@ -1193,7 +1193,7 @@ on('/users', async () => {
   const d = await GET('/admin/users');
   const tbody = h('tbody', null, d.users.map((u) =>
     h('tr', null,
-      h('td', null, h('b', null, u.full_name), h('div', { class: 'small muted ltr' }, u.username)),
+      h('td', null, h('b', null, u.full_name), h('div', { class: 'small muted' }, h('span', { class: 'ltr' }, u.username))),
       h('td', null, h('span', { class: 'pill ' + (u.role === 'student' ? '' : 'blue') }, ROLE[u.role]), u.active ? null : h('span', { class: 'pill no' }, 'موقوف')),
       h('td', { class: 'small muted' }, when(u.last_login)),
       h('td', { style: { minWidth: '250px' } }, h('div', { class: 'row', style: { gap: '4px' } },

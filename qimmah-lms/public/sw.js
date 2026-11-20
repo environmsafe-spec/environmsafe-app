@@ -1,8 +1,8 @@
 // Service worker: keeps the app shell and viewed book pages for slow or broken
 // connections. API data is network-first with a cached fallback for reading
 // screens only; nothing is cached for staff/admin endpoints.
-const VERSION = 'qimmah-1.0.0';
-const SHELL = ['/', '/index.html', '/app.css?v=1.0.0', '/app.js?v=1.0.0', '/manifest.webmanifest', '/favicon.png', '/icons/icon-96.png', '/icons/icon-192.png'];
+const VERSION = 'qimmah-1.0.1';
+const SHELL = ['/', '/index.html', '/app.css?v=1.0.1', '/app.js?v=1.0.1', '/manifest.webmanifest', '/favicon.png', '/icons/icon-96.png', '/icons/icon-192.png'];
 const READ_API = /^\/api\/(home|subjects\/\d+|lessons\/\d+|announcements|attempts\/mine)$/;
 
 self.addEventListener('install', (e) => {
