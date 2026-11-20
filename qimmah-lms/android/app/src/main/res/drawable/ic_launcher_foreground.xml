@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Summit (القمة): amber back peak, white main peak with a navy snow line,
+     an open white book below. Keep in sync with tools/make_icons.py. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- back peak (amber) -->
+    <path android:fillColor="#F59E0B" android:pathData="M29,64 L44,43 L59,64 Z" />
+    <!-- main peak (white) -->
+    <path android:fillColor="#FFFFFF" android:pathData="M39,64 L58,33 L79,64 Z" />
+    <!-- snow line on main peak (navy zig-zag) -->
+    <path android:fillColor="#00000000" android:strokeColor="#1E3A8A" android:strokeWidth="1.6"
+        android:strokeLineJoin="round" android:pathData="M52.2,42.5 L55.3,46 L58.3,43 L61.4,46 L64.4,42.5" />
+    <!-- open book: left page, right page -->
+    <path android:fillColor="#FFFFFF" android:pathData="M35,68.5 L53,71.5 L53,79.5 L35,76.5 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M55,71.5 L73,68.5 L73,76.5 L55,79.5 Z" />
+    <!-- spine (amber) -->
+    <path android:fillColor="#F59E0B" android:pathData="M53,71.5 L55,71.5 L55,79.5 L54,80.5 L53,79.5 Z" />
+</vector>

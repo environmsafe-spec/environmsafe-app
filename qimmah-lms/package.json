@@ -1,0 +1,18 @@
+{
+  "name": "qimmah-lms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "منصة التعليم عن بعد — مدارس القمة النموذجية، تعز — الصف السادس",
+  "type": "module",
+  "scripts": {
+    "setup:local": "node scripts/setup-local.mjs",
+    "dev": "wrangler dev --local --port 8787",
+    "seed": "node scripts/seed.mjs",
+    "test": "node scripts/smoke-test.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "reset-password": "node scripts/reset-password.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

@@ -1,0 +1,32 @@
+# منصة مدارس القمة — Cloudflare Worker + D1 + R2 (all on the free plan)
+name = "qimmah-lms"
+main = "src/worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+# Public web address. Remove these two lines if environmsafe.com is not a zone
+# in the Cloudflare account you deploy to; the app is then at *.workers.dev.
+routes = [ { pattern = "qimmah.environmsafe.com", custom_domain = true } ]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "qimmah-lms"
+database_id = "00000000-0000-0000-0000-000000000000" # filled in by `npm run deploy`
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "qimmah-lms-media"
+
+[vars]
+SCHOOL_NAME = "مدارس القمة النموذجية"
+# 20000 keeps one login inside the free plan's 10 ms CPU limit; on the paid plan use 100000.
+PBKDF2_ITERATIONS = "20000"
+
+[observability]
+enabled = true

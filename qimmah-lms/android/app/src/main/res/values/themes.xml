@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/brand_navy</item>
+        <item name="android:colorPrimary">@color/brand_navy</item>
+        <item name="android:colorPrimaryDark">@color/brand_navy_dark</item>
+        <item name="android:colorAccent">@color/brand_amber</item>
+        <item name="android:statusBarColor">@color/brand_navy</item>
+        <item name="android:navigationBarColor">@color/brand_navy</item>
+    </style>
+
+    <style name="ServerDialog" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/brand_navy</item>
+    </style>
+</resources>

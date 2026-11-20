@@ -1,0 +1,13 @@
+# Build outputs and local state
+build/
+.gradle/
+.kotlin/
+.idea/
+*.iml
+local.properties
+captures/
+
+# Signing material - never commit (this repository is public)
+*.jks
+*.keystore
+keystore.properties

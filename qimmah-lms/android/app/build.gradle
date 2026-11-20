@@ -1,0 +1,108 @@
+plugins {
+    id 'com.android.application'
+}
+
+// ---------------------------------------------------------------------------
+// Server URL baked into BuildConfig.SERVER_URL (users can override in-app).
+//   ./gradlew assembleRelease -PserverUrl=https://example.org
+// ---------------------------------------------------------------------------
+def serverUrl = (project.findProperty('serverUrl') ?: 'https://qimmah.environmsafe.com').toString().trim()
+if (!serverUrl.startsWith('https://')) {
+    logger.warn("WARNING: serverUrl '${serverUrl}' is not https:// - release builds block cleartext traffic.")
+}
+def escapedServerUrl = serverUrl.replace('\\', '\\\\').replace('"', '\\"')
+
+// ---------------------------------------------------------------------------
+// Release signing. Sources, in order:
+//   1. a properties file given with -PkeystoreProps=/path/to/keystore.properties
+//   2. keystore.properties next to this project (git-ignored)
+//   3. env vars QIMMAH_KEYSTORE_FILE, QIMMAH_KEYSTORE_PASSWORD, QIMMAH_KEY_ALIAS
+//      (+ optional QIMMAH_KEY_PASSWORD, defaults to the store password)
+// Without any of them the release APK is built UNSIGNED instead of failing.
+// ---------------------------------------------------------------------------
+def signingValues = null
+def propsPath = project.findProperty('keystoreProps')
+def propsFile = propsPath ? file(propsPath.toString()) : rootProject.file('keystore.properties')
+if (propsFile.exists()) {
+    def p = new Properties()
+    propsFile.withInputStream { p.load(it) }
+    def store = file(p.getProperty('storeFile'))
+    if (!store.isAbsolute()) store = new File(propsFile.parentFile, p.getProperty('storeFile'))
+    signingValues = [
+        storeFile    : store,
+        storePassword: p.getProperty('storePassword'),
+        keyAlias     : p.getProperty('keyAlias'),
+        keyPassword  : p.getProperty('keyPassword') ?: p.getProperty('storePassword'),
+    ]
+} else if (System.getenv('QIMMAH_KEYSTORE_FILE')) {
+    signingValues = [
+        storeFile    : file(System.getenv('QIMMAH_KEYSTORE_FILE')),
+        storePassword: System.getenv('QIMMAH_KEYSTORE_PASSWORD'),
+        keyAlias     : System.getenv('QIMMAH_KEY_ALIAS') ?: 'qimmah',
+        keyPassword  : System.getenv('QIMMAH_KEY_PASSWORD') ?: System.getenv('QIMMAH_KEYSTORE_PASSWORD'),
+    ]
+}
+if (signingValues == null) {
+    logger.warn('WARNING: no release keystore configured - the release APK will be UNSIGNED.')
+}
+
+android {
+    namespace = 'ye.qimmah.lms'
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = 'ye.qimmah.lms'
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 1
+        versionName = '1.0'
+        buildConfigField('String', 'SERVER_URL', "\"${escapedServerUrl}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    signingConfigs {
+        if (signingValues != null) {
+            release {
+                storeFile = signingValues.storeFile
+                storePassword = signingValues.storePassword
+                keyAlias = signingValues.keyAlias
+                keyPassword = signingValues.keyPassword
+                enableV1Signing = true   // API 21-23 need the v1 (JAR) signature
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro')
+            if (signingValues != null) {
+                signingConfig = signingConfigs.release
+            }
+            vcsInfo.include = false   // do not embed the git commit in the APK
+        }
+        debug {
+            applicationIdSuffix = '.debug'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
+    lint {
+        checkReleaseBuilds = false
+    }
+}

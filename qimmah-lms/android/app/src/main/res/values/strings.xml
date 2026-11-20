@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مدارس القمة</string>
+    <string name="error_title">لا يوجد اتصال بالإنترنت</string>
+    <string name="error_body">تأكد من اتصالك بالإنترنت ثم اضغط إعادة المحاولة.</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="server_settings">إعدادات الخادم</string>
+    <string name="server_url_hint">https://…</string>
+    <string name="server_url_label">عنوان الخادم (يبدأ بـ https://)</string>
+    <string name="server_url_invalid">العنوان غير صالح. يجب أن يبدأ بـ https://</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="restore_default">استعادة الافتراضي</string>
+    <string name="downloading">جارٍ التنزيل…</string>
+    <string name="download_failed">تعذّر تنزيل الملف</string>
+    <string name="press_back_again">اضغط مرة أخرى للخروج</string>
+    <string name="no_app_to_open">لا يوجد تطبيق لفتح هذا الرابط</string>
+    <string name="no_file_picker">لا يوجد تطبيق لاختيار الملفات</string>
+    <string name="error_icon_desc">لا يوجد اتصال</string>
+</resources>
