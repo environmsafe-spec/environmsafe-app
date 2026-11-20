@@ -79,7 +79,13 @@ if (r.status !== 0 && /custom_domain/.test(toml)) {
   const alt = join(ROOT, 'wrangler.workersdev.toml');
   writeFileSync(alt, toml.replace(/^routes = .*$/m, ''));
   r = wrangler(['deploy', '--config', alt]);
-  if (r.status === 0) console.log('\n  Set this workers.dev address in the Android app: open the app → "إعدادات الخادم".');
+  if (r.status === 0) {
+    // On a first deploy the custom domain can fail only because the Worker did
+    // not exist yet. It exists now, so try the domain once more.
+    console.log('\n  Retrying the custom domain now that the Worker exists…');
+    const again = wrangler(['deploy']);
+    if (again.status !== 0) console.log('\n  Custom domain unavailable. Set the workers.dev address in the Android app: open the app → "إعدادات الخادم".');
+  }
 }
 if (r.status !== 0) die('Deploy failed.');
 console.log('\n✔ Done. Open the site and sign in as "principal". Credentials: .secrets/CREDENTIALS.md');
