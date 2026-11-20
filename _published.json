@@ -1,5 +1,19 @@
 [
   {
+    "iso": "2026-11-20",
+    "slug": "the-lpg-hose-that-was-never-replaced",
+    "icon": "fa-fire-flame-curved",
+    "color": "orange",
+    "en": {
+      "title": "The LPG Hose That Was Never Replaced",
+      "home_summary": "Rubber LPG hoses and regulators age and crack long before they look worn. Most carry a date nobody reads."
+    },
+    "ar": {
+      "title": "خرطوم الغاز الذي لم يُستبدل قط",
+      "home_summary": "تشيخ خراطيم الغاز المطاطية ومنظماته وتتشقق قبل أن يظهر عليها التلف بكثير، ومعظمها يحمل تاريخاً لا يقرؤه أحد."
+    }
+  },
+  {
     "iso": "2026-11-19",
     "slug": "manual-handling-injuries-take-years",
     "icon": "fa-dolly",
@@ -403,20 +417,6 @@
     "ar": {
       "title": "الطرف المرتخي يسخن شهوراً قبل أن يحترق",
       "home_summary": "الطرف المرتخي يسخن أسابيع قبل أن يفشل، ولا يُفصل شيء أثناء ذلك. والتصوير الحراري يجده وإصلاحه ما يزال عشر دقائق."
-    }
-  },
-  {
-    "iso": "2026-10-06",
-    "slug": "psv-set-pressure-drifts-in-service",
-    "icon": "fa-gauge-high",
-    "color": "amber",
-    "en": {
-      "title": "A Safety Valve's Set Pressure Drifts, and Nothing Tells You",
-      "home_summary": "Heat, corrosion and seat damage move a safety valve away from its stamped set pressure, and nothing about the valve shows it. Only a bench test measures what it will actually do."
-    },
-    "ar": {
-      "title": "ضغط ضبط صمام الأمان ينحرف، ولا شيء يخبركم بذلك",
-      "home_summary": "الحرارة والتآكل وتلف المقعد تُبعد صمام الأمان عن ضغط ضبطه المختوم، ولا شيء في مظهره يُظهر ذلك. ولا يقيس ما سيفعله فعلاً إلا اختبار على المقعد."
     }
   }
 ]
